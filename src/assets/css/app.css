@@ -144,10 +144,10 @@ html {
   /* ---------------------------------------
      Side Menu (Themed)
   ---------------------------------------- */
-  .raze .side-menu {
+  .echo .side-menu {
     @media (min-width: 1280px) {
       .side-menu--collapsed.side-menu--on-hover .side-menu__divider {
-        color: rgba(var(--color-light) / 0.4);
+        color: rgba(var(--color-theme-1) / 0.4);
       }
       .side-menu--collapsed.side-menu--on-hover .side-menu__divider::before {
         opacity: 0;
@@ -184,7 +184,7 @@ html {
     .side-menu__divider {
       white-space: nowrap;
       font-size: 0.75rem;
-      color: rgba(var(--color-light) / 0.4);
+      color: rgba(var(--color-theme-1) / 0.4);
       margin-top: 1.25rem;
       margin-bottom: 0.75rem;
     }
@@ -203,22 +203,22 @@ html {
       opacity: 1;
     }
     .side-menu__link--active .side-menu__link__title {
-      color: rgb(var(--color-light));
+      color: rgb(var(--color-theme-1));
       font-weight: 500;
     }
 
     .side-menu__link__icon {
       flex: none;
       opacity: 0.8;
-      stroke: rgba(var(--color-light) / 0.7);
-      fill: rgba(var(--color-light) / 0.1);
+      stroke: rgba(var(--color-theme-1) / 0.7);
+      fill: rgba(var(--color-theme-1) / 0.1);
     }
 
     .side-menu__link__title {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      color: rgba(var(--color-light) / 0.6);
+      color: rgba(var(--color-theme-1) / 0.6);
       margin-inline-start: 0.75rem;
     }
 
@@ -233,13 +233,13 @@ html {
       font-size: 0.75rem;
       margin-inline-start: 0.625rem;
       font-weight: 500;
-      color: rgb(var(--color-light));
+      color: rgb(var(--color-theme-1));
       background-color: rgba(var(--color-primary) / 0.25);
     }
 
     .side-menu__link__chevron {
       margin-inline-start: auto;
-      color: rgba(var(--color-light) / 0.5);
+      color: rgba(var(--color-theme-1) / 0.5);
     }
 
     ul.scrollable {
@@ -247,19 +247,19 @@ html {
     }
 
     ul.scrollable > li > .side-menu__link--active {
-      background: rgba(var(--color-light) / 0.2);
-      border-color: rgba(var(--color-light) / 0.05);
+      background: rgba(var(--color-theme-1) / 0.2);
+      border-color: rgba(var(--color-theme-1) / 0.05);
       box-shadow: 5px 10px 20px #0000000b;
     }
 
     ul.scrollable > li > .side-menu__link--active .side-menu__link__icon {
-      stroke: rgb(var(--color-light));
+      stroke: rgb(var(--color-theme-1));
       fill: rgba(var(--color-primary) / 0.15);
     }
 
     ul.scrollable > li > .side-menu__link:hover:not(.side-menu__link--active) {
-      background: rgba(var(--color-light) / 0.1);
-      border-color: rgba(var(--color-light) / 0.05);
+      background: rgba(var(--color-theme-1) / 0.1);
+      border-color: rgba(var(--color-theme-1) / 0.05);
       box-shadow: 0px 2px 3px #0000000b;
     }
 
