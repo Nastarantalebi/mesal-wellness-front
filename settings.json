@@ -1,0 +1,27 @@
+{
+  // مسیر فایل تنظیمات Tailwind را صراحتاً مشخص کن
+  "tailwindCSS.experimental.configFile": "./tailwind.config.js",
+
+  // به VS Code بگو CSSها و PostCSS فایل‌های Tailwind هستند
+  "tailwindCSS.includeLanguages": {
+    "css": "css",
+    "postcss": "css",
+    "scss": "css"
+  },
+
+  // فعال‌سازی تکمیل خودکار کلاس‌ها
+  "tailwindCSS.emmetCompletions": true,
+
+  // نمایش هشدار کمتر (مثلاً درباره‌ی theme() یا رنگ‌های سفارشی)
+  "tailwindCSS.lint.invalidConfigPath": "ignore",
+  "tailwindCSS.lint.invalidTailwindDirective": "warning",
+  "tailwindCSS.lint.recommendedVariantOrder": "ignore",
+
+  // برای جلوگیری از هشدار در vendor CSS (مثل tabulator.css)
+  "tailwindCSS.files.exclude": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/vendor/**",
+    "**/*.min.css"
+  ]
+}

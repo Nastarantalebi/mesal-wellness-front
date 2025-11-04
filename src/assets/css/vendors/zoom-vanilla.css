@@ -1,0 +1,13 @@
+@import "zoom-vanilla.js/dist/zoom.css";
+
+.zoom-overlay {
+  /* theme("colors.black" / 75%) → rgba(0, 0, 0, 0.75) */
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.dark {
+  .zoom-overlay {
+    /* theme("colors.black" / 40%) → rgba(0, 0, 0, 0.4) */
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+}

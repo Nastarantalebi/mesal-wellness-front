@@ -1,0 +1,20 @@
+.landing-page {
+  &__showcase {
+    /* انتقال‌های نرم و هماهنگ */
+    @apply transition-transform duration-700 ease-out;
+    transition-property: transform, margin;
+
+    /* فاصله‌ها */
+    @apply mt-5 mb-20;
+
+    /* افکت پرسپکتیو و بزرگ‌نمایی */
+    transform: perspective(1rem) rotateX(0.4deg) scale(0.9);
+  }
+
+  &--scrolled {
+    .landing-page__showcase {
+      @apply mt-36 mb-0;
+      transform: none;
+    }
+  }
+}

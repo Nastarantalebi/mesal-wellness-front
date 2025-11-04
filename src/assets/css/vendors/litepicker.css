@@ -1,0 +1,299 @@
+@layer components {
+  /* -------------------------------------------------------------
+   Litepicker (compatible with TailwindCSS v4)
+   Requires postcss-nesting
+--------------------------------------------------------------*/
+
+  .litepicker {
+    background-color: white;
+    border-radius: 0.5rem; /* borderRadius.lg */
+    font-size: 0.875rem; /* fontSize.sm */
+    z-index: 999999 !important;
+    margin-top: 7px;
+    box-shadow: 0px 3px 20px #00000014;
+    border: 1px solid rgb(var(--color-slate-200));
+
+    @media (max-width: 1023px) {
+      /* screens.lg - 1px */
+      width: 310px;
+    }
+
+    @media (max-width: 639px) {
+      /* screens.sm - 1px */
+      inset-inline-start: 0px !important;
+      inset-inline-end: 0px;
+      margin-inline-start: auto;
+      margin-inline-end: auto;
+    }
+
+    .container__months,
+    .container__footer {
+      box-shadow: none;
+      background-color: transparent;
+      padding-top: 0;
+    }
+
+    .container__footer {
+      border-top: 1px solid rgb(var(--color-slate-200) / 0.6);
+      margin: 0;
+      padding: 0.75rem;
+
+      @media (max-width: 1023px) {
+        display: flex;
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+
+      .preview-date-range {
+        @media (max-width: 1023px) {
+          width: 100%;
+          display: block;
+          order: 1;
+          margin-bottom: 0.375rem;
+        }
+      }
+
+      .button-cancel {
+        @media (max-width: 1023px) {
+          width: 100% !important;
+          margin-inline-start: 0 !important;
+          padding-top: 0.375rem !important;
+          padding-bottom: 0.375rem !important;
+        }
+      }
+
+      .button-apply {
+        @media (max-width: 1023px) {
+          width: 100% !important;
+          margin-inline-start: 0 !important;
+          padding-top: 0.375rem !important;
+          padding-bottom: 0.375rem !important;
+          margin-bottom: 0.375rem;
+        }
+      }
+
+      .button-apply,
+      .button-cancel {
+        width: 5rem; /* spacing.20 */
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.375rem; /* borderRadius.md */
+        font-weight: 500;
+        margin-inline-start: 0.25rem;
+        margin-inline-end: 0;
+      }
+
+      .button-apply {
+        background-color: rgb(var(--color-slate-700));
+        color: white;
+      }
+
+      .button-cancel {
+        background-color: rgb(var(--color-slate-200) / 0.7);
+        color: rgb(var(--color-slate-500));
+      }
+    }
+
+    .container__months {
+      padding-inline-start: 0.25rem;
+      padding-inline-end: 0.25rem;
+
+      .month-item-weekdays-row {
+        color: rgb(var(--color-slate-400));
+        margin-top: 0.75rem;
+      }
+
+      .month-item-header {
+        padding-inline: 0;
+        padding-bottom: 0;
+        padding-top: 0.5rem;
+
+        .button-previous-month,
+        .button-next-month {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 2rem; /* spacing.8 */
+          height: 2rem;
+
+          &:hover {
+            background-color: rgb(var(--color-slate-100));
+          }
+
+          svg {
+            margin-inline: calc(-0.25rem);
+          }
+        }
+
+        .button-previous-month svg {
+          transform: rotate(135deg);
+        }
+
+        .button-next-month svg {
+          transform: rotate(-45deg);
+        }
+
+        .button-previous-month:hover svg,
+        .button-previous-month svg,
+        .button-next-month:hover svg,
+        .button-next-month svg {
+          fill: transparent;
+          border: solid rgb(74 85 104);
+          border-width: 0 2px 2px 0;
+          border-radius: 0;
+          display: block;
+          width: 0.5rem;
+          height: 0.5rem;
+        }
+
+        div > .month-item-name,
+        div > .month-item-year {
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgb(74, 85, 104)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-chevron-down'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+          background-size: 15px;
+          background-position: center right 0.6rem;
+          background-color: transparent;
+          font-size: 0.875rem;
+          border: 1px solid rgb(var(--color-slate-200));
+          background-repeat: no-repeat;
+          padding: 0.25rem 2rem 0.25rem 0.5rem;
+          border-radius: 0.375rem;
+          font-weight: 400;
+
+          &:focus {
+            outline: none;
+            border-color: rgb(var(--color-slate-200));
+          }
+
+          [dir="rtl"] & {
+            background-position: center left 0.6rem;
+          }
+        }
+      }
+    }
+
+    .container__days {
+      .day-item {
+        color: rgb(var(--color-slate-800));
+
+        &:hover {
+          box-shadow: none;
+          background-color: rgb(var(--color-slate-100));
+          color: rgb(var(--color-slate-800));
+        }
+
+        &.is-today,
+        &.is-today:hover {
+          font-weight: 500;
+          color: rgb(var(--color-slate-700));
+        }
+
+        &.is-start-date,
+        &.is-start-date:hover,
+        &.is-end-date,
+        &.is-end-date:hover {
+          background-color: rgb(var(--color-slate-700));
+          color: white;
+        }
+
+        &.is-in-range,
+        &.is-in-range:hover {
+          background-color: rgb(var(--color-slate-100));
+        }
+      }
+
+      .week-number {
+        color: rgb(var(--color-slate-400));
+      }
+    }
+  }
+
+  /* Smaller screens: adjust day width */
+  @media (max-width: 1023px) {
+    :root {
+      --litepicker-day-width: 35px;
+    }
+  }
+
+  /* -------------------------------------------------------------
+   Dark Mode
+--------------------------------------------------------------*/
+  .dark {
+    .litepicker {
+      background-color: rgb(var(--color-darkmode-600));
+
+      &:before,
+      &:after {
+        border-inline-end-color: transparent;
+        border-inline-start-color: transparent;
+        border-bottom-color: rgb(var(--color-darkmode-600));
+      }
+
+      .container__months {
+        .button-previous-month:hover,
+        .button-next-month:hover {
+          background-color: rgb(var(--color-darkmode-400));
+        }
+
+        .month-item-header {
+          .button-previous-month:hover svg,
+          .button-previous-month svg,
+          .button-next-month:hover svg,
+          .button-next-month svg {
+            border-color: rgb(var(--color-slate-200));
+          }
+
+          div > .month-item-name,
+          div > .month-item-year {
+            color: rgb(var(--color-slate-200));
+            border-color: rgb(var(--color-darkmode-400));
+          }
+        }
+      }
+
+      .container__days {
+        .day-item {
+          color: rgb(var(--color-slate-200));
+
+          &:hover {
+            background-color: rgb(var(--color-darkmode-400));
+          }
+
+          &.is-start-date,
+          &.is-start-date:hover,
+          &.is-end-date,
+          &.is-end-date:hover {
+            background-color: rgb(var(--color-slate-700));
+            color: rgb(var(--color-slate-200));
+          }
+
+          &.is-in-range,
+          &.is-in-range:hover {
+            background-color: rgb(var(--color-darkmode-400));
+          }
+
+          &.is-today,
+          &.is-today:hover {
+            color: rgb(var(--color-slate-200));
+          }
+        }
+      }
+
+      .container__footer {
+        border-color: rgb(var(--color-darkmode-400));
+
+        .button-cancel {
+          background-color: rgb(var(--color-darkmode-400));
+          color: rgb(var(--color-slate-300));
+        }
+      }
+
+      .container__tooltip {
+        background-color: rgb(var(--color-darkmode-400));
+
+        &:before,
+        &:after {
+          border-top-color: rgb(var(--color-darkmode-600));
+        }
+      }
+    }
+  }
+}
