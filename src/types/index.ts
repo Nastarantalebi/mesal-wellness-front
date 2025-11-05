@@ -7,3 +7,11 @@ export type TColumns = {
   visible: boolean;
   type: string;
 };
+
+export type TPaginate = {
+  current_page: number;
+  per_page: number;
+  total: number;
+  last_page: number;
+  has_more: boolean;
+};

@@ -1,4 +1,4 @@
-import type { TColumns } from "@/types";
+import type { TColumns, TPaginate } from "@/types";
 
 export type TServices = {
   columns: {
@@ -15,13 +15,7 @@ export type TServices = {
     mobile: string;
     national_code: string;
   }[];
-  paginate: {
-    current_page: number;
-    per_page: number;
-    total: number;
-    last_page: number;
-    has_more: boolean;
-  };
+  paginate: TPaginate;
 };
 
 export type TReqServices = {
@@ -30,52 +24,4 @@ export type TReqServices = {
   last_name: string;
   mobile: string;
   national_code: string;
-};
-
-export type test = {
-  columns: {
-    title: {
-      label: "عنوان";
-      sortable: true;
-      filterable: true;
-      visible: true;
-      type: "string";
-    };
-    "category.title": {
-      label: "دسته‌بندی";
-      sortable: false;
-      filterable: true;
-      visible: true;
-      type: "string";
-    };
-    duration_minutes: {
-      label: "مدت زمان (دقیقه)";
-      sortable: false;
-      filterable: true;
-      visible: true;
-      type: "string";
-    };
-    base_price: {
-      label: "قیمت پایه";
-      sortable: true;
-      filterable: true;
-      visible: true;
-      type: "string";
-    };
-    is_active: {
-      label: "فعال بودن";
-      sortable: false;
-      filterable: true;
-      visible: true;
-      type: "string";
-    };
-  };
-  data: [];
-  paginate: {
-    current_page: 1;
-    per_page: 20;
-    total: 0;
-    last_page: 1;
-    has_more: false;
-  };
 };

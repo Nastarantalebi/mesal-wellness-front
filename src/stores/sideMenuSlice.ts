@@ -24,6 +24,11 @@ const initialState: SideMenuState = {
     },
     {
       icon: "Cog",
+      pathname: "/service-category",
+      title: "دسته بندی خدمات",
+    },
+    {
+      icon: "Cog",
       pathname: "/services",
       title: "خدمات",
     },

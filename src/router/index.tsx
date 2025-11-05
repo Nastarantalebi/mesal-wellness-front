@@ -1,9 +1,10 @@
+import Login from "@/features/auth/components/Login";
+import Customers from "@/features/customers";
+import Dashboard from "@/features/dashboard/Dashboard";
+import Layout from "@/features/dashboard/layout";
+import ServiceCategory from "@/features/serviceCategory/_components/ServiceCategory";
+import Services from "@/features/services/_components/Services";
 import { useRoutes } from "react-router-dom";
-import Login from "../features/auth/components/Login";
-import Layout from "../features/dashboard/layout";
-import Dashboard from "../features/dashboard/Dashboard";
-import Customers from "../features/customers";
-import Services from "../features/services/_components/Services";
 
 function Router() {
   const routes = [
@@ -18,6 +19,10 @@ function Router() {
         {
           path: "/",
           element: <Dashboard />,
+        },
+        {
+          path: "/service-category",
+          element: <ServiceCategory />,
         },
         {
           path: "/services",
