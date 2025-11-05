@@ -12,7 +12,6 @@ function SevicesForm() {
   const navigate = useNavigate();
 
   const { mutate } = useCreateData({
-    category: "medical",
     url: servicesUrl,
     queryKey: servicesQuerykey,
   });

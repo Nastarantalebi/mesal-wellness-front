@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Toastify from "toastify-js";
 import { Request } from "../libs/httpService";
-import type { TCategory } from "../types";
 
 type TCreateData<TRes> = {
   url: string;
@@ -9,15 +8,13 @@ type TCreateData<TRes> = {
   showToast?: boolean;
   onSuccess?: (data: TRes) => void;
   onError?: () => void;
-  category: TCategory;
 };
 
 async function createdata<TReq extends object, TRes>(
-  category: TCategory,
   url: string,
   values: TReq
 ) {
-  const { data }: { data: TRes } = await Request.post(category, url, values);
+  const { data }: { data: TRes } = await Request.post(url, values);
   return data;
 }
 
@@ -27,12 +24,11 @@ function useCreateData<TReq extends object, TRes>({
   showToast = true,
   onSuccess,
   onError,
-  category,
 }: TCreateData<TRes>) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (values: TReq) => createdata<TReq, TRes>(category, url, values),
+    mutationFn: (values: TReq) => createdata<TReq, TRes>(url, values),
 
     onSuccess: (data: TRes) => {
       if (onSuccess) {

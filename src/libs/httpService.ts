@@ -1,5 +1,4 @@
 // src/lib/request.ts
-import type { TCategory } from "../types";
 import axios from "./axios";
 
 type Config = {
@@ -10,15 +9,15 @@ type Config = {
 };
 
 export const Request = {
-  get: (category: TCategory, url: string, params = {}) =>
-    axios.get(category + url, { params }),
+  get: ( url: string, params = {}) =>
+    axios.get(url, { params }),
 
-  post: (category: TCategory, url: string, body = {}, config: Config = {}) =>
-    axios.post(category + url, body, config),
+  post: ( url: string, body = {}, config: Config = {}) =>
+    axios.post(url, body, config),
 
-  put: (category: TCategory, url: string, body = {}, config: Config = {}) =>
-    axios.put(category + url, body, config),
+  put: ( url: string, body = {}, config: Config = {}) =>
+    axios.put(url, body, config),
 
-  delete: (category: TCategory, url: string, params = {}) =>
-    axios.delete(category + url, { params }),
+  delete: ( url: string, params = {}) =>
+    axios.delete(url, { params }),
 };

@@ -1,27 +1,23 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Request } from "../libs/httpService";
 import Toastify from "toastify-js";
-import type { TCategory } from "../types";
 
 type TDeleteData = {
   url: string;
   queryKey?: string;
   onSuccess?: () => void;
   onError?: () => void;
-  category: TCategory;
 };
 
 export async function deleteData<T>(
-  category: TCategory,
   url: string,
   id: number | string
 ) {
-  const { data }: { data: T } = await Request.delete(category, url + id + "/");
+  const { data }: { data: T } = await Request.delete(url + id + "/");
   return data;
 }
 
 function useDeleteData<T>({
-  category,
   url,
   queryKey,
   onError,
@@ -30,7 +26,7 @@ function useDeleteData<T>({
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id: number | string) => deleteData<T>(category, url, id),
+    mutationFn: (id: number | string) => deleteData<T>(url, id),
 
     onSuccess: () => {
       if (onSuccess) {

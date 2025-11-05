@@ -1,4 +1,3 @@
-export type TCategory = "basics" | "medical";
 
 export type TColumns = {
   label: string;

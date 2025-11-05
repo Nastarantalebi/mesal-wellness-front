@@ -1,23 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import { Request } from "../libs/httpService";
-import type { TCategory } from "../types";
 
-type TGetData = { url: string; queryKey: string; category: TCategory };
+type TGetData = { url: string; queryKey: string };
 
-async function getdata<T>(category: TCategory, url: string, qs?: string) {
-  const { data }: { data: T } = await Request.get(category, url + qs);
+async function getdata<T>(url: string, qs?: string) {
+  const { data }: { data: T } = await Request.get(url + qs);
   return data;
 }
 
-function useGetData<T>({ category, url, queryKey }: TGetData) {
+function useGetData<T>({ url, queryKey }: TGetData) {
   const { search } = useLocation();
 
   const queryObject = Object.fromEntries(new URLSearchParams(search));
 
   return useQuery({
     queryKey: [queryKey, queryObject],
-    queryFn: () => getdata<T>(category, url, search),
+    queryFn: () => getdata<T>(url, search),
     refetchOnWindowFocus: false,
   });
 }

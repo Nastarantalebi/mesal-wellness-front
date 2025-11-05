@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Request } from "../libs/httpService";
 import Toastify from "toastify-js";
-import type { TCategory } from "../types";
 
 type TUpdateData = {
   url: string;
@@ -10,20 +9,14 @@ type TUpdateData = {
   showToast?: boolean;
   onSuccess?: () => void;
   onError?: () => void;
-  category: TCategory;
 };
 
 export async function updateCase<TReq extends object, TRes>(
-  category: TCategory,
   url: string,
   values: TReq,
   id?: number | string | null
 ) {
-  const { data }: { data: TRes } = await Request.put(
-    category,
-    url + id + "/",
-    values
-  );
+  const { data }: { data: TRes } = await Request.put(url + id + "/", values);
   return data;
 }
 
@@ -34,13 +27,12 @@ function useUpdateData<TReq extends object, TRes>({
   showToast = true,
   onSuccess,
   onError,
-  category,
 }: TUpdateData) {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (values: TReq) =>
-      updateCase<TReq, TRes>(category, url, values, id),
+      updateCase<TReq, TRes>( url, values, id),
     onSuccess: () => {
       if (onSuccess) {
         onSuccess();

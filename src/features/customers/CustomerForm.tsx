@@ -12,7 +12,6 @@ function CustomerForm() {
   const navigate = useNavigate();
 
   const { mutate } = useCreateData({
-    category: "medical",
     url: customersUrl,
     queryKey: customersQuerykey,
   });

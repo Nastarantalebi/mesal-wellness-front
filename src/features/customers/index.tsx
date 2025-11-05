@@ -7,7 +7,6 @@ import type { Tcustomers } from "./types";
 function Customers() {
   const navigate = useNavigate();
   const { data } = useGetData<Tcustomers>({
-    category: "medical",
     queryKey: customersQuerykey,
     url: customersUrl,
   });

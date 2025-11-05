@@ -7,7 +7,6 @@ import { servicesQuerykey, servicesUrl } from "../_fixtures/data";
 function Services() {
   const navigate = useNavigate();
   const { data } = useGetData<TServices>({
-    category: "medical",
     queryKey: servicesQuerykey,
     url: servicesUrl,
   });

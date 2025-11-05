@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import type { ILogin } from "../types";
 
 export async function login(values: ILogin) {
-  const { data } = await Request.post("basics", "/auth", values);
+  const { data } = await Request.post( "/auth", values);
   return data;
 }
 
@@ -18,7 +18,7 @@ export async function login(values: ILogin) {
 
 export async function logout() {
   const refreshToken = Cookies.get("refresh_token");
-  const { data } = await Request.post("basics", "/auth/logout/", {
+  const { data } = await Request.post( "/auth/logout/", {
     refresh: refreshToken,
   });
   return data;
