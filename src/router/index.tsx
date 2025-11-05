@@ -2,9 +2,8 @@ import { useRoutes } from "react-router-dom";
 import Login from "../features/auth/components/Login";
 import Layout from "../features/dashboard/layout";
 import Dashboard from "../features/dashboard/Dashboard";
-import Patients from "../features/customers";
-import ProtectedRoute from "./ProtectedRoutes";
-import PatientForm from "../features/customers/CustomerForm";
+import Customers from "../features/customers";
+import Services from "../features/services/_components/Services";
 
 function Router() {
   const routes = [
@@ -12,7 +11,7 @@ function Router() {
       path: "/",
       element: (
         // <ProtectedRoute>
-        <Layout />
+          <Layout />
         // </ProtectedRoute>
       ),
       children: [
@@ -21,12 +20,16 @@ function Router() {
           element: <Dashboard />,
         },
         {
-          path: "/patients",
-          element: <Patients />,
+          path: "/services",
+          element: <Services />,
         },
         {
-          path: "/patients/create",
-          element: <PatientForm />,
+          path: "/customers",
+          element: <Customers />,
+        },
+        {
+          path: "/customers/create",
+          element: <Customers />,
         },
       ],
     },

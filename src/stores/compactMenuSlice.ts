@@ -10,7 +10,7 @@ const getCompactMenu = () => {
 };
 
 const initialState: CompactMenuState = {
-  value: localStorage.getItem("compactMenu") === null ? true : getCompactMenu(),
+  value: localStorage.getItem("compactMenu") === null ? false : getCompactMenu(),
 };
 
 export const compactMenuSlice = createSlice({

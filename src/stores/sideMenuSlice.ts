@@ -23,9 +23,14 @@ const initialState: SideMenuState = {
       title: "داشبورد",
     },
     {
+      icon: "Cog",
+      pathname: "/services",
+      title: "خدمات",
+    },
+    {
       icon: "SquareActivity",
-      pathname: "/patients",
-      title: "بیماران",
+      pathname: "/customers",
+      title: "مشتریان",
     },
     {
       icon: "Album",

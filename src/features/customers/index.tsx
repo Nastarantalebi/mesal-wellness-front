@@ -14,7 +14,7 @@ function Customers() {
 
   return (
     <CustomTable
-      title="بیماران"
+      title="مشتریان"
       columns={data?.columns}
       data={data?.data}
       paginationSize={data?.paginate.total}
