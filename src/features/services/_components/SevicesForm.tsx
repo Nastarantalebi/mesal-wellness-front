@@ -24,7 +24,7 @@ function SevicesForm() {
   });
   const { data } = useGetData<{ categories: TOption[] }>({
     url: `${servicesUrl}/create`,
-    queryKey: servicesQuerykey,
+    queryKey: `${servicesQuerykey},"test"`,
   });
   const {
     register,
@@ -167,15 +167,16 @@ function SevicesForm() {
             className="flex flex-col w-full sm:flex-row">
             جنسیت مجاز
           </FormLabel>
-          <FormInput
+          <FormSelect
             {...register("gender_policy")}
             id="validation-form-6"
-            type="text"
             name="gender_policy"
             className={clsx({
               "border-danger": errors.gender_policy,
-            })}
-          />
+            })}>
+            <option value="male_only">فقط آقایان</option>
+            <option value="female_only">فقط بانوان</option>
+          </FormSelect>
           {errors.gender_policy && (
             <div className="mt-2 text-danger">
               {typeof errors.gender_policy.message === "string" &&
@@ -236,15 +237,18 @@ function SevicesForm() {
             className="flex flex-col w-full sm:flex-row">
             وضعیت
           </FormLabel>
-          <FormInput
-            {...register("is_active")}
+          <FormSelect
+            {...register("is_active", {
+              setValueAs: (v) => v === "true",
+            })}
             id="validation-form-9"
-            type="checkbox"
             name="is_active"
             className={clsx({
               "border-danger": errors.is_active,
-            })}
-          />
+            })}>
+            <option value="true">فعال</option>
+            <option value="false">غیرفعال </option>
+          </FormSelect>
           {errors.is_active && (
             <div className="mt-2 text-danger">
               {typeof errors.is_active.message === "string" &&

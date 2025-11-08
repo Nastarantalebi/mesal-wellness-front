@@ -42,11 +42,11 @@ const initialState: SideMenuState = {
       pathname: "/customers",
       title: "مشتریان",
     },
-    {
-      icon: "Album",
-      pathname: "/users",
-      title: "کاربران",
-    },
+    // {
+    //   icon: "Album",
+    //   pathname: "/users",
+    //   title: "کاربران",
+    // },
     // {
     //   icon: "BookMarked",
     //   pathname: "/dashboard-overview-4",
