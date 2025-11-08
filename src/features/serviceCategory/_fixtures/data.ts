@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { TReqServiceCategory } from "../_types/types";
 
 export const url = "/wellness/service-categories";
 export const queryKey = "serviceCategoryQuerykey";
@@ -18,3 +19,17 @@ export const schema = z.object({
     })
     .optional(),
 });
+
+export const initialValue: TReqServiceCategory = {
+  title: "",
+  branch_id: null,
+  parent_id: null,
+  is_active: true,
+  description: "",
+  icon: null,
+  meta: {
+    color: "",
+    order: 1,
+    show_in_menu: true,
+  },
+};

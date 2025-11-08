@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import clsx from "clsx";
 import type { TReqServiceCategory } from "../_types/types";
 import { useNavigate } from "react-router-dom";
-import { schema, queryKey, url } from "../_fixtures/data";
+import { schema, queryKey, url, initialValue } from "../_fixtures/data";
 import useCreateData from "@/services/useCreateData";
 import { FormInput, FormLabel } from "@/components/Form";
 import Button from "@/components/Button";
@@ -23,20 +23,21 @@ function ServiceCategoryForm() {
   } = useForm<TReqServiceCategory>({
     mode: "onChange",
     resolver: zodResolver(schema),
+    defaultValues: initialValue,
   });
 
   return (
     <form
       className="validate-form"
       onSubmit={handleSubmit((values) =>
-        mutate(values, { onSuccess: () => navigate("/customers") })
+        mutate(values, { onSuccess: () => navigate("/service-category") })
       )}>
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         <div className="input-form">
           <FormLabel
             htmlFor="validation-form-1"
             className="flex flex-col w-full sm:flex-row">
-            نام
+            نوع خدمت
           </FormLabel>
           <FormInput
             {...register("title")}
@@ -49,16 +50,16 @@ function ServiceCategoryForm() {
           />
           {errors.title && (
             <div className="mt-2 text-danger">
-              {typeof errors.title.message === "string" &&
-                errors.title.message}
+              {typeof errors.title.message === "string" && errors.title.message}
             </div>
           )}
         </div>
+
         <div className="input-form">
           <FormLabel
             htmlFor="validation-form-1"
             className="flex flex-col w-full sm:flex-row">
-            نام خانوادگی
+            توضیحات
           </FormLabel>
           <FormInput
             {...register("description")}
@@ -76,16 +77,17 @@ function ServiceCategoryForm() {
             </div>
           )}
         </div>
+
         <div className="input-form">
           <FormLabel
             htmlFor="validation-form-1"
             className="flex flex-col w-full sm:flex-row">
-            کد ملی
+            وضعیت
           </FormLabel>
           <FormInput
             {...register("is_active")}
             id="validation-form-1"
-            type="number"
+            type="checkbox"
             name="is_active"
             maxLength={10}
             minLength={10}
@@ -100,55 +102,13 @@ function ServiceCategoryForm() {
             </div>
           )}
         </div>
-        <div className="input-form">
-          <FormLabel
-            htmlFor="validation-form-1"
-            className="flex flex-col w-full sm:flex-row">
-            شماره همراه
-          </FormLabel>
-          <FormInput
-            {...register("parent_id")}
-            id="validation-form-1"
-            type="number"
-            name="parent_id"
-            maxLength={11}
-            minLength={11}
-            className={clsx({
-              "border-danger": errors.parent_id,
-            })}
-          />
-          {errors.parent_id && (
-            <div className="mt-2 text-danger">
-              {typeof errors.parent_id.message === "string" &&
-                errors.parent_id.message}
-            </div>
-          )}
-        </div>
-        <div className="input-form">
-          <FormLabel
-            htmlFor="validation-form-1"
-            className="flex flex-col w-full sm:flex-row">
-            کد پزشکی
-          </FormLabel>
-          <FormInput
-            {...register("branch_id")}
-            id="validation-form-1"
-            type="number"
-            name="branch_id"
-            className={clsx({
-              "border-danger": errors.branch_id,
-            })}
-          />
-          {errors.branch_id && (
-            <div className="mt-2 text-danger">
-              {typeof errors.branch_id.message === "string" &&
-                errors.branch_id.message}
-            </div>
-          )}
-        </div>
       </div>
 
-      <Button variant="primary" type="submit" className="mt-5">
+      <Button
+        variant="primary"
+        type="submit"
+        className="mt-5"
+        onSubmit={() => console.log("object")}>
         ثبت نام
       </Button>
     </form>
