@@ -33,6 +33,11 @@ const initialState: SideMenuState = {
       title: "خدمات",
     },
     {
+      icon: "Flower2",
+      pathname: "/facilities",
+      title: "امکانات",
+    },
+    {
       icon: "SquareActivity",
       pathname: "/customers",
       title: "مشتریان",

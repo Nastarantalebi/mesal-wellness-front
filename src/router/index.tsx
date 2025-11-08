@@ -1,7 +1,10 @@
 import Login from "@/features/auth/components/Login";
 import Customers from "@/features/customers";
+import CustomerForm from "@/features/customers/CustomerForm";
 import Dashboard from "@/features/dashboard/Dashboard";
 import Layout from "@/features/dashboard/layout";
+import Facilities from "@/features/facilities/_components/Facilities";
+import FacilitiesForm from "@/features/facilities/_components/FacilitiesForm";
 import ServiceCategory from "@/features/serviceCategory/_components/ServiceCategory";
 import ServiceCategoryForm from "@/features/serviceCategory/_components/ServiceCategoryForm";
 import Services from "@/features/services/_components/Services";
@@ -39,7 +42,15 @@ function Router() {
         },
         {
           path: "/customers/create",
-          element: <Customers />,
+          element: <CustomerForm />,
+        },
+        {
+          path: "/facilities",
+          element: <Facilities />,
+        },
+        {
+          path: "/facilities/create",
+          element: <FacilitiesForm />,
         },
       ],
     },
