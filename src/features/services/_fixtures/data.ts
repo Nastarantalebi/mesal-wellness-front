@@ -1,6 +1,6 @@
 import yup from "@/libs/yup";
 
-export const servicesUrl = "/services";
+export const servicesUrl = "/wellness/services";
 export const servicesQuerykey = "servicesQuerykey";
 
 export const schema = yup.object({

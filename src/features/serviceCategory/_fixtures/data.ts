@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const url = "/service-categories";
+export const url = "/wellness/service-categories";
 export const queryKey = "serviceCategoryQuerykey";
 
 export const schema = z.object({
