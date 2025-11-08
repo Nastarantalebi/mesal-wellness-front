@@ -97,8 +97,6 @@ function SevicesForm() {
             id="validation-form-3"
             type="number"
             name="duration_minutes"
-            maxLength={10}
-            minLength={10}
             className={clsx({
               "border-danger": errors.duration_minutes,
             })}
@@ -122,8 +120,6 @@ function SevicesForm() {
             id="validation-form-4"
             type="number"
             name="base_price"
-            maxLength={11}
-            minLength={11}
             className={clsx({
               "border-danger": errors.base_price,
             })}
