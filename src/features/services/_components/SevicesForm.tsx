@@ -1,12 +1,17 @@
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
 import type { TReqServices } from "../_types/types";
 import { useNavigate } from "react-router-dom";
-import { schema, servicesQuerykey, servicesUrl } from "../_fixtures/data";
+import {
+  initialValues,
+  schema,
+  servicesQuerykey,
+  servicesUrl,
+} from "../_fixtures/data";
 import useCreateData from "@/services/useCreateData";
 import { FormInput, FormLabel } from "@/components/Form";
 import Button from "@/components/Button";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 function SevicesForm() {
   const navigate = useNavigate();
@@ -15,144 +20,233 @@ function SevicesForm() {
     url: servicesUrl,
     queryKey: servicesQuerykey,
   });
-//   const { data,isFetching } = useGetData({
-//     url: `${servicesUrl}/create`,
-//     queryKey: servicesQuerykey,
-//   });
-// console.log(data)
+  //   const { data,isFetching } = useGetData({
+  //     url: `${servicesUrl}/create`,
+  //     queryKey: servicesQuerykey,
+  //   });
+  // console.log(data)
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TReqServices>({
-    mode: "onChange",
-    resolver: yupResolver(schema),
+    resolver: zodResolver(schema),
+    defaultValues: initialValues,
   });
 
   return (
     <form
       className="validate-form"
       onSubmit={handleSubmit((values) =>
-        mutate(values, { onSuccess: () => navigate("/customers") })
-      )}
-    >
+        mutate(values, { onSuccess: () => navigate("/services") })
+      )}>
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+        {/*  */}
         <div className="input-form">
           <FormLabel
             htmlFor="validation-form-1"
-            className="flex flex-col w-full sm:flex-row"
-          >
+            className="flex flex-col w-full sm:flex-row">
             نام
           </FormLabel>
           <FormInput
-            {...register("first_name")}
+            {...register("title")}
             id="validation-form-1"
             type="text"
-            name="first_name"
+            name="title"
             className={clsx({
-              "border-danger": errors.first_name,
+              "border-danger": errors.title,
             })}
           />
-          {errors.first_name && (
+          {errors.title && (
             <div className="mt-2 text-danger">
-              {typeof errors.first_name.message === "string" &&
-                errors.first_name.message}
+              {typeof errors.title.message === "string" && errors.title.message}
             </div>
           )}
         </div>
+        {/*  */}
         <div className="input-form">
           <FormLabel
-            htmlFor="validation-form-1"
-            className="flex flex-col w-full sm:flex-row"
-          >
-            نام خانوادگی
+            htmlFor="validation-form-2"
+            className="flex flex-col w-full sm:flex-row">
+            کد
           </FormLabel>
           <FormInput
-            {...register("last_name")}
-            id="validation-form-1"
+            {...register("code")}
+            id="validation-form-2"
             type="text"
-            name="last_name"
+            name="code"
             className={clsx({
-              "border-danger": errors.last_name,
+              "border-danger": errors.code,
             })}
           />
-          {errors.last_name && (
+          {errors.code && (
             <div className="mt-2 text-danger">
-              {typeof errors.last_name.message === "string" &&
-                errors.last_name.message}
+              {typeof errors.code.message === "string" && errors.code.message}
             </div>
           )}
         </div>
+        {/*  */}
         <div className="input-form">
           <FormLabel
-            htmlFor="validation-form-1"
-            className="flex flex-col w-full sm:flex-row"
-          >
-            کد ملی
+            htmlFor="validation-form-3"
+            className="flex flex-col w-full sm:flex-row">
+            مدت زمان
           </FormLabel>
           <FormInput
-            {...register("national_code")}
-            id="validation-form-1"
+            {...register("duration_minutes")}
+            id="validation-form-3"
             type="number"
-            name="national_code"
+            name="duration_minutes"
             maxLength={10}
             minLength={10}
             className={clsx({
-              "border-danger": errors.national_code,
+              "border-danger": errors.duration_minutes,
             })}
           />
-          {errors.national_code && (
+          {errors.duration_minutes && (
             <div className="mt-2 text-danger">
-              {typeof errors.national_code.message === "string" &&
-                errors.national_code.message}
+              {typeof errors.duration_minutes.message === "string" &&
+                errors.duration_minutes.message}
             </div>
           )}
         </div>
+        {/*  */}
         <div className="input-form">
           <FormLabel
-            htmlFor="validation-form-1"
-            className="flex flex-col w-full sm:flex-row"
-          >
-            شماره همراه
+            htmlFor="validation-form-4"
+            className="flex flex-col w-full sm:flex-row">
+            ارزش پایه
           </FormLabel>
           <FormInput
-            {...register("mobile")}
-            id="validation-form-1"
+            {...register("base_price")}
+            id="validation-form-4"
             type="number"
-            name="mobile"
+            name="base_price"
             maxLength={11}
             minLength={11}
             className={clsx({
-              "border-danger": errors.mobile,
+              "border-danger": errors.base_price,
             })}
           />
-          {errors.mobile && (
+          {errors.base_price && (
             <div className="mt-2 text-danger">
-              {typeof errors.mobile.message === "string" &&
-                errors.mobile.message}
+              {typeof errors.base_price.message === "string" &&
+                errors.base_price.message}
             </div>
           )}
         </div>
+        {/*  */}
         <div className="input-form">
           <FormLabel
-            htmlFor="validation-form-1"
-            className="flex flex-col w-full sm:flex-row"
-          >
-            کد پزشکی
+            htmlFor="validation-form-5"
+            className="flex flex-col w-full sm:flex-row">
+            واحد پول
           </FormLabel>
           <FormInput
-            {...register("medical_code")}
-            id="validation-form-1"
-            type="number"
-            name="medical_code"
+            {...register("currency")}
+            id="validation-form-5"
+            type="text"
+            name="currency"
             className={clsx({
-              "border-danger": errors.medical_code,
+              "border-danger": errors.currency,
             })}
           />
-          {errors.medical_code && (
+          {errors.currency && (
             <div className="mt-2 text-danger">
-              {typeof errors.medical_code.message === "string" &&
-                errors.medical_code.message}
+              {typeof errors.currency.message === "string" &&
+                errors.currency.message}
+            </div>
+          )}
+        </div>
+        {/*  */}
+        <div className="input-form">
+          <FormLabel
+            htmlFor="validation-form-6"
+            className="flex flex-col w-full sm:flex-row">
+            جنسیت مجاز
+          </FormLabel>
+          <FormInput
+            {...register("gender_policy")}
+            id="validation-form-6"
+            type="text"
+            name="gender_policy"
+            className={clsx({
+              "border-danger": errors.gender_policy,
+            })}
+          />
+          {errors.gender_policy && (
+            <div className="mt-2 text-danger">
+              {typeof errors.gender_policy.message === "string" &&
+                errors.gender_policy.message}
+            </div>
+          )}
+        </div>
+        {/*  */}
+        <div className="input-form">
+          <FormLabel
+            htmlFor="validation-form-7"
+            className="flex flex-col w-full sm:flex-row">
+            توضیحات
+          </FormLabel>
+          <FormInput
+            {...register("description")}
+            id="validation-form-7"
+            type="text"
+            name="description"
+            className={clsx({
+              "border-danger": errors.description,
+            })}
+          />
+          {errors.description && (
+            <div className="mt-2 text-danger">
+              {typeof errors.description.message === "string" &&
+                errors.description.message}
+            </div>
+          )}
+        </div>
+        {/*  */}
+        <div className="input-form">
+          <FormLabel
+            htmlFor="validation-form-8"
+            className="flex flex-col w-full sm:flex-row">
+            کد دسته بندی
+          </FormLabel>
+          <FormInput
+            {...register("category_id")}
+            id="validation-form-8"
+            type="number"
+            name="category_id"
+            className={clsx({
+              "border-danger": errors.category_id,
+            })}
+          />
+          {errors.category_id && (
+            <div className="mt-2 text-danger">
+              {typeof errors.category_id.message === "string" &&
+                errors.category_id.message}
+            </div>
+          )}
+        </div>
+        {/*  */}
+        <div className="input-form">
+          <FormLabel
+            htmlFor="validation-form-9"
+            className="flex flex-col w-full sm:flex-row">
+            وضعیت
+          </FormLabel>
+          <FormInput
+            {...register("is_active")}
+            id="validation-form-9"
+            type="checkbox"
+            name="is_active"
+            className={clsx({
+              "border-danger": errors.is_active,
+            })}
+          />
+          {errors.is_active && (
+            <div className="mt-2 text-danger">
+              {typeof errors.is_active.message === "string" &&
+                errors.is_active.message}
             </div>
           )}
         </div>
