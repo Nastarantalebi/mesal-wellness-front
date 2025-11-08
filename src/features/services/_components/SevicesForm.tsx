@@ -47,21 +47,16 @@ function SevicesForm() {
           <FormLabel
             htmlFor="validation-form-1"
             className="flex flex-col w-full sm:flex-row">
-            نام
+            نام سرویس
           </FormLabel>
-          <FormSelect
+          <FormInput
             {...register("title")}
-            id="validation-form-1"
+            id="validation-form-8"
             name="title"
             className={clsx({
               "border-danger": errors.title,
-            })}>
-            {data?.categories?.map((item, index) => (
-              <option value={String(item.value)} key={index}>
-                {item.label}
-              </option>
-            ))}
-          </FormSelect>
+            })}
+          />
           {errors.title && (
             <div className="mt-2 text-danger">
               {typeof errors.title.message === "string" && errors.title.message}
@@ -69,7 +64,34 @@ function SevicesForm() {
           )}
         </div>
         {/*  */}
-
+        <div className="input-form">
+          <FormLabel
+            htmlFor="validation-form-8"
+            className="flex flex-col w-full sm:flex-row">
+            دسته بندی سرویس
+          </FormLabel>
+           <FormSelect
+            {...register("category_id")}
+            id="validation-form-1"
+            name="category_id"
+            className={clsx({
+              "border-danger": errors.category_id,
+            })}>
+            {data?.categories?.map((item, index) => (
+              <option value={String(item.value)} key={index}>
+                {item.label}
+              </option>
+            ))}
+          </FormSelect>
+          
+          {errors.category_id && (
+            <div className="mt-2 text-danger">
+              {typeof errors.category_id.message === "string" &&
+                errors.category_id.message}
+            </div>
+          )}
+        </div>
+        {/*  */}
         <div className="input-form">
           <FormLabel
             htmlFor="validation-form-2"
@@ -207,29 +229,7 @@ function SevicesForm() {
             </div>
           )}
         </div>
-        {/*  */}
-        <div className="input-form">
-          <FormLabel
-            htmlFor="validation-form-8"
-            className="flex flex-col w-full sm:flex-row">
-            کد دسته بندی
-          </FormLabel>
-          <FormInput
-            {...register("category_id")}
-            id="validation-form-8"
-            type="number"
-            name="category_id"
-            className={clsx({
-              "border-danger": errors.category_id,
-            })}
-          />
-          {errors.category_id && (
-            <div className="mt-2 text-danger">
-              {typeof errors.category_id.message === "string" &&
-                errors.category_id.message}
-            </div>
-          )}
-        </div>
+
         {/*  */}
         <div className="input-form">
           <FormLabel

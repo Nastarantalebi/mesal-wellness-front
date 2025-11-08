@@ -2,18 +2,18 @@ import type { TColumns, TPaginate } from "@/types";
 
 export type TServices = {
   columns: {
-    medical_code: TColumns;
-    first_name: TColumns;
-    last_name: TColumns;
-    mobile: TColumns;
-    national_code: TColumns;
+    title: TColumns;
+    category_title: TColumns;
+    duration_minutes: TColumns;
+    base_price: TColumns;
+    is_active: TColumns;
   };
   data: {
-    medical_code: string;
-    first_name: string;
-    last_name: string;
-    mobile: string;
-    national_code: string;
+    title: string;
+    category_title: string;
+    duration_minutes: string;
+    base_price: string;
+    is_active: string;
   }[];
   paginate: TPaginate;
 };
