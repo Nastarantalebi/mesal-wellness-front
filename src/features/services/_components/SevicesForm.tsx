@@ -15,7 +15,11 @@ function SevicesForm() {
     url: servicesUrl,
     queryKey: servicesQuerykey,
   });
-
+//   const { data,isFetching } = useGetData({
+//     url: `${servicesUrl}/create`,
+//     queryKey: servicesQuerykey,
+//   });
+// console.log(data)
   const {
     register,
     handleSubmit,

@@ -8,6 +8,7 @@ import FacilitiesForm from "@/features/facilities/_components/FacilitiesForm";
 import ServiceCategory from "@/features/serviceCategory/_components/ServiceCategory";
 import ServiceCategoryForm from "@/features/serviceCategory/_components/ServiceCategoryForm";
 import Services from "@/features/services/_components/Services";
+import SevicesForm from "@/features/services/_components/SevicesForm";
 import { useRoutes } from "react-router-dom";
 
 function Router() {
@@ -35,6 +36,10 @@ function Router() {
         {
           path: "/services",
           element: <Services />,
+        },
+        {
+          path: "/services/create",
+          element: <SevicesForm />,
         },
         {
           path: "/customers",
