@@ -16,7 +16,7 @@ function Services() {
       title="خدمات"
       columns={data?.columns}
       data={data?.data}
-      paginationSize={data?.paginate.total}
+      paginationSize={data?.paginate?.total}
       onAdd={() => navigate("create")}
     />
   );

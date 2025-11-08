@@ -1,4 +1,3 @@
-
 export type TColumns = {
   label: string;
   sortable: boolean;
@@ -13,4 +12,9 @@ export type TPaginate = {
   total: number;
   last_page: number;
   has_more: boolean;
+};
+
+export type TOption = {
+  label: string;
+  value: string | number | boolean;
 };

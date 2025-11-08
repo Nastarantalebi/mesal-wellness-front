@@ -8,6 +8,8 @@ import Button from "../Button";
 import Lucide from "../Lucide";
 import { FormInline, FormInput, FormLabel, FormSelect } from "../Form";
 import { Menu } from "../Headless";
+import { createRoot } from "react-dom/client";
+import { Edit, Eye, Trash2 } from "lucide-react";
 
 interface CustomTableProps {
   /** عنوان جدول */
@@ -24,6 +26,9 @@ interface CustomTableProps {
   /** فعال‌سازی فیلتر */
   enableFilter?: boolean;
   onAdd?: () => void;
+  onEdit?: (row: unknown) => void;
+  onVisit?: (row: unknown) => void;
+  onDelete?: (row: unknown) => void;
 }
 
 function CustomTable({
@@ -32,6 +37,9 @@ function CustomTable({
   data,
   paginationSize = 10,
   onAdd,
+  onEdit,
+  onDelete,
+  onVisit,
 }: // enableExport = true,
 // enableFilter = true,
 CustomTableProps) {
@@ -48,8 +56,62 @@ CustomTableProps) {
 
     tabulator.current = new Tabulator(tableRef.current, {
       data,
-      columns: mapFieldsToColumns(columns || {}),
+      columns: [
+        ...mapFieldsToColumns(columns || {}),
+        {
+          title: "عملیات",
+          field: "actions",
+          headerSort: false,
+          hozAlign: "center",
+          formatter: (cell) => {
+            const rowData = cell.getRow().getData();
+            const container = document.createElement("div");
+            const root = createRoot(container);
+
+            root.render(
+              <div className="flex justify-center gap-2">
+                {onEdit && (
+                  <Button
+                    title="ویرایش"
+                    variant="outline-primary"
+                    size="sm"
+                    onClick={() => onEdit(rowData)}
+                    className="flex items-center gap-1 p-1">
+                    <Edit className="w-4 h-4" />
+                  </Button>
+                )}
+                {onVisit && (
+                  <Button
+                    title="مشاهده"
+                    variant="outline-primary"
+                    size="sm"
+                    onClick={() => onVisit(rowData)}
+                    className="flex items-center gap-1 p-1">
+                    <Eye className="w-4 h-4" />
+                  </Button>
+                )}
+                {onDelete && (
+                  <Button
+                    title="حذف"
+                    variant="outline-danger"
+                    size="sm"
+                    onClick={() => onDelete(rowData)}
+                    className="flex items-center gap-1 p-1">
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
+                )}
+              </div>
+            );
+
+            return container; // <== این مهمه
+          },
+          widthGrow: 0.6,
+        },
+      ],
       layout: "fitColumns",
+      paginationMode: "remote",
+      filterMode: "remote",
+      sortMode: "remote",
       pagination: true,
       paginationSize,
       paginationSizeSelector: [10, 20, 30, 50],
@@ -90,6 +152,7 @@ CustomTableProps) {
     const resizeHandler = () => tabulator.current?.redraw();
     window.addEventListener("resize", resizeHandler);
     return () => window.removeEventListener("resize", resizeHandler);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [columns, data]);
 
   // توابع خروجی
@@ -121,8 +184,7 @@ CustomTableProps) {
               <Button
                 onClick={onAdd}
                 variant="primary"
-                className="group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent"
-              >
+                className="group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent">
                 <Lucide icon="PenLine" className="stroke-[1.3] w-4 h-4 me-2" />{" "}
                 افزودن جدید
               </Button>
@@ -138,8 +200,7 @@ CustomTableProps) {
                 onSubmit={(e) => {
                   e.preventDefault();
                   onFilter();
-                }}
-              >
+                }}>
                 <FormInline className="flex-col items-start xl:flex-row xl:items-center gap-y-2">
                   <FormLabel className="me-3 whitespace-nowrap">
                     جستجو بر اساس
@@ -153,11 +214,12 @@ CustomTableProps) {
                         field: e.target.value,
                       });
                     }}
-                    className=""
-                  >
-                    <option value="name">نام</option>
-                    <option value="category">دسته</option>
-                    <option value="remaining_stock">موجودی باقی‌مانده</option>
+                    className="">
+                    {Object.entries(columns || []).map(([field, config]) => (
+                      <option key={field} value={field}>
+                        {config.label}
+                      </option>
+                    ))}
                   </FormSelect>
                 </FormInline>
                 <FormInline className="flex-col items-start xl:flex-row xl:items-center gap-y-2">
@@ -171,8 +233,7 @@ CustomTableProps) {
                         type: e.target.value,
                       });
                     }}
-                    className=""
-                  >
+                    className="">
                     <option value="like">like</option>
                     <option value="=">=</option>
                     <option value="<">&lt;</option>
@@ -206,8 +267,7 @@ CustomTableProps) {
                     variant="outline-primary"
                     type="button"
                     className="w-full sm:w-auto bg-primary/5 border-primary/20"
-                    onClick={onFilter}
-                  >
+                    onClick={onFilter}>
                     Search
                   </Button>
                   <Button
@@ -215,8 +275,7 @@ CustomTableProps) {
                     variant="outline-secondary"
                     type="button"
                     className="w-full sm:w-auto bg-slate-50/50"
-                    onClick={onResetFilter}
-                  >
+                    onClick={onResetFilter}>
                     تنظیم مجدد
                   </Button>
                 </div>
@@ -233,8 +292,7 @@ CustomTableProps) {
                   <Menu.Button
                     as={Button}
                     variant="outline-secondary"
-                    className="w-full sm:w-auto"
-                  >
+                    className="w-full sm:w-auto">
                     <Lucide
                       icon="FileCheck2"
                       className="stroke-[1.3] w-4 h-4 me-2"

@@ -9,9 +9,11 @@ import {
   servicesUrl,
 } from "../_fixtures/data";
 import useCreateData from "@/services/useCreateData";
-import { FormInput, FormLabel } from "@/components/Form";
+import { FormInput, FormLabel, FormSelect } from "@/components/Form";
 import Button from "@/components/Button";
 import { zodResolver } from "@hookform/resolvers/zod";
+import useGetData from "@/services/useGetData";
+import type { TOption } from "@/types";
 
 function SevicesForm() {
   const navigate = useNavigate();
@@ -20,11 +22,10 @@ function SevicesForm() {
     url: servicesUrl,
     queryKey: servicesQuerykey,
   });
-  //   const { data,isFetching } = useGetData({
-  //     url: `${servicesUrl}/create`,
-  //     queryKey: servicesQuerykey,
-  //   });
-  // console.log(data)
+  const { data } = useGetData<{ categories: TOption[] }>({
+    url: `${servicesUrl}/create`,
+    queryKey: servicesQuerykey,
+  });
   const {
     register,
     handleSubmit,
@@ -48,15 +49,19 @@ function SevicesForm() {
             className="flex flex-col w-full sm:flex-row">
             نام
           </FormLabel>
-          <FormInput
+          <FormSelect
             {...register("title")}
             id="validation-form-1"
-            type="text"
             name="title"
             className={clsx({
               "border-danger": errors.title,
-            })}
-          />
+            })}>
+            {data?.categories?.map((item, index) => (
+              <option value={String(item.value)} key={index}>
+                {item.label}
+              </option>
+            ))}
+          </FormSelect>
           {errors.title && (
             <div className="mt-2 text-danger">
               {typeof errors.title.message === "string" && errors.title.message}
@@ -64,6 +69,7 @@ function SevicesForm() {
           )}
         </div>
         {/*  */}
+
         <div className="input-form">
           <FormLabel
             htmlFor="validation-form-2"
