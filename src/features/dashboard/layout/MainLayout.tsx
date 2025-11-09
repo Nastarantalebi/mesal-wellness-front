@@ -23,7 +23,7 @@ function MainLayout() {
           { "xl:ms-[91px]": compactMenu },
         ])}
       >
-        <div className="container">
+        <div className="p-1">
           <Outlet />
         </div>
       </div>
