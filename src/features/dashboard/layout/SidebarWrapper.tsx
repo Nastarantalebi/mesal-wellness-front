@@ -1,31 +1,62 @@
-import Lucide from "../../../components/Lucide";
 import clsx from "clsx";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Topbar from "./Topbar";
 import Sidebar from "./Sidebar";
-import { useAppSelector } from "../../../stores/hooks";
-import { selectCompactMenu } from "../../../stores/compactMenuSlice";
+import { useAppDispatch, useAppSelector } from "../../../stores/hooks";
+import {
+  selectCompactMenu,
+  setCompactMenu as setCompactMenuStore,
+} from "../../../stores/compactMenuSlice";
+import { useLocation } from "react-router-dom";
+import { selectSideMenu } from "@/stores/sideMenuSlice";
+import { nestedMenu, type FormattedMenu } from "./side-menu";
 
-function SidebarWrapper({ topBarActive }: { topBarActive: boolean }) {
-  const compactMenu = useAppSelector(selectCompactMenu);
-
+function SidebarWrapper() {
   const [compactMenuOnHover, setCompactMenuOnHover] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState(false);
+  const [formattedMenu, setFormattedMenu] = useState<
+    Array<FormattedMenu | string>
+  >([]);
+
+  const location = useLocation();
+  const compactMenu = useAppSelector(selectCompactMenu);
+  const dispatch = useAppDispatch();
+  const sideMenuStore = useAppSelector(selectSideMenu);
+
+  const setCompactMenu = useCallback(
+    (val: boolean) => {
+      localStorage.setItem("compactMenu", val.toString());
+      dispatch(setCompactMenuStore(val));
+    },
+    [dispatch]
+  );
+
+  const sideMenu = useCallback(
+    () => nestedMenu(sideMenuStore, location),
+    [sideMenuStore, location]
+  );
+
+  const compactLayout = useCallback(() => {
+    if (window.innerWidth <= 1600) setCompactMenu(true);
+  }, [setCompactMenu]);
+
+  useEffect(() => {
+    setFormattedMenu(sideMenu());
+    compactLayout();
+    window.addEventListener("resize", compactLayout);
+    return () => window.removeEventListener("resize", compactLayout);
+  }, [sideMenu, compactLayout]);
 
   return (
     <div
-      data-active={activeMobileMenu}
       className={clsx([
-        "xl:ms-0 shadow-xl transition-[margin,padding] duration-300 xl:shadow-none fixed top-0 start-0 z-50 side-menu group inset-y-0 xl:py-3.5 xl:ps-3.5",
-        "after:content-[''] after:fixed after:inset-0 after:bg-black/80 after:xl:hidden",
+        "fixed top-0 start-0 z-50 h-screen side-menu group",
         { "side-menu--collapsed": compactMenu },
         { "side-menu--on-hover": compactMenuOnHover },
-        { "ms-0 after:block": activeMobileMenu },
-        { "-ms-[275px] after:hidden": !activeMobileMenu },
       ])}
     >
       {/* Close Button for Mobile */}
-      <div
+      {/* <div
         className={clsx([
           "fixed ms-[275px] w-10 h-10 items-center justify-center xl:hidden z-50",
           { flex: activeMobileMenu },
@@ -42,15 +73,21 @@ function SidebarWrapper({ topBarActive }: { topBarActive: boolean }) {
         >
           <Lucide icon="X" className="w-8 h-8 text-white" />
         </a>
-      </div>
-
-      {/* Sidebar */}
-      <Sidebar setCompactMenuOnHover={setCompactMenuOnHover} />
+      </div> */}
 
       {/* Top Bar */}
       <Topbar
         setActiveMobileMenu={setActiveMobileMenu}
-        topBarActive={topBarActive}
+        setCompactMenuOnHover={setCompactMenuOnHover}
+        toggleCompactMenu={() => setCompactMenu(!compactMenu)}
+      />
+      {/* Sidebar */}
+      <Sidebar
+        setCompactMenuOnHover={setCompactMenuOnHover}
+        activeMobileMenu={activeMobileMenu}
+        setActiveMobileMenu={setActiveMobileMenu}
+        formattedMenu={formattedMenu}
+        setFormattedMenu={setFormattedMenu}
       />
     </div>
   );
