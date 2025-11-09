@@ -50,7 +50,7 @@ function SevicesForm() {
   });
   useEffect(() => {
     if (dataById) {
-      const formValues: TReqServices = {
+      const preparedData: TReqServices = {
         title: dataById.service.title ?? "",
         category_id: String(dataById.service.category.id ?? ""),
         code: dataById.service.title ?? "",
@@ -63,7 +63,7 @@ function SevicesForm() {
         branch_id: dataById.service.category.branch_id ?? 0,
       };
 
-      reset(formValues);
+      reset(preparedData);
     }
   }, [dataById, reset]);
   return (

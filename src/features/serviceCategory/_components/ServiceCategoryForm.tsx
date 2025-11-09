@@ -1,37 +1,64 @@
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
-import type { TReqServiceCategory } from "../_types/types";
-import { useNavigate } from "react-router-dom";
+import type { TDataById, TReqServiceCategory } from "../_types/types";
+import { useLocation, useNavigate } from "react-router-dom";
 import { schema, queryKey, url, initialValue } from "../_fixtures/data";
 import useCreateData from "@/services/useCreateData";
 import { FormInput, FormLabel, FormSelect } from "@/components/Form";
 import Button from "@/components/Button";
 import { zodResolver } from "@hookform/resolvers/zod";
+import useUpdateData from "@/services/useUpdateData";
+import useGetById from "@/services/useGetById";
+import { useEffect } from "react";
 
 function ServiceCategoryForm() {
   const navigate = useNavigate();
-
-  const { mutate } = useCreateData({
+  const location = useLocation();
+  const selectedRecord = location.state?.record.id;
+  const { mutate: create } = useCreateData({
     url: url,
     queryKey: queryKey,
   });
-
+  const { mutate: update } = useUpdateData({
+    url: url,
+    queryKey: queryKey,
+    id: selectedRecord,
+  });
+  const { data: dataById } = useGetById<TDataById>({
+    queryKey: [queryKey, selectedRecord],
+    url: url,
+    id: selectedRecord,
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<TReqServiceCategory>({
     mode: "onChange",
     resolver: zodResolver(schema),
     defaultValues: initialValue,
   });
-
+  useEffect(() => {
+    if (dataById) {
+      const preparedData: TReqServiceCategory = {
+        description: String(dataById.category.description ?? ""),
+        is_active: !!dataById.category.is_active,
+        title: dataById.category.title,
+        branch_id: dataById.category.parent_id ?? null,
+        parent_id: dataById.category.parent_id ?? null,
+        icon: dataById.category.icon,
+      };
+      reset(preparedData);
+    }
+  }, [reset, dataById]);
   return (
     <form
       className="validate-form"
-      onSubmit={handleSubmit((values) =>
-        mutate(values, { onSuccess: () => navigate("/service-category") })
-      )}>
+      onSubmit={handleSubmit((values) => {
+        const action = !!selectedRecord ? update : create;
+        action(values, { onSuccess: () => navigate("/service-category") });
+      })}>
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         <div className="input-form">
           <FormLabel

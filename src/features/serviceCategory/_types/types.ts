@@ -15,6 +15,19 @@ export type TServiceCategory = {
   }[];
   paginate: TPaginate;
 };
+export type TDataById = {
+  category: {
+    id: number;
+    title: string;
+    slug: string;
+    icon: string | null;
+    description: string | null;
+    is_active: boolean;
+    parent_id: number | null;
+    children: string[] | [];
+    created_at: string;
+  };
+};
 
 export type TReqServiceCategory = {
   branch_id: number | null;
