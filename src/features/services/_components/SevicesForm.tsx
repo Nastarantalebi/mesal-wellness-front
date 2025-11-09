@@ -53,7 +53,7 @@ function SevicesForm() {
       const preparedData: TReqServices = {
         title: dataById.service.title ?? "",
         category_id: String(dataById.service.category?.id ?? ""),
-        code: dataById.service.title ?? "",
+        code: dataById.service.code ?? "",
         duration_minutes: String(dataById.service.duration_minutes ?? ""),
         base_price: String(dataById.service.base_price ?? ""),
         currency: dataById.service.currency ?? "",

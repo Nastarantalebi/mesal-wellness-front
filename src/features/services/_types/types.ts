@@ -23,6 +23,7 @@ export type TDataById = {
   service: {
     id: number;
     title: string;
+    code: string;
     category: {
       id: number;
       organization_id: number;
