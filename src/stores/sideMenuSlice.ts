@@ -38,6 +38,16 @@ const initialState: SideMenuState = {
       title: "امکانات",
     },
     {
+      icon: "User",
+      pathname: "/resource-type",
+      title: "نوع منابع",
+    },
+    {
+      icon: "Users",
+      pathname: "/resources",
+      title: "منابع",
+    },
+    {
       icon: "SquareActivity",
       pathname: "/customers",
       title: "مشتریان",
