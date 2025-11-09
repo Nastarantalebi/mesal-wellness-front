@@ -11,7 +11,7 @@ import { Menu } from "../Headless";
 import { createRoot } from "react-dom/client";
 import { Edit, Eye, Trash2 } from "lucide-react";
 
-interface CustomTableProps {
+type CustomTableProps = {
   /** عنوان جدول */
   title?: string;
   /** ستون‌ها بر اساس ساختار Tabulator */
@@ -26,10 +26,10 @@ interface CustomTableProps {
   /** فعال‌سازی فیلتر */
   enableFilter?: boolean;
   onAdd?: () => void;
-  onEdit?: (row: unknown) => void;
-  onVisit?: (row: unknown) => void;
-  onDelete?: (row: unknown) => void;
-}
+  onEdit?: (record: any) => void;
+  onDelete?: (record: any) => void;
+  onVisit?: (record: any) => void;
+};
 
 function CustomTable({
   title = "جدول اطلاعات",

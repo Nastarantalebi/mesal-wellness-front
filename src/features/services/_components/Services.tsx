@@ -3,10 +3,14 @@ import type { TServices } from "../_types/types";
 import useGetData from "@/services/useGetData";
 import CustomTable from "@/components/Tabulator";
 import { servicesQuerykey, servicesUrl } from "../_fixtures/data";
-
+import useDeleteData from "@/services/useDeleteData";
 function Services() {
   const navigate = useNavigate();
   const { data } = useGetData<TServices>({
+    queryKey: servicesQuerykey,
+    url: servicesUrl,
+  });
+  const { mutate: Delete } = useDeleteData({
     queryKey: servicesQuerykey,
     url: servicesUrl,
   });
@@ -18,8 +22,10 @@ function Services() {
       data={data?.data}
       paginationSize={data?.paginate && data.paginate.total}
       onAdd={() => navigate("create")}
-      onDelete={(record) => console.log(record)}
-      onEdit={(record) => console.log(record)}
+      onDelete={(record) => Delete(record.id)}
+      onEdit={(record) => {
+        navigate("/services/create", { state: { record } });
+      }}
     />
   );
 }

@@ -4,7 +4,7 @@ import Toastify from "toastify-js";
 
 type TUpdateData = {
   url: string;
-  queryKey?: string;
+  queryKey?: string | string[];
   id?: number | string | null;
   showToast?: boolean;
   onSuccess?: () => void;
@@ -31,8 +31,7 @@ function useUpdateData<TReq extends object, TRes>({
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (values: TReq) =>
-      updateCase<TReq, TRes>( url, values, id),
+    mutationFn: (values: TReq) => updateCase<TReq, TRes>(url, values, id),
     onSuccess: () => {
       if (onSuccess) {
         onSuccess();

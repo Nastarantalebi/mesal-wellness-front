@@ -2,6 +2,7 @@ import type { TColumns, TPaginate } from "@/types";
 
 export type TServices = {
   columns: {
+    id: TColumns;
     title: TColumns;
     category_title: TColumns;
     duration_minutes: TColumns;
@@ -9,6 +10,7 @@ export type TServices = {
     is_active: TColumns;
   };
   data: {
+    id: number;
     title: string;
     category_title: string;
     duration_minutes: string;

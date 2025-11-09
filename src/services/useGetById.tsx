@@ -3,7 +3,7 @@ import { Request } from "../libs/httpService";
 
 type TGetData = {
   url: string;
-  queryKey: string;
+  queryKey: string | string[];
   id?: number | string | null;
 };
 

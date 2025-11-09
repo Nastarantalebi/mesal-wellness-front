@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
 import type { TReqServices } from "../_types/types";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   initialValues,
   schema,
@@ -14,17 +14,29 @@ import Button from "@/components/Button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useGetData from "@/services/useGetData";
 import type { TOption } from "@/types";
-
+import useUpdateData from "@/services/useUpdateData";
+import useGetById from "@/services/useGetById";
 function SevicesForm() {
   const navigate = useNavigate();
-
-  const { mutate } = useCreateData({
+  const location = useLocation();
+  const selectedRecord = location.state?.record.id;
+  const { mutate: create } = useCreateData({
     url: servicesUrl,
     queryKey: servicesQuerykey,
   });
   const { data } = useGetData<{ categories: TOption[] }>({
-    url: `${servicesUrl}/create`,
+    url: `${servicesUrl}create`,
     queryKey: `${servicesQuerykey},"test"`,
+  });
+  const { mutate: update } = useUpdateData({
+    queryKey: servicesQuerykey,
+    url: servicesUrl,
+    id: selectedRecord,
+  });
+  const { data: dataById } = useGetById({
+    queryKey: [servicesQuerykey, selectedRecord],
+    url: servicesUrl,
+    id: selectedRecord,
   });
   const {
     register,
@@ -34,13 +46,13 @@ function SevicesForm() {
     resolver: zodResolver(schema),
     defaultValues: initialValues,
   });
-
   return (
     <form
       className="validate-form"
-      onSubmit={handleSubmit((values) =>
-        mutate(values, { onSuccess: () => navigate("/services") })
-      )}>
+      onSubmit={handleSubmit((values) => {
+        const action = !!selectedRecord ? update : create;
+        action(values, { onSuccess: () => navigate("/services") });
+      })}>
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {/*  */}
         <div className="input-form">
@@ -70,7 +82,7 @@ function SevicesForm() {
             className="flex flex-col w-full sm:flex-row">
             دسته بندی سرویس
           </FormLabel>
-           <FormSelect
+          <FormSelect
             {...register("category_id")}
             id="validation-form-1"
             name="category_id"
@@ -83,7 +95,7 @@ function SevicesForm() {
               </option>
             ))}
           </FormSelect>
-          
+
           {errors.category_id && (
             <div className="mt-2 text-danger">
               {typeof errors.category_id.message === "string" &&

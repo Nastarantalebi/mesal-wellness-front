@@ -1,7 +1,7 @@
 import z from "zod";
 import type { TReqServices } from "../_types/types";
 
-export const servicesUrl = "/wellness/services";
+export const servicesUrl = "/wellness/services/";
 export const servicesQuerykey = "servicesQuerykey";
 
 export const schema = z.object({
