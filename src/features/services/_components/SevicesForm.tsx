@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
-import type { TReqServices, TServiceById } from "../_types/types";
+import type { TDataById, TReqServices } from "../_types/types";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   initialValues,
@@ -25,16 +25,16 @@ function SevicesForm() {
     url: servicesUrl,
     queryKey: servicesQuerykey,
   });
-  const { data } = useGetData<{ categories: TOption[] }>({
+  const { data: dataCreate } = useGetData<{ categories: TOption[] }>({
     url: `${servicesUrl}create`,
-    queryKey: `${servicesQuerykey},"test"`,
+    queryKey: `${servicesQuerykey},"dataCreate"`,
   });
   const { mutate: update } = useUpdateData({
     queryKey: servicesQuerykey,
     url: servicesUrl,
     id: selectedRecord,
   });
-  const { data: dataById } = useGetById<TServiceById>({
+  const { data: dataById } = useGetById<TDataById>({
     queryKey: [servicesQuerykey, selectedRecord],
     url: servicesUrl,
     id: selectedRecord,
@@ -52,7 +52,7 @@ function SevicesForm() {
     if (dataById) {
       const preparedData: TReqServices = {
         title: dataById.service.title ?? "",
-        category_id: String(dataById.service.category.id ?? ""),
+        category_id: String(dataById.service.category?.id ?? ""),
         code: dataById.service.title ?? "",
         duration_minutes: String(dataById.service.duration_minutes ?? ""),
         base_price: String(dataById.service.base_price ?? ""),
@@ -60,7 +60,7 @@ function SevicesForm() {
         gender_policy: dataById.service.gender_policy ?? "",
         description: dataById.service.description ?? "",
         is_active: !!dataById.service.is_active,
-        branch_id: dataById.service.category.branch_id ?? 0,
+        branch_id: dataById.service.category?.branch_id ?? 0,
       };
 
       reset(preparedData);
@@ -109,7 +109,7 @@ function SevicesForm() {
             className={clsx({
               "border-danger": errors.category_id,
             })}>
-            {data?.categories?.map((item, index) => (
+            {dataCreate?.categories?.map((item, index) => (
               <option value={String(item.value)} key={index}>
                 {item.label}
               </option>

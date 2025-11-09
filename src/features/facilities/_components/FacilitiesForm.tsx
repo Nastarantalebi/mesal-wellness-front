@@ -1,37 +1,66 @@
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { schema, queryKey, url, initialValue } from "../_fixtures/data";
 import useCreateData from "@/services/useCreateData";
 import { FormInput, FormLabel, FormSelect } from "@/components/Form";
 import Button from "@/components/Button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { TReqFacilities } from "../_types/types";
+import type { TDataById, TReqFacilities } from "../_types/types";
+import useUpdateData from "@/services/useUpdateData";
+import { useEffect } from "react";
+import useGetById from "@/services/useGetById";
 
 function FacilitiesForm() {
   const navigate = useNavigate();
-
-  const { mutate } = useCreateData({
+  const location = useLocation();
+  const selectedRecord = location.state?.record.id;
+  const { mutate: create } = useCreateData({
     url: url,
     queryKey: queryKey,
   });
-
+  const { mutate: update } = useUpdateData({
+    url: url,
+    queryKey: queryKey,
+    id: selectedRecord,
+  });
+  const { data: dataById } = useGetById<TDataById>({
+    id: selectedRecord,
+    url: url,
+    queryKey: [queryKey, selectedRecord],
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<TReqFacilities>({
     mode: "onChange",
     resolver: zodResolver(schema),
     defaultValues: initialValue,
   });
-
+  useEffect(() => {
+    if (dataById) {
+      const preparedData: TReqFacilities = {
+        address: dataById.facility.address ?? "",
+        city: dataById.facility.city ?? "",
+        code: dataById.facility.code ?? "",
+        description: dataById.facility.description ?? "",
+        manager_name: dataById.facility.manager_name ?? "",
+        name: dataById.facility.name ?? "",
+        phone: dataById.facility.phone ?? "",
+        is_active: !!dataById.facility.is_active,
+      };
+      reset(preparedData);
+    }
+  }, [dataById, reset]);
   return (
     <form
       className="validate-form"
-      onSubmit={handleSubmit((values) =>
-        mutate(values, { onSuccess: () => navigate("/services") })
-      )}>
+      onSubmit={handleSubmit((values) => {
+        const action = !!selectedRecord ? update : create;
+        action(values, { onSuccess: () => navigate("/services") });
+      })}>
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         <div className="input-form">
           <FormLabel

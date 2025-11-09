@@ -19,7 +19,7 @@ export type TServices = {
   }[];
   paginate: TPaginate;
 };
-export type TServiceById = {
+export type TDataById = {
   service: {
     id: number;
     title: string;
