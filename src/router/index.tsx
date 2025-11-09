@@ -1,6 +1,6 @@
 import Login from "@/features/auth/components/Login";
-import Customers from "@/features/customers";
-import CustomerForm from "@/features/customers/CustomerForm";
+import Customers from "@/features/customers/_components/Customers";
+import CustomersForm from "@/features/customers/_components/CustomersForm";
 import Dashboard from "@/features/dashboard/Dashboard";
 import Layout from "@/features/dashboard/layout";
 import Facilities from "@/features/facilities/_components/Facilities";
@@ -67,7 +67,7 @@ function Router() {
         },
         {
           path: "/customers/create",
-          element: <CustomerForm />,
+          element: <CustomersForm />,
         },
         {
           path: "/facilities",

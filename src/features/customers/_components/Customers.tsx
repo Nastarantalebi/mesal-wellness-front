@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import type { TResources } from "../_types/types";
-import useGetData from "@/services/useGetData";
-import CustomTable from "@/components/Tabulator";
+import CustomTable from "../../../components/Tabulator";
+import useGetData from "../../../services/useGetData";
+import type { TCustomers } from "../_types/types";
 import { queryKey, url } from "../_fixtures/data";
 import useDeleteData from "@/services/useDeleteData";
 
-function Resources() {
+function Customers() {
   const navigate = useNavigate();
-  const { data } = useGetData<TResources>({
+  const { data } = useGetData<TCustomers>({
     queryKey: queryKey,
     url: url,
   });
@@ -18,15 +18,15 @@ function Resources() {
 
   return (
     <CustomTable
-      title="خدمات"
+      title="مشتریان"
       columns={data?.columns}
       data={data?.data}
       paginationSize={data?.paginate.total}
       onAdd={() => navigate("create")}
-      onDelete={(record) => Delete(record.id)}
       onEdit={(record) => navigate("create", { state: { record } })}
+      onDelete={(record) => Delete(record.id)}
     />
   );
 }
 
-export default Resources;
+export default Customers;
