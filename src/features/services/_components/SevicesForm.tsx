@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
-import type { TReqServices } from "../_types/types";
+import type { TReqServices, TServiceById } from "../_types/types";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   initialValues,
@@ -16,6 +16,7 @@ import useGetData from "@/services/useGetData";
 import type { TOption } from "@/types";
 import useUpdateData from "@/services/useUpdateData";
 import useGetById from "@/services/useGetById";
+import { useEffect } from "react";
 function SevicesForm() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -33,7 +34,7 @@ function SevicesForm() {
     url: servicesUrl,
     id: selectedRecord,
   });
-  const { data: dataById } = useGetById({
+  const { data: dataById } = useGetById<TServiceById>({
     queryKey: [servicesQuerykey, selectedRecord],
     url: servicesUrl,
     id: selectedRecord,
@@ -42,10 +43,29 @@ function SevicesForm() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<TReqServices>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
   });
+  useEffect(() => {
+    if (dataById) {
+      const formValues: TReqServices = {
+        title: dataById.service.title ?? "",
+        category_id: String(dataById.service.category.id ?? ""),
+        code: dataById.service.title ?? "",
+        duration_minutes: String(dataById.service.duration_minutes ?? ""),
+        base_price: String(dataById.service.base_price ?? ""),
+        currency: dataById.service.currency ?? "",
+        gender_policy: dataById.service.gender_policy ?? "",
+        description: dataById.service.description ?? "",
+        is_active: !!dataById.service.is_active,
+        branch_id: dataById.service.category.branch_id ?? 0,
+      };
+
+      reset(formValues);
+    }
+  }, [dataById, reset]);
   return (
     <form
       className="validate-form"
@@ -63,7 +83,7 @@ function SevicesForm() {
           </FormLabel>
           <FormInput
             {...register("title")}
-            id="validation-form-8"
+            id="validation-form-1"
             name="title"
             className={clsx({
               "border-danger": errors.title,
@@ -84,7 +104,7 @@ function SevicesForm() {
           </FormLabel>
           <FormSelect
             {...register("category_id")}
-            id="validation-form-1"
+            id="validation-form-8"
             name="category_id"
             className={clsx({
               "border-danger": errors.category_id,
