@@ -1,5 +1,5 @@
 import type { FieldValues, Path } from "react-hook-form";
-
+import { DateObject } from "react-multi-date-picker";
 export type TColumns = {
   label: string;
   sortable: boolean;
@@ -66,8 +66,8 @@ export type TFormData<T extends FieldValues> = {
   max?: number;
   maxLength?: number;
   minLength?: number;
-  // maxDate?: DateObject | null;
-  // minDate?: DateObject | null;
+  maxDate?: DateObject | null;
+  minDate?: DateObject | null;
   mask?: string;
   inputClassName?: string;
   inFiscalYear?: boolean;

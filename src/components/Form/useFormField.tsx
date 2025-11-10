@@ -119,8 +119,8 @@ function useFormField<TFormValues extends FieldValues>() {
           <DatePickerField<TFormValues>
             field={field}
             error={errors as any}
-            min={"1357/01/01"as any}
-            max={"1500/12/29"as any}
+            min={props.minDate as any}
+            max={props.maxDate as any}
             {...rest}
           />
         );
