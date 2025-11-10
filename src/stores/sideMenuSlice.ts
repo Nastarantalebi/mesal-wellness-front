@@ -48,6 +48,16 @@ const initialState: SideMenuState = {
       title: "منابع",
     },
     {
+      icon: "ArchiveX",
+      pathname: "/therapists",
+      title: "تراپیست",
+    },
+    {
+      icon: "ArchiveRestore",
+      pathname: "/therapist-services",
+      title: "سرویس تراپیست",
+    },
+    {
       icon: "SquareActivity",
       pathname: "/customers",
       title: "مشتریان",

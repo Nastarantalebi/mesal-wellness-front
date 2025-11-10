@@ -13,6 +13,10 @@ import ServiceCategory from "@/features/serviceCategory/_components/ServiceCateg
 import ServiceCategoryForm from "@/features/serviceCategory/_components/ServiceCategoryForm";
 import Services from "@/features/services/_components/Services";
 import SevicesForm from "@/features/services/_components/SevicesForm";
+import Therapists from "@/features/therapists/_components/Therapists";
+import TherapistsForm from "@/features/therapists/_components/TherapistsForm";
+import TherapistService from "@/features/therapistService/_components/TherapistService";
+import TherapistServiceForm from "@/features/therapistService/_components/TherapistServiceForm";
 import { useRoutes } from "react-router-dom";
 
 function Router() {
@@ -60,6 +64,22 @@ function Router() {
         {
           path: "/resource-type/create",
           element: <ResourceTypeForm />,
+        },
+        {
+          path: "/therapists",
+          element: <Therapists />,
+        },
+        {
+          path: "/therapists/create",
+          element: <TherapistsForm />,
+        },
+        {
+          path: "/therapist-services",
+          element: <TherapistService />,
+        },
+        {
+          path: "/therapist-services/create",
+          element: <TherapistServiceForm/>,
         },
         {
           path: "/customers",
