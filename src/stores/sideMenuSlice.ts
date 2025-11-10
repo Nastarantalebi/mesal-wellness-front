@@ -48,6 +48,11 @@ const initialState: SideMenuState = {
       title: "منابع",
     },
     {
+      icon: "UserStar",
+      pathname: "/resource-availabilities",
+      title: "منابع در دسترس",
+    },
+    {
       icon: "ArchiveX",
       pathname: "/therapists",
       title: "تراپیست",
@@ -56,6 +61,11 @@ const initialState: SideMenuState = {
       icon: "ArchiveRestore",
       pathname: "/therapist-services",
       title: "سرویس تراپیست",
+    },
+    {
+      icon: "Archive",
+      pathname: "/therapist-availabilities",
+      title: "تراپیست در دسترس",
     },
     {
       icon: "SquareActivity",
