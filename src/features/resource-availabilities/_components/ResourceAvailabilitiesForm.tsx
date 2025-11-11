@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import {  useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import useCreateData from "@/services/useCreateData";
 import { initialValues, queryKey, schema, url } from "../_fixtures/data";
@@ -9,6 +9,7 @@ import useGetById from "@/services/useGetById";
 import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
+import BreakForm from "@/features/_components/BreakForm";
 
 function ResourceAvailabilitiesForm() {
   const navigate = useNavigate();
@@ -46,18 +47,20 @@ function ResourceAvailabilitiesForm() {
     }
   }, [form, dataById]);
   const { fields } = useFormData();
+  
   return (
     <FormComponent
       form={form}
       onSubmit={(values) => {
         const action = selectedRecord ? update : create;
         action(values, {
-          onSuccess: () => navigate("/therapist-availabilities"),
+          onSuccess: () => navigate("/resource-availabilities"),
         });
       }}
       isSubmitting={isPendingUpdate || isPendingCreate}
-      formFields={fields}
-    />
+      formFields={fields}>
+     <BreakForm form={form}/>
+    </FormComponent>
   );
 }
 

@@ -9,8 +9,13 @@ export const schema = z.object({
   start_time: z.string(),
   resource_id: z.coerce.number(),
   is_active: z.coerce.boolean(),
-  weekday: z.coerce.number(),
-  breaks: z.array(z.coerce.string()),
+  weekday: z.string(),
+  breaks: z.array(
+    z.object({
+      start_time: z.string(),
+      end_time: z.string(),
+    })
+  ),
 });
 
 export const initialValues: TReqResourceAvailabilities = {
@@ -18,6 +23,6 @@ export const initialValues: TReqResourceAvailabilities = {
   is_active: true,
   start_time: "",
   resource_id: 0,
-  breaks: [],
+  breaks: [{ start_time: "", end_time: "" }],
   weekday: "",
 };

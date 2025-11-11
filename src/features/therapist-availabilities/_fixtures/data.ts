@@ -10,7 +10,12 @@ export const schema = z.object({
   therapist_id: z.coerce.number(),
   is_active: z.coerce.boolean(),
   weekday: z.string(),
-  breaks: z.array(z.string()),
+  breaks: z.array(
+    z.object({
+      start_time: z.string(),
+      end_time: z.string(),
+    })
+  ),
 });
 
 export const initialValues: TReqTherapistsAvailabilities = {
@@ -18,6 +23,6 @@ export const initialValues: TReqTherapistsAvailabilities = {
   is_active: true,
   start_time: "",
   therapist_id: 0,
-  breaks: [],
+  breaks: [{ start_time: "", end_time: "" }],
   weekday: "",
 };

@@ -53,13 +53,6 @@ const useFormData = () => {
       isLoading: isLoading,
       option: data?.data.statuses ?? [],
     },
-
-    {
-      name: "breaks",
-      label: "زمانبندی",
-      required: true,
-      placeholder: "زمانبندی",
-    },
   ];
   return { fields };
 };

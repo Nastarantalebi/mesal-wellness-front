@@ -50,13 +50,6 @@ const useFormData = () => {
       isLoading: isLoading,
       option: data?.data.statuses ?? [],
     },
-
-    {
-      name: "breaks",
-      label: "تایم ‌های استراحت",
-      required: true,
-      placeholder: "تایم ‌های استراحت",
-    },
   ];
   return { fields };
 };

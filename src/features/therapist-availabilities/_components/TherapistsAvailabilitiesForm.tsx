@@ -9,6 +9,7 @@ import useGetById from "@/services/useGetById";
 import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
+import BreakForm from "@/features/_components/BreakForm";
 
 function TherapistsAvailabilitiesForm() {
   const navigate = useNavigate();
@@ -56,8 +57,9 @@ function TherapistsAvailabilitiesForm() {
         });
       }}
       isSubmitting={isPendingUpdate || isPendingCreate}
-      formFields={fields}
-    />
+      formFields={fields}>
+      <BreakForm form={form} />
+    </FormComponent>
   );
 }
 
