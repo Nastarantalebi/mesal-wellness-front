@@ -5,10 +5,10 @@ export const url = "/wellness/resource-types/";
 export const queryKey = "resourceTypesQuerykey";
 
 export const schema = z.object({
-  name: z.string().min(1, " "),
-  code: z.string(),
+  name: z.string().min(1, "فیلد الزامی است."),
+  code: z.string().min(1, "فیلد الزامی است."),
   description: z.string(),
-  is_active: z.boolean(),
+  is_active: z.coerce.boolean(),
   icon: z.string().nullable(),
   meta: z
     .object({

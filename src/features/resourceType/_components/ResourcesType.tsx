@@ -18,7 +18,7 @@ function ResourceType() {
 
   return (
     <CustomTable
-      title="نوع منابع"
+      title="نوع مکان"
       columns={data?.columns}
       data={data?.data}
       paginationSize={data?.paginate.total}
