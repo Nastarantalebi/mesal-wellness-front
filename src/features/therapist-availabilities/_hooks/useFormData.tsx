@@ -1,5 +1,8 @@
 import type { TFormData } from "@/types";
-import type { TCreateData, TReqTherapistsAvailabilities } from "../_types/types";
+import type {
+  TCreateData,
+  TReqTherapistsAvailabilities,
+} from "../_types/types";
 import useGetData from "@/services/useGetData";
 import { queryKey, url } from "../_fixtures/data";
 
@@ -13,12 +16,14 @@ const useFormData = () => {
       name: "start_time",
       label: "شروع شیفت",
       required: true,
+      type: "time",
       placeholder: "شروع شیفت",
     },
     {
       name: "end_time",
       label: "پایان شیفت",
       required: true,
+      type: "time",
       placeholder: "پایان شیفت",
     },
     {
@@ -26,7 +31,7 @@ const useFormData = () => {
       label: "روز هفته",
       required: true,
       placeholder: "روز هفته",
-        type: "select",
+      type: "select",
       isLoading: isLoading,
       option: data?.data.weekdays ?? [],
     },
@@ -48,7 +53,7 @@ const useFormData = () => {
       isLoading: isLoading,
       option: data?.data.statuses ?? [],
     },
-    
+
     {
       name: "breaks",
       label: "زمانبندی",

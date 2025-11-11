@@ -11,6 +11,7 @@ import FormSelect from "./FormSelect";
 import clsx from "clsx";
 import FormInput from "./FormInput";
 import DatePickerField from "./DatePicker/DatePickerField";
+import TimePickerField from "./TimePicker/TimePickerField";
 
 /**
  * @description
@@ -173,17 +174,16 @@ function useFormField<TFormValues extends FieldValues>() {
       //       {...rest}
       //     />
       //   );
-      // case "time":
-      //   return (
-      //     //@ts-ignore
-      //     <ShadcnTimePicker<TFormValues>
-      //       field={field}
-      //       placeholder={t(placeholder || "")}
-      //       error={error}
-      //       ref={ref}
-      //       {...rest}
-      //     />
-      //   );
+      case "time":
+        return (
+          <TimePickerField<TFormValues>
+            field={field}
+            error={errors as any}
+            min={props.min}
+            max={props.max}
+            {...rest}
+          />
+        );
 
       // case "textArea":
       //   return (
