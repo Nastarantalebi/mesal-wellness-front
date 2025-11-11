@@ -7,7 +7,7 @@ export const servicesQuerykey = "servicesQuerykey";
 export const schema = z.object({
   branch_id: z.number().nullable(),
   base_price: z.string().min(1, "فیلد الزامی است."),
-  category_id: z.string().min(1, "فیلد الزامی است."),
+  category_id: z.coerce.number().min(1, "فیلد الزامی است."),
   code: z.string().nullable(),
   currency: z.string().nullable(),
   description: z.string(),
@@ -26,7 +26,7 @@ export const schema = z.object({
 export const initialValues: TReqServices = {
   base_price: "",
   branch_id: null,
-  category_id: "",
+  category_id: 0,
   code: null,
   currency: null,
   description: "",

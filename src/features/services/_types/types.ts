@@ -24,7 +24,7 @@ export type TReqServices = {
   branch_id: number | null;
   title: string;
   code: string | null;
-  category_id: string;
+  category_id: number;
   duration_minutes: string;
   base_price: string;
   currency: string | null;
