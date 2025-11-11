@@ -38,7 +38,7 @@ function ResourceTypeForm() {
     if (dataById) {
       const preparedData: TReqResourceType = {
         description: String(dataById.type.description ?? ""),
-        is_active: !!dataById.type.is_active,
+        is_active: dataById.type.is_active,
         name: dataById.type.name,
         code: dataById.type.code,
         icon: dataById.type.icon ?? null,

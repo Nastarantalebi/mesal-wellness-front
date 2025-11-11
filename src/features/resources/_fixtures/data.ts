@@ -10,8 +10,8 @@ export const schema = z.object({
   code: z.string(),
   description: z.string(),
   status: z.string(),
-  type_id: z.number(),
-  facility_id: z.number(),
+  type_id: z.coerce.number(),
+  facility_id: z.coerce.number(),
   meta: z
     .object({
       notes: z.string(),

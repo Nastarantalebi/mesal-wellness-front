@@ -1,0 +1,71 @@
+import type { TFormData } from "@/types";
+import type { TCreateData, TReqResources } from "../_types/types";
+import useGetData from "@/services/useGetData";
+import { queryKey, url } from "../_fixtures/data";
+
+const useFormData = () => {
+   const { data: dataCreate, isLoading } = useGetData<TCreateData>(
+    {
+      url: `${url}create`,
+      queryKey: `${queryKey},"dataCreate"`,
+    }
+  );
+  const fields: (TFormData<TReqResources> | undefined)[] = [
+    {
+      name: "code",
+      label: "کد",
+      required: true,
+      placeholder: "کد",
+    },
+    {
+      name: "name",
+      label: "نام",
+      required: true,
+      placeholder: "نام",
+    },
+    {
+      name: "capacity",
+      label: "ظرفیت",
+      required: true,
+      placeholder: "ظرفیت",
+      inputType: "number",
+    },
+
+    {
+      name: "facility_id",
+      label: "محل ارائه خدمات",
+      required: true,
+      placeholder: "محل ارائه خدمات",
+      type: "select",
+      isLoading:isLoading,
+      option:dataCreate?.facilities,
+    },
+    {
+      name: "type_id",
+      label: "نوع خدمات",
+      required: true,
+      placeholder: "نوع خدمات",
+      type: "select",
+      isLoading:isLoading,
+      option:dataCreate?.types,
+    },
+    {
+      name: "status",
+      label: "وضعیت",
+      required: true,
+      placeholder: "وضعیت",
+      type: "select",
+      isLoading:isLoading,
+      option:dataCreate?.statuses,
+    },
+    {
+      name: "description",
+      label: "توضیحات",
+      required: true,
+      placeholder: "توضیحات",
+    },
+  ];
+  return { fields };
+};
+
+export default useFormData;
