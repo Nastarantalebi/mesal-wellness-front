@@ -38,7 +38,7 @@ export type TReqTherapists = {
   gender: string;
   facility_id: number;
   status: string;
-  specialties: string;
+  specialties: string[];
   license_number: string;
   hire_date: string;
   bio: string;

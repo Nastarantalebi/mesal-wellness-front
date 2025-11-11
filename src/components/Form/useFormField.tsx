@@ -190,6 +190,7 @@ function useFormField<TFormValues extends FieldValues>() {
           <TagsInput<TFormValues>
             field={field}
             min={props.min}
+            placeholder={placeholder}
             max={props.max}
             {...rest}
           />

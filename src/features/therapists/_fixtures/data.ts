@@ -15,8 +15,7 @@ export const schema = z.object({
   national_code: z.string(),
   license_number: z.string(),
   status: z.string(),
-  specialties: z.string(),
-  // specialties: z.array(z.string()),
+  specialties: z.array(z.string()),
   facility_id: z.coerce.number(),
 });
 
@@ -32,5 +31,5 @@ export const initialValues: TReqTherapists = {
   license_number: "",
   status: "",
   facility_id: 1,
-  specialties: "",
+  specialties: [],
 };

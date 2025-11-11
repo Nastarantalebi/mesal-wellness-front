@@ -1,30 +1,40 @@
 "use client";
 
 import clsx from "clsx";
-import { useState,type KeyboardEvent,type ChangeEvent } from "react";
+import { useState, useEffect } from "react";
 import type { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
 
-type Props<TFormValues extends FieldValues> = {
+type TagsInputProps<TFormValues extends FieldValues> = {
   field: ControllerRenderProps<TFormValues, Path<TFormValues>>;
   placeholder?: string;
   inputClassName?: string;
+  containerClassName?: string;
 };
 
-function TagsInput<TFormValues extends FieldValues>({
+export default function TagsInput<TFormValues extends FieldValues>({
   field,
-  placeholder = "خصوصیت اضافه کنید...",
+  placeholder = "اضافه کردن ویژگی...",
   inputClassName,
-}: Props<TFormValues>) {
+  containerClassName,
+}: TagsInputProps<TFormValues>) {
   const { value = [], onChange } = field;
-  const [tags, setTags] = useState<string[]>(value.length ? value : []);
+
+  const [tags, setTags] = useState<string[]>(Array.isArray(value) ? value : []);
   const [input, setInput] = useState("");
+
+  // ⚡ هماهنگ‌سازی با مقدار فرم
+  useEffect(() => {
+    if (Array.isArray(value)) {
+      setTags(value);
+    }
+  }, [value]);
 
   const addTag = (tag: string) => {
     const trimmed = tag.trim();
     if (!trimmed || tags.includes(trimmed)) return;
     const newTags = [...tags, trimmed];
     setTags(newTags);
-    onChange(newTags);
+    onChange(newTags); // update react-hook-form
     setInput("");
   };
 
@@ -34,32 +44,26 @@ function TagsInput<TFormValues extends FieldValues>({
     onChange(newTags);
   };
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" || e.key === ",") {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
       e.preventDefault();
       addTag(input);
-    } else if (e.key === "Backspace" && input === "" && tags.length) {
-      removeTag(tags.length - 1);
     }
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
-
   return (
-    <div className="flex flex-col gap-1">
-      <div className="flex flex-wrap items-center gap-2 p-2 border rounded-md min-h-[44px]">
-        {tags.map((tag, idx) => (
+    <div className={clsx("flex flex-col gap-1", containerClassName)}>
+      <div className="flex flex-wrap gap-2 border rounded-md px-2 py-1 min-h-[2.5rem] items-center bg-white dark:bg-neutral-800">
+        {tags.map((tag, index) => (
           <div
-            key={idx}
-            className="flex items-center gap-1 bg-blue-100 text-blue-800 px-2 py-1 rounded-md text-sm"
+            key={index}
+            className="flex items-center gap-1 bg-blue-500 text-white px-2 py-1 rounded-md text-sm"
           >
-            <span>{tag}</span>
+            {tag}
             <button
               type="button"
-              className="text-red-500 font-bold"
-              onClick={() => removeTag(idx)}
+              onClick={() => removeTag(index)}
+              className="ml-1 text-white font-bold hover:text-gray-200"
             >
               ×
             </button>
@@ -68,18 +72,23 @@ function TagsInput<TFormValues extends FieldValues>({
 
         <input
           type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder={placeholder}
           className={clsx(
-            "flex-1 border-none outline-none bg-transparent text-sm min-w-[120px]",
+            "flex-1 min-w-[120px] border-none outline-none bg-transparent text-sm py-1 px-1",
             inputClassName
           )}
-          placeholder={placeholder}
-          value={input}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
         />
+        <button
+          type="button"
+          onClick={() => addTag(input)}
+          className="ml-1 text-blue-500 font-bold hover:text-blue-700"
+        >
+          +
+        </button>
       </div>
     </div>
   );
 }
-
-export default TagsInput;
