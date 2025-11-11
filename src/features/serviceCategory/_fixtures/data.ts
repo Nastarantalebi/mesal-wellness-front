@@ -10,7 +10,7 @@ export const schema = z.object({
   parent_id: z.number().nullable(),
   icon: z.string().nullable(),
   description: z.string(),
-  is_active: z.boolean(),
+  is_active: z.coerce.boolean(),
   meta: z
     .object({
       color: z.string(),
