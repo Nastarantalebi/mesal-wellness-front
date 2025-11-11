@@ -68,7 +68,6 @@ function useFormField<TFormValues extends FieldValues>() {
 
     // بر اساس نوع فیلد، کامپوننت مناسب را برمی‌گردانیم
     switch (type) {
-      case "select":
       case "select": {
         const firstOption = option?.[0]?.value;
 

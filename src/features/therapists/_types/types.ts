@@ -60,7 +60,7 @@ type Therapist = {
     gender: string;
   };
   status: string;
-  specialties: string;
+  specialties: string[];
   license_number: string;
   hire_date: string;
   bio: string;
