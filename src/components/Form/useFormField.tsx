@@ -12,6 +12,7 @@ import clsx from "clsx";
 import FormInput from "./FormInput";
 import DatePickerField from "./DatePicker/DatePickerField";
 import TimePickerField from "./TimePicker/TimePickerField";
+import TagsInput from "./TagsInput/TagsInput";
 
 /**
  * @description
@@ -179,6 +180,15 @@ function useFormField<TFormValues extends FieldValues>() {
           <TimePickerField<TFormValues>
             field={field}
             error={errors as any}
+            min={props.min}
+            max={props.max}
+            {...rest}
+          />
+        );
+      case "tags":
+        return (
+          <TagsInput<TFormValues>
+            field={field}
             min={props.min}
             max={props.max}
             {...rest}

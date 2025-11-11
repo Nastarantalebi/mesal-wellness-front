@@ -38,6 +38,7 @@ export type TFormData<T extends FieldValues> = {
     | "textArea"
     | "upload"
     | "image"
+    | "tags"
     | null;
   // You can add any other prop that your custom components might need
   option?: TOption[];

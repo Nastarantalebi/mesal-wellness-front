@@ -76,6 +76,7 @@ const useFormData = () => {
       name: "specialties",
       label: "تخصص ها",
       required: true,
+      type: "tags",
       placeholder: "تخصص ها",
     },
     {
