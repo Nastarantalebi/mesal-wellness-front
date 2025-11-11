@@ -2,8 +2,16 @@
 
 import clsx from "clsx";
 import { useEffect, useRef } from "react";
-import type { ControllerRenderProps, FieldError, FieldValues, Path } from "react-hook-form";
-import DatePicker, { DateObject, type DatePickerRef } from "react-multi-date-picker";
+import type {
+  ControllerRenderProps,
+  FieldError,
+  FieldValues,
+  Path,
+} from "react-hook-form";
+import DatePicker, {
+  DateObject,
+  type DatePickerRef,
+} from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 
 type TProps<TFormValues extends FieldValues> = {
@@ -30,6 +38,13 @@ function TimePickerField<TFormValues extends FieldValues>({
     }
   }, [autoFocus]);
 
+  // ✅ اگر مقدار اولیه HH:mm:ss بود، آن را به HH:mm تبدیل کن
+  useEffect(() => {
+    if (typeof fieldValue === "string" && fieldValue.match(/^\d{2}:\d{2}:\d{2}$/)) {
+      onChange(fieldValue.slice(0, 5));
+    }
+  }, [fieldValue, onChange]);
+
   const convertToDateObject = (timeString?: string) => {
     if (!timeString) return null;
     const [hours, minutes] = timeString.split(":").map(Number);
@@ -39,11 +54,8 @@ function TimePickerField<TFormValues extends FieldValues>({
   };
 
   const handleChange = (date: DateObject | null) => {
-    if (date) {
-      onChange(date.format("HH:mm"));
-    } else {
-      onChange("");
-    }
+    if (date) onChange(date.format("HH:mm"));
+    else onChange("");
   };
 
   const isError = !!error;

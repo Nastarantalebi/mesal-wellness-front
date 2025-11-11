@@ -34,7 +34,7 @@ function SevicesForm() {
     url: servicesUrl,
     id: selectedRecord,
   });
-  const form = useForm<TReqServices>({
+  const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
   });
@@ -42,7 +42,7 @@ function SevicesForm() {
     if (dataById) {
       const preparedData: TReqServices = {
         title: dataById.service.title,
-        category_id: String(dataById.service.category?.id),
+        category_id: dataById.service.category?.id,
         code: dataById.service.code ?? null,
         duration_minutes: String(dataById.service.duration_minutes ?? ""),
         base_price: String(dataById.service.base_price ?? ""),
