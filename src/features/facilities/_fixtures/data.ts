@@ -5,14 +5,14 @@ export const url = "/wellness/facilities/";
 export const queryKey = "facilitiesQuerykey";
 
 export const schema = z.object({
-  name: z.string().min(1, " "),
-  city: z.string().min(1, " "),
-  address: z.string().min(1, " "),
-  description: z.string().min(1, " "),
-  code: z.string().min(1, " "),
-  manager_name: z.string().min(1, " "),
-  phone: z.string().min(1, " "),
-  is_active: z.boolean(),
+  name: z.string().min(1, "فیلد الزامی است."),
+  city: z.string().min(1, "فیلد الزامی است."),
+  address: z.string().min(1, "فیلد الزامی است."),
+  description: z.string().min(1, "فیلد الزامی است."),
+  code: z.string().min(1, "فیلد الزامی است."),
+  manager_name: z.string().min(1, "فیلد الزامی است."),
+  phone: z.string().min(1, "فیلد الزامی است."),
+  is_active: z.coerce.boolean(),
   meta: z
     .object({
       google_map_link: z.string(),

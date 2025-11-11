@@ -18,7 +18,7 @@ function Facilities() {
 
   return (
     <CustomTable
-      title="خدمات"
+      title="محل ارائه خدمات"
       columns={data?.columns}
       data={data?.data}
       paginationSize={data?.paginate.total}

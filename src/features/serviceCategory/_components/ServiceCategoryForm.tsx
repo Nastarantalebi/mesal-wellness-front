@@ -14,7 +14,7 @@ function ServiceCategoryForm() {
   const navigate = useNavigate();
   const location = useLocation();
   const selectedRecord = location.state?.record.id;
-  const isEdit=!!selectedRecord;
+  const isEdit = !!selectedRecord;
   const { fields } = useFormData(isEdit);
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url: url,
@@ -38,7 +38,7 @@ function ServiceCategoryForm() {
     if (dataById) {
       const preparedData: TReqServiceCategory = {
         description: String(dataById.category.description ?? ""),
-        is_active: !!dataById.category.is_active,
+        is_active: dataById.category.is_active,
         title: dataById.category.title,
         branch_id: dataById.category.parent_id ?? null,
         parent_id: dataById.category.parent_id ?? null,
@@ -50,8 +50,14 @@ function ServiceCategoryForm() {
   return (
     <FormComponent
       onSubmit={(values) => {
-        const action = isEdit ? update : create;
-        action(values, { onSuccess: () => navigate("/service-category") });
+        const preparedData = {
+          ...values,
+          is_active: values.is_active === "true",
+        };
+        const action = !!selectedRecord ? update : create;
+        action(preparedData, {
+          onSuccess: () => navigate("/service-category"),
+        });
       }}
       form={form}
       formFields={fields}

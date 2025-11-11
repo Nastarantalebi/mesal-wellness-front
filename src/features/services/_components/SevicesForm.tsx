@@ -41,15 +41,15 @@ function SevicesForm() {
   useEffect(() => {
     if (dataById) {
       const preparedData: TReqServices = {
-        title: dataById.service.title ,
-        category_id: String(dataById.service.category?.id ),
+        title: dataById.service.title,
+        category_id: String(dataById.service.category?.id),
         code: dataById.service.code ?? null,
         duration_minutes: String(dataById.service.duration_minutes ?? ""),
         base_price: String(dataById.service.base_price ?? ""),
         currency: dataById.service.currency ?? null,
-        gender_policy: dataById.service.gender_policy.value ,
-        description: dataById.service.description ,
-        is_active: !!dataById.service.is_active,
+        gender_policy: dataById.service.gender_policy.value,
+        description: dataById.service.description,
+        is_active: dataById.service.is_active,
         branch_id: dataById.service.category?.branch_id ?? null,
       };
 
@@ -59,8 +59,12 @@ function SevicesForm() {
   return (
     <FormComponent
       onSubmit={(values) => {
-        const action = isEdit ? update : create;
-        action(values, { onSuccess: () => navigate("/services") });
+        const preparedData = {
+          ...values,
+          is_active: values.is_active === "true",
+        };
+        const action = !!selectedRecord ? update : create;
+        action(preparedData, { onSuccess: () => navigate("/services") });
       }}
       form={form}
       formFields={fields}

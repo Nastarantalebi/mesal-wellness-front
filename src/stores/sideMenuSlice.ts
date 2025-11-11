@@ -25,7 +25,7 @@ const initialState: SideMenuState = {
     {
       icon: "Cog",
       pathname: "/service-category",
-      title: "دسته بندی خدمات",
+      title: "دسته‌بندی خدمات",
     },
     {
       icon: "Cog",
@@ -35,37 +35,37 @@ const initialState: SideMenuState = {
     {
       icon: "Flower2",
       pathname: "/facilities",
-      title: "امکانات",
+      title: "محل ارائه خدمات",
     },
     {
       icon: "User",
       pathname: "/resource-type",
-      title: "نوع منابع",
+      title: "نوع مکان",
     },
     {
       icon: "Users",
       pathname: "/resources",
-      title: "منابع",
+      title: "مکان",
     },
     {
       icon: "UserStar",
       pathname: "/resource-availabilities",
-      title: "منابع در دسترس",
+      title: "مکان‌های در دسترس",
     },
     {
       icon: "ArchiveX",
       pathname: "/therapists",
-      title: "تراپیست",
+      title: "درمانگر",
     },
     {
       icon: "ArchiveRestore",
       pathname: "/therapist-services",
-      title: "سرویس تراپیست",
+      title: " خدمات درمانگر",
     },
     {
       icon: "Archive",
       pathname: "/therapist-availabilities",
-      title: "تراپیست در دسترس",
+      title: "درمانگر در دسترس",
     },
     {
       icon: "SquareActivity",

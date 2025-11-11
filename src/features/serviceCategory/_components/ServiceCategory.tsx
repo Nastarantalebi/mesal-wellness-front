@@ -18,7 +18,7 @@ function ServiceCategory() {
 
   return (
     <CustomTable
-      title="خدمات"
+      title="دسته‌بندی خدمات"
       columns={data?.columns}
       data={data?.data}
       paginationSize={data?.paginate.total}
