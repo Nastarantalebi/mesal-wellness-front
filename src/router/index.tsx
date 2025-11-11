@@ -22,15 +22,16 @@ import TherapistsForm from "@/features/therapists/_components/TherapistsForm";
 import TherapistService from "@/features/therapistService/_components/TherapistService";
 import TherapistServiceForm from "@/features/therapistService/_components/TherapistServiceForm";
 import { useRoutes } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoutes";
 
 function Router() {
   const routes = [
     {
       path: "/",
       element: (
-        // <ProtectedRoute>
+         <ProtectedRoute>
           <Layout />
-        // </ProtectedRoute>
+         </ProtectedRoute>
       ),
       children: [
         {

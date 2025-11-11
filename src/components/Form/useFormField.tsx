@@ -13,6 +13,7 @@ import FormInput from "./FormInput";
 import DatePickerField from "./DatePicker/DatePickerField";
 import TimePickerField from "./TimePicker/TimePickerField";
 import TagsInput from "./TagsInput/TagsInput";
+import { useEffect } from "react";
 
 /**
  * @description
@@ -68,6 +69,21 @@ function useFormField<TFormValues extends FieldValues>() {
     // بر اساس نوع فیلد، کامپوننت مناسب را برمی‌گردانیم
     switch (type) {
       case "select":
+      case "select": {
+        const firstOption = option?.[0]?.value;
+
+        useEffect(() => {
+          if (
+            firstOption !== undefined &&
+            (field.value === undefined ||
+              field.value === null ||
+              field.value === "" ||
+              field.value === 0)
+          ) {
+            field.onChange(firstOption);
+          }
+        }, [firstOption, field.value]);
+
         return (
           <FormSelect {...field} id={name} {...rest}>
             {option?.map(({ label, value }: any) => (
@@ -77,6 +93,7 @@ function useFormField<TFormValues extends FieldValues>() {
             ))}
           </FormSelect>
         );
+      }
 
       // case "treeSelect":
       //   return (
