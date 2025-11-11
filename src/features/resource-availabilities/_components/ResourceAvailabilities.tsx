@@ -18,7 +18,7 @@ function ResourceAvailabilities() {
 
   return (
     <CustomTable
-      title="منابع در دسترس"
+      title="مکان‌های در دسترس"
       columns={data?.columns}
       data={data?.data}
       paginationSize={data?.paginate.total}

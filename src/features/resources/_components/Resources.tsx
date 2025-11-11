@@ -18,7 +18,7 @@ function Resources() {
 
   return (
     <CustomTable
-      title="خدمات"
+      title="مکان"
       columns={data?.columns}
       data={data?.data}
       paginationSize={data?.paginate.total}

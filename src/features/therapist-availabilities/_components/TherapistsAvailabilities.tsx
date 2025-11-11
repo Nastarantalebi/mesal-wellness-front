@@ -18,7 +18,7 @@ function TherapistsAvailabilities() {
 
   return (
     <CustomTable
-      title="مشتریان"
+      title="درمانگر در دسترس"
       columns={data?.columns}
       data={data?.data}
       paginationSize={data?.paginate.total}

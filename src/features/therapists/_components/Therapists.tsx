@@ -18,7 +18,7 @@ function Therapists() {
 
   return (
     <CustomTable
-      title="مشتریان"
+      title="درمانگر"
       columns={data?.columns}
       data={data?.data}
       paginationSize={data?.paginate.total}
