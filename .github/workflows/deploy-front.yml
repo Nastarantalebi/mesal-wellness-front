@@ -1,0 +1,26 @@
+name: Deploy wellness front
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Use your SSH private key from Secrets
+      - name: SSH deploy
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # if your key is passphrase-protected:
+          # passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}
+          # disable host-key checking (or supply known_hosts via a secret)
+          # strict_host_key_checking: false
+          script: |
+            cd ~/server_deploy
+            chmod +x ./deploy-wn-front.sh
+            ./deploy-wn-front.sh
