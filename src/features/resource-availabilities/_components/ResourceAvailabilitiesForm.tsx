@@ -1,4 +1,4 @@
-import {  useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import useCreateData from "@/services/useCreateData";
 import { initialValues, queryKey, schema, url } from "../_fixtures/data";
@@ -47,7 +47,7 @@ function ResourceAvailabilitiesForm() {
     }
   }, [form, dataById]);
   const { fields } = useFormData();
-  
+  console.log(form.watch());
   return (
     <FormComponent
       form={form}
@@ -59,7 +59,7 @@ function ResourceAvailabilitiesForm() {
       }}
       isSubmitting={isPendingUpdate || isPendingCreate}
       formFields={fields}>
-     <BreakForm form={form}/>
+      <BreakForm form={form} />
     </FormComponent>
   );
 }
