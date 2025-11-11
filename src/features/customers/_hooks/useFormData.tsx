@@ -1,14 +1,14 @@
 import type { TFormData } from "@/types";
-import type { TCreateData, TReqTherapists } from "../_types/types";
+import type { TCreateData, TReqCustomers } from "../_types/types";
 import useGetData from "@/services/useGetData";
 import { queryKey, url } from "../_fixtures/data";
 
 const useFormData = () => {
-  const { data, isLoading } = useGetData<TCreateData>({
+  const { data: dataCreate, isLoading } = useGetData<TCreateData>({
     url: `${url}create`,
     queryKey: `${queryKey},"dataCreate"`,
   });
-  const fields: (TFormData<TReqTherapists> | undefined)[] = [
+  const fields: (TFormData<TReqCustomers> | undefined)[] = [
     {
       name: "first_name",
       label: "نام",
@@ -22,6 +22,13 @@ const useFormData = () => {
       placeholder: "نام خانوادگی",
     },
     {
+      name: "phone",
+      label: "تلفن",
+      required: true,
+      placeholder: "تلفن",
+      inputType: "number",
+    },
+    {
       name: "national_code",
       label: "کدملی",
       required: true,
@@ -29,19 +36,28 @@ const useFormData = () => {
       inputType: "number",
     },
     {
-      name: "bio",
-      label: "درباره",
+      name: "birth_date",
+      label: "تاریخ تولد",
       required: true,
-      placeholder: "درباره",
+      placeholder: "تاریخ تولد",
+      type: "date",
     },
     {
-      name: "facility_id",
-      label: "محل ارائه خدمات",
+      name: "joined_at",
+      label: "تاریخ عضویت",
       required: true,
-      placeholder: "محل ارائه خدمات",
+      placeholder: "تاریخ عضویت",
+      type: "date",
+    },
+
+    {
+      name: "membership_type",
+      label: "وضعیت کاربر",
+      required: true,
+      placeholder: "وضعیت کاربر",
       type: "select",
       isLoading: isLoading,
-      option: data?.facilities ?? [],
+      option: dataCreate?.membership_types,
     },
     {
       name: "gender",
@@ -50,33 +66,7 @@ const useFormData = () => {
       placeholder: "جنسیت",
       type: "select",
       isLoading: isLoading,
-      option: data?.genders ?? [],
-    },
-    {
-      name: "hire_date",
-      label: "تاریخ استخدام",
-      required: true,
-      type: "date",
-      placeholder: "تاریخ استخدام",
-    },
-    {
-      name: "license_number",
-      label: "شماره مجوز",
-      required: true,
-      placeholder: "شماره مجوز",
-    },
-    {
-      name: "mobile",
-      label: "موبایل",
-      required: true,
-      placeholder: "موبایل",
-      inputType: "number",
-    },
-    {
-      name: "specialties",
-      label: "تخصص ها",
-      required: true,
-      placeholder: "تخصص ها",
+      option: dataCreate?.genders,
     },
     {
       name: "status",
@@ -85,7 +75,13 @@ const useFormData = () => {
       placeholder: "وضعیت",
       type: "select",
       isLoading: isLoading,
-      option: data?.statuses ?? [],
+      option: dataCreate?.statuses,
+    },
+    {
+      name: "notes",
+      label: "یادداشت",
+      required: true,
+      placeholder: "یادداشت",
     },
   ];
   return { fields };

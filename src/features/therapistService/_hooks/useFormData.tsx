@@ -11,9 +11,9 @@ const useFormData = () => {
   const fields: (TFormData<TReqTherapistService> | undefined)[] = [
     {
       name: "custom_price",
-      label: "ارزش تقریبی",
+      label: "مبلغ خدمات",
       required: true,
-      placeholder: "ارزش تقریبی",
+      placeholder: "مبلغ خدمات",
       inputType: "number",
     },
     {
@@ -36,9 +36,9 @@ const useFormData = () => {
     },
     {
       name: "estimated_duration",
-      label: "زمان تقریبی",
+      label: "مدت زمان تقریبی",
       required: true,
-      placeholder: "زمان تقریبی",
+      placeholder: "مدت زمان تقریبی",
       inputType: "number",
     },
     {
@@ -52,9 +52,9 @@ const useFormData = () => {
     },
     {
       name: "therapist_id",
-      label: "تراپیست",
+      label: "درمانگر",
       required: true,
-      placeholder: "تراپیست",
+      placeholder: "درمانگر",
       type: "select",
       isLoading: isLoading,
       option: data?.therapists ?? [],

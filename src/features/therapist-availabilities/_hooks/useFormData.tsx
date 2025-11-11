@@ -11,15 +11,15 @@ const useFormData = () => {
   const fields: (TFormData<TReqTherapistsAvailabilities> | undefined)[] = [
     {
       name: "start_time",
-      label: "زمان شروع",
+      label: "شروع شیفت",
       required: true,
-      placeholder: "زمان شروع",
+      placeholder: "شروع شیفت",
     },
     {
       name: "end_time",
-      label: "زمان پایان",
+      label: "پایان شیفت",
       required: true,
-      placeholder: "زمان پایان",
+      placeholder: "پایان شیفت",
     },
     {
       name: "weekday",
@@ -32,9 +32,9 @@ const useFormData = () => {
     },
     {
       name: "therapist_id",
-      label: "تراپیست",
+      label: "درمانگر",
       required: true,
-      placeholder: "تراپیست",
+      placeholder: "درمانگر",
       type: "select",
       isLoading: isLoading,
       option: data?.data.therapists ?? [],
