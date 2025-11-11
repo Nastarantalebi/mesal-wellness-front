@@ -30,7 +30,7 @@ export type TReqServices = {
   currency: string | null;
   gender_policy: string;
   description: string;
-  is_active: boolean;
+  is_active: string;
   meta?: {
     room_type: string;
     requires_shower: boolean;

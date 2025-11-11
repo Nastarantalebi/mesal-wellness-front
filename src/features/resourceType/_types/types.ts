@@ -37,7 +37,7 @@ export type TReqResourceType = {
   name: string;
   icon: string | null;
   description: string;
-  is_active: boolean;
+  is_active: string;
   meta?: {
     capacity: number;
     floor: number;

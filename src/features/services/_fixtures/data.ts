@@ -14,7 +14,7 @@ export const schema = z.object({
   duration_minutes: z.string().min(1, "فیلد الزامی است."),
   gender_policy: z.string().min(1, "فیلد الزامی است."),
   title: z.string().min(1, "فیلد الزامی است."),
-  is_active: z.coerce.boolean(),
+  is_active: z.string(),
   meta: z
     .object({
       discount_percent: z.number(),
@@ -33,7 +33,7 @@ export const initialValues: TReqServices = {
   duration_minutes: "",
   gender_policy: "",
   title: "",
-  is_active: true,
+  is_active: "true",
   meta: {
     discount_percent: 0,
     requires_shower: true,

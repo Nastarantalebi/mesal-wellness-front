@@ -36,7 +36,7 @@ function TherapistServiceForm() {
   useEffect(() => {
     if (dataById) {
       const preparedData: TReqTherapistService = {
-        is_active: !!dataById.therapist_service.is_active,
+        is_active: dataById.therapist_service.is_active ? "true" : "false",
         commission_rate: String(dataById.therapist_service.commission_rate),
         custom_price: String(dataById.therapist_service.custom_price),
         estimated_duration: String(
@@ -52,8 +52,14 @@ function TherapistServiceForm() {
     <FormComponent
       form={form}
       onSubmit={(values) => {
+        const preparedData = {
+          ...values,
+          is_active: values.is_active === "true",
+        };
         const action = selectedRecord ? update : create;
-        action(values, { onSuccess: () => navigate("/therapist-services") });
+        action(preparedData, {
+          onSuccess: () => navigate("/therapist-services"),
+        });
       }}
       formFields={fields}
       isSubmitting={isPendingUpdate || isPendingCreate}

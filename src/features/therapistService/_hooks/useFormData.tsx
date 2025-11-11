@@ -28,10 +28,10 @@ const useFormData = () => {
       label: "وضعیت",
       required: true,
       placeholder: "وضعیت",
-       type: "select",
-      option:[
-        {label:"فعال",value:true},
-        {label:"غیرفعال",value:false},
+      type: "select",
+      option: [
+        { label: "فعال", value: "true" },
+        { label: "غیرفعال", value: "false" },
       ],
     },
     {

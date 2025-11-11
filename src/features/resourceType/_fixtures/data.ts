@@ -8,7 +8,7 @@ export const schema = z.object({
   name: z.string().min(1, "فیلد الزامی است."),
   code: z.string().min(1, "فیلد الزامی است."),
   description: z.string(),
-  is_active: z.coerce.boolean(),
+  is_active: z.string(),
   icon: z.string().nullable(),
   meta: z
     .object({
@@ -24,7 +24,7 @@ export const initialValue: TReqResourceType = {
   name: "",
   code: "",
   description: "",
-  is_active: true,
+  is_active: "true",
   icon: null,
   meta: {
     floor: 1,

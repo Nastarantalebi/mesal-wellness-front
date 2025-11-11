@@ -45,7 +45,7 @@ export type TReqFacilities = {
   phone: string;
   manager_name: string;
   description: string;
-  is_active: boolean;
+  is_active: string;
   meta?: {
     opening_hours: string;
     has_parking: boolean;

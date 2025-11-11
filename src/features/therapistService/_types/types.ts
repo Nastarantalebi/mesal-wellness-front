@@ -43,7 +43,7 @@ export type TReqTherapistService = {
   custom_price: string;
   commission_rate: string;
   estimated_duration: string;
-  is_active: boolean;
+  is_active: string;
 };
 
 export type TResTherapistService = {

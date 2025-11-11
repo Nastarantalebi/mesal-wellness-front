@@ -10,7 +10,7 @@ export const schema = z.object({
   parent_id: z.number().nullable(),
   icon: z.string().nullable(),
   description: z.string(),
-  is_active: z.coerce.boolean(),
+  is_active: z.string(),
   meta: z
     .object({
       color: z.string(),
@@ -24,7 +24,7 @@ export const initialValue: TReqServiceCategory = {
   title: "",
   branch_id: null,
   parent_id: null,
-  is_active: true,
+  is_active: "true",
   description: "",
   icon: null,
   meta: {

@@ -12,7 +12,7 @@ export const schema = z.object({
   code: z.string().min(1, "فیلد الزامی است."),
   manager_name: z.string().min(1, "فیلد الزامی است."),
   phone: z.string().min(1, "فیلد الزامی است."),
-  is_active: z.coerce.boolean(),
+  is_active: z.string(),
   meta: z
     .object({
       google_map_link: z.string(),
@@ -26,7 +26,7 @@ export const initialValue: TReqFacilities = {
   name: "",
   address: "",
   city: "",
-  is_active: true,
+  is_active: "true",
   description: "",
   phone: "",
   code: "",

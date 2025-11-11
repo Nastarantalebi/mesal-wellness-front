@@ -30,7 +30,7 @@ function ServiceCategoryForm() {
     url: url,
     id: selectedRecord,
   });
-  const form = useForm<any>({
+  const form = useForm<TReqServiceCategory>({
     resolver: zodResolver(schema),
     defaultValues: initialValue,
   });
@@ -38,7 +38,7 @@ function ServiceCategoryForm() {
     if (dataById) {
       const preparedData: TReqServiceCategory = {
         description: String(dataById.category.description ?? ""),
-        is_active: dataById.category.is_active,
+        is_active: dataById.category.is_active?"true":"false",
         title: dataById.category.title,
         branch_id: dataById.category.parent_id ?? null,
         parent_id: dataById.category.parent_id ?? null,

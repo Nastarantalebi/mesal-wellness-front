@@ -34,7 +34,7 @@ function SevicesForm() {
     url: servicesUrl,
     id: selectedRecord,
   });
-  const form = useForm<any>({
+  const form = useForm<TReqServices>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
   });
@@ -49,7 +49,7 @@ function SevicesForm() {
         currency: dataById.service.currency ?? null,
         gender_policy: dataById.service.gender_policy.value,
         description: dataById.service.description,
-        is_active: dataById.service.is_active,
+        is_active: dataById.service.is_active ? "true" : "false",
         branch_id: dataById.service.category?.branch_id ?? null,
       };
 
