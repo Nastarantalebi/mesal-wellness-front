@@ -11,22 +11,24 @@ const useFormData = () => {
   const fields: (TFormData<TReqResourceAvailabilities> | undefined)[] = [
     {
       name: "start_time",
-      label: "زمان شروع",
+      label: "شروع بازه",
       required: true,
-      placeholder: "زمان شروع",
+      type: "time",
+      placeholder: "شروع بازه",
     },
     {
       name: "end_time",
-      label: "زمات پایان",
+      label: "پایان بازه",
       required: true,
-      placeholder: "زمات پایان",
+      type: "time",
+      placeholder: "پایان بازه",
     },
     {
       name: "weekday",
       label: "روز هفته",
       required: true,
       placeholder: "روز هفته",
-        type: "select",
+      type: "select",
       isLoading: isLoading,
       option: data?.data.weekdays ?? [],
     },
@@ -48,12 +50,12 @@ const useFormData = () => {
       isLoading: isLoading,
       option: data?.data.statuses ?? [],
     },
-    
+
     {
       name: "breaks",
-      label: "تایم شروع و پایان",
+      label: "تایم ‌های استراحت",
       required: true,
-      placeholder: "تایم شروع و پایان",
+      placeholder: "تایم ‌های استراحت",
     },
   ];
   return { fields };
