@@ -64,6 +64,7 @@ const useFormData = () => {
       label: "شماره مجوز",
       required: true,
       placeholder: "شماره مجوز",
+      dir:"ltr"
     },
     {
       name: "mobile",
@@ -87,7 +88,7 @@ const useFormData = () => {
       required: true,
       type: "tags",
       placeholder: "تخصص ها",
-      className:'col-span-3'
+      className: "col-span-3",
     },
   ];
   return { fields };

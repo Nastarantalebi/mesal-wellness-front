@@ -85,22 +85,20 @@ TProps<TFormValues>) {
 
   return (
     <form
+      autoComplete="off"
       onSubmit={form.handleSubmit(onSubmit)}
-      className={clsx(formClassName)}
-    >
+      className={clsx(formClassName)}>
       <div
         className={clsx(
           "relative space-y-4 p-2 m-2 border border-primary-20 rounded-xl shadow bg-transparent",
           className
-        )}
-      >
+        )}>
         {onClose && (
           <Button
             variant="soft-danger"
             type="button"
             className="absolute top-0 end-0 m-2 p-0"
-            onClick={onClose}
-          >
+            onClick={onClose}>
             <XCircle className="text-danger size-5" />
           </Button>
         )}
@@ -109,8 +107,7 @@ TProps<TFormValues>) {
             "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4": size === "small",
             "md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6":
               size === "large",
-          })}
-        >
+          })}>
           {childrenFirst && children}
 
           {/* Render dynamically generated fields if they exist */}
@@ -134,8 +131,7 @@ TProps<TFormValues>) {
                   isPending={isSubmitting || form.formState.isSubmitting}
                   variant="primary"
                   type="submit"
-                  className="mt-5"
-                >
+                  className="mt-5">
                   {btnSubmitText}
                 </Button>
               </div>

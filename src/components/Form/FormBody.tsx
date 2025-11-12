@@ -111,6 +111,7 @@ function FormBody<TFormValues extends FieldValues>({
           return <div key={fieldConfig.name}></div>;
 
         const largeField = ["notes", "address", "bio", "description"];
+        const ltrFields = ["number", "email", "password", "tel"];
 
         return (
           <div
@@ -131,7 +132,13 @@ function FormBody<TFormValues extends FieldValues>({
               control={control}
               name={fieldConfig.name}
               render={({ field }) => (
-                <div>
+                <div
+                  dir={
+                    fieldConfig.inputType &&
+                    ltrFields.includes(fieldConfig.inputType)
+                      ? "ltr"
+                      : "rtl"
+                  }>
                   {fieldRenderer({
                     ...fieldConfig,
                     field,

@@ -50,6 +50,8 @@ function useFormField<TFormValues extends FieldValues>() {
       option,
       inputType,
       placeholder,
+      minLength,
+      maxLength,
       // mode,
       // min,
       // max,
@@ -251,6 +253,8 @@ function useFormField<TFormValues extends FieldValues>() {
             id={name}
             type={inputType}
             name={name}
+            maxLength={maxLength}
+            minLength={minLength}
             className={clsx({
               "border-danger": errors[name],
             })}
