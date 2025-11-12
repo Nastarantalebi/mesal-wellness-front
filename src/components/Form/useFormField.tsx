@@ -10,9 +10,9 @@ import type { TFormData } from "@/types";
 import FormSelect from "./FormSelect";
 import clsx from "clsx";
 import FormInput from "./FormInput";
-import DatePickerField from "./DatePicker/DatePickerField";
-import TimePickerField from "./TimePicker/TimePickerField";
-import TagsInput from "./TagsInput/TagsInput";
+import DatePickerField from "./DatePicker";
+import TimePickerField from "./TimePicker";
+import TagsInput from "./TagsInput";
 import { useEffect } from "react";
 
 /**

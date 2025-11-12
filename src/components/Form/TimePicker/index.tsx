@@ -40,7 +40,10 @@ function TimePickerField<TFormValues extends FieldValues>({
 
   // ✅ اگر مقدار اولیه HH:mm:ss بود، آن را به HH:mm تبدیل کن
   useEffect(() => {
-    if (typeof fieldValue === "string" && fieldValue.match(/^\d{2}:\d{2}:\d{2}$/)) {
+    if (
+      typeof fieldValue === "string" &&
+      fieldValue.match(/^\d{2}:\d{2}:\d{2}$/)
+    ) {
       onChange(fieldValue.slice(0, 5));
     }
   }, [fieldValue, onChange]);
@@ -66,6 +69,7 @@ function TimePickerField<TFormValues extends FieldValues>({
       ref={datePickerRef}
       disableDayPicker
       format="HH:mm"
+      containerStyle={{ width: "100%", direction: "ltr" }}
       value={convertToDateObject(fieldValue)}
       onChange={handleChange}
       plugins={[<TimePicker hideSeconds key="time-picker" />]}

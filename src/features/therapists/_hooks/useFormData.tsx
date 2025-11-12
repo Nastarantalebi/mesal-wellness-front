@@ -73,13 +73,6 @@ const useFormData = () => {
       inputType: "number",
     },
     {
-      name: "specialties",
-      label: "تخصص ها",
-      required: true,
-      type: "tags",
-      placeholder: "تخصص ها",
-    },
-    {
       name: "status",
       label: "وضعیت",
       required: true,
@@ -87,6 +80,14 @@ const useFormData = () => {
       type: "select",
       isLoading: isLoading,
       option: data?.statuses ?? [],
+    },
+    {
+      name: "specialties",
+      label: "تخصص ها",
+      required: true,
+      type: "tags",
+      placeholder: "تخصص ها",
+      className:'col-span-3'
     },
   ];
   return { fields };

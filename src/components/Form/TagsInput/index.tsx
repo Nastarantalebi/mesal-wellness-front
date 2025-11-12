@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/Button";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
 import type { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
@@ -81,13 +82,13 @@ export default function TagsInput<TFormValues extends FieldValues>({
             inputClassName
           )}
         />
-        <button
+        <Button
           type="button"
+          variant="primary"
           onClick={() => addTag(input)}
-          className="ml-1 text-blue-500 font-bold hover:text-blue-700"
         >
           +
-        </button>
+        </Button>
       </div>
     </div>
   );

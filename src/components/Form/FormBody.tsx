@@ -7,6 +7,7 @@ import type { TFormData } from "@/types";
 import FormLabel from "./FormLabel";
 import { SeparatorHorizontal } from "lucide-react";
 import FormField from "./FormField";
+import clsx from "clsx";
 
 type TProps<TFormValues extends FieldValues> = {
   formFields?: (TFormData<TFormValues> | undefined)[];
@@ -87,7 +88,6 @@ function FormBody<TFormValues extends FieldValues>({
       }, 10);
     }
   };
-
   return (
     <>
       {formFields?.map((fieldConfig, index) => {
@@ -99,8 +99,7 @@ function FormBody<TFormValues extends FieldValues>({
               {fieldConfig.label && (
                 <FormLabel
                   htmlFor={fieldConfig.name}
-                  className="flex flex-col w-full sm:flex-row"
-                >
+                  className="flex flex-col w-full sm:flex-row">
                   {fieldConfig.label}
                 </FormLabel>
               )}
@@ -111,13 +110,19 @@ function FormBody<TFormValues extends FieldValues>({
         if (fieldConfig.name === "empty")
           return <div key={fieldConfig.name}></div>;
 
+        const largeField = ["notes", "address", "bio", "description"];
+
         return (
-          <div key={fieldConfig.name}>
+          <div
+            key={fieldConfig.name}
+            className={clsx(
+              largeField.includes(fieldConfig.name) && "md:col-span-3",
+              fieldConfig.className
+            )}>
             {fieldConfig.label && (
               <FormLabel
                 htmlFor={fieldConfig.name}
-                className="flex flex-col w-full sm:flex-row"
-              >
+                className="flex flex-col w-full sm:flex-row">
                 {fieldConfig.label}
                 {fieldConfig.required && <span className="text-danger">*</span>}
               </FormLabel>
