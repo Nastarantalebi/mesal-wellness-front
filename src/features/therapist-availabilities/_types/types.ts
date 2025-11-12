@@ -1,4 +1,8 @@
 import type { TColumns, TOption } from "@/types";
+type Breaks = {
+  end_time: string | null;
+  start_time: string | null;
+};
 type data = {
   id: number;
   therapist_id: number;
@@ -10,10 +14,7 @@ type data = {
   weekday_label: string;
   start_time: string;
   end_time: string;
-  breaks: {
-    start_time: string;
-    end_time: string;
-  }[];
+  breaks: Breaks[];
   is_active: boolean;
   is_active_label: string;
 };
@@ -42,10 +43,7 @@ export type TReqTherapistsAvailabilities = {
   weekday: string;
   start_time: string;
   end_time: string;
-  breaks: {
-    start_time: string;
-    end_time: string;
-  }[];
+  breaks: Breaks[];
   is_active: boolean;
 };
 export type TDataById = {
@@ -62,10 +60,7 @@ export type TResTherapistsAvailabilities = {
       weekday_label: string;
       start_time: string;
       end_time: string;
-      breaks: {
-        start_time: string;
-        end_time: string;
-      }[];
+      breaks: Breaks[];
       is_active: boolean;
       is_active_label: string;
     };

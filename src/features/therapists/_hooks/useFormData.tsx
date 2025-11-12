@@ -88,7 +88,7 @@ const useFormData = () => {
       label: "تخصص ها",
       required: true,
       type: "tags",
-      placeholder: "تخصص ها",
+      placeholder: "بعد از وارد کردن هر تخصص دکمه + را کلیک کنید تا ثبت شود",
       className: "col-span-3",
     },
   ];

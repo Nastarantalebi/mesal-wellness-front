@@ -12,8 +12,8 @@ export const schema = z.object({
   weekday: z.string(),
   breaks: z.array(
     z.object({
-      start_time: z.string(),
-      end_time: z.string(),
+      start_time: z.string().nullable(),
+      end_time: z.string().nullable(),
     })
   ),
 });
