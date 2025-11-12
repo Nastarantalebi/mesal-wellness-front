@@ -36,13 +36,6 @@ const useFormData = (isEdit: boolean) => {
       placeholder: "شهر",
     },
 
-    {
-      name: "address",
-      label: "آدرس",
-      required: true,
-      placeholder: "آدرس",
-    },
-
     isEdit
       ? {
           name: "is_active",
@@ -56,6 +49,13 @@ const useFormData = (isEdit: boolean) => {
           ],
         }
       : undefined,
+
+    {
+      name: "address",
+      label: "آدرس",
+      required: true,
+      placeholder: "آدرس",
+    },
     {
       name: "description",
       label: "توضیحات",

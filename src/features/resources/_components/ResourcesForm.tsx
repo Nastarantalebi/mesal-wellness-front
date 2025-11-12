@@ -42,7 +42,7 @@ function ResourcesForm() {
         name: dataById.resource.name ?? null,
         status: dataById.resource.status,
         type_id: dataById.resource.type.id,
-        facility_id: dataById.resource.facility.id,
+        facility_id: dataById.resource.facility?.id,
       };
       form.reset(preparedData);
     }
