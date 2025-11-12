@@ -1,13 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import CustomTable from "../../../components/Tabulator";
 import useGetData from "../../../services/useGetData";
-import type { TTherapists } from "../_types/types";
 import { queryKey, url } from "../_fixtures/data";
 import useDeleteData from "@/services/useDeleteData";
 
 function Therapists() {
   const navigate = useNavigate();
-  const { data } = useGetData<TTherapists>({
+  const { data } = useGetData<any>({
     queryKey: queryKey,
     url: url,
   });

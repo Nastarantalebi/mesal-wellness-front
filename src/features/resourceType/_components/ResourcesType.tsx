@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import type { TResourceType } from "../_types/types";
 import useGetData from "@/services/useGetData";
 import CustomTable from "@/components/Tabulator";
 import { queryKey, url } from "../_fixtures/data";
@@ -7,7 +6,7 @@ import useDeleteData from "@/services/useDeleteData";
 
 function ResourceType() {
   const navigate = useNavigate();
-  const { data } = useGetData<TResourceType>({
+  const { data } = useGetData<any>({
     queryKey: queryKey,
     url: url,
   });
