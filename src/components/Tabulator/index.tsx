@@ -10,6 +10,7 @@ import { FormInline, FormInput, FormLabel, FormSelect } from "../Form";
 import { Menu } from "../Headless";
 import { createRoot } from "react-dom/client";
 import { Edit, Eye, Trash2 } from "lucide-react";
+import TitlePage from "@/features/_components/TitlePage";
 
 type CustomTableProps = {
   /** عنوان جدول */
@@ -174,6 +175,7 @@ CustomTableProps) {
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
+      <TitlePage title={title} />
       <div className="col-span-12">
         <div className="flex flex-col md:h-10 gap-y-3 md:items-center md:flex-row">
           <div className="text-base font-medium group-[.mode--light]:text-white">
