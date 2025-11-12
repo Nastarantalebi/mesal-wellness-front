@@ -50,6 +50,7 @@ function useFormField<TFormValues extends FieldValues>() {
       option,
       inputType,
       placeholder,
+      money,
       minLength,
       maxLength,
       // mode,
@@ -251,6 +252,7 @@ function useFormField<TFormValues extends FieldValues>() {
           <FormInput
             {...field}
             id={name}
+            money={money}
             type={inputType}
             name={name}
             maxLength={maxLength}

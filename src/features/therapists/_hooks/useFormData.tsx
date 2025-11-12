@@ -64,7 +64,7 @@ const useFormData = () => {
       label: "شماره مجوز",
       required: true,
       placeholder: "شماره مجوز",
-      dir:"ltr"
+      dir: "ltr",
     },
     {
       name: "mobile",
@@ -72,6 +72,7 @@ const useFormData = () => {
       required: true,
       placeholder: "موبایل",
       inputType: "number",
+      money: true,
     },
     {
       name: "status",

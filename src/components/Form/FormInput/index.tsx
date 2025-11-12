@@ -6,6 +6,7 @@ import { twMerge } from "tailwind-merge";
 interface FormInputProps extends React.ComponentPropsWithoutRef<"input"> {
   formInputSize?: "sm" | "lg";
   rounded?: boolean;
+  money?:boolean
 }
 
 type FormInputRef = React.ComponentPropsWithRef<"input">["ref"];
