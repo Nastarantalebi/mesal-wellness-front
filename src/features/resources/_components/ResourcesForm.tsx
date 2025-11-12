@@ -41,7 +41,7 @@ function ResourcesForm() {
         code: dataById.resource.code,
         name: dataById.resource.name ?? null,
         status: dataById.resource.status,
-        type_id: dataById.resource.type.id,
+        type_id: dataById.resource.type?.id,
         facility_id: dataById.resource.facility?.id,
       };
       form.reset(preparedData);
