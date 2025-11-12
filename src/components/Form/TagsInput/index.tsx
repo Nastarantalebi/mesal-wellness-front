@@ -54,23 +54,8 @@ export default function TagsInput<TFormValues extends FieldValues>({
 
   return (
     <div className={clsx("flex flex-col gap-1", containerClassName)}>
-      <div className="flex flex-wrap gap-2 border rounded-md px-2 py-1 min-h-[2.5rem] items-center bg-white dark:bg-neutral-800">
-        {tags.map((tag, index) => (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-blue-500 text-white px-2 py-1 rounded-md text-sm"
-          >
-            {tag}
-            <button
-              type="button"
-              onClick={() => removeTag(index)}
-              className="ml-1 text-white font-bold hover:text-gray-200"
-            >
-              ×
-            </button>
-          </div>
-        ))}
-
+      {/* input row */}
+      <div className="flex items-center gap-2 border rounded-md  px-2 py-1 min-h-[2.5rem] bg-white dark:bg-neutral-800">
         <input
           type="text"
           value={input}
@@ -78,18 +63,33 @@ export default function TagsInput<TFormValues extends FieldValues>({
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           className={clsx(
-            "flex-1 min-w-[120px] border-none outline-none bg-transparent text-sm py-1 px-1",
+            "flex-1 border-none outline-none bg-transparent text-sm h-10 px-1", // ارتفاع ثابت h-10
             inputClassName
           )}
         />
-        <Button
-          type="button"
-          variant="primary"
-          onClick={() => addTag(input)}
-        >
+        <Button type="button" variant="primary" onClick={() => addTag(input)}>
           +
         </Button>
       </div>
+
+      {/* tags زیر input */}
+      {tags.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-1">
+          {tags.map((tag, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-1 bg-blue-500 text-white px-2 py-1 rounded-md text-sm">
+              {tag}
+              <button
+                type="button"
+                onClick={() => removeTag(index)}
+                className="ml-1 text-white font-bold hover:text-gray-200">
+                ×
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
