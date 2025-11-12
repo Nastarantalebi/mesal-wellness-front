@@ -109,6 +109,7 @@ CustomTableProps) {
           widthGrow: 0.6,
         },
       ],
+      nestedFieldSeparator: false,
       layout: "fitColumns",
       paginationMode: "remote",
       filterMode: "remote",
