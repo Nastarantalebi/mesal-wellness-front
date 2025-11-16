@@ -1,5 +1,5 @@
 import z from "zod";
-import type { TRequest } from "../_types/type";
+import type { TItems, TRequest } from "../_types/type";
 
 export const url = "/wellness/bookings/";
 export const queryKey = "bookingsQuerykey";
@@ -16,16 +16,15 @@ export const schema = z.object({
     })
   ),
 });
+export const itemsValues: TItems = {
+  end_at: "",
+  start_at: "",
+  resource_id: 0,
+  service_id: 0,
+  therapist_id: 0,
+};
 export const initialValues: TRequest = {
   customer_id: 0,
   notes: "",
-  items: [
-    {
-      end_at: "",
-      start_at: "",
-      resource_id: 0,
-      service_id: 0,
-      therapist_id: 0,
-    },
-  ],
+  items: [itemsValues],
 };

@@ -9,20 +9,12 @@ type TDeleteData = {
   onError?: () => void;
 };
 
-export async function deleteData<T>(
-  url: string,
-  id: number | string
-) {
+export async function deleteData<T>(url: string, id: number | string) {
   const { data }: { data: T } = await Request.delete(url + id + "/");
   return data;
 }
 
-function useDeleteData<T>({
-  url,
-  queryKey,
-  onError,
-  onSuccess,
-}: TDeleteData) {
+function useDeleteData<T>({ url, queryKey, onError, onSuccess }: TDeleteData) {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -44,12 +36,13 @@ function useDeleteData<T>({
         }).showToast();
       }
     },
-    onError: () => {
+    onError: (error: any) => {
+      const message = error?.response?.data?.message || "خطا در حذف آیتم";
       if (onError) {
         onError();
       } else {
         Toastify({
-          text: "خطا در حذف آیتم",
+          text: message,
           duration: 3000,
           newWindow: true,
           close: true,

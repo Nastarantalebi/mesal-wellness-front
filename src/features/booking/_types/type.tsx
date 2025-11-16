@@ -1,14 +1,15 @@
 
-export type TRequest = {
-  customer_id: number;
-  notes: string;
-  items: {
+export type TItems={
     service_id: number;
     therapist_id: number;
     resource_id: number;
     start_at: string;
     end_at: string;
-  }[];
+  }
+export type TRequest = {
+  customer_id: number;
+  notes: string;
+  items: TItems[];
 };
 export type TResponse = {
   customer_id: number;

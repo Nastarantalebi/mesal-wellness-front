@@ -58,6 +58,7 @@ function BookingForm() {
       form.reset(dataById);
     }
   }, [form.reset, dataById]);
+  console.log(form.watch())
   return (
     <FormComponent
       form={form}

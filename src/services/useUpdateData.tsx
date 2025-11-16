@@ -49,13 +49,14 @@ function useUpdateData<TReq extends object, TRes>({
           }).showToast();
       }
     },
-    onError: () => {
+    onError: (error:any) => {
+        const message = error?.response?.data?.message || "خطا در ویرایش آیتم";
       if (onError) {
         onError();
       } else {
         if (showToast)
           Toastify({
-            text: "خطا در ویرایش آیتم",
+            text:message,
             duration: 3000,
             newWindow: true,
             close: true,

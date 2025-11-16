@@ -3,6 +3,7 @@ import { FormLabel, FormSelect } from "@/components/Form";
 import { Controller, useFieldArray } from "react-hook-form";
 import type { TCreateData } from "../_types/type";
 import DatePickerField from "@/components/Form/DatePicker";
+import { itemsValues } from "../_fixtures/data";
 
 interface TProps {
   form: any;
@@ -16,14 +17,7 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
     name: "items",
   });
 
-  if (fields.length === 0)
-    append({
-      end_at: "",
-      start_at: "",
-      resource_id: 0,
-      service_id: 0,
-      therapist_id: 0,
-    });
+  if (fields.length === 0) append(itemsValues);
 
   return (
     <div
@@ -32,15 +26,7 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
         <p className="font-semibold mb-3">آیتم‌ها</p>
         <Button
           type="button"
-          onClick={() =>
-            append({
-              end_at: "",
-              start_at: "",
-              resource_id: 0,
-              service_id: 0,
-              therapist_id: 0,
-            })
-          }
+          onClick={() => append(itemsValues)}
           variant="primary">
           افزودن جدید
         </Button>
@@ -56,6 +42,8 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
               name={`items.${index}.start_at`}
               render={({ field }) => (
                 <DatePickerField
+
+                  showTimePicker={true}
                   field={{
                     ...field,
                     value: field.value || "",
@@ -72,6 +60,7 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
               name={`items.${index}.end_at`}
               render={({ field }) => (
                 <DatePickerField
+                  showTimePicker={true}
                   field={{
                     ...field,
                     value: field.value || "",
@@ -86,8 +75,8 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
             <Controller
               control={form.control}
               name={`items.${index}.therapist_id`}
-              render={() => (
-                <FormSelect>
+              render={({ field }) => (
+                <FormSelect {...field}>
                   {dataCreate?.data.therapists.map((item, index) => (
                     <option value={item.value} key={index}>
                       {item.label}
@@ -102,8 +91,8 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
             <Controller
               control={form.control}
               name={`items.${index}.service_id`}
-              render={() => (
-                <FormSelect>
+              render={({ field }) => (
+                <FormSelect {...field}>
                   {dataCreate?.data.services.map((item, index) => (
                     <option value={item.value} key={index}>
                       {item.label}
@@ -118,8 +107,8 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
             <Controller
               control={form.control}
               name={`items.${index}.resource_id`}
-              render={() => (
-                <FormSelect>
+              render={({ field }) => (
+                <FormSelect {...field}>
                   {dataCreate?.data.resources.map((item, index) => (
                     <option value={item.value} key={index}>
                       {item.label}
