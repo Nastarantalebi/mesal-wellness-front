@@ -2,7 +2,6 @@ import { Transition } from "@headlessui/react";
 import { useAppSelector } from "../../../stores/hooks";
 import { selectPageLoader } from "../../../stores/pageLoaderSlice";
 import MainLayout from "./MainLayout";
-import ThemeSwitcher from "../../../components/ThemeSwitcher";
 
 function Layout() {
   const pageLoader = useAppSelector(selectPageLoader);
@@ -52,7 +51,7 @@ function Layout() {
           ></path>
         </svg>
       </Transition>
-      <ThemeSwitcher />
+      {/* <ThemeSwitcher /> */}
     </div>
   );
 }

@@ -8,8 +8,8 @@ export const schema = z.object({
   notes: z.string(),
   items: z.array(
     z.object({
-      end_at: z.string().min(1, " "),
-      start_at: z.string().min(1, " "),
+      end_at: z.string().min(1, "فیلد الزامی است"),
+      start_at: z.string().min(1, "فیلد الزامی است"),
       resource_id: z.coerce.number({ message: " " }),
       service_id: z.coerce.number({ message: " " }),
       therapist_id: z.coerce.number({ message: " " }),

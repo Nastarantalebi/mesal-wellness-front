@@ -3,6 +3,7 @@ import { FormLabel, FormSelect } from "@/components/Form";
 import { Controller, useFieldArray } from "react-hook-form";
 import type { TCreateData } from "../_types/type";
 import DatePickerField from "@/components/Form/DatePicker";
+import { useEffect } from "react";
 import { itemsValues } from "../_fixtures/data";
 
 interface TProps {
@@ -18,6 +19,14 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
   });
 
   if (fields.length === 0) append(itemsValues);
+  const useFirstOptionIfZero = (field: any, options: any[]) => {
+    const firstOption = options?.[0]?.value;
+    useEffect(() => {
+      if ((field.value === 0||field.value === "") && firstOption !== undefined) {
+        field.onChange(firstOption);
+      }
+    }, [field.value, firstOption]);
+  };
 
   return (
     <div
@@ -42,8 +51,7 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
               name={`items.${index}.start_at`}
               render={({ field }) => (
                 <DatePickerField
-
-                  showTimePicker={true}
+                  showTimePicker
                   field={{
                     ...field,
                     value: field.value || "",
@@ -60,7 +68,7 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
               name={`items.${index}.end_at`}
               render={({ field }) => (
                 <DatePickerField
-                  showTimePicker={true}
+                  showTimePicker
                   field={{
                     ...field,
                     value: field.value || "",
@@ -71,51 +79,60 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
             />
           </div>
           <div className="flex-1 flex flex-col">
-            <FormLabel> درمانگر</FormLabel>
+            <FormLabel>درمانگر</FormLabel>
             <Controller
               control={form.control}
               name={`items.${index}.therapist_id`}
-              render={({ field }) => (
-                <FormSelect {...field}>
-                  {dataCreate?.data.therapists.map((item, index) => (
-                    <option value={item.value} key={index}>
-                      {item.label}
-                    </option>
-                  ))}
-                </FormSelect>
-              )}
+              render={({ field }) => {
+                useFirstOptionIfZero(field, dataCreate?.data.therapists || []);
+                return (
+                  <FormSelect {...field}>
+                    {dataCreate?.data.therapists.map((item) => (
+                      <option key={item.value} value={item.value}>
+                        {item.label}
+                      </option>
+                    ))}
+                  </FormSelect>
+                );
+              }}
             />
           </div>
           <div className="flex-1 flex flex-col">
-            <FormLabel> خدمات</FormLabel>
+            <FormLabel>خدمات</FormLabel>
             <Controller
               control={form.control}
               name={`items.${index}.service_id`}
-              render={({ field }) => (
-                <FormSelect {...field}>
-                  {dataCreate?.data.services.map((item, index) => (
-                    <option value={item.value} key={index}>
-                      {item.label}
-                    </option>
-                  ))}
-                </FormSelect>
-              )}
+              render={({ field }) => {
+                useFirstOptionIfZero(field, dataCreate?.data.services || []);
+                return (
+                  <FormSelect {...field}>
+                    {dataCreate?.data.services.map((item) => (
+                      <option key={item.value} value={item.value}>
+                        {item.label}
+                      </option>
+                    ))}
+                  </FormSelect>
+                );
+              }}
             />
           </div>
           <div className="flex-1 flex flex-col">
-            <FormLabel> مکان</FormLabel>
+            <FormLabel>مکان</FormLabel>
             <Controller
               control={form.control}
               name={`items.${index}.resource_id`}
-              render={({ field }) => (
-                <FormSelect {...field}>
-                  {dataCreate?.data.resources.map((item, index) => (
-                    <option value={item.value} key={index}>
-                      {item.label}
-                    </option>
-                  ))}
-                </FormSelect>
-              )}
+              render={({ field }) => {
+                useFirstOptionIfZero(field, dataCreate?.data.resources || []);
+                return (
+                  <FormSelect {...field}>
+                    {dataCreate?.data.resources.map((item) => (
+                      <option key={item.value} value={item.value}>
+                        {item.label}
+                      </option>
+                    ))}
+                  </FormSelect>
+                );
+              }}
             />
           </div>
 
