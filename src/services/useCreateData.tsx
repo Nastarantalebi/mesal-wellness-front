@@ -47,21 +47,9 @@ function useCreateData<TReq extends object, TRes>({
           }).showToast();
       }
     },
-    onError: (error: any) => {
-      const message = error?.response?.data?.message || "خطا در ساخت آیتم";
+    onError: () => {
       if (onError) {
         onError();
-      } else {
-        if (showToast)
-          Toastify({
-            text: message,
-            duration: 3000,
-            newWindow: true,
-            close: true,
-            gravity: "top",
-            position: "right",
-            stopOnFocus: true,
-          }).showToast();
       }
     },
   });

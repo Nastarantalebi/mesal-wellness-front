@@ -30,6 +30,6 @@ export const initialValues: TReqTherapists = {
   national_code: "",
   license_number: "",
   status: "",
-  facility_id: 1,
+  facility_id: 0,
   specialties: [],
 };

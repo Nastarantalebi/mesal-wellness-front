@@ -36,20 +36,9 @@ function useDeleteData<T>({ url, queryKey, onError, onSuccess }: TDeleteData) {
         }).showToast();
       }
     },
-    onError: (error: any) => {
-      const message = error?.response?.data?.message || "خطا در حذف آیتم";
+    onError: () => {
       if (onError) {
         onError();
-      } else {
-        Toastify({
-          text: message,
-          duration: 3000,
-          newWindow: true,
-          close: true,
-          gravity: "top",
-          position: "right",
-          stopOnFocus: true,
-        }).showToast();
       }
     },
   });
