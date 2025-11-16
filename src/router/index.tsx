@@ -23,6 +23,8 @@ import TherapistService from "@/features/therapistService/_components/TherapistS
 import TherapistServiceForm from "@/features/therapistService/_components/TherapistServiceForm";
 import { useRoutes } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoutes";
+import Booking from "@/features/booking/_components/Booking";
+import BookingForm from "@/features/booking/_components/BookingForm";
 
 function Router() {
   const routes = [
@@ -117,6 +119,14 @@ function Router() {
         {
           path: "/facilities/create",
           element: <FacilitiesForm />,
+        },
+        {
+          path: "/booking",
+          element: <Booking />,
+        },
+        {
+          path: "/booking/create",
+          element: <BookingForm />,
         },
       ],
     },
