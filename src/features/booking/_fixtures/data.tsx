@@ -3,16 +3,23 @@ import type { TItems, TRequest } from "../_types/type";
 
 export const url = "/wellness/bookings/";
 export const queryKey = "bookingsQuerykey";
+
 export const schema = z.object({
-  customer_id: z.coerce.number({ message: " " }),
+  customer_id: z.coerce.number({ message: "فیلد الزامی است" }),
   notes: z.string(),
   items: z.array(
     z.object({
-      end_at: z.string().min(1, "فیلد الزامی است"),
-      start_at: z.string().min(1, "فیلد الزامی است"),
-      resource_id: z.coerce.number({ message: " " }),
-      service_id: z.coerce.number({ message: " " }),
-      therapist_id: z.coerce.number({ message: " " }),
+      start_at: z
+        .string()
+        .min(1, "فیلد الزامی است")
+        .refine((val) => val.trim() !== "", "فیلد الزامی است"),
+      end_at: z
+        .string()
+        .min(1, "فیلد الزامی است")
+        .refine((val) => val.trim() !== "", "فیلد الزامی است"),
+      resource_id: z.coerce.number({ message: "فیلد الزامی است" }),
+      service_id: z.coerce.number({ message: "فیلد الزامی است" }),
+      therapist_id: z.coerce.number({ message: "فیلد الزامی است" }),
     })
   ),
 });

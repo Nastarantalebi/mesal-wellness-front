@@ -19,10 +19,14 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
   });
 
   if (fields.length === 0) append(itemsValues);
+
   const useFirstOptionIfZero = (field: any, options: any[]) => {
     const firstOption = options?.[0]?.value;
     useEffect(() => {
-      if ((field.value === 0||field.value === "") && firstOption !== undefined) {
+      if (
+        (field.value === 0 || field.value === "") &&
+        firstOption !== undefined
+      ) {
         field.onChange(firstOption);
       }
     }, [field.value, firstOption]);
@@ -40,114 +44,130 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
           افزودن جدید
         </Button>
       </div>
-      {fields.map((fieldItem, index) => (
-        <div
-          key={fieldItem.id}
-          className="flex flex-row items-end justify-end gap-2 mb-2">
-          <div className="flex-1 flex flex-col">
-            <FormLabel>زمان شروع</FormLabel>
-            <Controller
-              control={form.control}
-              name={`items.${index}.start_at`}
-              render={({ field }) => (
-                <DatePickerField
-                  showTimePicker
-                  field={{
-                    ...field,
-                    value: field.value || "",
-                    onChange: (val: string) => field.onChange(val),
-                  }}
-                />
-              )}
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <FormLabel>زمان پایان</FormLabel>
-            <Controller
-              control={form.control}
-              name={`items.${index}.end_at`}
-              render={({ field }) => (
-                <DatePickerField
-                  showTimePicker
-                  field={{
-                    ...field,
-                    value: field.value || "",
-                    onChange: (val: string) => field.onChange(val),
-                  }}
-                />
-              )}
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <FormLabel>درمانگر</FormLabel>
-            <Controller
-              control={form.control}
-              name={`items.${index}.therapist_id`}
-              render={({ field }) => {
-                useFirstOptionIfZero(field, dataCreate?.data.therapists || []);
-                return (
-                  <FormSelect {...field}>
-                    {dataCreate?.data.therapists.map((item) => (
-                      <option key={item.value} value={item.value}>
-                        {item.label}
-                      </option>
-                    ))}
-                  </FormSelect>
-                );
-              }}
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <FormLabel>خدمات</FormLabel>
-            <Controller
-              control={form.control}
-              name={`items.${index}.service_id`}
-              render={({ field }) => {
-                useFirstOptionIfZero(field, dataCreate?.data.services || []);
-                return (
-                  <FormSelect {...field}>
-                    {dataCreate?.data.services.map((item) => (
-                      <option key={item.value} value={item.value}>
-                        {item.label}
-                      </option>
-                    ))}
-                  </FormSelect>
-                );
-              }}
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <FormLabel>مکان</FormLabel>
-            <Controller
-              control={form.control}
-              name={`items.${index}.resource_id`}
-              render={({ field }) => {
-                useFirstOptionIfZero(field, dataCreate?.data.resources || []);
-                return (
-                  <FormSelect {...field}>
-                    {dataCreate?.data.resources.map((item) => (
-                      <option key={item.value} value={item.value}>
-                        {item.label}
-                      </option>
-                    ))}
-                  </FormSelect>
-                );
-              }}
-            />
-          </div>
 
-          <div className="flex">
-            {fields.length > 1 && (
-              <Button
-                type="button"
-                onClick={() => remove(index)}
-                variant="danger">
-                ×
-              </Button>
-            )}
+      {fields.map((fieldItem, index) => {
+        const errorItem = form.formState.errors.items?.[index];
+        return (
+          <div
+            key={fieldItem.id}
+            className="flex flex-row items-end justify-end gap-2 mb-2">
+            {/* شروع */}
+            <div className="flex-1 flex flex-col">
+              <FormLabel>زمان شروع</FormLabel>
+              <Controller
+                control={form.control}
+                name={`items.${index}.start_at`}
+                render={({ field }) => (
+                  <DatePickerField
+                    showTimePicker
+                    field={field} // بدون fallback به ""
+                  />
+                )}
+              />
+              {errorItem?.start_at && (
+                <p className="text-red-500 text-sm">
+                  {errorItem.start_at.message}
+                </p>
+              )}
+            </div>
+
+            {/* پایان */}
+            <div className="flex-1 flex flex-col">
+              <FormLabel>زمان پایان</FormLabel>
+              <Controller
+                control={form.control}
+                name={`items.${index}.end_at`}
+                render={({ field }) => (
+                  <DatePickerField showTimePicker field={field} />
+                )}
+              />
+              {errorItem?.end_at && (
+                <p className="text-red-500 text-sm">
+                  {errorItem.end_at.message}
+                </p>
+              )}
+            </div>
+
+            {/* درمانگر */}
+            <div className="flex-1 flex flex-col">
+              <FormLabel>درمانگر</FormLabel>
+              <Controller
+                control={form.control}
+                name={`items.${index}.therapist_id`}
+                render={({ field }) => {
+                  useFirstOptionIfZero(
+                    field,
+                    dataCreate?.data.therapists || []
+                  );
+                  return (
+                    <FormSelect {...field}>
+                      {dataCreate?.data.therapists.map((item) => (
+                        <option key={item.value} value={item.value}>
+                          {item.label}
+                        </option>
+                      ))}
+                    </FormSelect>
+                  );
+                }}
+              />
+            </div>
+
+            {/* خدمات */}
+            <div className="flex-1 flex flex-col">
+              <FormLabel>خدمات</FormLabel>
+              <Controller
+                control={form.control}
+                name={`items.${index}.service_id`}
+                render={({ field }) => {
+                  useFirstOptionIfZero(field, dataCreate?.data.services || []);
+                  return (
+                    <FormSelect {...field}>
+                      {dataCreate?.data.services.map((item) => (
+                        <option key={item.value} value={item.value}>
+                          {item.label}
+                        </option>
+                      ))}
+                    </FormSelect>
+                  );
+                }}
+              />
+            </div>
+
+            {/* مکان */}
+            <div className="flex-1 flex flex-col">
+              <FormLabel>مکان</FormLabel>
+              <Controller
+                control={form.control}
+                name={`items.${index}.resource_id`}
+                render={({ field }) => {
+                  useFirstOptionIfZero(field, dataCreate?.data.resources || []);
+                  return (
+                    <FormSelect {...field}>
+                      {dataCreate?.data.resources.map((item) => (
+                        <option key={item.value} value={item.value}>
+                          {item.label}
+                        </option>
+                      ))}
+                    </FormSelect>
+                  );
+                }}
+              />
+            </div>
+
+            {/* حذف */}
+            <div className="flex">
+              {fields.length > 1 && (
+                <Button
+                  type="button"
+                  onClick={() => remove(index)}
+                  variant="danger">
+                  ×
+                </Button>
+              )}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
