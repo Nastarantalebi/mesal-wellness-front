@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import useFormData from "../_hooks/useFormData";
 import FormComponent from "@/components/Form/Form";
 import useGetData from "@/services/useGetData";
-import type { TCreateData } from "../_types/type";
+import type { TCreateData, TDataById, TRequest } from "../_types/type";
 import ItemForm from "./ItemForm";
 
 function BookingForm() {
@@ -25,7 +25,7 @@ function BookingForm() {
     queryKey: queryKey,
     id: selectedRecord,
   });
-  const { data: dataById } = useGetById<any>({
+  const { data: dataById } = useGetById<TDataById>({
     url: url,
     queryKey: [queryKey, selectedRecord],
     id: selectedRecord,
@@ -42,20 +42,19 @@ function BookingForm() {
   const { fields } = useFormData({ isLoadingCreate, dataCreate });
   useEffect(() => {
     if (dataById) {
-      //   const praparedData: TRequest = {
-      //     first_name: dataById.customer.first_name,
-      //     last_name: dataById.customer.last_name,
-      //     national_code: dataById.customer.national_code,
-      //     notes: dataById.customer.notes,
-      //     phone: dataById.customer.phone,
-      //     gender: dataById.customer.gender,
-      //     membership_type: dataById.customer.membership_type,
-      //     status: dataById.customer.status,
-      //     birth_date: dataById.customer.birth_date,
-      //     joined_at: dataById.customer.joined_at,
-      //     user_id: null,
-      //   };
-      form.reset(dataById);
+      const preparedDataItem = dataById.booking.items.map((item) => ({
+        service_id: item.service_id,
+        therapist_id: item.therapist_id,
+        resource_id: item.resource_id,
+        start_at: item.start_at,
+        end_at: item.end_at,
+      }));
+      const praparedData: TRequest = {
+        customer_id: dataById.booking.customer_id,
+        notes: dataById.booking.notes,
+        items: preparedDataItem,
+      };
+      form.reset(praparedData);
     }
   }, [form.reset, dataById]);
   return (
@@ -67,7 +66,7 @@ function BookingForm() {
         const action = selectedRecord ? update : create;
         action(values, { onSuccess: () => navigate("/booking") });
       }}>
-      <ItemForm form={form} dataCreate={dataCreate}  />
+      <ItemForm form={form} dataCreate={dataCreate} />
     </FormComponent>
   );
 }

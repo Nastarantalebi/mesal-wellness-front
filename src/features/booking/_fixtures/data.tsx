@@ -6,7 +6,7 @@ export const queryKey = "bookingsQuerykey";
 
 export const schema = z.object({
   customer_id: z.coerce.number({ message: "فیلد الزامی است" }),
-  notes: z.string(),
+  notes: z.string().nullable(),
   items: z.array(
     z.object({
       start_at: z
@@ -32,6 +32,6 @@ export const itemsValues: TItems = {
 };
 export const initialValues: TRequest = {
   customer_id: 0,
-  notes: "",
+  notes: null,
   items: [itemsValues],
 };
