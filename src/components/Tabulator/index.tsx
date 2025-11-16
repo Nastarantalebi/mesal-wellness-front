@@ -9,7 +9,7 @@ import Lucide from "../Lucide";
 import { FormInline, FormInput, FormLabel, FormSelect } from "../Form";
 import { Menu } from "../Headless";
 import { createRoot } from "react-dom/client";
-import { Edit, Eye, Trash2 } from "lucide-react";
+import { Edit, Eye, RefreshCcwIcon, Trash2 } from "lucide-react";
 import TitlePage from "@/features/_components/TitlePage";
 
 type CustomTableProps = {
@@ -30,6 +30,7 @@ type CustomTableProps = {
   onEdit?: (record: any) => void;
   onDelete?: (record: any) => void;
   onVisit?: (record: any) => void;
+  onChange?: (record: any) => void;
 };
 
 function CustomTable({
@@ -41,6 +42,7 @@ function CustomTable({
   onEdit,
   onDelete,
   onVisit,
+  onChange,
 }: // enableExport = true,
 // enableFilter = true,
 CustomTableProps) {
@@ -71,6 +73,16 @@ CustomTableProps) {
 
             root.render(
               <div className="flex justify-center gap-2">
+                {onChange && (
+                  <Button
+                    title="تغییر وضعیت"
+                    variant="outline-primary"
+                    size="sm"
+                    onClick={() => onChange(rowData)}
+                    className="flex items-center gap-1 p-1">
+                    <RefreshCcwIcon className="w-4 h-4" />
+                  </Button>
+                )}
                 {onEdit && (
                   <Button
                     title="ویرایش"

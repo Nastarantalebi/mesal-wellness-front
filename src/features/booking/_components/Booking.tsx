@@ -8,6 +8,7 @@ import Modal from "@/components/Headless/Dialog/Modal";
 import BookingVisit from "./BookingVisit";
 import useGetById from "@/services/useGetById";
 import type { TDataById } from "../_types/type";
+import ChangeStatus from "./ChangeStatus";
 
 function Booking() {
   const navigate = useNavigate();
@@ -20,9 +21,10 @@ function Booking() {
     url: url,
   });
   const [open, setOpen] = useState(false);
+  const [openStatus, setOpenStatus] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState<number | null>(null);
 
-  const { data: dataById ,isFetching:isFetchingById} = useGetById<TDataById>({
+  const { data: dataById, isFetching: isFetchingById } = useGetById<TDataById>({
     url: url,
     queryKey: [queryKey, String(selectedRecord)],
     id: selectedRecord,
@@ -38,11 +40,23 @@ function Booking() {
         onEdit={(record) => navigate("create", { state: { record } })}
         onDelete={(record) => Delete(record.id)}
         onVisit={(record) => {
-          setOpen(true), setSelectedRecord(record.id);
+          setOpen(true);
+          setSelectedRecord(record.id);
+        }}
+        onChange={(record) => {
+          setOpenStatus(true);
+          setSelectedRecord(record.id);
         }}
       />
       <Modal close={() => setOpen(false)} open={open} size="xl" title="">
-        <BookingVisit dataById={dataById} isFetchingById={isFetchingById}/>
+        <BookingVisit dataById={dataById} isFetchingById={isFetchingById} />
+      </Modal>
+      <Modal
+        close={() => setOpenStatus(false)}
+        open={openStatus}
+        size="sm"
+        title={`تغییر وضعیت ${selectedRecord}`}>
+        <ChangeStatus selectedRecord={selectedRecord} setOpenStatus={setOpenStatus} />
       </Modal>
     </>
   );

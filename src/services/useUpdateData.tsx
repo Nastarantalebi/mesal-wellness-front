@@ -16,7 +16,8 @@ export async function updateCase<TReq extends object, TRes>(
   values: TReq,
   id?: number | string | null
 ) {
-  const { data }: { data: TRes } = await Request.put(url + id + "/", values);
+  const finalUrl = id != null ? `${url}${id}/` : url;
+  const { data }: { data: TRes } = await Request.put(finalUrl, values);
   return data;
 }
 
