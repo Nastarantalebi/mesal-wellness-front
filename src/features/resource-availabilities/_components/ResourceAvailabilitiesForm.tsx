@@ -47,7 +47,6 @@ function ResourceAvailabilitiesForm() {
     }
   }, [form, dataById]);
   const { fields } = useFormData();
-  console.log(form.watch());
   return (
     <FormComponent
       form={form}
