@@ -30,7 +30,6 @@ const ChangeStatus = ({
     ),
     defaultValues: { status: "" },
   });
-  console.log(form.watch());
   return (
     <FormComponent
       form={form}
