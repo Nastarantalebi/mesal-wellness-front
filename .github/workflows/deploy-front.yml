@@ -1,4 +1,4 @@
-name: Deploy wellness front
+name: Deploy Front
 
 on:
   workflow_dispatch:
@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Use your SSH private key from Secrets
       - name: SSH deploy
         uses: appleboy/ssh-action@v1
         with:
