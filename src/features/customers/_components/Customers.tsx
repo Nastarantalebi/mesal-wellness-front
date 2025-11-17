@@ -18,6 +18,7 @@ function Customers() {
   return (
     <CustomTable
       title="مشتریان"
+      showImport={true}
       columns={data?.columns}
       data={data?.data}
       paginationSize={data?.paginate.total}

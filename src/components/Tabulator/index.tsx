@@ -26,6 +26,7 @@ type CustomTableProps = {
   enableExport?: boolean;
   /** فعال‌سازی فیلتر */
   enableFilter?: boolean;
+  showImport?: boolean;
   customAddText?: string;
   onAdd?: () => void;
   customAdd?: () => void;
@@ -40,6 +41,7 @@ function CustomTable({
   columns,
   data,
   paginationSize = 10,
+  showImport = false,
   onAdd,
   customAddText,
   customAdd,
@@ -204,7 +206,10 @@ CustomTableProps) {
                 onClick={customAdd}
                 variant="outline-primary"
                 className="group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent">
-                <Lucide icon="CalendarCheck2" className="stroke-[1.3] w-4 h-4 me-2" />{" "}
+                <Lucide
+                  icon="CalendarCheck2"
+                  className="stroke-[1.3] w-4 h-4 me-2"
+                />{" "}
                 {customAddText}
               </Button>
             )}
@@ -316,6 +321,15 @@ CustomTableProps) {
                   />
                   چاپ
                 </Button>
+                {showImport && (
+                  <Button variant="outline-secondary" onClick={()=>console.log("import")}>
+                    <Lucide
+                      icon="Download"
+                      className="stroke-[1.3] w-4 h-4 me-2"
+                    />
+                    وارد کردن
+                  </Button>
+                )}
                 <Menu className="sm:ms-auto xl:ms-0">
                   <Menu.Button
                     as={Button}
