@@ -1,8 +1,7 @@
-import type { TCreateData } from "@/features/booking/_types/type";
 import type { TFormData } from "@/types";
 import type { TRequest } from "../_types/type";
-type TProps = { isLoadingCreate: boolean; dataCreate?: TCreateData };
-const useFormData = ({ isLoadingCreate, dataCreate }: TProps) => {
+import { DateObject } from "react-multi-date-picker";
+const useFormData = () => {
   const fields: (TFormData<TRequest> | undefined)[] = [
     {
       label: "تاریخ شروع",
@@ -10,6 +9,7 @@ const useFormData = ({ isLoadingCreate, dataCreate }: TProps) => {
       placeholder: "تاریخ شروع",
       type: "date",
       required: true,
+      maxDate: new DateObject(),
     },
     {
       label: "تاریخ پایان",
@@ -17,16 +17,14 @@ const useFormData = ({ isLoadingCreate, dataCreate }: TProps) => {
       placeholder: "تاریخ پایان",
       type: "date",
       required: true,
+      maxDate: new DateObject(),
     },
     {
-      label: "وضعیت نوبت",
-      name: "status",
-      placeholder: "وضعیت نوبت",
+      label: " نوع",
+      name: "type",
+      placeholder: "نوع",
       type: "select",
-      isLoading: isLoadingCreate,
-      option: dataCreate?.data.statuses
-        ? [{ label: "همه نوبت‌ها", value: "" }, ...dataCreate.data.statuses]
-        : [],
+      option: [],
     },
   ];
   return { fields };

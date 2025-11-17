@@ -1,3 +1,4 @@
+import CalendarMatrix from "../_components/calendar-matrix/_components/CalendarMatrix";
 import CalendarRange from "../_components/calendar-range/_components/CalendarRange";
 import CalendarDate from "../_components/calender/CalendarDate";
 
@@ -15,8 +16,8 @@ const useTabItems = () => {
     },
     {
       key: "3",
-      title: "یادداشت های بالینی",
-      content:  <></>
+      title: "تقویم ماتریسی رزروها",
+      content:  <CalendarMatrix/>
     },
   ];
   return { tabItems };
