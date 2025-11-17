@@ -9,6 +9,7 @@ import BookingVisit from "./BookingVisit";
 import useGetById from "@/services/useGetById";
 import type { TDataById, TSelect } from "../_types/type";
 import ChangeStatus from "./ChangeStatus";
+import CalendarDate from "./calendar/_components/CalendarDate";
 
 function Booking() {
   const navigate = useNavigate();
@@ -27,10 +28,11 @@ function Booking() {
   const { data: dataById, isFetching: isFetchingById } = useGetById<TDataById>({
     url: url,
     queryKey: [queryKey, String(id)],
-    id:id,
+    id: id,
   });
   return (
     <>
+      <CalendarDate />
       <CustomTable
         title="رزرو نوبت"
         columns={data?.columns}
