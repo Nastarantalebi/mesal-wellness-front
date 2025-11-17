@@ -1,8 +1,8 @@
-import type { DayEvents } from "../_types/type";
+import type { CalendarDayEvents } from "../../_types/type";
 
-type TProps = { data?: DayEvents };
+type TProps = { data?: CalendarDayEvents };
 
-const AppointmentReservation = ({ data }: TProps) => {
+const CalenderList = ({ data }: TProps) => {
   return (
     <div className="space-y-4">
       {data?.events?.length === 0 && (
@@ -50,4 +50,4 @@ const AppointmentReservation = ({ data }: TProps) => {
   );
 };
 
-export default AppointmentReservation;
+export default CalenderList;

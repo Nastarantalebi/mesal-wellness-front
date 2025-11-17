@@ -78,7 +78,7 @@ function useFormField<TFormValues extends FieldValues>() {
           if (
             firstOption !== undefined &&
             (field.value === undefined ||
-              field.value === null ||
+              // field.value === null ||
               field.value === "" ||
               field.value === 0)
           ) {

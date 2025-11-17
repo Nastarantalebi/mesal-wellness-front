@@ -25,7 +25,7 @@ import { useRoutes } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoutes";
 import Booking from "@/features/booking/_components/Booking";
 import BookingForm from "@/features/booking/_components/BookingForm";
-import CalendarDate from "@/features/booking/_components/calendar/_components/CalendarDate";
+import TabList from "@/features/booking/_components/reservation/_components/TabList";
 
 function Router() {
   const routes = [
@@ -127,7 +127,7 @@ function Router() {
         },
         {
           path: "/booking/calendar",
-          element: <CalendarDate />,
+          element: <TabList />,
         },
         {
           path: "/booking/create",

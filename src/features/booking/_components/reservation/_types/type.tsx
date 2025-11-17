@@ -1,4 +1,4 @@
-export interface Event {
+export type CalendarEvent = {
   id: number;
   title: string;
   service: string;
@@ -8,10 +8,10 @@ export interface Event {
   therapist: string;
   color: string;
   status: string;
-}
+};
 
-export interface DayEvents {
+export type CalendarDayEvents = {
   date: string;
   type: string;
-  events: Event[];
-}
+  events: CalendarEvent[];
+};
