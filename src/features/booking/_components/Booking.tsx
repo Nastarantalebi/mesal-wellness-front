@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CustomTable from "../../../components/Tabulator";
 import useGetData from "../../../services/useGetData";
 import { queryKey, url } from "../_fixtures/data";
@@ -31,19 +31,14 @@ function Booking() {
   });
   return (
     <>
-      <div className="mb-4 text-left">
-        <Link
-          to="/booking/calendar"
-          className="inline-block px-4 py-2 text-sm font-medium text-white bg-blue-400 rounded-md hover:bg-primary-dark transition-colors shadow-md">
-          نوبت‌های رزرو شده
-        </Link>
-      </div>
       <CustomTable
         title="رزرو نوبت"
         columns={data?.columns}
         data={data?.data}
         paginationSize={data?.paginate.total}
         onAdd={() => navigate("create")}
+        customAdd={() => navigate("calendar")}
+        customAddText=" نوبت‌های رزرو شده"
         onEdit={(record) => navigate("create", { state: { record } })}
         onDelete={(record) => Delete(record.id)}
         onVisit={(record) => {

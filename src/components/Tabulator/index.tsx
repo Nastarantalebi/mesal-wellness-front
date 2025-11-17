@@ -26,7 +26,9 @@ type CustomTableProps = {
   enableExport?: boolean;
   /** فعال‌سازی فیلتر */
   enableFilter?: boolean;
+  customAddText?: string;
   onAdd?: () => void;
+  customAdd?: () => void;
   onEdit?: (record: any) => void;
   onDelete?: (record: any) => void;
   onVisit?: (record: any) => void;
@@ -39,6 +41,8 @@ function CustomTable({
   data,
   paginationSize = 10,
   onAdd,
+  customAddText,
+  customAdd,
   onEdit,
   onDelete,
   onVisit,
@@ -195,12 +199,21 @@ CustomTableProps) {
             {title}
           </div>
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ms-auto">
+            {customAdd && (
+              <Button
+                onClick={customAdd}
+                variant="outline-primary"
+                className="group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent">
+                <Lucide icon="CalendarCheck2" className="stroke-[1.3] w-4 h-4 me-2" />{" "}
+                {customAddText}
+              </Button>
+            )}
             {onAdd && (
               <Button
                 onClick={onAdd}
-                variant="primary"
+                variant="outline-success"
                 className="group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent">
-                <Lucide icon="PenLine" className="stroke-[1.3] w-4 h-4 me-2" />{" "}
+                <Lucide icon="Plus" className="stroke-[1.3] w-4 h-4 me-2" />{" "}
                 افزودن جدید
               </Button>
             )}

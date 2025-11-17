@@ -17,7 +17,7 @@ function CalendarMatrix() {
   const [filters, setFilters] = useState<TRequest>(initialValues);
 
   const { from, to, type } = filters;
-  const { data, isLoading, refetch } = useGetData<TResponse>({
+  const { data, isFetching, refetch } = useGetData<TResponse>({
     url: `${url}calendar-matrix?from=${from}&to=${to}&type=${type}&id=5`,
     queryKey: [queryKey, from, to],
     enabled: false,
@@ -41,7 +41,7 @@ function CalendarMatrix() {
       <FormComponent
         form={form}
         formFields={fields}
-        isSubmitting={isLoading}
+        isSubmitting={isFetching}
         onSubmit={handleSubmit}
         btnSubmitText="مشاهده گزارش"
       />
