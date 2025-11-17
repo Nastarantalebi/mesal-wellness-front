@@ -18,8 +18,7 @@ function CalendarMatrix() {
 
   const { from, to, type } = filters;
   const { data, isLoading, refetch } = useGetData<TResponse>({
-    url: `${url}calendar-range?from=${from}&to=${to}
-     &type=${type}`,
+    url: `${url}calendar-matrix?from=${from}&to=${to}&type=${type}&id=5`,
     queryKey: [queryKey, from, to],
     enabled: false,
   });

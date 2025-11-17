@@ -24,7 +24,10 @@ const useFormData = () => {
       name: "type",
       placeholder: "نوع",
       type: "select",
-      option: [],
+      option: [
+        {label:"درمانگر",value:"therapist"},
+        {label:"مکان",value:"resource"},
+      ],
     },
   ];
   return { fields };
