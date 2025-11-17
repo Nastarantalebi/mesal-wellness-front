@@ -25,6 +25,7 @@ import { useRoutes } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoutes";
 import Booking from "@/features/booking/_components/Booking";
 import BookingForm from "@/features/booking/_components/BookingForm";
+import CalendarDate from "@/features/booking/_components/calendar/_components/CalendarDate";
 
 function Router() {
   const routes = [
@@ -123,6 +124,10 @@ function Router() {
         {
           path: "/booking",
           element: <Booking />,
+        },
+        {
+          path: "/booking/calendar",
+          element: <CalendarDate />,
         },
         {
           path: "/booking/create",

@@ -5,6 +5,8 @@ import { Calendar, DateObject } from "react-multi-date-picker";
 import highlightWeekends from "react-multi-date-picker/plugins/highlight_weekends";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
+import AppointmentReservation from "./AppointmentReservation";
+import type { DayEvents } from "../_types/type";
 const CalendarDate = () => {
   const [value, setValue] = useState<DateObject | null>(null);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
@@ -22,20 +24,19 @@ const CalendarDate = () => {
       setSelectedDate(faToEn(value.format("YYYY/MM/DD")));
     }
   }, [value]);
-  const { data } = useGetData({
+  const { data } = useGetData<DayEvents>({
     url: `${url}calendar?date=${selectedDate}`,
     queryKey: ["CalendarDate", String(selectedDate)],
     enabled: !!selectedDate,
   });
-  console.log(data);
-  console.log(selectedDate);
   return (
+    <>
     <div className="p-5 space-y-4">
       {/* انتخاب تاریخ */}
       <Calendar
         className={`
     !z-10 !rounded-xl p-2 !w-full h-fit 
-    lg:!w-96 rmdp-mobile 
+    lg:!w-1/4 rmdp-mobile 
     !border !border-neutral-200 dark:!border-neutral-700
     !bg-white dark:!bg-neutral-800
     !text-neutral-900 dark:!text-neutral-100
@@ -66,6 +67,8 @@ const CalendarDate = () => {
         plugins={[highlightWeekends()]}
       />
     </div>
+    <AppointmentReservation data={data}/>
+    </>
   );
 };
 
