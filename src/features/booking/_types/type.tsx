@@ -104,3 +104,13 @@ export type TCreateData = {
     }[];
   };
 };
+export type  TSelect = {
+  actions?: string;
+  customer_name: string;
+  end_at: string;
+  id: number;
+  national_code: string | null;
+  phone: string;
+  start_at: string;
+  status: string;
+};

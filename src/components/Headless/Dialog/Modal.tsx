@@ -1,5 +1,6 @@
 import Button from "@/components/Button";
 import { Dialog } from "@/components/Headless";
+import { XIcon } from "lucide-react";
 import type { ReactNode } from "react";
 type TProps = {
   open: boolean;
@@ -8,6 +9,7 @@ type TProps = {
   title: string;
   size?: "sm" | "md" | "lg" | "xl";
   cancelText?: string;
+  cancelBtn?: boolean;
 };
 export default function Modal({
   open,
@@ -16,20 +18,28 @@ export default function Modal({
   cancelText,
   children,
   size = "md",
+  cancelBtn = true,
 }: TProps) {
   return (
     <>
       <Dialog open={open} onClose={close} size={size}>
         <Dialog.Panel>
-          <Dialog.Title>{title}</Dialog.Title>
+          <div className="flex flex-row items-center justify-between px-1">
+            <Dialog.Title>{title}</Dialog.Title>
+            <span onClick={close} className="p-2 cursor-pointer">
+              <XIcon size={16} />
+            </span>
+          </div>
 
           <Dialog.Description>{children}</Dialog.Description>
 
-          <Dialog.Footer>
-            <Button variant="danger" onClick={close}>
-              {cancelText ?? "بستن"}
-            </Button>
-          </Dialog.Footer>
+          {cancelBtn && (
+            <Dialog.Footer>
+              <Button variant="danger" onClick={close}>
+                {cancelText ?? "بستن"}
+              </Button>
+            </Dialog.Footer>
+          )}
         </Dialog.Panel>
       </Dialog>
     </>

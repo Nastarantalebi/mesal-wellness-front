@@ -4,18 +4,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { queryKey, url } from "../_fixtures/data";
-import type { TCreateData } from "../_types/type";
+import type { TCreateData, TSelect } from "../_types/type";
 import useGetData from "@/services/useGetData";
+import { useEffect } from "react";
 
 const ChangeStatus = ({
   selectedRecord,
   setOpenStatus,
+  status,
 }: {
-  selectedRecord: number | null;
+  selectedRecord?: TSelect;
   setOpenStatus: any;
+  status?: string;
 }) => {
   const { mutate, isPending } = useUpdateData({
-    url: `/wellness/bookings/${selectedRecord}/status/`,
+    url: `/wellness/bookings/${selectedRecord?.id}/status/`,
     queryKey: queryKey,
   });
   const { data, isLoading } = useGetData<TCreateData>({
@@ -30,6 +33,13 @@ const ChangeStatus = ({
     ),
     defaultValues: { status: "" },
   });
+  useEffect(() => {
+    if (status) {
+      form.reset({
+        status: status,
+      });
+    }
+  }, [form,status]);
   return (
     <FormComponent
       form={form}

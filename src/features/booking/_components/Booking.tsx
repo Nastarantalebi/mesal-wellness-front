@@ -7,7 +7,7 @@ import { useState } from "react";
 import Modal from "@/components/Headless/Dialog/Modal";
 import BookingVisit from "./BookingVisit";
 import useGetById from "@/services/useGetById";
-import type { TDataById } from "../_types/type";
+import type { TDataById, TSelect } from "../_types/type";
 import ChangeStatus from "./ChangeStatus";
 
 function Booking() {
@@ -22,12 +22,12 @@ function Booking() {
   });
   const [open, setOpen] = useState(false);
   const [openStatus, setOpenStatus] = useState(false);
-  const [selectedRecord, setSelectedRecord] = useState<number | null>(null);
-
+  const [selectedRecord, setSelectedRecord] = useState<TSelect | undefined>();
+  const id = selectedRecord && selectedRecord.id;
   const { data: dataById, isFetching: isFetchingById } = useGetById<TDataById>({
     url: url,
-    queryKey: [queryKey, String(selectedRecord)],
-    id: selectedRecord,
+    queryKey: [queryKey, String(id)],
+    id:id,
   });
   return (
     <>
@@ -41,11 +41,11 @@ function Booking() {
         onDelete={(record) => Delete(record.id)}
         onVisit={(record) => {
           setOpen(true);
-          setSelectedRecord(record.id);
+          setSelectedRecord(record);
         }}
         onChange={(record) => {
           setOpenStatus(true);
-          setSelectedRecord(record.id);
+          setSelectedRecord(record);
         }}
       />
       <Modal close={() => setOpen(false)} open={open} size="xl" title="">
@@ -54,9 +54,14 @@ function Booking() {
       <Modal
         close={() => setOpenStatus(false)}
         open={openStatus}
-        size="sm"
-        title={`تغییر وضعیت ${selectedRecord}`}>
-        <ChangeStatus selectedRecord={selectedRecord} setOpenStatus={setOpenStatus} />
+        size="md"
+        title={`تغییر وضعیت ${selectedRecord?.customer_name}`}
+        cancelBtn={false}>
+        <ChangeStatus
+          selectedRecord={selectedRecord}
+          setOpenStatus={setOpenStatus}
+          status={dataById?.booking.status}
+        />
       </Modal>
     </>
   );
