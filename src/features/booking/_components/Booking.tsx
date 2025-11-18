@@ -35,7 +35,7 @@ function Booking() {
         title="رزرو نوبت"
         columns={data?.columns}
         data={data?.data}
-        paginationSize={data?.paginate.total}
+        dataPagination={data?.paginate}
         onAdd={() => navigate("create")}
         customAdd={() => navigate("calendar")}
         customAddText=" نوبت‌های رزرو شده"

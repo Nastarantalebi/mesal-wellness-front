@@ -20,7 +20,7 @@ function Therapists() {
       title="درمانگر"
       columns={data?.columns}
       data={data?.data}
-      paginationSize={data?.paginate.total}
+      dataPagination={data?.paginate}
       onAdd={() => navigate("create")}
       onEdit={(record) => navigate("create", { state: { record } })}
       onDelete={(record) => Delete(record.id)}

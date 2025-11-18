@@ -19,7 +19,7 @@ function Services() {
       title="خدمات"
       columns={data?.columns}
       data={data?.data}
-      paginationSize={data?.paginate && data.paginate.total}
+      dataPagination={data?.paginate && data?.paginate}
       onAdd={() => navigate("create")}
       onDelete={(record) => Delete(record.id)}
       onEdit={(record) => {

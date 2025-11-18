@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { TabulatorFull as Tabulator } from "tabulator-tables";
 import { createIcons, icons } from "lucide";
 import { mapFieldsToColumns } from "./columnsTransform";
-import type { TColumns } from "../../types";
+import type { TColumns, TPaginate } from "../../types";
 import Button from "../Button";
 import Lucide from "../Lucide";
 import { FormInline, FormInput, FormLabel, FormSelect } from "../Form";
@@ -11,6 +11,7 @@ import { Menu } from "../Headless";
 import { createRoot } from "react-dom/client";
 import { Edit, Eye, RefreshCcwIcon, Trash2 } from "lucide-react";
 import TitlePage from "@/features/_components/TitlePage";
+import Pagination from "./Pagination";
 
 type CustomTableProps = {
   /** عنوان جدول */
@@ -20,6 +21,7 @@ type CustomTableProps = {
   /** داده‌ها برای نمایش در جدول */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: any[];
+  dataPagination: TPaginate;
   /** اندازه‌ی صفحه‌بندی */
   paginationSize?: number;
   /** فعال‌سازی چاپ و خروجی‌ها */
@@ -43,6 +45,7 @@ function CustomTable({
   paginationSize = 10,
   onAdd,
   customAddText,
+  dataPagination,
   customAdd,
   onEdit,
   onDelete,
@@ -129,12 +132,12 @@ CustomTableProps) {
       ],
       nestedFieldSeparator: false,
       layout: "fitColumns",
-      paginationMode: "local",
+      // paginationMode: "local",
       filterMode: "local",
       sortMode: "local",
-      pagination: true,
+      // pagination: false,
       paginationSize,
-      paginationSizeSelector: [10, 20, 30, 100, 500, 1000],
+      // paginationSizeSelector: [10, 20, 30, 50, 100, 200],
       printAsHtml: true,
       printStyled: true,
       responsiveLayout: "collapse",
@@ -383,6 +386,9 @@ CustomTableProps) {
               <div className="overflow-x-auto scrollbar-hidden">
                 <div id="tabulator" ref={tableRef}></div>
               </div>
+              {dataPagination && dataPagination.total > 10 && (
+                <Pagination dataPagination={dataPagination} />
+              )}
             </div>
           </div>
         </div>
