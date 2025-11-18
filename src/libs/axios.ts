@@ -7,7 +7,7 @@ const instance = axios.create({
   baseURL: BASE_URL,
   withCredentials: false,
   headers: {
-    "Content-Type": "application/json",
+    // "Content-Type": "application/json",
     Accept: "application/json",
   },
 });
@@ -17,6 +17,9 @@ instance.interceptors.request.use(
     const token = Cookies.get("access_token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+    }
+    if (config.data instanceof FormData) {
+      delete config.headers["Content-Type"];
     }
     return config;
   },

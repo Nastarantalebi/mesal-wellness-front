@@ -26,7 +26,6 @@ type CustomTableProps = {
   enableExport?: boolean;
   /** فعال‌سازی فیلتر */
   enableFilter?: boolean;
-  showImport?: boolean;
   customAddText?: string;
   onAdd?: () => void;
   customAdd?: () => void;
@@ -34,6 +33,7 @@ type CustomTableProps = {
   onDelete?: (record: any) => void;
   onVisit?: (record: any) => void;
   onChange?: (record: any) => void;
+  onImport?: (file: File) => void;
 };
 
 function CustomTable({
@@ -41,7 +41,6 @@ function CustomTable({
   columns,
   data,
   paginationSize = 10,
-  showImport = false,
   onAdd,
   customAddText,
   customAdd,
@@ -49,6 +48,7 @@ function CustomTable({
   onDelete,
   onVisit,
   onChange,
+  onImport,
 }: // enableExport = true,
 // enableFilter = true,
 CustomTableProps) {
@@ -174,7 +174,13 @@ CustomTableProps) {
     return () => window.removeEventListener("resize", resizeHandler);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [columns, data]);
-
+  //ایمپورت فایل اکسل
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    onImport?.(file);
+  };
   // توابع خروجی
   const exportTable = (type: "csv" | "json" | "xlsx" | "html") => {
     if (!tabulator.current) return;
@@ -321,14 +327,26 @@ CustomTableProps) {
                   />
                   چاپ
                 </Button>
-                {showImport && (
-                  <Button variant="outline-secondary" onClick={()=>console.log("import")}>
-                    <Lucide
-                      icon="Download"
-                      className="stroke-[1.3] w-4 h-4 me-2"
+                {onImport && (
+                  <>
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => fileInputRef.current?.click()}>
+                      <Lucide
+                        icon="Download"
+                        className="stroke-[1.3] w-4 h-4 me-2"
+                      />
+                      وارد کردن
+                    </Button>
+
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept=".xlsx,.csv"
+                      className="hidden"
+                      onChange={handleImport}
                     />
-                    وارد کردن
-                  </Button>
+                  </>
                 )}
                 <Menu className="sm:ms-auto xl:ms-0">
                   <Menu.Button
