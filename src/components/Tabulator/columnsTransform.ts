@@ -1,5 +1,5 @@
+import type { TColumns } from "@/types";
 import type { ColumnDefinition } from "tabulator-tables";
-import type { TColumns } from "../../types";
 
 export function mapFieldsToColumns(
   fields: Record<string, TColumns>
