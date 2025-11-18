@@ -299,7 +299,7 @@ CustomTableProps) {
                     }}
                     type="text"
                     className=""
-                    placeholder="Search..."
+                    placeholder="جست‌وجو..."
                   />
                 </FormInline>
                 <div className="flex flex-col gap-2 mt-2 sm:flex-row xl:mt-0">
@@ -309,7 +309,7 @@ CustomTableProps) {
                     type="button"
                     className="w-full sm:w-auto bg-primary/5 border-primary/20"
                     onClick={onFilter}>
-                    Search
+                    یافتن
                   </Button>
                   <Button
                     id="tabulator-htms-filter-reset"
