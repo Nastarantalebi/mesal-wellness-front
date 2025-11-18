@@ -51,16 +51,10 @@ function Topbar({
           href=""
           className="hidden xl:flex items-center transition-[margin] group-[.side-menu--collapsed]:xl:ms-2 group-[.side-menu--collapsed.side-menu--on-hover]:xl:ms-0"
         >
-          <div className="flex items-center justify-center w-[34px] rounded-lg h-[34px] bg-gradient-to-r from-theme-1 to-theme-2 transition-transform ease-in-out group-[.side-menu--collapsed.side-menu--on-hover]:xl:-rotate-180">
-            <div className="w-[16px] h-[16px] relative -rotate-45 [&_div]:bg-white">
-              <div className="absolute w-[21%] start-0 inset-y-0 my-auto rounded-full opacity-50 h-[75%]"></div>
-              <div className="absolute w-[21%] inset-0 m-auto h-[120%] rounded-full"></div>
-              <div className="absolute w-[21%] end-0 inset-y-0 my-auto rounded-full opacity-50 h-[75%]"></div>
-            </div>
+          <div className="flex items-center justify-center w-[34px] rounded-lg h-[34px]">
+            <img src="/logo-192×192.png" alt="لوگو"/>
           </div>
-          <div className="ms-3.5 group-[.side-menu--collapsed.side-menu--on-hover]:xl:opacity-100 group-[.side-menu--collapsed]:xl:opacity-0 transition-opacity font-medium">
-            VIPER
-          </div>
+        
         </a>
         <button
           onClick={toggleCompactMenu}

@@ -1,4 +1,4 @@
-import Login from "@/features/auth/components/Login";
+import Login from "@/features/auth/_components/Login";
 import Customers from "@/features/customers/_components/Customers";
 import CustomersForm from "@/features/customers/_components/CustomersForm";
 import Dashboard from "@/features/dashboard/Dashboard";

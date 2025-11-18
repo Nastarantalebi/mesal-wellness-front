@@ -1,6 +1,6 @@
 import { Request } from "../../../libs/httpService";
 import Cookies from "js-cookie";
-import type { ILogin } from "../types";
+import type { ILogin } from "../_types/types";
 
 export async function login(values: ILogin) {
   const { data } = await Request.post( "basics/auth", values);

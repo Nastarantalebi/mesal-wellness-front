@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { login } from "./authServices";
 import Cookies from "js-cookie";
-import type { ILoginResponse } from "../types";
+import type { ILoginResponse } from "../_types/types";
 import Toastify from "toastify-js";
 
 function useLogin() {
