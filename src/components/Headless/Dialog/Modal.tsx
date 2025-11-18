@@ -5,8 +5,10 @@ import type { ReactNode } from "react";
 type TProps = {
   open: boolean;
   close: () => void;
+  onSubmit?: () => void;
   children: ReactNode;
   title: string;
+  submitText?: string;
   size?: "sm" | "md" | "lg" | "xl";
   cancelText?: string;
   cancelBtn?: boolean;
@@ -19,6 +21,8 @@ export default function Modal({
   children,
   size = "md",
   cancelBtn = true,
+  onSubmit,
+  submitText="تایید"
 }: TProps) {
   return (
     <>
@@ -33,13 +37,18 @@ export default function Modal({
 
           <Dialog.Description>{children}</Dialog.Description>
 
-          {cancelBtn && (
             <Dialog.Footer>
+          {!!onSubmit && (
+              <Button variant="danger" onClick={onSubmit}>
+                {submitText ?? "تایید"}
+              </Button>
+          )}
+          {cancelBtn && (
               <Button variant="danger" onClick={close}>
                 {cancelText ?? "بستن"}
               </Button>
-            </Dialog.Footer>
           )}
+            </Dialog.Footer>
         </Dialog.Panel>
       </Dialog>
     </>
