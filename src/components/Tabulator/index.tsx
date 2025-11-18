@@ -134,7 +134,7 @@ CustomTableProps) {
       sortMode: "remote",
       pagination: true,
       paginationSize,
-      paginationSizeSelector: [10, 20, 30, 50],
+      paginationSizeSelector: [10, 20, 30, 100, 500, 1000],
       printAsHtml: true,
       printStyled: true,
       responsiveLayout: "collapse",
@@ -254,14 +254,16 @@ CustomTableProps) {
                       });
                     }}
                     className="">
-                    {Object.entries(columns || []).map(([field, config]) => (
-                      <option key={field} value={field}>
-                        {config.label}
-                      </option>
-                    ))}
+                    {Object.entries(columns || [])
+                      .filter(([_, config]) => config.filterable)
+                      .map(([field, config]) => (
+                        <option key={field} value={field}>
+                          {config.label}
+                        </option>
+                      ))}
                   </FormSelect>
                 </FormInline>
-                <FormInline className="flex-col items-start xl:flex-row xl:items-center gap-y-2">
+                {/* <FormInline className="flex-col items-start xl:flex-row xl:items-center gap-y-2">
                   <FormLabel className="me-3 whitespace-nowrap">Type</FormLabel>
                   <FormSelect
                     id="tabulator-htms-filter-type"
@@ -281,7 +283,7 @@ CustomTableProps) {
                     <option value=">=">&gt;=</option>
                     <option value="!=">!=</option>
                   </FormSelect>
-                </FormInline>
+                </FormInline> */}
                 <FormInline className="flex-col items-start xl:flex-row xl:items-center gap-y-2">
                   <FormLabel className="me-3 whitespace-nowrap">
                     کلمات کلیدی
