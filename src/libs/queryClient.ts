@@ -5,42 +5,42 @@ import Toastify from "toastify-js";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handleHttpError = (error: any) => {
   const status = error?.response?.status;
-  const message = error?.response?.data?.message ?? error.message;
+  const data = error?.response?.data;
 
-  switch (status) {
-    case 401:
-      Toastify({
-        text: message || "لطفاً ابتدا وارد شوید.",
-        duration: 3000,
-        newWindow: true,
-        close: true,
-        gravity: "top",
-        position: "right",
-        stopOnFocus: true,
-      }).showToast();
-      Cookies.remove("access_token");
-      break;
-    case 500:
-      Toastify({
-        text: message || "خطای سرور رخ داده است.",
-        duration: 3000,
-        newWindow: true,
-        close: true,
-        gravity: "top",
-        position: "right",
-        stopOnFocus: true,
-      }).showToast();
-      break;
-    default:
-      Toastify({
-        text: message || "خطا در ارتباط با سرور.",
-        duration: 3000,
-        newWindow: true,
-        close: true,
-        gravity: "top",
-        position: "right",
-        stopOnFocus: true,
-      }).showToast();
+  const message = data?.message ?? error.message;
+  const errors = data?.errors;
+
+  // ساخت پیام کامل
+  let fullMessage = message;
+
+  if (errors && typeof errors === "object") {
+    const flatErrors = Object.values(errors).flat(); // تبدیل {file:[...]} به آرایه ساده
+
+    if (flatErrors.length > 0) {
+      fullMessage += "\n" + flatErrors.join("\n");
+    }
+  }
+
+  Toastify({
+    text: fullMessage,
+    duration: 5000,
+    newWindow: true,
+    close: false,
+    gravity: "top",
+    position: "right",
+    stopOnFocus: true,
+    style: {
+      background: "linear-gradient(90deg,#ef4444,#dc2626)",
+      color: "#fff",
+      fontSize: "14px",
+      borderRadius: "8px",
+      padding: "12px 16px",
+      direction: "rtl",
+    },
+  }).showToast();
+
+  if (status === 401) {
+    Cookies.remove("access_token");
   }
 };
 
