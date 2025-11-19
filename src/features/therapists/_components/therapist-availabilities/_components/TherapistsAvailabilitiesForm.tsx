@@ -9,8 +9,12 @@ import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
 import BreakForm from "@/features/_components/BreakForm";
-type TProps = { selectedRecord: any; setShowForm: any };
-function TherapistsAvailabilitiesForm({ selectedRecord, setShowForm }: TProps) {
+type TProps = { selectedRecord: any; setShowForm: any; therapistId: any };
+function TherapistsAvailabilitiesForm({
+  selectedRecord,
+  setShowForm,
+  therapistId,
+}: TProps) {
   const id = selectedRecord?.id;
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url: url,
@@ -30,6 +34,9 @@ function TherapistsAvailabilitiesForm({ selectedRecord, setShowForm }: TProps) {
     resolver: zodResolver(schema),
     defaultValues: initialValues,
   });
+  useEffect(() => {
+    form.setValue("therapist_id", therapistId);
+  }, [therapistId]);
   useEffect(() => {
     if (dataById) {
       const praparedData: TReqTherapistsAvailabilities = {

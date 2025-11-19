@@ -25,6 +25,7 @@ function TherapistService({ id }: TProps) {
         <TherapistServiceForm
           selectedRecord={selectedRecord}
           setShowForm={setShowForm}
+          therapistId={id}
         />
       )}
       <CustomTable

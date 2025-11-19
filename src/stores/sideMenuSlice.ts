@@ -48,25 +48,31 @@ const initialState: SideMenuState = {
       title: "مکان‌های مجموعه",
     },
     // {
-    //   icon: "CalendarCheck",
-    //   pathname: "/resource-availabilities",
-    //   title: "مکان‌های در دسترس",
+    //   icon: "Baseline",
+    //   title: "اطلاعات پایه",
+    //   subMenu: [
+    //     {
+    //       icon: "HeartHandshake",
+    //       pathname: "/therapists",
+    //       title: "درمانگر",
+    //     },
+    //     {
+    //       icon: "UsersRound",
+    //       pathname: "/customers",
+    //       title: "مشتریان",
+    //     },
+    //     {
+    //       icon: "CalendarClock",
+    //       pathname: "/booking",
+    //       title: "رزرو نوبت",
+    //     },
+    //   ],
     // },
     {
       icon: "HeartHandshake",
       pathname: "/therapists",
       title: "درمانگر",
     },
-    // {
-    //   icon: "HandHeart",
-    //   pathname: "/therapist-services",
-    //   title: "خدمات درمانگر",
-    // },
-    // {
-    //   icon: "AlarmClockCheck",
-    //   pathname: "/therapist-availabilities",
-    //   title: "درمانگر در دسترس",
-    // },
     {
       icon: "UsersRound",
       pathname: "/customers",

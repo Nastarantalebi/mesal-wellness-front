@@ -23,6 +23,7 @@ function ResourceAvailabilities({ id }: { id: number }) {
         <ResourceAvailabilitiesForm
           selectedRecord={selectedRecord}
           setShowForm={setShowForm}
+          resourceId={id}
         />
       )}
       <CustomTable

@@ -13,7 +13,6 @@ import { Edit, Eye, Trash2Icon } from "lucide-react";
 import TitlePage from "@/features/_components/TitlePage";
 import Pagination from "./Pagination";
 import Modal from "../Headless/Dialog/Modal";
-import LoadingSpin from "../Loading";
 type TableAction = {
   title: string;
   icon: React.ReactNode;
@@ -64,6 +63,7 @@ function CustomTable({
 }: // enableExport = true,
 // enableFilter = true,
 CustomTableProps) {
+  console.log(isLoading);
   const tableRef = useRef<HTMLDivElement | null>(null);
   const tabulator = useRef<Tabulator | null>(null);
   const [filter, setFilter] = useState({
@@ -396,11 +396,7 @@ CustomTableProps) {
             </div>
             <div className="pb-5">
               <div className="overflow-x-auto scrollbar-hidden">
-                {isLoading ? (
-                  <LoadingSpin />
-                ) : (
-                  <div id="tabulator" ref={tableRef}></div>
-                )}
+                <div id="tabulator" ref={tableRef}></div>
               </div>
               {dataPagination && dataPagination.total > 10 && (
                 <Pagination dataPagination={dataPagination} />

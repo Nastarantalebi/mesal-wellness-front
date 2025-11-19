@@ -25,6 +25,7 @@ function TherapistsAvailabilities({ id }: TProps) {
         <TherapistsAvailabilitiesForm
           selectedRecord={selectedRecord}
           setShowForm={setShowForm}
+           therapistId={id}
         />
       )}
       <CustomTable

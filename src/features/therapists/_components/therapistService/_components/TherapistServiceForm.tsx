@@ -8,8 +8,12 @@ import useGetById from "@/services/useGetById";
 import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
-type TProps = { selectedRecord: any; setShowForm: any };
-function TherapistServiceForm({ selectedRecord, setShowForm }: TProps) {
+type TProps = { selectedRecord: any; setShowForm: any; therapistId: any };
+function TherapistServiceForm({
+  selectedRecord,
+  setShowForm,
+  therapistId,
+}: TProps) {
   const id = selectedRecord?.id;
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url: url,
@@ -30,6 +34,9 @@ function TherapistServiceForm({ selectedRecord, setShowForm }: TProps) {
     defaultValues: initialValue,
   });
   const { fields } = useFormData();
+  useEffect(() => {
+    form.setValue("therapist_id", therapistId);
+  }, [therapistId]);
   useEffect(() => {
     if (dataById) {
       const preparedData: TReqTherapistService = {
