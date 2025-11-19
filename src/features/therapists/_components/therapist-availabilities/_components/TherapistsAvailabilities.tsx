@@ -12,7 +12,7 @@ function TherapistsAvailabilities({ id }: TProps) {
     queryKey: queryKey,
     url: url,
   });
-  const { data } = useGetData<any>({
+  const { data, isFetching } = useGetData<any>({
     queryKey: [queryKey, String(id)],
     url: `${url}?therapist_id=${id}`,
     enabled: !!id,
@@ -29,6 +29,7 @@ function TherapistsAvailabilities({ id }: TProps) {
       )}
       <CustomTable
         title="درمانگر در دسترس"
+        isLoading={isFetching}
         columns={data?.columns}
         data={data?.data}
         dataPagination={data?.paginate}
