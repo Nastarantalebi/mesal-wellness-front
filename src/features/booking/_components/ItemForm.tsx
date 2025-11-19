@@ -1,10 +1,13 @@
 import Button from "@/components/Button";
 import { FormLabel, FormSelect } from "@/components/Form";
-import { Controller, useFieldArray } from "react-hook-form";
-import type { TCreateData } from "../_types/type";
+import { Controller, useFieldArray, useWatch } from "react-hook-form";
+import type { TAvailabilityData, TCreateData } from "../_types/type";
 import DatePickerField from "@/components/Form/DatePicker";
 import { useEffect } from "react";
-import { itemsValues } from "../_fixtures/data";
+import { itemsValues, url } from "../_fixtures/data";
+import TimePickerField from "@/components/Form/TimePicker";
+import useGetData from "@/services/useGetData";
+import Lucide from "@/components/Lucide";
 
 interface TProps {
   form: any;
@@ -19,6 +22,16 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
   });
 
   if (fields.length === 0) append(itemsValues);
+  const items = useWatch({
+    control: form.control,
+    name: "items",
+  });
+
+  // گرفتن آخرین آیتم
+  const lastItem = items?.[items.length - 1] || {};
+  const date = lastItem.date;
+  const start_at = lastItem.start_at;
+  const end_at = lastItem.end_at;
 
   const useFirstOptionIfZero = (field: any, options: any[]) => {
     const firstOption = options?.[0]?.value;
@@ -31,7 +44,12 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
       }
     }, [field.value, firstOption]);
   };
-
+  const { data, refetch } = useGetData<TAvailabilityData>({
+    url: `${url}availability?date=${date}&start_at=${start_at}&end_at=${end_at}`,
+    queryKey: ["availability", date, start_at, end_at],
+    enabled: false,
+  });
+  const validDate = !!date && !!start_at!! && end_at;
   return (
     <div
       className={`w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full ${className}`}>
@@ -51,43 +69,63 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
           <div
             key={fieldItem.id}
             className="flex flex-row items-end justify-end gap-2 mb-2">
-            {/* شروع */}
-            <div className="flex-1 flex flex-col">
-              <FormLabel>زمان شروع</FormLabel>
-              <Controller
-                control={form.control}
-                name={`items.${index}.start_at`}
-                render={({ field }) => (
-                  <DatePickerField
-                    showTimePicker
-                    field={field} // بدون fallback به ""
-                  />
+            <div className="flex flex-row items-end justify-end gap-2">
+              {/* تاریخ */}
+              <div className="w-48 flex flex-col">
+                <FormLabel>تاریخ</FormLabel>
+                <Controller
+                  control={form.control}
+                  name={`items.${index}.date`}
+                  render={({ field }) => <DatePickerField field={field} />}
+                />
+                {errorItem?.start_at && (
+                  <p className="text-red-500 text-sm">
+                    {errorItem.start_at.message}
+                  </p>
                 )}
-              />
-              {errorItem?.start_at && (
-                <p className="text-red-500 text-sm">
-                  {errorItem.start_at.message}
-                </p>
+              </div>
+              {/* شروع */}
+              <div className="w-32 flex flex-col">
+                <FormLabel>زمان شروع</FormLabel>
+                <Controller
+                  control={form.control}
+                  name={`items.${index}.start_at`}
+                  render={({ field }) => <TimePickerField field={field} />}
+                />
+                {errorItem?.start_at && (
+                  <p className="text-red-500 text-sm">
+                    {errorItem.start_at.message}
+                  </p>
+                )}
+              </div>
+
+              {/* پایان */}
+              <div className="w-32 flex flex-col">
+                <FormLabel>زمان پایان</FormLabel>
+                <Controller
+                  control={form.control}
+                  name={`items.${index}.end_at`}
+                  render={({ field }) => <TimePickerField field={field} />}
+                />
+                {errorItem?.end_at && (
+                  <p className="text-red-500 text-sm">
+                    {errorItem.end_at.message}
+                  </p>
+                )}
+              </div>
+              {validDate && (
+                <div className="flex items-center">
+                  <Button
+                    type="button"
+                    variant="outline-primary"
+                    size="sm"
+                    onClick={() => refetch()}
+                    className="whitespace-nowrap flex items-center gap-1 h-9">
+                    <Lucide icon="Search" className="w-4 h-4" /> بررسی
+                  </Button>
+                </div>
               )}
             </div>
-
-            {/* پایان */}
-            <div className="flex-1 flex flex-col">
-              <FormLabel>زمان پایان</FormLabel>
-              <Controller
-                control={form.control}
-                name={`items.${index}.end_at`}
-                render={({ field }) => (
-                  <DatePickerField showTimePicker field={field} />
-                )}
-              />
-              {errorItem?.end_at && (
-                <p className="text-red-500 text-sm">
-                  {errorItem.end_at.message}
-                </p>
-              )}
-            </div>
-
             {/* درمانگر */}
             <div className="flex-1 flex flex-col">
               <FormLabel>درمانگر</FormLabel>
@@ -95,15 +133,12 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
                 control={form.control}
                 name={`items.${index}.therapist_id`}
                 render={({ field }) => {
-                  useFirstOptionIfZero(
-                    field,
-                    dataCreate?.data.therapists || []
-                  );
+                  useFirstOptionIfZero(field, data?.available_therapists || []);
                   return (
                     <FormSelect {...field}>
-                      {dataCreate?.data.therapists.map((item) => (
-                        <option key={item.value} value={item.value}>
-                          {item.label}
+                      {data?.available_therapists.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
                         </option>
                       ))}
                     </FormSelect>
@@ -140,12 +175,12 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
                 control={form.control}
                 name={`items.${index}.resource_id`}
                 render={({ field }) => {
-                  useFirstOptionIfZero(field, dataCreate?.data.resources || []);
+                  useFirstOptionIfZero(field, data?.available_rooms || []);
                   return (
                     <FormSelect {...field}>
-                      {dataCreate?.data.resources.map((item) => (
-                        <option key={item.value} value={item.value}>
-                          {item.label}
+                      {data?.available_rooms.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
                         </option>
                       ))}
                     </FormSelect>
