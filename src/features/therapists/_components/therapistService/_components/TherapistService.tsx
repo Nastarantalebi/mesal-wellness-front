@@ -8,7 +8,7 @@ type TProps = {
   id: number;
 };
 function TherapistService({ id }: TProps) {
-  const { data } = useGetData<any>({
+  const { data ,isFetching} = useGetData<any>({
     queryKey: [queryKey, String(id)],
     url: `${url}?therapist_id=${id}`,
     enabled: !!id,
@@ -28,6 +28,7 @@ function TherapistService({ id }: TProps) {
         />
       )}
       <CustomTable
+       isLoading={isFetching}
         title="خدمات درمانگر"
         columns={data?.columns}
         data={data?.data}

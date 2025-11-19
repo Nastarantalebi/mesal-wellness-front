@@ -5,7 +5,7 @@ import { servicesQuerykey, servicesUrl } from "../_fixtures/data";
 import useDeleteData from "@/services/useDeleteData";
 function Services() {
   const navigate = useNavigate();
-  const { data } = useGetData<any>({
+  const { data ,isFetching} = useGetData<any>({
     queryKey: servicesQuerykey,
     url: servicesUrl,
   });
@@ -16,6 +16,7 @@ function Services() {
 
   return (
     <CustomTable
+    isLoading={isFetching}
       title="خدمات"
       columns={data?.columns}
       data={data?.data}

@@ -5,10 +5,11 @@ import CustomTable from "@/components/Tabulator";
 import ResourceAvailabilitiesForm from "./ResourceAvailabilitiesForm";
 import { useState } from "react";
 
-function ResourceAvailabilities() {
-  const { data } = useGetData<any>({
-    queryKey: queryKey,
-    url: url,
+function ResourceAvailabilities({ id }: { id: number }) {
+  const { data, isFetching } = useGetData<any>({
+    queryKey: [queryKey, String(id)],
+    url: `${url}?resource_id=${id}`,
+    enabled: !!id,
   });
   const { mutate: Delete } = useDeleteData({
     queryKey: queryKey,
@@ -25,6 +26,7 @@ function ResourceAvailabilities() {
         />
       )}
       <CustomTable
+        isLoading={isFetching}
         title="مکان‌های دردسترس"
         onAdd={() => {
           setShowForm(true);

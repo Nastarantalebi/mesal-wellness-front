@@ -28,8 +28,8 @@ function TherapistsAvailabilities({ id }: TProps) {
         />
       )}
       <CustomTable
-        title="درمانگر در دسترس"
         isLoading={isFetching}
+        title="درمانگر در دسترس"
         columns={data?.columns}
         data={data?.data}
         dataPagination={data?.paginate}

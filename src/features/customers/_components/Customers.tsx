@@ -7,7 +7,7 @@ import useCreateData from "@/services/useCreateData";
 
 function Customers() {
   const navigate = useNavigate();
-  const { data, refetch } = useGetData<any>({
+  const { data, refetch ,isFetching} = useGetData<any>({
     queryKey: queryKey,
     url: url,
   });
@@ -22,6 +22,7 @@ function Customers() {
 
   return (
     <CustomTable
+    isLoading={isFetching}
       title="مشتریان"
       onImport={(file) => {
         const formData = new FormData();

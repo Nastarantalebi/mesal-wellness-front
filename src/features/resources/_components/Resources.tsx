@@ -10,7 +10,7 @@ import ResourceAvailabilities from "./resource-availabilities/_components/Resour
 
 function Resources() {
   const navigate = useNavigate();
-  const { data } = useGetData<any>({
+  const { data ,isFetching} = useGetData<any>({
     queryKey: queryKey,
     url: url,
   });
@@ -23,6 +23,7 @@ function Resources() {
   return (
     <>
       <CustomTable
+       isLoading={isFetching}
         title="مکان‌های مجموعه"
         columns={data?.columns}
         data={data?.data}
@@ -49,7 +50,9 @@ function Resources() {
           setSelectedRecord(null);
           setShowModalRA(false);
         }}>
-       <ResourceAvailabilities/>
+        <ResourceAvailabilities
+          id={selectedRecord && selectedRecord.id}
+        />
       </Modal>
     </>
   );

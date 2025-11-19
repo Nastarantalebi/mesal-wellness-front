@@ -6,7 +6,7 @@ import useDeleteData from "@/services/useDeleteData";
 
 function ServiceCategory() {
   const navigate = useNavigate();
-  const { data } = useGetData<any>({
+  const { data ,isFetching} = useGetData<any>({
     queryKey: queryKey,
     url: url,
   });
@@ -17,6 +17,7 @@ function ServiceCategory() {
 
   return (
     <CustomTable
+     isLoading={isFetching}
       title="دسته‌بندی خدمات"
       columns={data?.columns}
       data={data?.data}

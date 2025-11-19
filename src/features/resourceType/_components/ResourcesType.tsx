@@ -6,7 +6,7 @@ import useDeleteData from "@/services/useDeleteData";
 
 function ResourceType() {
   const navigate = useNavigate();
-  const { data } = useGetData<any>({
+  const { data ,isFetching} = useGetData<any>({
     queryKey: queryKey,
     url: url,
   });
@@ -17,6 +17,7 @@ function ResourceType() {
 
   return (
     <CustomTable
+    isLoading={isFetching}
       title="نوع مکان"
       columns={data?.columns}
       data={data?.data}
