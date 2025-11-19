@@ -1,5 +1,5 @@
 import Button from "@/components/Button";
-import { FormLabel, FormSelect } from "@/components/Form";
+import { FormInput, FormLabel, FormSelect } from "@/components/Form";
 import { Controller, useFieldArray, useWatch } from "react-hook-form";
 import type { TAvailabilityData, TCreateData } from "../_types/type";
 import DatePickerField from "@/components/Form/DatePicker";
@@ -8,6 +8,7 @@ import { itemsValues, url } from "../_fixtures/data";
 import TimePickerField from "@/components/Form/TimePicker";
 import useGetData from "@/services/useGetData";
 import Lucide from "@/components/Lucide";
+import { PlusIcon } from "lucide-react";
 
 interface TProps {
   form: any;
@@ -58,8 +59,8 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
         <Button
           type="button"
           onClick={() => append(itemsValues)}
-          variant="primary">
-          افزودن جدید
+          variant="outline-primary">
+          <PlusIcon size={16}/>
         </Button>
       </div>
 
@@ -185,6 +186,40 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
                       ))}
                     </FormSelect>
                   );
+                }}
+              />
+            </div>
+            {/* مکان */}
+            <div className="flex-1 flex flex-col">
+              <FormLabel>بیعانه</FormLabel>
+              <Controller
+                control={form.control}
+                name={`items.${index}.deposit `}
+                render={({ field }) => {
+                  useFirstOptionIfZero(field, data?.available_rooms || []);
+                  return <FormInput {...field} type="number" dir="ltr" />;
+                }}
+              />
+            </div>
+            <div className="flex-1 flex flex-col">
+              <FormLabel>مبلغ کل</FormLabel>
+              <Controller
+                control={form.control}
+                name={`items.${index}.total_amount  `}
+                render={({ field }) => {
+                  useFirstOptionIfZero(field, data?.available_rooms || []);
+                  return <FormInput {...field} type="number" dir="ltr" />;
+                }}
+              />
+            </div>
+            <div className="flex-1 flex flex-col">
+              <FormLabel>مبلغ قابل پرداخت</FormLabel>
+              <Controller
+                control={form.control}
+                name={`items.${index}.payable_amount  `}
+                render={({ field }) => {
+                  useFirstOptionIfZero(field, data?.available_rooms || []);
+                  return <FormInput {...field} type="number" dir="ltr" />;
                 }}
               />
             </div>

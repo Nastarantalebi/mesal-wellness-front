@@ -4,6 +4,10 @@ export type TItems = {
   resource_id: number;
   start_at: string;
   end_at: string;
+  deposit: number;
+  payable_amount: number;
+  total_amount: number;
+  date: string;
 };
 
 export type TBookingItem = {
@@ -117,8 +121,8 @@ export type TSelect = {
 
 export type TAvailabilityData = {
   date: string;
-  start_at: string; 
-  end_at: string; 
+  start_at: string;
+  end_at: string;
   available_rooms: {
     id: number;
     name: string;
@@ -135,6 +139,6 @@ export type TAvailabilityData = {
   unavailable_therapists: {
     id: number;
     name: string;
-    reason?: string; 
+    reason?: string;
   }[];
 };
