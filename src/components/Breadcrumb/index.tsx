@@ -6,7 +6,7 @@ interface BreadcrumbProps
   extends React.PropsWithChildren,
     React.ComponentPropsWithoutRef<"nav"> {
   light?: boolean;
-  children: React.ReactElement | React.ReactElement[];
+  children: React.ReactElement | React.ReactElement[] | React.ReactNode;
 }
 
 const breadcrumbContext = createContext<{ light?: boolean }>({
@@ -23,8 +23,7 @@ function Breadcrumb({ className, light, children }: BreadcrumbProps) {
             {
               "text-white/90": light,
             }
-          )}
-        >
+          )}>
           {Array.isArray(children)
             ? children.map((item, key) =>
                 isValidElement(item) ? cloneElement(item, { key }) : item
@@ -71,8 +70,7 @@ function BreadcrumbLink({
           "text-slate-600 cursor-text dark:text-slate-400",
         breadcrumb.light && active && "text-white/70"
       )}
-      {...attr}
-    >
+      {...attr}>
       <Link to={to}>{children}</Link>
     </li>
   );

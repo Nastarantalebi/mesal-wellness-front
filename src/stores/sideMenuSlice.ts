@@ -89,3 +89,24 @@ export const sideMenuSlice = createSlice({
 export const selectSideMenu = (state: RootState) => state.sideMenu.menu;
 
 export default sideMenuSlice.reducer;
+export const flattenMenu = (menu: Array<Menu | string>) => {
+  const map: Record<string, { title: string }> = {};
+
+  const walk = (items: Array<Menu | string>) => {
+    items.forEach((item) => {
+      if (typeof item === "string") return;
+
+      if (item.pathname) {
+        map[item.pathname] = {
+          title: item.title,
+        };
+      }
+
+      if (item.subMenu) walk(item.subMenu);
+    });
+  };
+
+  walk(menu);
+
+  return map;
+};

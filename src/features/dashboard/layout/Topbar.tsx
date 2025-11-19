@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import { useState } from "react";
-import Breadcrumb from "../../../components/Breadcrumb";
 import { Menu } from "../../../components/Headless";
 import QuickSearch from "../../../components/QuickSearch";
 import ActivitiesPanel from "../../../components/ActivitiesPanel";
@@ -9,6 +8,7 @@ import SwitchAccount from "../../../components/SwitchAccount";
 import Lucide from "../../../components/Lucide";
 import { useNavigate } from "react-router-dom";
 import { AlignJustify } from "lucide-react";
+import DynamicBreadcrumb from "./DynamicBreadcrumb";
 
 function Topbar({
   setActiveMobileMenu,
@@ -88,13 +88,8 @@ function Topbar({
       <div className="absolute transition-[padding] duration-100 xl:ps-[275px] group-[.side-menu--collapsed]:xl:ps-[91px] h-full inset-x-0">
         <div className="flex items-center w-full h-full px-5">
           {/* BEGIN: Breadcrumb */}
-          <Breadcrumb className="flex-1 hidden xl:block">
-            <Breadcrumb.Link to="/">اپلیکیشن</Breadcrumb.Link>
-            <Breadcrumb.Link to="/">داشبوردها</Breadcrumb.Link>
-            <Breadcrumb.Link to="/" active={true}>
-              تحلیلی
-            </Breadcrumb.Link>
-          </Breadcrumb>
+          <DynamicBreadcrumb />
+
           {/* END: Breadcrumb */}
           {/* BEGIN: Search */}
           <div
