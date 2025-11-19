@@ -22,7 +22,7 @@ export default function Modal({
   size = "md",
   cancelBtn = true,
   onSubmit,
-  submitText="تایید"
+  submitText = "تایید",
 }: TProps) {
   return (
     <>
@@ -37,18 +37,18 @@ export default function Modal({
 
           <Dialog.Description>{children}</Dialog.Description>
 
-            <Dialog.Footer>
-          {!!onSubmit && (
-              <Button variant="danger" onClick={onSubmit}>
-                {submitText ?? "تایید"}
-              </Button>
-          )}
-          {cancelBtn && (
-              <Button variant="danger" onClick={close}>
+          <Dialog.Footer className="flex gap-1 items-center justify-end">
+            {!!cancelBtn && (
+              <Button variant="outline-danger" onClick={close}>
                 {cancelText ?? "بستن"}
               </Button>
-          )}
-            </Dialog.Footer>
+            )}
+            {!!onSubmit && (
+              <Button variant="outline-success" onClick={onSubmit}>
+                {submitText ?? "تایید"}
+              </Button>
+            )}
+          </Dialog.Footer>
         </Dialog.Panel>
       </Dialog>
     </>

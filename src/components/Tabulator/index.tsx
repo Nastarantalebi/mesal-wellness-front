@@ -12,6 +12,7 @@ import { createRoot } from "react-dom/client";
 import { Edit, Eye, RefreshCcwIcon, Trash2 } from "lucide-react";
 import TitlePage from "@/features/_components/TitlePage";
 import Pagination from "./Pagination";
+import Modal from "../Headless/Dialog/Modal";
 
 type CustomTableProps = {
   /** عنوان جدول */
@@ -62,7 +63,7 @@ CustomTableProps) {
     type: "like",
     value: "",
   });
-
+  const [openModal, setOpenModal] = useState<any>(null);
   const initTabulator = () => {
     if (!tableRef.current) return;
 
@@ -117,7 +118,9 @@ CustomTableProps) {
                     title="حذف"
                     variant="outline-danger"
                     size="sm"
-                    onClick={() => onDelete(rowData)}
+                    onClick={() => {
+                      setOpenModal(rowData);
+                    }}
                     className="flex items-center gap-1 p-1">
                     <Trash2 className="w-4 h-4" />
                   </Button>
@@ -393,6 +396,25 @@ CustomTableProps) {
           </div>
         </div>
       </div>
+      <Modal
+        close={() => setOpenModal(null)}
+        open={!!openModal}
+        title="حذف آیتم"
+        cancelText="انصراف"
+        submitText="حذف"
+        onSubmit={() => {
+          setOpenModal(null);
+          onDelete?.(openModal as any);
+        }}>
+        <div className="flex flex-row items-center gap-2 text-center py-2">
+          <div className="text-red-600">
+            <Lucide icon="BadgeAlert" className="w-7 h-7" />
+          </div>
+          <p className="text-sm text-gray-700 dark:text-gray-300">
+            آیا از حذف این آیتم اطمینان دارید؟ این عمل قابل بازگشت نیست.
+          </p>
+        </div>
+      </Modal>
     </div>
   );
 }
