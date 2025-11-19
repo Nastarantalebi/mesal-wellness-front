@@ -6,7 +6,7 @@ import Table from "@/components/table";
 import Tippy from "@/components/Tippy";
 import axios from "axios";
 
-const OrdersTable = ({ apiEndpoint }: { apiEndpoint: any }) => {
+const OrdersTable = ({ apiEndpoint }: { apiEndpoint?: any }) => {
   const [orders, setOrders] = useState<any>([]);
   const [loading, setLoading] = useState(true);
 
