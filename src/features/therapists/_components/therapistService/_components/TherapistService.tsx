@@ -4,11 +4,14 @@ import { queryKey, url } from "../_fixtures/data";
 import useDeleteData from "@/services/useDeleteData";
 import TherapistServiceForm from "./TherapistServiceForm";
 import { useState } from "react";
-
-function TherapistService() {
+type TProps = {
+  id: number;
+};
+function TherapistService({ id }: TProps) {
   const { data } = useGetData<any>({
-    queryKey: queryKey,
-    url: url,
+    queryKey: [queryKey, String(id)],
+    url: `${url}?therapist_id=${id}`,
+    enabled: !!id,
   });
   const { mutate: Delete } = useDeleteData({
     queryKey: queryKey,

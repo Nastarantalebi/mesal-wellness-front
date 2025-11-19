@@ -22,36 +22,40 @@ function Therapists() {
   const [showModalTA, setShowModalTA] = useState<boolean>(false);
   const [showModalTS, setShowModalTS] = useState<boolean>(false);
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
-  const full_name=`${selectedRecord?.first_name} ${selectedRecord?.last_name}`
+  const full_name = [
+    selectedRecord?.first_name,
+    selectedRecord?.last_name,
+  ].join(" ");
+
   return (
     <>
-    <CustomTable
-      title="درمانگر"
-      columns={data?.columns}
-      customActions={[
-        {
-          title: "خدمات درمانگر",
-          icon: <HandHeartIcon className="w-4 h-4" />,
-          onClick: (record) => {
-            setShowModalTS(true);
-            setSelectedRecord(record);
+      <CustomTable
+        title="درمانگر"
+        columns={data?.columns}
+        customActions={[
+          {
+            title: "خدمات درمانگر",
+            icon: <HandHeartIcon className="w-4 h-4" />,
+            onClick: (record) => {
+              setShowModalTS(true);
+              setSelectedRecord(record);
+            },
           },
-        },
-        {
-          title: "درمانگر دردسترس",
-          icon: <AlarmClockCheckIcon className="w-4 h-4" />,
-          onClick: (record) => {
-            setShowModalTA(true);
-            setSelectedRecord(record);
+          {
+            title: "درمانگر دردسترس",
+            icon: <AlarmClockCheckIcon className="w-4 h-4" />,
+            onClick: (record) => {
+              setShowModalTA(true);
+              setSelectedRecord(record);
+            },
           },
-        },
-      ]}
-      data={data?.data}
-      dataPagination={data?.paginate}
-      onAdd={() => navigate("create")}
-      onEdit={(record) => navigate("create", { state: { record } })}
-      onDelete={(record) => Delete(record.id)}
-    />
+        ]}
+        data={data?.data}
+        dataPagination={data?.paginate}
+        onAdd={() => navigate("create")}
+        onEdit={(record) => navigate("create", { state: { record } })}
+        onDelete={(record) => Delete(record.id)}
+      />
       <Modal
         title={`در دسترس بودن ${full_name}`}
         open={showModalTA}
@@ -60,7 +64,7 @@ function Therapists() {
           setSelectedRecord(null);
           setShowModalTA(false);
         }}>
-       <TherapistsAvailabilities/>
+        <TherapistsAvailabilities id={selectedRecord && selectedRecord.id} />
       </Modal>
       <Modal
         title={`  خدمات درمانگر ${full_name}`}
@@ -70,7 +74,7 @@ function Therapists() {
           setSelectedRecord(null);
           setShowModalTS(false);
         }}>
-       <TherapistService/>
+        <TherapistService id={selectedRecord && selectedRecord.id}/>
       </Modal>
     </>
   );

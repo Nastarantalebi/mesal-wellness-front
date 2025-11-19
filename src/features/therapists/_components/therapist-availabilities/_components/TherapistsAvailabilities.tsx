@@ -4,15 +4,18 @@ import CustomTable from "@/components/Tabulator";
 import useGetData from "@/services/useGetData";
 import TherapistsAvailabilitiesForm from "./TherapistsAvailabilitiesForm";
 import { useState } from "react";
-
-function TherapistsAvailabilities() {
-  const { data } = useGetData<any>({
-    queryKey: queryKey,
-    url: url,
-  });
+type TProps = {
+  id: number;
+};
+function TherapistsAvailabilities({ id }: TProps) {
   const { mutate: Delete } = useDeleteData({
     queryKey: queryKey,
     url: url,
+  });
+  const { data } = useGetData<any>({
+    queryKey: [queryKey, String(id)],
+    url: `${url}?therapist_id=${id}`,
+    enabled: !!id,
   });
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
   const [showForm, setShowForm] = useState<any>(null);
