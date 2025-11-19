@@ -9,11 +9,16 @@ import Lucide from "../Lucide";
 import { FormInline, FormInput, FormLabel, FormSelect } from "../Form";
 import { Menu } from "../Headless";
 import { createRoot } from "react-dom/client";
-import { Edit, Eye, RefreshCcwIcon, Trash2 } from "lucide-react";
+import { Edit, Eye, Trash2Icon } from "lucide-react";
 import TitlePage from "@/features/_components/TitlePage";
 import Pagination from "./Pagination";
 import Modal from "../Headless/Dialog/Modal";
-
+type TableAction = {
+  title: string;
+  icon: React.ReactNode;
+  onClick: (record: any) => void;
+  variant?: "outline-primary" | "outline-danger" | "outline-success";
+};
 type CustomTableProps = {
   /** عنوان جدول */
   title?: string;
@@ -35,8 +40,8 @@ type CustomTableProps = {
   onEdit?: (record: any) => void;
   onDelete?: (record: any) => void;
   onVisit?: (record: any) => void;
-  onChange?: (record: any) => void;
   onImport?: (file: File) => void;
+  customActions?: TableAction[];
 };
 
 function CustomTable({
@@ -51,8 +56,8 @@ function CustomTable({
   onEdit,
   onDelete,
   onVisit,
-  onChange,
   onImport,
+  customActions,
 }: // enableExport = true,
 // enableFilter = true,
 CustomTableProps) {
@@ -83,16 +88,17 @@ CustomTableProps) {
 
             root.render(
               <div className="flex justify-center gap-2">
-                {onChange && (
+                {customActions?.map((action, i) => (
                   <Button
-                    title="تغییر وضعیت"
-                    variant="outline-primary"
+                    key={i}
+                    title={action.title}
+                    variant={action.variant || "outline-primary"}
                     size="sm"
-                    onClick={() => onChange(rowData)}
+                    onClick={() => action.onClick(rowData)}
                     className="flex items-center gap-1 p-1">
-                    <RefreshCcwIcon className="w-4 h-4" />
+                    {action.icon}
                   </Button>
-                )}
+                ))}
                 {onEdit && (
                   <Button
                     title="ویرایش"
@@ -122,7 +128,7 @@ CustomTableProps) {
                       setOpenModal(rowData);
                     }}
                     className="flex items-center gap-1 p-1">
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2Icon className="w-4 h-4" />
                   </Button>
                 )}
               </div>

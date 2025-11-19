@@ -9,6 +9,7 @@ import BookingVisit from "./BookingVisit";
 import useGetById from "@/services/useGetById";
 import type { TDataById, TSelect } from "../_types/type";
 import ChangeStatus from "./ChangeStatus";
+import { RefreshCcwIcon } from "lucide-react";
 
 function Booking() {
   const navigate = useNavigate();
@@ -45,10 +46,16 @@ function Booking() {
           setOpen(true);
           setSelectedRecord(record);
         }}
-        onChange={(record) => {
-          setOpenStatus(true);
-          setSelectedRecord(record);
-        }}
+        customActions={[
+          {
+            title: "تغییر وضعیت",
+            icon: <RefreshCcwIcon className="w-4 h-4" />,
+            onClick: (record) => {
+              setOpenStatus(true);
+              setSelectedRecord(record);
+            },
+          },
+        ]}
       />
       <Modal close={() => setOpen(false)} open={open} size="xl" title="">
         <BookingVisit dataById={dataById} isFetchingById={isFetchingById} />

@@ -9,7 +9,7 @@ type TProps = {
   children: ReactNode;
   title: string;
   submitText?: string;
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: "sm" | "md" | "lg" | "xl"| "xxl";
   cancelText?: string;
   cancelBtn?: boolean;
 };

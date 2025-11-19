@@ -2,7 +2,7 @@ import { twMerge } from "tailwind-merge";
 import { Dialog as HeadlessDialog, Transition } from "@headlessui/react";
 import { Fragment, createContext, useContext, useRef, useState } from "react";
 
-type Size = "sm" | "md" | "lg" | "xl";
+type Size = "sm" | "md" | "lg" | "xl" | "xxl";
 
 const dialogContext = createContext<{
   open: boolean;
@@ -36,8 +36,7 @@ function Dialog({
         open,
         zoom,
         size,
-      }}
-    >
+      }}>
       <Transition appear as={Fragment} show={open}>
         <HeadlessDialog
           as={as}
@@ -51,8 +50,7 @@ function Dialog({
           }}
           initialFocus={focusElement}
           className={twMerge(["relative z-[60]", className])}
-          {...props}
-        >
+          {...props}>
           {children}
         </HeadlessDialog>
       </Transition>
@@ -90,8 +88,7 @@ function DialogPanel({
         leave="ease-in-out duration-[400ms]"
         leaveFrom="opacity-100 pt-16"
         leaveTo="opacity-0 -mt-16 pt-0"
-        className="fixed inset-0 py-16 overflow-y-auto"
-      >
+        className="fixed inset-0 py-16 overflow-y-auto">
         <HeadlessDialog.Panel
           as={as}
           className={twMerge([
@@ -100,11 +97,11 @@ function DialogPanel({
             dialog.size === "sm" && "sm:w-[300px]",
             dialog.size === "lg" && "sm:w-[600px]",
             dialog.size === "xl" && "sm:w-[600px] lg:w-[900px]",
+            dialog.size === "xxl" && "sm:w-[900px] lg:w-[1200px]",
             dialog.zoom && "scale-105",
             className,
           ])}
-          {...props}
-        >
+          {...props}>
           {children}
         </HeadlessDialog.Panel>
       </Transition.Child>
@@ -127,8 +124,7 @@ Dialog.Title = ({
         "flex items-center px-5 py-3 border-b border-slate-200/60 dark:border-darkmode-400",
         className,
       ])}
-      {...props}
-    >
+      {...props}>
       {children}
     </HeadlessDialog.Title>
   );
@@ -144,8 +140,7 @@ Dialog.Description = ({
     <HeadlessDialog.Description
       as={as}
       className={twMerge(["p-5", className])}
-      {...props}
-    >
+      {...props}>
       {children}
     </HeadlessDialog.Description>
   );
@@ -168,8 +163,7 @@ Dialog.Footer = <C extends React.ElementType = "div">({
         "px-5 py-3 text-end border-t border-slate-200/60 dark:border-darkmode-400",
         className,
       ])}
-      {...props}
-    >
+      {...props}>
       {children}
     </Component>
   );

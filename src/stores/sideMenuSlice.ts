@@ -45,7 +45,7 @@ const initialState: SideMenuState = {
     {
       icon: "MapPin",
       pathname: "/resources",
-      title: "مکان",
+      title: "مکان‌های مجموعه",
     },
     {
       icon: "CalendarCheck",
