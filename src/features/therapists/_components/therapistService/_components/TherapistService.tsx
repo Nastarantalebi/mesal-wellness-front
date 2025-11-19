@@ -1,0 +1,46 @@
+import useGetData from "@/services/useGetData";
+import CustomTable from "@/components/Tabulator";
+import { queryKey, url } from "../_fixtures/data";
+import useDeleteData from "@/services/useDeleteData";
+import TherapistServiceForm from "./TherapistServiceForm";
+import { useState } from "react";
+
+function TherapistService() {
+  const { data } = useGetData<any>({
+    queryKey: queryKey,
+    url: url,
+  });
+  const { mutate: Delete } = useDeleteData({
+    queryKey: queryKey,
+    url: url,
+  });
+  const [selectedRecord, setSelectedRecord] = useState<any>(null);
+  const [showForm, setShowForm] = useState<any>(null);
+  return (
+    <>
+      {showForm && (
+        <TherapistServiceForm
+          selectedRecord={selectedRecord}
+          setShowForm={setShowForm}
+        />
+      )}
+      <CustomTable
+        title="خدمات درمانگر"
+        columns={data?.columns}
+        data={data?.data}
+        dataPagination={data?.paginate}
+        onAdd={() => {
+          setShowForm(true);
+          setSelectedRecord(null);
+        }}
+        onDelete={(record) => Delete(record.id)}
+        onEdit={(record) => {
+          setSelectedRecord(record);
+          setShowForm(true);
+        }}
+      />
+    </>
+  );
+}
+
+export default TherapistService;

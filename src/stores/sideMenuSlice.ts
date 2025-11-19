@@ -47,26 +47,26 @@ const initialState: SideMenuState = {
       pathname: "/resources",
       title: "مکان‌های مجموعه",
     },
-    {
-      icon: "CalendarCheck",
-      pathname: "/resource-availabilities",
-      title: "مکان‌های در دسترس",
-    },
+    // {
+    //   icon: "CalendarCheck",
+    //   pathname: "/resource-availabilities",
+    //   title: "مکان‌های در دسترس",
+    // },
     {
       icon: "HeartHandshake",
       pathname: "/therapists",
       title: "درمانگر",
     },
-    {
-      icon: "HandHeart",
-      pathname: "/therapist-services",
-      title: "خدمات درمانگر",
-    },
-    {
-      icon: "AlarmClockCheck",
-      pathname: "/therapist-availabilities",
-      title: "درمانگر در دسترس",
-    },
+    // {
+    //   icon: "HandHeart",
+    //   pathname: "/therapist-services",
+    //   title: "خدمات درمانگر",
+    // },
+    // {
+    //   icon: "AlarmClockCheck",
+    //   pathname: "/therapist-availabilities",
+    //   title: "درمانگر در دسترس",
+    // },
     {
       icon: "UsersRound",
       pathname: "/customers",
