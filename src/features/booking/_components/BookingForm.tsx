@@ -52,6 +52,7 @@ function BookingForm() {
       const praparedData: TRequest = {
         customer_id: dataById.booking.customer_id,
         notes: dataById.booking.notes,
+        //@ts-ignore
         items: preparedDataItem,
       };
       form.reset(praparedData);
