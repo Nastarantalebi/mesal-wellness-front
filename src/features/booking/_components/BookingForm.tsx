@@ -7,8 +7,7 @@ import useUpdateData from "@/services/useUpdateData";
 import useGetById from "@/services/useGetById";
 import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
-import useGetData from "@/services/useGetData";
-import type { TCreateData, TDataById, TRequest } from "../_types/type";
+import type {  TDataById, TRequest } from "../_types/type";
 import ItemForm from "./ItemForm";
 import BookingFields from "./BookingFields";
 
@@ -30,11 +29,11 @@ function BookingForm() {
     queryKey: [queryKey, selectedRecord],
     id: selectedRecord,
   });
-  const { data: dataCreate } =
-    useGetData<TCreateData>({
-      url: `${url}create`,
-      queryKey: `${queryKey},"dataCreate"`,
-    });
+  // const { data: dataCreate } =
+  //   useGetData<TCreateData>({
+  //     url: `${url}create`,
+  //     queryKey: `${queryKey},"dataCreate"`,
+  //   });
   const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
@@ -67,7 +66,7 @@ function BookingForm() {
         action(values, { onSuccess: () => navigate("/booking") });
       }}>
       <BookingFields form={form} />
-      <ItemForm form={form} dataCreate={dataCreate} />
+      <ItemForm form={form}  />
     </FormComponent>
   );
 }
