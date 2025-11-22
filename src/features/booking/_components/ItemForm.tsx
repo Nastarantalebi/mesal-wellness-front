@@ -165,105 +165,117 @@ const ItemForm = ({ form, className }: TProps) => {
 
               {/* درمانگر، مکان و سرویس */}
               <div className="w-full flex flex-row items-center gap-2">
-                <div className="flex-1 flex flex-col">
-                  <FormLabel>درمانگر</FormLabel>
-                  <Controller
-                    control={form.control}
-                    name={`items.${index}.therapist_id`}
-                    render={({ field }) => {
-                      useFirstOptionIfZero(
-                        field,
-                        data?.available_therapists || []
-                      );
-                      return (
-                        <FormSelect {...field}>
-                          {data?.available_therapists.map((item) => (
-                            <option key={item.id} value={item.id}>
-                              {item.name}
-                            </option>
-                          ))}
-                        </FormSelect>
-                      );
-                    }}
-                  />
-                </div>
-
-                <div className="flex-1 flex flex-col">
-                  <FormLabel>مکان</FormLabel>
-                  <Controller
-                    control={form.control}
-                    name={`items.${index}.resource_id`}
-                    render={({ field }) => (
-                      <FormSelect {...field}>
-                        {data?.available_rooms.map((item) => (
-                          <option key={item.id} value={item.id}>
-                            {item.name}
-                          </option>
-                        ))}
-                      </FormSelect>
-                    )}
-                  />
-                </div>
-
-                <div className="flex-1 flex flex-col">
-                  <FormLabel>خدمت</FormLabel>
-                  <Controller
-                    control={form.control}
-                    name={`items.${index}.service_id`}
-                    render={({ field }) => {
-                      const handleChange = (e: any) => {
-                        field.onChange(e);
-                        const selectedService = services.find(
-                          (s) => s.value === Number(e.target.value)
-                        );
-                        if (selectedService) {
-                          form.setValue(
-                            `items.${index}.unit_price`,
-                            selectedService.custom_price
+                {data && (
+                  <>
+                    <div className="flex-1 flex flex-col">
+                      <FormLabel>درمانگر</FormLabel>
+                      <Controller
+                        control={form.control}
+                        name={`items.${index}.therapist_id`}
+                        render={({ field }) => {
+                          useFirstOptionIfZero(
+                            field,
+                            data?.available_therapists || []
                           );
-                          form.setValue(
-                            `items.${index}.total_price`,
-                            selectedService.custom_price
+                          return (
+                            <FormSelect {...field}>
+                              {data?.available_therapists.map((item) => (
+                                <option key={item.id} value={item.id}>
+                                  {item.name}
+                                </option>
+                              ))}
+                            </FormSelect>
                           );
-                        } else {
-                          form.setValue(`items.${index}.unit_price`, 0);
-                          form.setValue(`items.${index}.total_price`, 0);
-                        }
-                      };
-                      return (
-                        <FormSelect {...field} onChange={handleChange}>
-                          {services.map((s) => (
-                            <option key={s.value} value={s.value}>
-                              {s.label}
-                            </option>
-                          ))}
-                        </FormSelect>
-                      );
-                    }}
-                  />
-                </div>
+                        }}
+                      />
+                    </div>
 
-                {/* مبلغ */}
-                <div className="flex-1 flex flex-col">
-                  <FormLabel>مبلغ خدمت</FormLabel>
-                  <Controller
-                    control={form.control}
-                    name={`items.${index}.unit_price`}
-                    render={({ field }) => (
-                      <FormInput {...field} type="number" dir="ltr" readOnly />
-                    )}
-                  />
-                </div>
-                <div className="flex-1 flex flex-col">
-                  <FormLabel>مبلغ قابل پرداخت</FormLabel>
-                  <Controller
-                    control={form.control}
-                    name={`items.${index}.total_price`}
-                    render={({ field }) => (
-                      <FormInput {...field} type="number" dir="ltr" />
-                    )}
-                  />
-                </div>
+                    <div className="flex-1 flex flex-col">
+                      <FormLabel>مکان</FormLabel>
+                      <Controller
+                        control={form.control}
+                        name={`items.${index}.resource_id`}
+                        render={({ field }) => (
+                          <FormSelect {...field}>
+                            {data?.available_rooms.map((item) => (
+                              <option key={item.id} value={item.id}>
+                                {item.name}
+                              </option>
+                            ))}
+                          </FormSelect>
+                        )}
+                      />
+                    </div>
+                  </>
+                )}
+                {dataServices && (
+                  <>
+                    <div className="flex-1 flex flex-col">
+                      <FormLabel>خدمت</FormLabel>
+                      <Controller
+                        control={form.control}
+                        name={`items.${index}.service_id`}
+                        render={({ field }) => {
+                          const handleChange = (e: any) => {
+                            field.onChange(e);
+                            const selectedService = services.find(
+                              (s) => s.value === Number(e.target.value)
+                            );
+                            if (selectedService) {
+                              form.setValue(
+                                `items.${index}.unit_price`,
+                                selectedService.custom_price
+                              );
+                              form.setValue(
+                                `items.${index}.total_price`,
+                                selectedService.custom_price
+                              );
+                            } else {
+                              form.setValue(`items.${index}.unit_price`, 0);
+                              form.setValue(`items.${index}.total_price`, 0);
+                            }
+                          };
+                          return (
+                            <FormSelect {...field} onChange={handleChange}>
+                              {services.map((s) => (
+                                <option key={s.value} value={s.value}>
+                                  {s.label}
+                                </option>
+                              ))}
+                            </FormSelect>
+                          );
+                        }}
+                      />
+                    </div>
+
+                    {/* مبلغ */}
+                    <div className="flex-1 flex flex-col">
+                      <FormLabel>مبلغ خدمت</FormLabel>
+                      <Controller
+                        control={form.control}
+                        name={`items.${index}.unit_price`}
+                        render={({ field }) => (
+                          <FormInput
+                            {...field}
+                            type="number"
+                            dir="ltr"
+                            readOnly
+                          />
+                        )}
+                      />
+                    </div>
+                    <div className="flex-1 flex flex-col">
+                      <FormLabel>مبلغ قابل پرداخت</FormLabel>
+                      <Controller
+                        control={form.control}
+                        name={`items.${index}.total_price`}
+                        render={({ field }) => (
+                          <FormInput {...field} type="number" dir="ltr" />
+                        )}
+                      />
+                    </div>
+                  </>
+                )}
                 {/* حذف */}
                 <div className="flex">
                   {fields.length > 1 && (
