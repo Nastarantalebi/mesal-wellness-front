@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import useFormData from "../_hooks/useFormData";
 import FormComponent from "@/components/Form/Form";
 
-function CustomersForm() {
+function CustomersForm({ setOpenModal }: { setOpenModal?: any }) {
   const navigate = useNavigate();
   const location = useLocation();
   const selectedRecord = location.state?.record.id;
@@ -59,7 +59,13 @@ function CustomersForm() {
       isSubmitting={isPendingUpdate || isPendingCreate}
       onSubmit={(values) => {
         const action = selectedRecord ? update : create;
-        action(values, { onSuccess: () => navigate("/customers") });
+        action(values, {
+          onSuccess: () => {
+            location.pathname === "/customers/create"
+              ? navigate("/customers")
+              : setOpenModal(false);
+          },
+        });
       }}
     />
   );

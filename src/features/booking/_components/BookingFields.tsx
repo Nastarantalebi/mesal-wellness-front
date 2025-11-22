@@ -4,7 +4,9 @@ import useGetData from "@/services/useGetData";
 import type { TCustomerSearch } from "../_types/type";
 import Button from "@/components/Button";
 import Lucide from "@/components/Lucide";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Modal from "@/components/Headless/Dialog/Modal";
+import CustomersForm from "@/features/customers/_components/CustomersForm";
 
 interface TProps {
   form: any;
@@ -13,6 +15,7 @@ interface TProps {
 }
 
 const BookingFields = ({ form, className }: TProps) => {
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const search_item = useWatch({
     control: form.control,
     name: "search_customer",
@@ -21,7 +24,7 @@ const BookingFields = ({ form, className }: TProps) => {
     control: form.control,
     name: "customer_id",
   });
-  const { data, refetch } = useGetData<TCustomerSearch>({
+  const { data, refetch, isFetching } = useGetData<TCustomerSearch>({
     url: `/wellness/customers/search?q=${search_item}`,
     queryKey: ["customer_search", search_item],
     enabled: false,
@@ -46,35 +49,55 @@ const BookingFields = ({ form, className }: TProps) => {
   }, [selectedCustomerId, data]);
 
   return (
-    <div
-      className={`grid grid-cols-3 gap-2 w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full ${className}`}>
-      {/* یافتن مشتری */}
-      <div className="flex items-center justify-start gap-2 border w-fit">
-        {" "}
-        <div className="mb-4">
-          <FormLabel>یافتن مشتری</FormLabel>
-          <Controller
-            control={form.control}
-            name="search_customer"
-            render={({ field }) => <FormInput {...field} />}
-          />
+    <>
+      <div
+        className={`grid grid-cols-6 gap-2 w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full ${className}`}>
+        <div className="flex items-center justify-start gap-2 w-fit">
+          {" "}
+          <div>
+            <FormLabel>یافتن مشتری</FormLabel>
+            <Controller
+              control={form.control}
+              name="search_customer"
+              render={({ field }) => <FormInput {...field} />}
+            />
+          </div>
+          {!!search_item && (
+            <div className="flex items-center">
+              <Button
+                type="button"
+                variant="outline-primary"
+                size="sm"
+                onClick={() => refetch()}
+                className="whitespace-nowrap flex items-center gap-1 h-9">
+                <Lucide
+                  icon={`${isFetching ? "Loader" : "Search"}`}
+                  className={`w-4 h-4 ${isFetching ? "animate-spin" : ""}`}
+                />
+              </Button>
+            </div>
+          )}
         </div>
-        {!!search_item && (
-          <div className="flex items-center">
+        {!search_item ? (
+          <div className="text-gray-500 text-sm col-span-full mb-1">
+            برای یافتن مشتری، نام یا شماره تلفن را وارد کنید.
+          </div>
+        ) : !data ? (
+          <div className="text-gray-500 text-sm col-span-full mb-1">
+            برای دریافت نتیجه، روی دکمه جستجو کلیک کنید.
+          </div>
+        ) : data.data.length === 0 ? (
+          <div className="flex flex-row items-center justify-between gap-1 bg-red-50 text-red-700 p-3 rounded-lg col-span-full border border-red-200">
+            <span>مشتری یافت نشد.</span>
             <Button
               type="button"
               variant="outline-primary"
-              size="sm"
-              onClick={() => refetch()}
-              className="whitespace-nowrap flex items-center gap-1 h-9">
-              <Lucide icon="Search" className="w-4 h-4" />
+              className=" text-sm w-fit"
+              onClick={() => setOpenModal(true)}>
+              + مشتری جدید
             </Button>
           </div>
-        )}
-      </div>
-      {/* مشتری */}
-      {data?.data && Array.isArray(data.data) ? (
-        data.data.length > 0 ? (
+        ) : (
           <>
             <div className="mb-4">
               <FormLabel>مشتری</FormLabel>
@@ -104,26 +127,26 @@ const BookingFields = ({ form, className }: TProps) => {
               />
             </div>
           </>
-        ) : (
-          <div>
-            <span>مشتری یافت نشد</span>
-            <span>برای اضافه کردن مشتری جدید کلیک کنید</span>
-          </div>
-        )
-      ) : (
-        <span>برای یافتن مشتری نام یا شماره تلفن انرا وارد کنید</span>
-      )}
+        )}
 
-      {/* یادداشت */}
-      <div className="mb-4 col-span-3">
-        <FormLabel>یادداشت</FormLabel>
-        <Controller
-          control={form.control}
-          name="note"
-          render={({ field }) => <FormInput {...field} />}
-        />
+        <div className="col-span-full">
+          <FormLabel>یادداشت</FormLabel>
+          <Controller
+            control={form.control}
+            name="note"
+            render={({ field }) => <FormInput {...field} />}
+          />
+        </div>
       </div>
-    </div>
+      <Modal
+        close={() => setOpenModal(false)}
+        open={openModal}
+        title="افزودن شخص جدید"
+        cancelBtn={false}
+        size="xxl">
+        <CustomersForm setOpenModal={setOpenModal} />
+      </Modal>
+    </>
   );
 };
 
