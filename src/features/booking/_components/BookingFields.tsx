@@ -10,10 +10,13 @@ import CustomersForm from "@/features/customers/_components/CustomersForm";
 
 interface TProps {
   form: any;
+  selectedRecord: any;
   className?: string;
 }
 
-const BookingFields = ({ form, className }: TProps) => {
+const BookingFields = ({ form, selectedRecord, className }: TProps) => {
+  const isEdit = !!selectedRecord;
+  console.log(isEdit);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const search_item = useWatch({
     control: form.control,
@@ -155,7 +158,7 @@ const BookingFields = ({ form, className }: TProps) => {
           <FormLabel>یادداشت</FormLabel>
           <Controller
             control={form.control}
-            name="note"
+            name="notes"
             render={({ field }) => <FormInput {...field} />}
           />
         </div>

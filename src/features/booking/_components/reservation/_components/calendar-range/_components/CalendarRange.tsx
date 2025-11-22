@@ -22,7 +22,6 @@ function CalendarRange() {
       url: `${url}create`,
       queryKey: `${queryKey},"dataCreate"`,
     });
-  console.log(form.watch());
   const { from, to, status } = filters;
   const { data, isLoading, refetch } = useGetData<TResponse>({
     url: `${url}calendar-range?from=${from}&to=${to}${

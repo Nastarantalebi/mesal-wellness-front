@@ -13,9 +13,12 @@ import { PlusIcon, Trash2 } from "lucide-react";
 interface TProps {
   form: any;
   className?: string;
+  selectedRecord: any;
 }
 
-const ItemForm = ({ form, className }: TProps) => {
+const ItemForm = ({ form, className, selectedRecord }: TProps) => {
+  const isEdit = !!selectedRecord;
+  console.log(isEdit)
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "items",
@@ -60,23 +63,6 @@ const ItemForm = ({ form, className }: TProps) => {
     queryKey: ["therapist_services", therapistIds.join("-")],
     enabled: therapistIds.length > 0,
   });
-  useEffect(() => {
-    const totalPrice =
-      items?.reduce(
-        (sum: number, item: any) => sum + (item.total_price || 0),
-        0
-      ) || 0;
-
-    const totalPayable =
-      items?.reduce(
-        (sum: number, item: any) => sum + (item.payable_amount || 0),
-        0
-      ) || 0;
-
-    form.setValue("total_price", totalPrice);
-    form.setValue("payable_amount", totalPayable);
-  }, [items, form]);
-
   return (
     <>
       <div

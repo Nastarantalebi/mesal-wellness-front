@@ -59,11 +59,9 @@ function CustomTable({
   onVisit,
   onImport,
   customActions,
-  isLoading = false,
 }: // enableExport = true,
 // enableFilter = true,
 CustomTableProps) {
-  console.log(isLoading);
   const tableRef = useRef<HTMLDivElement | null>(null);
   const tabulator = useRef<Tabulator | null>(null);
   const [filter, setFilter] = useState({

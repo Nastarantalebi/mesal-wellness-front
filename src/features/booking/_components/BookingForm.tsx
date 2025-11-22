@@ -7,7 +7,7 @@ import useUpdateData from "@/services/useUpdateData";
 import useGetById from "@/services/useGetById";
 import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
-import type {  TDataById, TRequest } from "../_types/type";
+import type { TDataById, TRequest } from "../_types/type";
 import ItemForm from "./ItemForm";
 import BookingFields from "./BookingFields";
 
@@ -44,13 +44,18 @@ function BookingForm() {
         service_id: item.service_id,
         therapist_id: item.therapist_id,
         resource_id: item.resource_id,
-        start_at: item.start_at,
-        end_at: item.end_at,
+        start_at: item.start_at.split(" ")[1],
+        end_at: item.end_at.split(" ")[1],
+        date: item.start_at.split(" ")[0],
+        unit_price: item.unit_price,
+        total_price: item.total_price,
       }));
       const praparedData: TRequest = {
         customer_id: dataById.booking.customer_id,
         notes: dataById.booking.notes,
-        //@ts-ignore
+        total_amount: dataById.booking.total_amount,
+        deposit: dataById.booking.deposit ?? 0,
+        payable_amount: dataById.booking.payable_amount,
         items: preparedDataItem,
       };
       form.reset(praparedData);
@@ -65,8 +70,8 @@ function BookingForm() {
         const action = selectedRecord ? update : create;
         action(values, { onSuccess: () => navigate("/booking") });
       }}>
-      <BookingFields form={form} />
-      <ItemForm form={form}  />
+      <BookingFields form={form} selectedRecord={selectedRecord}/>
+      <ItemForm form={form} selectedRecord={selectedRecord}/>
     </FormComponent>
   );
 }

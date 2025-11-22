@@ -4,10 +4,9 @@ export type TItems = {
   resource_id: number;
   start_at: string;
   end_at: string;
-  deposit: number;
-  payable_amount: number;
-  total_amount: number;
   date: string;
+  unit_price: number;
+  total_price: number;
 };
 
 export type TBookingItem = {
@@ -31,6 +30,9 @@ export type TBookingItem = {
 export type TRequest = {
   customer_id: number;
   notes: string | null;
+  deposit: number;
+  total_amount: number;
+  payable_amount: number;
   items: TItems[];
 };
 export type TResponse = {
@@ -71,15 +73,31 @@ export type TDataById = {
     status_label: string;
     start_at: string;
     end_at: string;
+    deposit: number | null;
     total_amount: number;
     discount_amount: number;
     tax_amount: number;
     payable_amount: number;
     paid_amount: number;
-    notes: string | null;
-    items: TBookingItem[];
-    created_at: string;
-    updated_at: string;
+    notes: string;
+    items: {
+      id: number;
+      service_id: number;
+      service_label: string;
+      therapist_id: number;
+      therapist_label: string;
+      resource_id: number;
+      resource_label: string;
+      start_at: string;
+      end_at: string;
+      duration_minutes: number;
+      quantity: number;
+      unit_price: number;
+      total_price: number;
+      status: string;
+      status_label: string;
+      notes: string | null;
+    }[];
   };
 };
 export type TCreateData = {
