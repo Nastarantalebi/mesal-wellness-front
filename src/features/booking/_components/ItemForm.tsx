@@ -30,7 +30,6 @@ const ItemForm = ({ form, className }: TProps) => {
   const date = lastItem.date;
   const start_at = lastItem.start_at;
   const end_at = lastItem.end_at;
-
   const useFirstOptionIfZero = (field: any, options: any[]) => {
     const firstOption = options?.[0]?.value;
     useEffect(() => {
@@ -62,7 +61,6 @@ const ItemForm = ({ form, className }: TProps) => {
     enabled: therapistIds.length > 0,
   });
 
-  const validDate = !!date && !!start_at && !!end_at;
 
   return (
     <>
@@ -81,7 +79,8 @@ const ItemForm = ({ form, className }: TProps) => {
         {fields.map((fieldItem, index) => {
           const errorItem = form.formState.errors.items?.[index];
           const services = dataServices?.data || [];
-
+          const item = items?.[index] || {};
+          const validItemDate = !!item.date && !!item.start_at && !!item.end_at;
           return (
             <div
               key={fieldItem.id}
@@ -130,7 +129,7 @@ const ItemForm = ({ form, className }: TProps) => {
                   )}
                 </div>
 
-                {validDate && (
+                {validItemDate && (
                   <div className="flex items-center">
                     <Button
                       type="button"
