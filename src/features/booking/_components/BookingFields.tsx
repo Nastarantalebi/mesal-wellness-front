@@ -10,7 +10,6 @@ import CustomersForm from "@/features/customers/_components/CustomersForm";
 
 interface TProps {
   form: any;
-  dataCreate?: any;
   className?: string;
 }
 
@@ -129,6 +128,30 @@ const BookingFields = ({ form, className }: TProps) => {
           </>
         )}
 
+        <div >
+          <FormLabel>مبلغ کل</FormLabel>
+          <Controller
+            control={form.control}
+            name="total_amount"
+            render={({ field }) => <FormInput {...field} />}
+          />
+        </div>
+        <div >
+          <FormLabel>بیعانه</FormLabel>
+          <Controller
+            control={form.control}
+            name="deposit"
+            render={({ field }) => <FormInput {...field} />}
+          />
+        </div>
+        <div >
+          <FormLabel>مبلغ قابل پرداخت</FormLabel>
+          <Controller
+            control={form.control}
+            name="payable_amount"
+            render={({ field }) => <FormInput {...field} />}
+          />
+        </div>
         <div className="col-span-full">
           <FormLabel>یادداشت</FormLabel>
           <Controller

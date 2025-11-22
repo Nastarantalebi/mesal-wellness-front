@@ -33,7 +33,10 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
   const date = lastItem.date;
   const start_at = lastItem.start_at;
   const end_at = lastItem.end_at;
-
+  const therapistId = useWatch({
+    control: form.control,
+    name: "therapist_id",
+  });
   const useFirstOptionIfZero = (field: any, options: any[]) => {
     const firstOption = options?.[0]?.value;
     useEffect(() => {
@@ -45,11 +48,19 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
       }
     }, [field.value, firstOption]);
   };
-  const { data, refetch } = useGetData<TAvailabilityData>({
+  const { data, refetch, isFetching } = useGetData<TAvailabilityData>({
     url: `${url}availability?date=${date}&start_at=${start_at}&end_at=${end_at}`,
     queryKey: ["availability", date, start_at, end_at],
     enabled: false,
   });
+  const { data: dataServices, refetch: refetchServices } =
+    useGetData<TAvailabilityData>({
+      url: `/wellness/therapists/${therapistId}/services`,
+      queryKey: ["availability", String(therapistId)],
+      enabled: false,
+    });
+    console.log(dataServices)
+    console.log(therapistId)
   const validDate = !!date && !!start_at!! && end_at;
   return (
     <div
@@ -60,7 +71,7 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
           type="button"
           onClick={() => append(itemsValues)}
           variant="outline-primary">
-          <PlusIcon size={16}/>
+          <PlusIcon size={16} />
         </Button>
       </div>
 
@@ -122,7 +133,10 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
                     size="sm"
                     onClick={() => refetch()}
                     className="whitespace-nowrap flex items-center gap-1 h-9">
-                    <Lucide icon="Search" className="w-4 h-4" /> بررسی
+                    <Lucide
+                      icon={`${isFetching ? "Loader" : "Search"}`}
+                      className={`w-4 h-4 ${isFetching ? "animate-spin" : ""}`}
+                    />
                   </Button>
                 </div>
               )}
@@ -189,23 +203,11 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
                 }}
               />
             </div>
-            {/* مکان */}
             <div className="flex-1 flex flex-col">
-              <FormLabel>بیعانه</FormLabel>
+              <FormLabel>مبلغ خدمت</FormLabel>
               <Controller
                 control={form.control}
-                name={`items.${index}.deposit `}
-                render={({ field }) => {
-                  useFirstOptionIfZero(field, data?.available_rooms || []);
-                  return <FormInput {...field} type="number" dir="ltr" />;
-                }}
-              />
-            </div>
-            <div className="flex-1 flex flex-col">
-              <FormLabel>مبلغ کل</FormLabel>
-              <Controller
-                control={form.control}
-                name={`items.${index}.total_amount  `}
+                name={`items.${index}.unit_price`}
                 render={({ field }) => {
                   useFirstOptionIfZero(field, data?.available_rooms || []);
                   return <FormInput {...field} type="number" dir="ltr" />;
@@ -216,7 +218,7 @@ const ItemForm = ({ form, dataCreate, className }: TProps) => {
               <FormLabel>مبلغ قابل پرداخت</FormLabel>
               <Controller
                 control={form.control}
-                name={`items.${index}.payable_amount  `}
+                name={`items.${index}.total_price`}
                 render={({ field }) => {
                   useFirstOptionIfZero(field, data?.available_rooms || []);
                   return <FormInput {...field} type="number" dir="ltr" />;

@@ -152,3 +152,12 @@ export type TCustomerSearch = {
     membership_type: string;
   }[];
 };
+
+export type TTherapistService = {
+  data: {
+    value: number;
+    label: string;
+    custom_price: number;
+    estimated_duration: number;
+  }[];
+};

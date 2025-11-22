@@ -80,7 +80,6 @@ const useFormData = () => {
     {
       name: "notes",
       label: "یادداشت",
-      required: true,
       placeholder: "یادداشت",
     },
   ];
