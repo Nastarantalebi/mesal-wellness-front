@@ -91,181 +91,186 @@ const ItemForm = ({ form, className }: TProps) => {
         return (
           <div
             key={fieldItem.id}
-            className="flex flex-row items-end justify-end gap-2 mb-2">
+            className="flex flex-col items-end justify-end gap-2 mb-2">
             {/* تاریخ */}
-            <div className="w-48 flex flex-col">
-              <FormLabel>تاریخ</FormLabel>
-              <Controller
-                control={form.control}
-                name={`items.${index}.date`}
-                render={({ field }) => <DatePickerField field={field} />}
-              />
-              {errorItem?.start_at && (
-                <p className="text-red-500 text-sm">
-                  {errorItem.start_at.message}
-                </p>
-              )}
-            </div>
-
-            {/* زمان شروع */}
-            <div className="w-32 flex flex-col">
-              <FormLabel>زمان شروع</FormLabel>
-              <Controller
-                control={form.control}
-                name={`items.${index}.start_at`}
-                render={({ field }) => <TimePickerField field={field} />}
-              />
-              {errorItem?.start_at && (
-                <p className="text-red-500 text-sm">
-                  {errorItem.start_at.message}
-                </p>
-              )}
-            </div>
-
-            {/* زمان پایان */}
-            <div className="w-32 flex flex-col">
-              <FormLabel>زمان پایان</FormLabel>
-              <Controller
-                control={form.control}
-                name={`items.${index}.end_at`}
-                render={({ field }) => <TimePickerField field={field} />}
-              />
-              {errorItem?.end_at && (
-                <p className="text-red-500 text-sm">
-                  {errorItem.end_at.message}
-                </p>
-              )}
-            </div>
-
-            {validDate && (
-              <div className="flex items-center">
-                <Button
-                  type="button"
-                  variant="outline-primary"
-                  size="sm"
-                  onClick={() => refetch()}
-                  className={`whitespace-nowrap flex items-center gap-1 h-9`}>
-                  <Lucide
-                    icon={isFetching ? "Loader" : "Search"}
-                    className={`w-4 h-4 ${isFetching ? "animate-spin" : ""}`}
-                  />
-                </Button>
+            <div className="flex flex-row w-full gap-2">
+              <div className="w-48 flex flex-col">
+                <FormLabel>تاریخ</FormLabel>
+                <Controller
+                  control={form.control}
+                  name={`items.${index}.date`}
+                  render={({ field }) => <DatePickerField field={field} />}
+                />
+                {errorItem?.start_at && (
+                  <p className="text-red-500 text-sm">
+                    {errorItem.start_at.message}
+                  </p>
+                )}
               </div>
-            )}
 
-            {/* درمانگر */}
-            <div className="flex-1 flex flex-col">
-              <FormLabel>درمانگر</FormLabel>
-              <Controller
-                control={form.control}
-                name={`items.${index}.therapist_id`}
-                render={({ field }) => {
-                  useFirstOptionIfZero(field, data?.available_therapists || []);
-                  return (
-                    <FormSelect
-                      {...field}
-                      onChange={(e) => {
-                        field.onChange(e);
-                      }}>
-                      {data?.available_therapists.map((item) => (
-                        <option key={item.id} value={item.id}>
-                          {item.name}
-                        </option>
-                      ))}
-                    </FormSelect>
-                  );
-                }}
-              />
-            </div>
+              {/* زمان شروع */}
+              <div className="w-32 flex flex-col">
+                <FormLabel>زمان شروع</FormLabel>
+                <Controller
+                  control={form.control}
+                  name={`items.${index}.start_at`}
+                  render={({ field }) => <TimePickerField field={field} />}
+                />
+                {errorItem?.start_at && (
+                  <p className="text-red-500 text-sm">
+                    {errorItem.start_at.message}
+                  </p>
+                )}
+              </div>
 
-            {/* خدمات */}
-            <div className="flex-1 flex flex-col">
-              <FormLabel>خدمات</FormLabel>
-              <Controller
-                control={form.control}
-                name={`items.${index}.service_id`}
-                render={({ field }) => {
-                  useFirstOptionIfZero(field, dataServices?.data || []);
+              {/* زمان پایان */}
+              <div className="w-32 flex flex-col">
+                <FormLabel>زمان پایان</FormLabel>
+                <Controller
+                  control={form.control}
+                  name={`items.${index}.end_at`}
+                  render={({ field }) => <TimePickerField field={field} />}
+                />
+                {errorItem?.end_at && (
+                  <p className="text-red-500 text-sm">
+                    {errorItem.end_at.message}
+                  </p>
+                )}
+              </div>
 
-                  // وقتی سرویس تغییر کرد، قیمت‌ها را ست کن
-                  const handleChange = (e: any) => {
-                    field.onChange(e);
-                    const selectedService = dataServices?.data?.find(
-                      (s) => s.value === Number(e.target.value)
-                    );
-                    if (selectedService) {
-                      form.setValue(
-                        `items.${index}.unit_price`,
-                        selectedService.custom_price || 0
-                      );
-                      form.setValue(
-                        `items.${index}.total_price`,
-                        selectedService.custom_price || 0
-                      );
-                    } else {
-                      form.setValue(`items.${index}.unit_price`, 0);
-                      form.setValue(`items.${index}.total_price`, 0);
-                    }
-                  };
-                  return (
-                    <FormSelect {...field} onChange={handleChange}>
-                      {dataServices?.data?.map((item) => (
-                        <option key={item.value} value={item.value}>
-                          {item.label}
-                        </option>
-                      ))}
-                    </FormSelect>
-                  );
-                }}
-              />
-            </div>
-            {/* مکان */}
-            <div className="flex-1 flex flex-col">
-              <FormLabel>مکان</FormLabel>
-              <Controller
-                control={form.control}
-                name={`items.${index}.resource_id`}
-                render={({ field }) => {
-                  return (
-                    <FormSelect {...field}>
-                      {data?.available_rooms.map((item) => (
-                        <option key={item.id} value={item.id}>
-                          {item.name}
-                        </option>
-                      ))}
-                    </FormSelect>
-                  );
-                }}
-              />
-            </div>
-            <div className="flex-1 flex flex-col">
-              <FormLabel>مبلغ خدمت</FormLabel>
-              <Controller
-                control={form.control}
-                name={`items.${index}.unit_price`}
-                render={({ field }) => {
-                  return (
-                    <FormInput
-                      {...field}
-                      type="number"
-                      dir="ltr"
-                      readOnly={true}
+              {validDate && (
+                <div className="flex items-center">
+                  <Button
+                    type="button"
+                    variant="outline-primary"
+                    size="sm"
+                    onClick={() => refetch()}
+                    className={`whitespace-nowrap flex items-center gap-1 h-9`}>
+                    <Lucide
+                      icon={isFetching ? "Loader" : "Search"}
+                      className={`w-4 h-4 ${isFetching ? "animate-spin" : ""}`}
                     />
-                  );
-                }}
-              />
+                  </Button>
+                </div>
+              )}
             </div>
-            <div className="flex-1 flex flex-col">
-              <FormLabel>مبلغ قابل پرداخت</FormLabel>
-              <Controller
-                control={form.control}
-                name={`items.${index}.total_price`}
-                render={({ field }) => {
-                  return <FormInput {...field} type="number" dir="ltr" />;
-                }}
-              />
-            </div>
+            <div className="w-full flex flex-row items-center gap-2">
+              {/* درمانگر */}
+              <div className="flex-1 flex flex-col">
+                <FormLabel>درمانگر</FormLabel>
+                <Controller
+                  control={form.control}
+                  name={`items.${index}.therapist_id`}
+                  render={({ field }) => {
+                    useFirstOptionIfZero(
+                      field,
+                      data?.available_therapists || []
+                    );
+                    return (
+                      <FormSelect
+                        {...field}
+                        onChange={(e) => {
+                          field.onChange(e);
+                        }}>
+                        {data?.available_therapists.map((item) => (
+                          <option key={item.id} value={item.id}>
+                            {item.name}
+                          </option>
+                        ))}
+                      </FormSelect>
+                    );
+                  }}
+                />
+              </div>
 
+              {/* مکان */}
+              <div className="flex-1 flex flex-col">
+                <FormLabel>مکان</FormLabel>
+                <Controller
+                  control={form.control}
+                  name={`items.${index}.resource_id`}
+                  render={({ field }) => {
+                    return (
+                      <FormSelect {...field}>
+                        {data?.available_rooms.map((item) => (
+                          <option key={item.id} value={item.id}>
+                            {item.name}
+                          </option>
+                        ))}
+                      </FormSelect>
+                    );
+                  }}
+                />
+              </div>
+              {/* خدمات */}
+              <div className="flex-1 flex flex-col">
+                <FormLabel>خدمت</FormLabel>
+                <Controller
+                  control={form.control}
+                  name={`items.${index}.service_id`}
+                  render={({ field }) => {
+                    useFirstOptionIfZero(field, dataServices?.data || []);
+
+                    // وقتی سرویس تغییر کرد، قیمت‌ها را ست کن
+                    const handleChange = (e: any) => {
+                      field.onChange(e);
+                      const selectedService = dataServices?.data?.find(
+                        (s) => s.value === Number(e.target.value)
+                      );
+                      if (selectedService) {
+                        form.setValue(
+                          `items.${index}.unit_price`,
+                          selectedService.custom_price || 0
+                        );
+                        form.setValue(
+                          `items.${index}.total_price`,
+                          selectedService.custom_price || 0
+                        );
+                      } else {
+                        form.setValue(`items.${index}.unit_price`, 0);
+                        form.setValue(`items.${index}.total_price`, 0);
+                      }
+                    };
+                    return (
+                      <FormSelect {...field} onChange={handleChange}>
+                        {dataServices?.data?.map((item) => (
+                          <option key={item.value} value={item.value}>
+                            {item.label}
+                          </option>
+                        ))}
+                      </FormSelect>
+                    );
+                  }}
+                />
+              </div>
+              <div className="flex-1 flex flex-col">
+                <FormLabel>مبلغ خدمت</FormLabel>
+                <Controller
+                  control={form.control}
+                  name={`items.${index}.unit_price`}
+                  render={({ field }) => {
+                    return (
+                      <FormInput
+                        {...field}
+                        type="number"
+                        dir="ltr"
+                        readOnly={true}
+                      />
+                    );
+                  }}
+                />
+              </div>
+              <div className="flex-1 flex flex-col">
+                <FormLabel>مبلغ قابل پرداخت</FormLabel>
+                <Controller
+                  control={form.control}
+                  name={`items.${index}.total_price`}
+                  render={({ field }) => {
+                    return <FormInput {...field} type="number" dir="ltr" />;
+                  }}
+                />
+              </div>
+            </div>
             {/* حذف */}
             <div className="flex">
               {fields.length > 1 && (
