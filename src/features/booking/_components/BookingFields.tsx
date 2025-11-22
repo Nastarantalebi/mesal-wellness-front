@@ -27,18 +27,24 @@ const BookingFields = ({ form, className }: TProps) => {
     enabled: false,
   });
   useEffect(() => {
-    if (!selectedCustomerId || !data?.data) return;
-
+    if (!data?.data) {
+      form.setValue("phone", "");
+      return;
+    }
+    if (!selectedCustomerId) {
+      form.setValue("phone", "");
+      return;
+    }
     const selectedCustomer = data.data.find(
       (item: any) => item.id === Number(selectedCustomerId)
     );
-
     if (selectedCustomer) {
-      form.setValue("phone", selectedCustomer.phone);
+      form.setValue("phone", selectedCustomer.phone || "");
+    } else {
+      form.setValue("phone", "");
     }
   }, [selectedCustomerId, data]);
-  console.log(data);
-  console.log(data?.data);
+
   return (
     <div
       className={`grid grid-cols-3 gap-2 w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full ${className}`}>
@@ -61,42 +67,51 @@ const BookingFields = ({ form, className }: TProps) => {
               size="sm"
               onClick={() => refetch()}
               className="whitespace-nowrap flex items-center gap-1 h-9">
-              <Lucide icon="Search" className="w-4 h-4" /> 
+              <Lucide icon="Search" className="w-4 h-4" />
             </Button>
           </div>
         )}
       </div>
       {/* مشتری */}
-      {data?.data && (
-        <>
-          {" "}
-          <div className="mb-4">
-            <FormLabel>مشتری</FormLabel>
-            <Controller
-              control={form.control}
-              name="customer_id"
-              render={({ field }) => (
-                <FormSelect {...field}>
-                  {data?.data.map((item: any) => (
-                    <option key={item.id} value={item.id}>
-                      {item.full_name}
-                    </option>
-                  ))}
-                </FormSelect>
-              )}
-            />
+      {data?.data && Array.isArray(data.data) ? (
+        data.data.length > 0 ? (
+          <>
+            <div className="mb-4">
+              <FormLabel>مشتری</FormLabel>
+              <Controller
+                control={form.control}
+                name="customer_id"
+                render={({ field }) => (
+                  <FormSelect {...field}>
+                    {data.data.map((item: any) => (
+                      <option key={item.id} value={item.id}>
+                        {item.full_name}
+                      </option>
+                    ))}
+                  </FormSelect>
+                )}
+              />
+            </div>
+
+            <div className="mb-4">
+              <FormLabel>شماره تلفن</FormLabel>
+              <Controller
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormInput {...field} readOnly dir="ltr" />
+                )}
+              />
+            </div>
+          </>
+        ) : (
+          <div>
+            <span>مشتری یافت نشد</span>
+            <span>برای اضافه کردن مشتری جدید کلیک کنید</span>
           </div>
-          <div className="mb-4">
-            <FormLabel>شماره تلفن</FormLabel>
-            <Controller
-              control={form.control}
-              name="phone"
-              render={({ field }) => (
-                <FormInput {...field} readOnly={true} dir="ltr" />
-              )}
-            />
-          </div>
-        </>
+        )
+      ) : (
+        <span>برای یافتن مشتری نام یا شماره تلفن انرا وارد کنید</span>
       )}
 
       {/* یادداشت */}
