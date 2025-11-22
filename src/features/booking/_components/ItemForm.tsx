@@ -60,7 +60,22 @@ const ItemForm = ({ form, className }: TProps) => {
     queryKey: ["therapist_services", therapistIds.join("-")],
     enabled: therapistIds.length > 0,
   });
+  useEffect(() => {
+    const totalPrice =
+      items?.reduce(
+        (sum: number, item: any) => sum + (item.total_price || 0),
+        0
+      ) || 0;
 
+    const totalPayable =
+      items?.reduce(
+        (sum: number, item: any) => sum + (item.payable_amount || 0),
+        0
+      ) || 0;
+
+    form.setValue("total_price", totalPrice);
+    form.setValue("payable_amount", totalPayable);
+  }, [items, form]);
 
   return (
     <>
@@ -265,36 +280,36 @@ const ItemForm = ({ form, className }: TProps) => {
           );
         })}
       </div>
-      <div className="w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full grid grid-cols-3 gap-4">
-        <div className="flex flex-col items-start">
-          <FormLabel>بیعانه</FormLabel>
-          <div className="mt-1 text-gray-700 font-medium bg-white p-2 rounded shadow-sm">
-            {form.getValues("deposit")?.toLocaleString() || "—"}
-          </div>
+      <div className="w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full grid grid-cols-3 gap-2">
+        <div className="flex-1 flex flex-col">
+          <FormLabel> بیعانه</FormLabel>
+          <Controller
+            control={form.control}
+            name="deposit"
+            render={({ field }) => (
+              <FormInput {...field} type="number" dir="ltr" />
+            )}
+          />
         </div>
-
-        <div className="flex flex-col items-start">
+        <div className="flex-1 flex flex-col">
           <FormLabel>مبلغ کل</FormLabel>
-          <div className="mt-1 text-gray-700 font-medium bg-white p-2 rounded shadow-sm">
-            {items
-              ?.reduce(
-                (sum: number, item: any) => sum + (item.total_price || 0),
-                0
-              )
-              .toLocaleString() || "0"}
-          </div>
+          <Controller
+            control={form.control}
+            name="total_amount"
+            render={({ field }) => (
+              <FormInput {...field} type="number" dir="ltr" />
+            )}
+          />
         </div>
-
-        <div className="flex flex-col items-start">
+        <div className="flex-1 flex flex-col">
           <FormLabel>مبلغ قابل پرداخت</FormLabel>
-          <div className="mt-1 text-gray-700 font-medium bg-white p-2 rounded shadow-sm">
-            {items
-              ?.reduce(
-                (sum: number, item: any) => sum + (item.payable_amount || 0),
-                0
-              )
-              .toLocaleString() || "0"}
-          </div>
+          <Controller
+            control={form.control}
+            name="payable_amount"
+            render={({ field }) => (
+              <FormInput {...field} type="number" dir="ltr" />
+            )}
+          />
         </div>
       </div>
     </>

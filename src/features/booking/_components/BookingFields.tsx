@@ -127,8 +127,7 @@ const BookingFields = ({ form, className }: TProps) => {
             </div>
           </>
         )}
-
-        <div >
+        {/* <div >
           <FormLabel>مبلغ کل</FormLabel>
           <Controller
             control={form.control}
@@ -151,7 +150,7 @@ const BookingFields = ({ form, className }: TProps) => {
             name="payable_amount"
             render={({ field }) => <FormInput {...field} />}
           />
-        </div>
+        </div> */}
         <div className="col-span-full">
           <FormLabel>یادداشت</FormLabel>
           <Controller
