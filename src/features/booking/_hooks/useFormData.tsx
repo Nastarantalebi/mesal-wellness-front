@@ -4,6 +4,12 @@ type TProps = { isLoadingCreate: boolean; dataCreate?: TCreateData };
 const useFormData = ({ isLoadingCreate, dataCreate }: TProps) => {
   const fields: (TFormData<TRequest> | undefined)[] = [
     {
+      label: "یافتن مشتری",
+      name: "customer_id",
+      placeholder: "یافتن مشتری",
+      required: true,
+    },
+    {
       label: "مشتری",
       name: "customer_id",
       placeholder: "مشتری",

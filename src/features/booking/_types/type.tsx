@@ -142,3 +142,13 @@ export type TAvailabilityData = {
     reason?: string;
   }[];
 };
+
+export type TCustomerSearch = {
+  data: {
+    id: number;
+    label: string;
+    full_name: string;
+    phone: string;
+    membership_type: string;
+  }[];
+};

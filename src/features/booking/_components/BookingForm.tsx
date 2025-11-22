@@ -6,11 +6,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import useUpdateData from "@/services/useUpdateData";
 import useGetById from "@/services/useGetById";
 import { useEffect } from "react";
-import useFormData from "../_hooks/useFormData";
 import FormComponent from "@/components/Form/Form";
 import useGetData from "@/services/useGetData";
 import type { TCreateData, TDataById, TRequest } from "../_types/type";
 import ItemForm from "./ItemForm";
+import BookingFields from "./BookingFields";
 
 function BookingForm() {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ function BookingForm() {
     queryKey: [queryKey, selectedRecord],
     id: selectedRecord,
   });
-  const { data: dataCreate, isLoading: isLoadingCreate } =
+  const { data: dataCreate } =
     useGetData<TCreateData>({
       url: `${url}create`,
       queryKey: `${queryKey},"dataCreate"`,
@@ -39,7 +39,6 @@ function BookingForm() {
     resolver: zodResolver(schema),
     defaultValues: initialValues,
   });
-  const { fields } = useFormData({ isLoadingCreate, dataCreate });
   useEffect(() => {
     if (dataById) {
       const preparedDataItem = dataById.booking.items.map((item) => ({
@@ -61,12 +60,13 @@ function BookingForm() {
   return (
     <FormComponent
       form={form}
-      formFields={fields}
+      // formFields={fields}
       isSubmitting={isPendingUpdate || isPendingCreate}
       onSubmit={(values) => {
         const action = selectedRecord ? update : create;
         action(values, { onSuccess: () => navigate("/booking") });
       }}>
+      <BookingFields form={form} dataCreate={dataCreate} />
       <ItemForm form={form} dataCreate={dataCreate} />
     </FormComponent>
   );
