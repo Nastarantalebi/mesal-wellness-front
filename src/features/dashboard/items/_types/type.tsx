@@ -67,4 +67,8 @@ export type TDailyBoard = {
       deposit: number;
     }[];
   }[];
+  resources: {
+    id: number;
+    name: string;
+  }[];
 };

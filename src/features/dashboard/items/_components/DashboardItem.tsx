@@ -15,13 +15,13 @@ const DashboardItem = () => {
       {data?.widgets.tiles && (
         <StatisticsCard titleText="آمار وب‌سایت" items={data.widgets.tiles} />
       )}
+      <DailyBoard />
       {data?.widgets.lists["رزروهای اخیر"] && (
         <CustomerTable listData={data.widgets.lists["رزروهای اخیر"]} />
       )}
       {data?.widgets.lists["مشتریان اخیر"] && (
         <CustomerTable listData={data.widgets.lists["مشتریان اخیر"]} />
       )}
-      <DailyBoard/>
     </div>
   );
 };
