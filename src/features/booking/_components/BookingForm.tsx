@@ -7,9 +7,10 @@ import useUpdateData from "@/services/useUpdateData";
 import useGetById from "@/services/useGetById";
 import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
-import type { TDataById, TRequest } from "../_types/type";
+import type { TCreateData, TDataById, TRequest } from "../_types/type";
 import ItemForm from "./ItemForm";
 import BookingFields from "./BookingFields";
+import useGetData from "@/services/useGetData";
 
 function BookingForm() {
   const navigate = useNavigate();
@@ -29,11 +30,11 @@ function BookingForm() {
     queryKey: [queryKey, selectedRecord],
     id: selectedRecord,
   });
-  // const { data: dataCreate } =
-  //   useGetData<TCreateData>({
-  //     url: `${url}create`,
-  //     queryKey: `${queryKey},"dataCreate"`,
-  //   });
+  const { data: dataCreate } =
+    useGetData<TCreateData>({
+      url: `${url}create`,
+      queryKey: `${queryKey},"dataCreate"`,
+    });
   const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
@@ -70,8 +71,8 @@ function BookingForm() {
         const action = selectedRecord ? update : create;
         action(values, { onSuccess: () => navigate("/booking") });
       }}>
-      <BookingFields form={form} selectedRecord={selectedRecord}/>
-      <ItemForm form={form} selectedRecord={selectedRecord}/>
+      <BookingFields form={form} selectedRecord={selectedRecord} dataCreate={dataCreate}/>
+      <ItemForm form={form} selectedRecord={selectedRecord} dataCreate={dataCreate}/>
     </FormComponent>
   );
 }

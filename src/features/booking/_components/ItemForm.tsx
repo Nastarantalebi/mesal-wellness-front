@@ -1,7 +1,11 @@
 import Button from "@/components/Button";
 import { FormInput, FormLabel, FormSelect } from "@/components/Form";
 import { Controller, useFieldArray, useWatch } from "react-hook-form";
-import type { TAvailabilityData, TTherapistService } from "../_types/type";
+import type {
+  TAvailabilityData,
+  TCreateData,
+  TTherapistService,
+} from "../_types/type";
 import DatePickerField from "@/components/Form/DatePicker";
 import TimePickerField from "@/components/Form/TimePicker";
 import { useEffect } from "react";
@@ -12,13 +16,14 @@ import { PlusIcon, Trash2 } from "lucide-react";
 
 interface TProps {
   form: any;
+  dataCreate?: TCreateData;
   className?: string;
   selectedRecord: any;
 }
 
-const ItemForm = ({ form, className, selectedRecord }: TProps) => {
+const ItemForm = ({ form, className, dataCreate, selectedRecord }: TProps) => {
   const isEdit = !!selectedRecord;
-  console.log(isEdit);
+  console.log(dataCreate);
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "items",

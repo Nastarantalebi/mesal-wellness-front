@@ -10,11 +10,12 @@ import CustomersForm from "@/features/customers/_components/CustomersForm";
 
 interface TProps {
   form: any;
+  dataCreate: any;
   selectedRecord: any;
   className?: string;
 }
 
-const BookingFields = ({ form, selectedRecord, className }: TProps) => {
+const BookingFields = ({ form,dataCreate, selectedRecord, className }: TProps) => {
   const isEdit = !!selectedRecord;
   console.log(isEdit);
   const [openModal, setOpenModal] = useState<boolean>(false);
