@@ -88,7 +88,7 @@ CustomTableProps) {
             const root = createRoot(container);
 
             root.render(
-              <div className="flex justify-center gap-2">
+              <div className="flex justify-center items-center gap-1">
                 {customActions?.map((action, i) => (
                   <Button
                     key={i}
