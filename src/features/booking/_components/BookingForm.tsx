@@ -11,6 +11,7 @@ import type { TCreateData, TDataById, TRequest } from "../_types/type";
 import ItemForm from "./ItemForm";
 import BookingFields from "./BookingFields";
 import useGetData from "@/services/useGetData";
+import TotalAmount from "./TotalAmount";
 
 function BookingForm() {
   const navigate = useNavigate();
@@ -74,6 +75,7 @@ function BookingForm() {
       }}>
       <BookingFields form={form} selectedRecord={selectedRecord} dataCreate={dataCreate} dataById={dataById}/>
       <ItemForm form={form} selectedRecord={selectedRecord} dataCreate={dataCreate}/>
+      <TotalAmount form={form} />
     </FormComponent>
   );
 }
