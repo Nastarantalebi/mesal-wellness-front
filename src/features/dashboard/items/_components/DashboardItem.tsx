@@ -8,23 +8,18 @@ const DashboardItem = () => {
     url: "basics/dashboard/getData",
     queryKey: "DASHBOARD_QUERY_KEY",
   });
-  const tableKeys = ["رزروهای اخیر", "مشتریان اخیر"];
+
   return (
-    <div className="space-y-6">
+    <div>
       {data?.widgets.tiles && (
         <StatisticsCard titleText="آمار وب‌سایت" items={data.widgets.tiles} />
       )}
-
-      {data?.widgets.lists &&
-        tableKeys.map((key) => {
-          const listData = data.widgets.lists[key];
-          return listData ? (
-            <CustomerTable
-              key={key}
-              listData={listData}
-            />
-          ) : null;
-        })}
+      {data?.widgets.lists["رزروهای اخیر"] && (
+        <CustomerTable listData={data.widgets.lists["رزروهای اخیر"]} />
+      )}
+      {data?.widgets.lists["مشتریان اخیر"] && (
+        <CustomerTable listData={data.widgets.lists["مشتریان اخیر"]} />
+      )}
     </div>
   );
 };
