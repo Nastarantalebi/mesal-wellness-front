@@ -23,7 +23,7 @@ const DailyBoard = () => {
   });
 
   return (
-    <div className="p-5 space-y-6">
+    <div className="py-5 space-y-3 col-span-full">
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-lg font-semibold">دفتر نوبت دهی روزانه</h1>

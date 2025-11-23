@@ -11,7 +11,7 @@ const DashboardItem = () => {
   });
 
   return (
-    <div>
+    <div className="grid grid-cols-12 gap-5">
       {data?.widgets.tiles && (
         <StatisticsCard titleText="آمار وب‌سایت" items={data.widgets.tiles} />
       )}
