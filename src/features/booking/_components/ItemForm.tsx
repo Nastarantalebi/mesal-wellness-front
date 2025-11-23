@@ -195,6 +195,8 @@ const ItemRow = ({
                 name={`items.${index}.service_id`}
                 render={({ field }) => {
                   const firstOption = services?.[0]?.value;
+
+                  // ست کردن اولین گزینه خودکار اگر خالی بود
                   useEffect(() => {
                     if (
                       firstOption !== undefined &&
@@ -203,12 +205,31 @@ const ItemRow = ({
                         field.value === 0)
                     ) {
                       field.onChange(firstOption);
+
+                      const selectedService = services.find(
+                        (s) => s.value === firstOption
+                      );
+                      if (selectedService) {
+                        form.setValue(
+                          `items.${index}.unit_price`,
+                          selectedService.custom_price
+                        );
+                        form.setValue(
+                          `items.${index}.total_price`,
+                          selectedService.custom_price
+                        );
+                      }
                     }
                   }, [firstOption, field.value, field]);
-                  const handleChange = (e: any) => {
-                    field.onChange(e);
+
+                  const handleChange = (
+                    e: React.ChangeEvent<HTMLSelectElement>
+                  ) => {
+                    const value = Number(e.target.value);
+                    field.onChange(value);
+
                     const selectedService = services.find(
-                      (s) => s.value === Number(e.target.value)
+                      (s) => s.value === value
                     );
                     if (selectedService) {
                       form.setValue(
@@ -224,6 +245,7 @@ const ItemRow = ({
                       form.setValue(`items.${index}.total_price`, 0);
                     }
                   };
+
                   return isEdit ? (
                     <FormInput {...field} readOnly />
                   ) : (
