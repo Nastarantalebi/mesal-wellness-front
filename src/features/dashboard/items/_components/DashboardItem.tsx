@@ -1,7 +1,8 @@
 import useGetData from "@/services/useGetData";
 import type { TDashboard } from "../_types/type";
-import StatisticsCard from "../../layout/StatisticsCard";
-import CustomerTable from "../../layout/CustomerTable";
+import StatisticsCard from "./widget/StatisticsCard";
+import CustomerTable from "./widget/CustomerTable";
+import DailyBoard from "./widget/DailyBoard";
 
 const DashboardItem = () => {
   const { data } = useGetData<TDashboard>({
@@ -20,6 +21,7 @@ const DashboardItem = () => {
       {data?.widgets.lists["مشتریان اخیر"] && (
         <CustomerTable listData={data.widgets.lists["مشتریان اخیر"]} />
       )}
+      <DailyBoard/>
     </div>
   );
 };

@@ -22,6 +22,7 @@ type TProps<TFormValues extends FieldValues> = {
   field: ControllerRenderProps<TFormValues, Path<TFormValues>>;
   error?: FieldError;
   inputClassName?: string;
+  placeholder?: string;
   showTimePicker?: boolean;
   autoFocus?: boolean;
   max?: DateObject | null;
@@ -33,6 +34,7 @@ function DatePickerField<TFormValues extends FieldValues>({
   field,
   error,
   inputClassName,
+  placeholder = "یک تاریخ وارد کنید",
   showTimePicker = false,
   autoFocus = false,
   max,
@@ -94,6 +96,7 @@ function DatePickerField<TFormValues extends FieldValues>({
     <DatePicker
       portal={portal}
       ref={datePickerRef}
+      placeholder={placeholder}
       inputClass={clsx(
         "h-10 w-full rounded-md border px-3 py-2 text-sm ltr",
         "bg-white text-gray-900 border-gray-300 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
@@ -117,7 +120,7 @@ function DatePickerField<TFormValues extends FieldValues>({
         showTimePicker
           ? [
               <TimePicker
-              className="dark:text-neutral-900"
+                className="dark:text-neutral-900"
                 key="time-picker"
                 position="bottom"
                 hideSeconds

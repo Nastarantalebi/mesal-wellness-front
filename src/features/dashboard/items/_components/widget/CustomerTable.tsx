@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Table from "@/components/Table";
-import type { TDashboard } from "../items/_types/type";
+import type { TDashboard } from "../../_types/type";
 
 interface TProps {
   listData?: TDashboard["widgets"]["lists"][string];
