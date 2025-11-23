@@ -1,9 +1,12 @@
 import _ from "lodash";
+import DashboardItem from "./items/_components/DashboardItem";
 
 function Dashboard() {
- 
-
-  return <div>Dashboard</div>;
+  return (
+    <div>
+      <DashboardItem />
+    </div>
+  );
 }
 
 export default Dashboard;
