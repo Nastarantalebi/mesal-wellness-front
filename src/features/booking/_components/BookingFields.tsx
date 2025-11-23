@@ -12,11 +12,13 @@ interface TProps {
   form: any;
   dataCreate: any;
   selectedRecord: any;
+  dataById?: any;
   className?: string;
 }
 
-const BookingFields = ({ form,dataCreate, selectedRecord, className }: TProps) => {
+const BookingFields = ({ form,dataCreate, selectedRecord, className ,dataById}: TProps) => {
   console.log(dataCreate)
+  console.log(dataById)
   const isEdit = !!selectedRecord;
   console.log(isEdit);
   const [openModal, setOpenModal] = useState<boolean>(false);

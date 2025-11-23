@@ -71,7 +71,7 @@ function BookingForm() {
         const action = selectedRecord ? update : create;
         action(values, { onSuccess: () => navigate("/booking") });
       }}>
-      <BookingFields form={form} selectedRecord={selectedRecord} dataCreate={dataCreate}/>
+      <BookingFields form={form} selectedRecord={selectedRecord} dataCreate={dataCreate} dataById={dataById}/>
       <ItemForm form={form} selectedRecord={selectedRecord} dataCreate={dataCreate}/>
     </FormComponent>
   );
