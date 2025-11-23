@@ -294,6 +294,33 @@ const ItemForm = ({ form, className, dataCreate, selectedRecord }: TProps) => {
             remove={remove}
           />
         ))}
+
+        <div className="grid grid-cols-3 gap-2 mt-5">
+          <div className="mb-4">
+            <FormLabel>مبلغ بیعانه</FormLabel>
+            <Controller
+              control={form.control}
+              name="deposit"
+              render={({ field }) => <FormInput {...field} dir="ltr" />}
+            />
+          </div>
+          <div className="total_amount">
+            <FormLabel>مبلغ کل</FormLabel>
+            <Controller
+              control={form.control}
+              name="total_amount"
+              render={({ field }) => <FormInput {...field} dir="ltr" />}
+            />
+          </div>
+          <div className="mb-4">
+            <FormLabel>مبلغ قابل پرداخت</FormLabel>
+            <Controller
+              control={form.control}
+              name="payable_amount"
+              render={({ field }) => <FormInput {...field} dir="ltr" />}
+            />
+          </div>
+        </div>
       </div>
     </>
   );
