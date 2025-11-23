@@ -16,9 +16,15 @@ interface TProps {
   className?: string;
 }
 
-const BookingFields = ({ form,dataCreate, selectedRecord, className ,dataById}: TProps) => {
-  console.log(dataCreate)
-  console.log(dataById)
+const BookingFields = ({
+  form,
+  dataCreate,
+  selectedRecord,
+  className,
+  dataById,
+}: TProps) => {
+  console.log(dataCreate);
+  console.log(dataById);
   const isEdit = !!selectedRecord;
   console.log(isEdit);
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -110,15 +116,29 @@ const BookingFields = ({ form,dataCreate, selectedRecord, className ,dataById}: 
               <Controller
                 control={form.control}
                 name="customer_id"
-                render={({ field }) => (
-                  <FormSelect {...field}>
-                    {data.data.map((item: any) => (
-                      <option key={item.id} value={item.id}>
-                        {item.full_name}
-                      </option>
-                    ))}
-                  </FormSelect>
-                )}
+                render={({ field }) => {
+                  const firstOption = data.data?.[0]?.id;
+                  useEffect(() => {
+                    if (
+                      firstOption !== undefined &&
+                      (field.value === undefined ||
+                        field.value === "" ||
+                        field.value === 0)
+                    ) {
+                      field.onChange(firstOption);
+                    }
+                  }, [firstOption, field.value, field]);
+
+                  return (
+                    <FormSelect {...field}>
+                      {data.data.map((item: any) => (
+                        <option key={item.id} value={item.id}>
+                          {item.full_name}
+                        </option>
+                      ))}
+                    </FormSelect>
+                  );
+                }}
               />
             </div>
 

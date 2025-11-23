@@ -30,7 +30,7 @@ function Resources() {
         dataPagination={data?.paginate}
         customActions={[
           {
-            title: "مکان‌های در دسترس",
+            title: "زمان‌های در دسترس",
             icon: <CalendarCheck className="w-4 h-4" />,
             onClick: (record) => {
               setShowModalRA(true);

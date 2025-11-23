@@ -119,6 +119,17 @@ const ItemRow = ({
                 control={form.control}
                 name={`items.${index}.therapist_id`}
                 render={({ field }) => {
+                  const firstOption = data?.available_therapists?.[0]?.id;
+                  useEffect(() => {
+                    if (
+                      firstOption !== undefined &&
+                      (field.value === undefined ||
+                        field.value === "" ||
+                        field.value === 0)
+                    ) {
+                      field.onChange(firstOption);
+                    }
+                  }, [firstOption, field.value, field]);
                   useFirstOptionIfZero(
                     field.value,
                     field.onChange,
@@ -145,6 +156,18 @@ const ItemRow = ({
                 control={form.control}
                 name={`items.${index}.resource_id`}
                 render={({ field }) => {
+                  const firstOption = data?.available_rooms?.[0]?.id;
+                  useEffect(() => {
+                    if (
+                      firstOption !== undefined &&
+                      (field.value === undefined ||
+                        field.value === "" ||
+                        field.value === 0)
+                    ) {
+                      field.onChange(firstOption);
+                    }
+                  }, [firstOption, field.value, field]);
+
                   return isEdit ? (
                     <FormInput {...field} readOnly />
                   ) : (
@@ -171,6 +194,17 @@ const ItemRow = ({
                 control={form.control}
                 name={`items.${index}.service_id`}
                 render={({ field }) => {
+                  const firstOption = services?.[0]?.value;
+                  useEffect(() => {
+                    if (
+                      firstOption !== undefined &&
+                      (field.value === undefined ||
+                        field.value === "" ||
+                        field.value === 0)
+                    ) {
+                      field.onChange(firstOption);
+                    }
+                  }, [firstOption, field.value, field]);
                   const handleChange = (e: any) => {
                     field.onChange(e);
                     const selectedService = services.find(
