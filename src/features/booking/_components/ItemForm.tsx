@@ -21,24 +21,10 @@ interface TProps {
   selectedRecord: any;
 }
 
-// hook جداگانه برای انتخاب اولین option
-const useFirstOptionIfZero = (
-  value: any,
-  onChange: (v: any) => void,
-  options: any[]
-) => {
-  useEffect(() => {
-    if ((value === 0 || value === "") && options?.[0]?.value !== undefined) {
-      onChange(options[0].value);
-    }
-  }, [value, onChange, options]);
-};
-
 // Component جدا برای هر آیتم
 interface ItemRowProps {
   form: any;
   index: number;
-  dataServices: TTherapistService | undefined;
   isEdit: boolean;
   remove: (index: number) => void;
 }
@@ -46,20 +32,27 @@ interface ItemRowProps {
 const ItemRow = ({
   form,
   index,
-  dataServices,
   isEdit,
   remove,
 }: ItemRowProps) => {
   const item = useWatch({ control: form.control, name: `items.${index}` });
   const validItemDate = !!item?.date && !!item?.start_at && !!item?.end_at;
 
-  // availability hook خارج از map
+  // availability hook
   const { data, refetch, isFetching } = useGetData<TAvailabilityData>({
     url: validItemDate
       ? `${url}availability?date=${item?.date}&start_at=${item?.start_at}&end_at=${item?.end_at}`
       : "",
     queryKey: ["availability", item?.date, item?.start_at, item?.end_at],
     enabled: isEdit ? validItemDate : false,
+  });
+
+  // هر آیتم خودش سرویس‌ها را fetch می‌کند بر اساس therapist_id خودش
+  const therapistId = item?.therapist_id;
+  const { data: dataServices } = useGetData<TTherapistService>({
+    url: therapistId ? `/wellness/therapists/${therapistId}/services` : "",
+    queryKey: ["therapist_services", therapistId],
+    enabled: !!therapistId,
   });
 
   const services = dataServices?.data || [];
@@ -99,7 +92,8 @@ const ItemRow = ({
               variant="outline-primary"
               size="sm"
               onClick={() => refetch()}
-              className="whitespace-nowrap flex items-center gap-1 h-9">
+              className="whitespace-nowrap flex items-center gap-1 h-9"
+            >
               <Lucide
                 icon={isFetching ? "Loader" : "Search"}
                 className={`w-4 h-4 ${isFetching ? "animate-spin" : ""}`}
@@ -123,23 +117,16 @@ const ItemRow = ({
                   useEffect(() => {
                     if (
                       firstOption !== undefined &&
-                      (field.value === undefined ||
-                        field.value === "" ||
-                        field.value === 0)
+                      (field.value === undefined || field.value === "" || field.value === 0)
                     ) {
                       field.onChange(firstOption);
                     }
                   }, [firstOption, field.value, field]);
-                  useFirstOptionIfZero(
-                    field.value,
-                    field.onChange,
-                    data?.available_therapists || []
-                  );
                   return isEdit ? (
                     <FormInput {...field} readOnly />
                   ) : (
                     <FormSelect {...field}>
-                      {data?.available_therapists.map((therapist) => (
+                      {data?.available_therapists?.map((therapist) => (
                         <option key={therapist.id} value={therapist.id}>
                           {therapist.name}
                         </option>
@@ -160,9 +147,7 @@ const ItemRow = ({
                   useEffect(() => {
                     if (
                       firstOption !== undefined &&
-                      (field.value === undefined ||
-                        field.value === "" ||
-                        field.value === 0)
+                      (field.value === undefined || field.value === "" || field.value === 0)
                     ) {
                       field.onChange(firstOption);
                     }
@@ -172,7 +157,7 @@ const ItemRow = ({
                     <FormInput {...field} readOnly />
                   ) : (
                     <FormSelect {...field}>
-                      {data?.available_rooms.map((room) => (
+                      {data?.available_rooms?.map((room) => (
                         <option key={room.id} value={room.id}>
                           {room.name}
                         </option>
@@ -196,50 +181,29 @@ const ItemRow = ({
                 render={({ field }) => {
                   const firstOption = services?.[0]?.value;
 
-                  // ست کردن اولین گزینه خودکار اگر خالی بود
                   useEffect(() => {
                     if (
                       firstOption !== undefined &&
-                      (field.value === undefined ||
-                        field.value === "" ||
-                        field.value === 0)
+                      (field.value === undefined || field.value === "" || field.value === 0)
                     ) {
                       field.onChange(firstOption);
 
-                      const selectedService = services.find(
-                        (s) => s.value === firstOption
-                      );
+                      const selectedService = services.find((s) => s.value === firstOption);
                       if (selectedService) {
-                        form.setValue(
-                          `items.${index}.unit_price`,
-                          selectedService.custom_price
-                        );
-                        form.setValue(
-                          `items.${index}.total_price`,
-                          selectedService.custom_price
-                        );
+                        form.setValue(`items.${index}.unit_price`, selectedService.custom_price);
+                        form.setValue(`items.${index}.total_price`, selectedService.custom_price);
                       }
                     }
-                  }, [firstOption, field.value, field]);
+                  }, [firstOption, field.value, field, services, form, index]);
 
-                  const handleChange = (
-                    e: React.ChangeEvent<HTMLSelectElement>
-                  ) => {
+                  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
                     const value = Number(e.target.value);
                     field.onChange(value);
 
-                    const selectedService = services.find(
-                      (s) => s.value === value
-                    );
+                    const selectedService = services.find((s) => s.value === value);
                     if (selectedService) {
-                      form.setValue(
-                        `items.${index}.unit_price`,
-                        selectedService.custom_price
-                      );
-                      form.setValue(
-                        `items.${index}.total_price`,
-                        selectedService.custom_price
-                      );
+                      form.setValue(`items.${index}.unit_price`, selectedService.custom_price);
+                      form.setValue(`items.${index}.total_price`, selectedService.custom_price);
                     } else {
                       form.setValue(`items.${index}.unit_price`, 0);
                       form.setValue(`items.${index}.total_price`, 0);
@@ -301,6 +265,7 @@ const ItemRow = ({
   );
 };
 
+
 const ItemForm = ({ form, className, dataCreate, selectedRecord }: TProps) => {
   const isEdit = !!selectedRecord;
   console.log(dataCreate);
@@ -311,20 +276,7 @@ const ItemForm = ({ form, className, dataCreate, selectedRecord }: TProps) => {
 
   if (fields.length === 0) append(itemsValues);
 
-  const items = useWatch({ control: form.control, name: "items" });
 
-  // گرفتن همه therapist ids
-  const therapistIds = items?.map((i: any) => i?.therapist_id).filter(Boolean);
-  const { data: dataServices } = useGetData<TTherapistService>({
-    url:
-      therapistIds.length > 0
-        ? `/wellness/therapists/${
-            therapistIds[therapistIds.length - 1]
-          }/services`
-        : "",
-    queryKey: ["therapist_services", therapistIds.join("-")],
-    enabled: therapistIds.length > 0,
-  });
 
   return (
     <>
@@ -345,7 +297,6 @@ const ItemForm = ({ form, className, dataCreate, selectedRecord }: TProps) => {
             key={fieldItem.id}
             form={form}
             index={index}
-            dataServices={dataServices}
             isEdit={isEdit}
             remove={remove}
           />
