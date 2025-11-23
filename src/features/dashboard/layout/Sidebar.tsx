@@ -46,7 +46,6 @@ function Sidebar({
           ])}
         >
           <a
-            href=""
             onClick={(event) => {
               event.preventDefault();
               setActiveMobileMenu(false);
@@ -73,7 +72,7 @@ function Sidebar({
               ) : (
                 <li key={menuKey}>
                   <a
-                    href=""
+                    href={menu.pathname}
                     className={clsx([
                       "side-menu__link",
                       { "side-menu__link--active": menu.active },
@@ -120,7 +119,7 @@ function Sidebar({
                         {menu.subMenu.map((subMenu, subMenuKey) => (
                           <li key={subMenuKey}>
                             <a
-                              href=""
+                              href={subMenu.pathname}
                               className={clsx([
                                 "side-menu__link",
                                 {
@@ -177,7 +176,7 @@ function Sidebar({
                                     (lastSubMenu, lastSubMenuKey) => (
                                       <li key={lastSubMenuKey}>
                                         <a
-                                          href=""
+                                          href={lastSubMenu.pathname}
                                           className={clsx([
                                             "side-menu__link",
                                             {
