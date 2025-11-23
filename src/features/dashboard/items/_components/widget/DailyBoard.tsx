@@ -32,7 +32,6 @@ const DailyBoard = () => {
     const prevDate = new DateObject({ calendar: persian, date }).add(-1, "days").format("YYYY/MM/DD");
     setValue("date", prevDate);
   };
-
   // فلش جلو (یک روز اضافه کن)
   const handleNext = () => {
     const nextDate = new DateObject({ calendar: persian, date }).add(1, "days").format("YYYY/MM/DD");
