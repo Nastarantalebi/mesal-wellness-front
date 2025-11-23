@@ -18,7 +18,7 @@ interface TProps {
 
 const ItemForm = ({ form, className, selectedRecord }: TProps) => {
   const isEdit = !!selectedRecord;
-  console.log(isEdit)
+  console.log(isEdit);
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "items",
@@ -151,7 +151,7 @@ const ItemForm = ({ form, className, selectedRecord }: TProps) => {
 
               {/* درمانگر، مکان و سرویس */}
               <div className="w-full flex flex-row items-center gap-2">
-                {data && (
+                {(data || isEdit) && (
                   <>
                     <div className="flex-1 flex flex-col">
                       <FormLabel>درمانگر</FormLabel>

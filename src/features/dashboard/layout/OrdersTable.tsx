@@ -4,7 +4,7 @@ import { Menu } from "@/components/Headless";
 import Lucide from "@/components/Lucide";
 import Tippy from "@/components/Tippy";
 import axios from "axios";
-import Table from "@/components/table";
+import Table from "@/components/Table";
 
 const OrdersTable = ({ apiEndpoint }: { apiEndpoint?: any }) => {
   const [orders, setOrders] = useState<any>([]);
