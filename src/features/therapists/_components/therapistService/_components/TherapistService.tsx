@@ -8,7 +8,7 @@ type TProps = {
   id: number;
 };
 function TherapistService({ id }: TProps) {
-  const { data ,isFetching} = useGetData<any>({
+  const { data ,isFetching , refetch} = useGetData<any>({
     queryKey: [queryKey, String(id)],
     url: `${url}?therapist_id=${id}`,
     enabled: !!id,
@@ -16,6 +16,7 @@ function TherapistService({ id }: TProps) {
   const { mutate: Delete } = useDeleteData({
     queryKey: queryKey,
     url: url,
+    onSuccess: () => refetch(),
   });
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
   const [showForm, setShowForm] = useState<any>(null);
@@ -26,6 +27,7 @@ function TherapistService({ id }: TProps) {
           selectedRecord={selectedRecord}
           setShowForm={setShowForm}
           therapistId={id}
+          refetch={refetch}
         />
       )}
       <CustomTable

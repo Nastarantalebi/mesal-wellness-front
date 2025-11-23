@@ -6,7 +6,7 @@ import ResourceAvailabilitiesForm from "./ResourceAvailabilitiesForm";
 import { useState } from "react";
 
 function ResourceAvailabilities({ id }: { id: number }) {
-  const { data, isFetching } = useGetData<any>({
+  const { data, isFetching, refetch } = useGetData<any>({
     queryKey: [queryKey, String(id)],
     url: `${url}?resource_id=${id}`,
     enabled: !!id,
@@ -14,6 +14,7 @@ function ResourceAvailabilities({ id }: { id: number }) {
   const { mutate: Delete } = useDeleteData({
     queryKey: queryKey,
     url: url,
+    onSuccess: () => refetch(),
   });
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
   const [showForm, setShowForm] = useState<any>(null);
@@ -24,6 +25,7 @@ function ResourceAvailabilities({ id }: { id: number }) {
           selectedRecord={selectedRecord}
           setShowForm={setShowForm}
           resourceId={id}
+          refetch={refetch}
         />
       )}
       <CustomTable

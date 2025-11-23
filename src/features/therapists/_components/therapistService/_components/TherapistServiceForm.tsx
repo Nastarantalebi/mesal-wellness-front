@@ -8,21 +8,29 @@ import useGetById from "@/services/useGetById";
 import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
-type TProps = { selectedRecord: any; setShowForm: any; therapistId: any };
+type TProps = {
+  selectedRecord: any;
+  setShowForm: any;
+  therapistId: any;
+  refetch: any;
+};
 function TherapistServiceForm({
   selectedRecord,
   setShowForm,
   therapistId,
+  refetch,
 }: TProps) {
   const id = selectedRecord?.id;
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url: url,
     queryKey: queryKey,
+    onSuccess: () => refetch(),
   });
   const { mutate: update, isPending: isPendingUpdate } = useUpdateData({
     url: url,
     queryKey: queryKey,
     id: id,
+    onSuccess: () => refetch(),
   });
   const { data: dataById } = useGetById<TDataById>({
     queryKey: [queryKey, id],

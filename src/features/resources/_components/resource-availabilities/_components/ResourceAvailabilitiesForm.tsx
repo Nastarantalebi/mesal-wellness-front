@@ -9,21 +9,29 @@ import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
 import BreakForm from "@/features/_components/BreakForm";
-type TProps = { selectedRecord: any; setShowForm: any; resourceId: any };
+type TProps = {
+  selectedRecord: any;
+  setShowForm: any;
+  resourceId: any;
+  refetch: any;
+};
 function ResourceAvailabilitiesForm({
   selectedRecord,
   setShowForm,
   resourceId,
+  refetch,
 }: TProps) {
   const id = selectedRecord?.id;
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url: url,
     queryKey: queryKey,
+    onSuccess: () => refetch(),
   });
   const { mutate: update, isPending: isPendingUpdate } = useUpdateData({
     url: url,
     queryKey: queryKey,
     id: id,
+    onSuccess: () => refetch(),
   });
   const { data: dataById } = useGetById<TDataById>({
     url: url,
