@@ -59,7 +59,7 @@ const ItemRow = ({
       ? `${url}availability?date=${item?.date}&start_at=${item?.start_at}&end_at=${item?.end_at}`
       : "",
     queryKey: ["availability", item?.date, item?.start_at, item?.end_at],
-    enabled: validItemDate,
+    enabled: isEdit ? validItemDate : false,
   });
 
   const services = dataServices?.data || [];
@@ -124,7 +124,9 @@ const ItemRow = ({
                     field.onChange,
                     data?.available_therapists || []
                   );
-                  return (
+                  return isEdit ? (
+                    <FormInput {...field} readOnly />
+                  ) : (
                     <FormSelect {...field}>
                       {data?.available_therapists.map((therapist) => (
                         <option key={therapist.id} value={therapist.id}>
@@ -142,15 +144,19 @@ const ItemRow = ({
               <Controller
                 control={form.control}
                 name={`items.${index}.resource_id`}
-                render={({ field }) => (
-                  <FormSelect {...field}>
-                    {data?.available_rooms.map((room) => (
-                      <option key={room.id} value={room.id}>
-                        {room.name}
-                      </option>
-                    ))}
-                  </FormSelect>
-                )}
+                render={({ field }) => {
+                  return isEdit ? (
+                    <FormInput {...field} readOnly />
+                  ) : (
+                    <FormSelect {...field}>
+                      {data?.available_rooms.map((room) => (
+                        <option key={room.id} value={room.id}>
+                          {room.name}
+                        </option>
+                      ))}
+                    </FormSelect>
+                  );
+                }}
               />
             </div>
           </>
@@ -184,7 +190,9 @@ const ItemRow = ({
                       form.setValue(`items.${index}.total_price`, 0);
                     }
                   };
-                  return (
+                  return isEdit ? (
+                    <FormInput {...field} readOnly />
+                  ) : (
                     <FormSelect {...field} onChange={handleChange}>
                       {services.map((s) => (
                         <option key={s.value} value={s.value}>
@@ -239,7 +247,7 @@ const ItemRow = ({
 
 const ItemForm = ({ form, className, dataCreate, selectedRecord }: TProps) => {
   const isEdit = !!selectedRecord;
-console.log(dataCreate)
+  console.log(dataCreate);
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "items",
