@@ -10,7 +10,7 @@ type FormValues = {
 };
 
 const DailyBoard = () => {
-  const { control, watch } = useForm<FormValues>({
+  const { control, watch, setValue } = useForm<FormValues>({
     defaultValues: { date: "" },
   });
 
@@ -21,6 +21,12 @@ const DailyBoard = () => {
     queryKey: ["daily_board", date],
     enabled: !!date,
   });
+  const updateDateFromUrl = (url?: string) => {
+    if (!url) return;
+    const params = new URLSearchParams(url.split("?")[1]);
+    const newDate = params.get("date");
+    if (newDate) setValue("date", newDate);
+  };
 
   return (
     <div className="py-5 space-y-3 col-span-full">
@@ -29,7 +35,10 @@ const DailyBoard = () => {
         <h1 className="text-lg font-semibold">دفتر نوبت دهی روزانه</h1>
 
         <div className="flex items-center gap-2 bg-white p-2 rounded-xl shadow-sm border">
-          <ChevronRightIcon className="cursor-pointer text-gray-600 hover:text-black transition" />
+          <ChevronRightIcon
+            className="cursor-pointer text-gray-600 hover:text-black transition"
+            onClick={() => updateDateFromUrl(data?.prev_url)}
+          />
 
           <Controller
             name="date"
@@ -44,10 +53,13 @@ const DailyBoard = () => {
             )}
           />
 
-          <ChevronLeftIcon className="cursor-pointer text-gray-600 hover:text-black transition" />
+          <ChevronLeftIcon
+            className="cursor-pointer text-gray-600 hover:text-black transition"
+            onClick={() => updateDateFromUrl(data?.next_url)}
+          />
         </div>
       </div>
-      {/* Body */}
+
       {data ? (
         <DailyBoardTable data={data} />
       ) : (
