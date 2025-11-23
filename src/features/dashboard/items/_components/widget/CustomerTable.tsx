@@ -14,7 +14,7 @@ const CustomerTable: React.FC<TProps> = ({ listData }) => {
   }, [listData]);
 
   if (!orders.length) {
-    return <div>داده‌ای وجود ندارد.</div>;
+    return;
   }
 
   return (
