@@ -16,6 +16,7 @@ interface TProps {
 }
 
 const BookingFields = ({ form,dataCreate, selectedRecord, className }: TProps) => {
+  console.log(dataCreate)
   const isEdit = !!selectedRecord;
   console.log(isEdit);
   const [openModal, setOpenModal] = useState<boolean>(false);
