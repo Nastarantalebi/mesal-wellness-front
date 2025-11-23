@@ -1,8 +1,12 @@
+"use client";
+
 import { useForm, Controller } from "react-hook-form";
 import DatePickerField from "@/components/Form/DatePicker";
 import useGetData from "@/services/useGetData";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import DailyBoardTable from "./DailyBoardTable";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { DateObject } from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
 import type { TDailyBoard } from "../../_types/type";
 
 type FormValues = {
@@ -10,8 +14,9 @@ type FormValues = {
 };
 
 const DailyBoard = () => {
+  const today = new DateObject({ calendar: persian }).format("YYYY/MM/DD");
   const { control, watch, setValue } = useForm<FormValues>({
-    defaultValues: { date: "" },
+    defaultValues: { date: today },
   });
 
   const date = watch("date");
@@ -21,11 +26,17 @@ const DailyBoard = () => {
     queryKey: ["daily_board", date],
     enabled: !!date,
   });
-  const updateDateFromUrl = (url?: string) => {
-    if (!url) return;
-    const params = new URLSearchParams(url.split("?")[1]);
-    const newDate = params.get("date");
-    if (newDate) setValue("date", newDate);
+
+  // فلش عقب (یک روز کم کن)
+  const handlePrev = () => {
+    const prevDate = new DateObject({ calendar: persian, date }).add(-1, "days").format("YYYY/MM/DD");
+    setValue("date", prevDate);
+  };
+
+  // فلش جلو (یک روز اضافه کن)
+  const handleNext = () => {
+    const nextDate = new DateObject({ calendar: persian, date }).add(1, "days").format("YYYY/MM/DD");
+    setValue("date", nextDate);
   };
 
   return (
@@ -35,9 +46,9 @@ const DailyBoard = () => {
         <h1 className="text-lg font-semibold">دفتر نوبت دهی روزانه</h1>
 
         <div className="flex items-center gap-2 bg-white p-2 rounded-xl shadow-sm border">
-          <ChevronRightIcon
+          <ChevronRightIcon 
             className="cursor-pointer text-gray-600 hover:text-black transition"
-            onClick={() => updateDateFromUrl(data?.prev_url)}
+            onClick={handlePrev}
           />
 
           <Controller
@@ -55,17 +66,16 @@ const DailyBoard = () => {
 
           <ChevronLeftIcon
             className="cursor-pointer text-gray-600 hover:text-black transition"
-            onClick={() => updateDateFromUrl(data?.next_url)}
+            onClick={handleNext}
           />
         </div>
       </div>
 
+      {/* Body */}
       {data ? (
         <DailyBoardTable data={data} />
       ) : (
-        <p className="text-center text-gray-400 pt-10">
-          لطفا یک تاریخ انتخاب کنید
-        </p>
+        <p className="text-center text-gray-400 pt-10">لطفا یک تاریخ انتخاب کنید</p>
       )}
     </div>
   );
