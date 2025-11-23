@@ -1,9 +1,9 @@
 import useGetData from "@/services/useGetData";
-import type { TRequest } from "../_types/type";
+import type { TDashboard } from "../_types/type";
 import StatisticsCard from "../../layout/StatisticsCard";
 
 const DashboardItem = () => {
-  const { data } = useGetData<TRequest>({
+  const { data } = useGetData<TDashboard>({
     url: "basics/dashboard/getData",
     queryKey: "DASHBOARD_QUERY_KEY",
   });
