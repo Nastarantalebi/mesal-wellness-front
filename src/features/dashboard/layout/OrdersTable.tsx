@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { FormSelect } from "@/components/Form";
 import { Menu } from "@/components/Headless";
 import Lucide from "@/components/Lucide";
-import Table from "@/components/table";
 import Tippy from "@/components/Tippy";
 import axios from "axios";
+import Table from "@/components/table";
 
 const OrdersTable = ({ apiEndpoint }: { apiEndpoint?: any }) => {
   const [orders, setOrders] = useState<any>([]);
