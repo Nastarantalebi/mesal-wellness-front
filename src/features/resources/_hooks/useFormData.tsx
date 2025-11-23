@@ -52,7 +52,6 @@ const useFormData = () => {
     {
       name: "status",
       label: "وضعیت",
-      required: true,
       placeholder: "وضعیت",
       type: "select",
       isLoading:isLoading,
@@ -61,7 +60,6 @@ const useFormData = () => {
     {
       name: "description",
       label: "توضیحات",
-      required: true,
       placeholder: "توضیحات",
     },
   ];

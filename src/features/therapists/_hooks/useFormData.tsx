@@ -31,7 +31,6 @@ const useFormData = () => {
     {
       name: "bio",
       label: "درباره",
-      required: true,
       placeholder: "درباره",
     },
     {
@@ -46,7 +45,6 @@ const useFormData = () => {
     {
       name: "gender",
       label: "جنسیت",
-      required: true,
       placeholder: "جنسیت",
       type: "select",
       isLoading: isLoading,
@@ -77,7 +75,6 @@ const useFormData = () => {
     {
       name: "status",
       label: "وضعیت",
-      required: true,
       placeholder: "وضعیت",
       type: "select",
       isLoading: isLoading,
@@ -86,7 +83,6 @@ const useFormData = () => {
     {
       name: "specialties",
       label: "تخصص ها",
-      required: true,
       type: "tags",
       placeholder: "بعد از وارد کردن هر تخصص دکمه + را کلیک کنید تا ثبت شود",
       className: "col-span-3",

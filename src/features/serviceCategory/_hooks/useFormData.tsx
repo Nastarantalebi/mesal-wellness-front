@@ -12,7 +12,6 @@ const useFormData = (isEdit: boolean) => {
     {
       name: "description",
       label: "توضیحات",
-      required: true,
       placeholder: "توضیحات",
       className: "col-span-2",
     },
@@ -20,7 +19,6 @@ const useFormData = (isEdit: boolean) => {
       ? {
           name: "is_active",
           label: "وضعیت",
-          required: true,
           placeholder: "وضعیت",
           type: "select",
           option: [

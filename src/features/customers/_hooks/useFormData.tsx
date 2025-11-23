@@ -38,14 +38,12 @@ const useFormData = () => {
     {
       name: "birth_date",
       label: "تاریخ تولد",
-      required: true,
       placeholder: "تاریخ تولد",
       type: "date",
     },
     {
       name: "joined_at",
       label: "تاریخ عضویت",
-      required: true,
       placeholder: "تاریخ عضویت",
       type: "date",
     },
@@ -53,7 +51,6 @@ const useFormData = () => {
     {
       name: "membership_type",
       label: "وضعیت کاربر",
-      required: true,
       placeholder: "وضعیت کاربر",
       type: "select",
       isLoading: isLoading,
@@ -62,7 +59,6 @@ const useFormData = () => {
     {
       name: "gender",
       label: "جنسیت",
-      required: true,
       placeholder: "جنسیت",
       type: "select",
       isLoading: isLoading,
@@ -71,7 +67,6 @@ const useFormData = () => {
     {
       name: "status",
       label: "وضعیت",
-      required: true,
       placeholder: "وضعیت",
       type: "select",
       isLoading: isLoading,
