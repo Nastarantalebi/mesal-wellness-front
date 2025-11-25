@@ -1,5 +1,6 @@
 import React from "react";
 import type { TDailyBoard } from "../../_types/type";
+import { CheckIcon } from "lucide-react";
 
 type TProps = {
   data: TDailyBoard;
@@ -80,7 +81,7 @@ const DailyBoardTable: React.FC<TProps> = ({ data }) => {
                 )}
                 {rooms.map((room) => (
                   <td key={room.id} className="border p-2">
-                    {r.room.id === room.id ? r.room.name : ""}
+                    {r.room.id === room.id ? <CheckIcon className="h-6 w-6 text-green-600 mx-auto"/>: ""}
                   </td>
                 ))}
                 <td className="border p-2">{r.therapist.name}</td>

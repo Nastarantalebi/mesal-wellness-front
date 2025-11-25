@@ -4,11 +4,11 @@ import type { TAvailabilityData, TTherapistService } from "../../_types/type";
 import { url } from "../../_fixtures/data";
 import { FormInput, FormLabel, FormSelect } from "@/components/Form";
 import DatePickerField from "@/components/Form/DatePicker";
-import TimePickerField from "@/components/Form/TimePicker";
 import Button from "@/components/Button";
 import Lucide from "@/components/Lucide";
 import { useEffect } from "react";
 import { Trash2 } from "lucide-react";
+import { end_time, start_time } from "@/features/_fixtures/data";
 
 type TProps = {
   form: any;
@@ -54,7 +54,29 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
           <Controller
             control={form.control}
             name={`items.${index}.start_at`}
-            render={({ field }) => <TimePickerField field={field} />}
+            render={({ field }) => {
+              const firstOption = start_time[0]?.value;
+              useEffect(() => {
+                if (
+                  firstOption !== undefined &&
+                  (field.value === undefined ||
+                    field.value === "" ||
+                    field.value === 0)
+                ) {
+                  field.onChange(firstOption);
+                }
+              }, [firstOption, field.value, field]);
+
+              return (
+                <FormSelect {...field}>
+                  {start_time.map((item:any) => (
+                    <option key={item.value} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
+                </FormSelect>
+              );
+            }}
           />
         </div>
         <div className="w-32 flex flex-col">
@@ -62,7 +84,29 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
           <Controller
             control={form.control}
             name={`items.${index}.end_at`}
-            render={({ field }) => <TimePickerField field={field} />}
+            render={({ field }) => {
+              const firstOption = end_time[0]?.value;
+              useEffect(() => {
+                if (
+                  firstOption !== undefined &&
+                  (field.value === undefined ||
+                    field.value === "" ||
+                    field.value === 0)
+                ) {
+                  field.onChange(firstOption);
+                }
+              }, [firstOption, field.value, field]);
+
+              return (
+                <FormSelect {...field}>
+                  {end_time.map((item:any) => (
+                    <option key={item.value} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
+                </FormSelect>
+              );
+            }}
           />
         </div>
         {validItemDate && (
@@ -267,4 +311,4 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
     </div>
   );
 };
-export default ItemRowFields
+export default ItemRowFields;
