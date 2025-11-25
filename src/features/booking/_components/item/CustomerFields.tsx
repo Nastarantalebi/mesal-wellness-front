@@ -1,26 +1,24 @@
 import { Controller, useWatch } from "react-hook-form";
 import { FormInput, FormLabel, FormSelect } from "@/components/Form";
 import useGetData from "@/services/useGetData";
-import type { TCustomerSearch } from "../_types/type";
+import type { TCreateData, TCustomerSearch } from "../../_types/type";
 import Button from "@/components/Button";
 import Lucide from "@/components/Lucide";
 import { useEffect, useState } from "react";
 import Modal from "@/components/Headless/Dialog/Modal";
 import CustomersForm from "@/features/customers/_components/CustomersForm";
 
-interface TProps {
+type TProps ={
   form: any;
-  dataCreate: any;
+  dataCreate?: TCreateData ;
   selectedRecord: any;
   dataById?: any;
-  className?: string;
 }
 
-const BookingFields = ({
+const CustomerFields = ({
   form,
   dataCreate,
   selectedRecord,
-  className,
   dataById,
 }: TProps) => {
   console.log(dataCreate);
@@ -63,7 +61,7 @@ const BookingFields = ({
   return (
     <>
       <div
-        className={`grid grid-cols-6 gap-2 w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full ${className}`}>
+        className="grid grid-cols-6 gap-2 w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full">
         <div className="flex items-center justify-start gap-2 w-fit">
           {" "}
           <div>
@@ -154,30 +152,6 @@ const BookingFields = ({
             </div>
           </>
         )}
-        {/* <div >
-          <FormLabel>مبلغ کل</FormLabel>
-          <Controller
-            control={form.control}
-            name="total_amount"
-            render={({ field }) => <FormInput {...field} />}
-          />
-        </div>
-        <div >
-          <FormLabel>بیعانه</FormLabel>
-          <Controller
-            control={form.control}
-            name="deposit"
-            render={({ field }) => <FormInput {...field} />}
-          />
-        </div>
-        <div >
-          <FormLabel>مبلغ قابل پرداخت</FormLabel>
-          <Controller
-            control={form.control}
-            name="payable_amount"
-            render={({ field }) => <FormInput {...field} />}
-          />
-        </div> */}
         <div className="col-span-full">
           <FormLabel>یادداشت</FormLabel>
           <Controller
@@ -199,4 +173,4 @@ const BookingFields = ({
   );
 };
 
-export default BookingFields;
+export default CustomerFields;

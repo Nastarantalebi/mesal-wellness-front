@@ -1,7 +1,7 @@
 import { FormInput, FormLabel } from "@/components/Form";
 import { Controller } from "react-hook-form";
 
-const TotalAmount = ({ form }: { form: any }) => {
+const TotalFields = ({ form }: { form: any }) => {
   return (
     <div
       className={`w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full`}>
@@ -35,4 +35,4 @@ const TotalAmount = ({ form }: { form: any }) => {
   );
 };
 
-export default TotalAmount;
+export default TotalFields;

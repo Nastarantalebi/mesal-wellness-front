@@ -8,10 +8,8 @@ import useGetById from "@/services/useGetById";
 import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
 import type { TCreateData, TDataById, TRequest } from "../_types/type";
-import ItemForm from "./ItemForm";
-import BookingFields from "./BookingFields";
 import useGetData from "@/services/useGetData";
-import TotalAmount from "./TotalAmount";
+import FormFeilds from "./item/FormFeilds";
 
 function BookingForm() {
   const navigate = useNavigate();
@@ -73,9 +71,7 @@ function BookingForm() {
         const action = selectedRecord ? update : create;
         action(values, { onSuccess: () => navigate("/booking") });
       }}>
-      <BookingFields form={form} selectedRecord={selectedRecord} dataCreate={dataCreate} dataById={dataById}/>
-      <ItemForm form={form} selectedRecord={selectedRecord} dataCreate={dataCreate}/>
-      <TotalAmount form={form} />
+        <FormFeilds form={form} selectedRecord={selectedRecord} dataCreate={dataCreate} dataById={dataById}/>
     </FormComponent>
   );
 }
