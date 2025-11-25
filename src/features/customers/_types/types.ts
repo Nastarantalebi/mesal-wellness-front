@@ -38,9 +38,9 @@ export type TReqCustomers = {
   user_id: number | null;
   membership_type: string;
   birth_date: string;
-  national_code: string;
-  joined_at: string;
-  notes: string;
+  national_code: string| null;
+  joined_at: string| null;
+  notes: string| null;
   status: string;
 };
 type Customer = {

@@ -39,8 +39,6 @@ function Booking() {
         data={data?.data}
         dataPagination={data?.paginate}
         onAdd={() => navigate("create")}
-        customAdd={() => navigate("calendar")}
-        customAddText=" نوبت‌های رزرو شده"
         onEdit={(record) => navigate("create", { state: { record } })}
         onDelete={(record) => Delete(record.id)}
         onVisit={(record) => {

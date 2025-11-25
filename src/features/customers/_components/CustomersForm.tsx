@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
 import useCreateData from "@/services/useCreateData";
 import { initialValues, queryKey, schema, url } from "../_fixtures/data";
 import type { TDataById, TReqCustomers } from "../_types/types";
@@ -9,11 +8,11 @@ import useGetById from "@/services/useGetById";
 import { useEffect } from "react";
 import useFormData from "../_hooks/useFormData";
 import FormComponent from "@/components/Form/Form";
-
-function CustomersForm({ setOpenModal }: { setOpenModal?: any }) {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const selectedRecord = location.state?.record.id;
+type TProps = {
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedRecord?: number | null;
+};
+function CustomersForm({ setOpenModal, selectedRecord }: TProps) {
   const { fields } = useFormData();
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url: url,
@@ -26,7 +25,7 @@ function CustomersForm({ setOpenModal }: { setOpenModal?: any }) {
   });
   const { data: dataById } = useGetById<TDataById>({
     url: url,
-    queryKey: [queryKey, selectedRecord],
+    queryKey: [queryKey, String(selectedRecord)],
     id: selectedRecord,
   });
 
@@ -61,9 +60,7 @@ function CustomersForm({ setOpenModal }: { setOpenModal?: any }) {
         const action = selectedRecord ? update : create;
         action(values, {
           onSuccess: () => {
-            location.pathname === "/customers/create"
-              ? navigate("/customers")
-              : setOpenModal(false);
+            setOpenModal(false);
           },
         });
       }}

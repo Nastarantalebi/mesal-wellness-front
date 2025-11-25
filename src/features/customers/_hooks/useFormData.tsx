@@ -31,7 +31,6 @@ const useFormData = () => {
     {
       name: "national_code",
       label: "کدملی",
-      required: true,
       placeholder: "کدملی",
       inputType: "number",
     },

@@ -13,6 +13,10 @@ import { Edit, Eye, Trash2Icon } from "lucide-react";
 import TitlePage from "@/features/_components/TitlePage";
 import Pagination from "./Pagination";
 import Modal from "../Headless/Dialog/Modal";
+import type {
+  QueryObserverResult,
+  RefetchOptions,
+} from "@tanstack/react-query";
 type TableAction = {
   title: string;
   icon: React.ReactNode;
@@ -43,11 +47,15 @@ type CustomTableProps = {
   onVisit?: (record: any) => void;
   onImport?: (file: File) => void;
   customActions?: TableAction[];
+  refetch?: (
+    options?: RefetchOptions | undefined
+  ) => Promise<QueryObserverResult<any, Error>>;
 };
 
 function CustomTable({
   title = "جدول اطلاعات",
   columns,
+  refetch,
   data,
   paginationSize = 10,
   onAdd,
@@ -178,6 +186,7 @@ CustomTableProps) {
       value: "",
     });
     onFilter();
+    refetch && refetch();
   };
 
   useEffect(() => {

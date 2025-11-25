@@ -83,6 +83,11 @@ const initialState: SideMenuState = {
       pathname: "/booking",
       title: "رزرو نوبت",
     },
+    {
+      icon: "CalendarCheck2",
+      pathname: "/calendar",
+      title:"نوبت‌های رزرو شده",
+    },
   ],
 };
 
