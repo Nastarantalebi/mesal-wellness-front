@@ -1,28 +1,33 @@
 import { Controller, useWatch } from "react-hook-form";
 import { FormInput, FormLabel, FormSelect } from "@/components/Form";
 import useGetData from "@/services/useGetData";
-import type { TCustomerSearch, TDataById } from "../../_types/type";
+import type { TCreateData, TCustomerSearch, TDataById } from "../../_types/type";
 import Button from "@/components/Button";
 import Lucide from "@/components/Lucide";
 import { useEffect, useState } from "react";
 import Modal from "@/components/Headless/Dialog/Modal";
 import CustomersForm from "@/features/customers/_components/CustomersForm";
 
-type TProps = {
+type TProps ={
   form: any;
+  dataCreate?: TCreateData ;
   selectedRecord: any;
   dataById?: TDataById;
-};
+}
 
-const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
+const CustomerFields = ({
+  form,
+  selectedRecord,
+  dataById,
+}: TProps) => {
+  console.log(dataById?.booking.customer_name);
   const isEdit = !!selectedRecord;
+  console.log(isEdit);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const search_item = useWatch({
     control: form.control,
     name: "search_customer",
   });
-
-  console.log(dataById?.booking?.customer_name);
   const selectedCustomerId = useWatch({
     control: form.control,
     name: "customer_id",
@@ -32,13 +37,6 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
     queryKey: ["customer_search", search_item],
     enabled: false,
   });
-  useEffect(() => {
-    if (isEdit && dataById?.booking?.customer_name) {
-      form.setValue("search_customer", dataById.booking.customer_name);
-      form.setValue("customer_id", dataById.booking.customer_id);
-      refetch();
-    }
-  }, [isEdit, dataById]);
   useEffect(() => {
     if (!data?.data) {
       form.setValue("phone", "");
@@ -60,14 +58,14 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
 
   return (
     <>
-      <div className="grid grid-cols-6 gap-2 w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full">
+      <div
+        className="grid grid-cols-6 gap-2 w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full">
         <div className="flex items-center justify-start gap-2 w-fit">
           {" "}
           <div>
             <FormLabel>یافتن مشتری</FormLabel>
             <Controller
               control={form.control}
-              defaultValue={dataById?.booking?.customer_name || ""}
               name="search_customer"
               render={({ field }) => <FormInput {...field} />}
             />
