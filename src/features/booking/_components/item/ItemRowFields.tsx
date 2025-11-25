@@ -46,10 +46,10 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
           <Controller
             control={form.control}
             name={`items.${index}.date`}
-            render={({ field }) => <DatePickerField field={field} />}
+            render={({ field }) => <DatePickerField field={field} placeholder="تاریخ نوبت"/>}
           />
         </div>
-        <div className="w-32 flex flex-col">
+        <div className="w-48 flex flex-col">
           <FormLabel>زمان شروع</FormLabel>
           <Controller
             control={form.control}
@@ -79,7 +79,7 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
             }}
           />
         </div>
-        <div className="w-32 flex flex-col">
+        <div className="w-48 flex flex-col">
           <FormLabel>زمان پایان</FormLabel>
           <Controller
             control={form.control}
