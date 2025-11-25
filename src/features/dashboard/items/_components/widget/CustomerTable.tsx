@@ -18,7 +18,7 @@ const CustomerTable: React.FC<TProps> = ({ listData }) => {
   }
 
   return (
-    <div className="col-span-6 my-3">
+    <div className="col-span-12 xl:col-span-6 my-3">
       <div className="text-lg font-medium mb-3">
         {"customer_name" in orders[0] ? "رزروهای اخیر" : "مشتریان اخیر"}
       </div>

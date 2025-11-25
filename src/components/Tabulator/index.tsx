@@ -224,7 +224,7 @@ CustomTableProps) {
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <TitlePage title={title} />
       <div className="col-span-12">
-        <div className="flex flex-col md:h-10 gap-y-3 md:items-center md:flex-row">
+        <div className="flex flex-row items-center justify-between gap-y-2">
           <div className="text-base font-medium group-[.mode--light]:text-white">
             {title}
           </div>
@@ -247,7 +247,8 @@ CustomTableProps) {
                 variant="outline-success"
                 className="group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent">
                 <Lucide icon="Plus" className="stroke-[1.3] w-4 h-4 me-2" />{" "}
-                افزودن جدید
+                <span className="md:hidden inline-block"> جدید</span>
+                <span className="hidden md:inline-block">افزودن جدید</span>
               </Button>
             )}
           </div>
@@ -257,7 +258,7 @@ CustomTableProps) {
             <div className="flex flex-col p-5 xl:items-center xl:flex-row gap-y-2">
               <form
                 id="tabulator-htms-filter-form"
-                className="flex xl:flex-row flex-col border-dashed gap-x-5 gap-y-2 border border-slate-300/80 xl:border-0 rounded-[0.6rem] p-4 sm:p-5 xl:p-0"
+                className="flex md:flex-row flex-col border-dashed gap-x-5 gap-y-2 border border-slate-300/80 xl:border-0 rounded-[0.6rem] p-4 sm:p-5 xl:p-0"
                 onSubmit={(e) => {
                   e.preventDefault();
                   onFilter();
@@ -324,12 +325,12 @@ CustomTableProps) {
                     placeholder="جست‌وجو..."
                   />
                 </FormInline>
-                <div className="flex flex-col gap-2 mt-2 sm:flex-row xl:mt-0">
+                <div className="flex gap-2 mt-2 flex-row xl:mt-0">
                   <Button
                     id="tabulator-htms-filter-go"
                     variant="outline-primary"
                     type="button"
-                    className="w-full sm:w-auto bg-primary/5 border-primary/20"
+                    className="w-full md:w-auto bg-primary/5 border-primary/20"
                     onClick={onFilter}>
                     یافتن
                   </Button>
@@ -337,13 +338,13 @@ CustomTableProps) {
                     id="tabulator-htms-filter-reset"
                     variant="outline-secondary"
                     type="button"
-                    className="w-full sm:w-auto bg-slate-50/50"
+                    className="w-full md:w-auto bg-slate-50/50"
                     onClick={onResetFilter}>
                     تنظیم مجدد
                   </Button>
                 </div>
               </form>
-              <div className="flex flex-col mt-3 sm:flex-row gap-x-3 gap-y-2 xl:ms-auto xl:mt-0">
+              <div className="flex items-center justify-end mt-3 flex-row gap-x-3 gap-y-2 xl:ms-auto xl:mt-0">
                 <Button variant="outline-secondary" onClick={printTable}>
                   <Lucide
                     icon="Printer"
@@ -372,7 +373,7 @@ CustomTableProps) {
                     />
                   </>
                 )}
-                <Menu className="sm:ms-auto xl:ms-0">
+                <Menu>
                   <Menu.Button
                     as={Button}
                     variant="outline-secondary"
