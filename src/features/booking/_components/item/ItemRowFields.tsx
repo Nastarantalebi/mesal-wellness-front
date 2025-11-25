@@ -40,8 +40,8 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
   return (
     <div className="flex flex-col items-end justify-end gap-2 my-2 border border-gray-400 rounded-md md:p-3">
       {/* تاریخ و زمان */}
-      <div className="flex flex-row w-full gap-2">
-        <div className="w-48 flex flex-col">
+      <div className="flex flex-row w-full items-end gap-2">
+        <div className="w-48">
           <FormLabel>تاریخ</FormLabel>
           <Controller
             control={form.control}
@@ -49,7 +49,7 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
             render={({ field }) => <DatePickerField field={field} placeholder="تاریخ نوبت"/>}
           />
         </div>
-        <div className="w-48 flex flex-col">
+        <div className="w-48">
           <FormLabel>زمان شروع</FormLabel>
           <Controller
             control={form.control}
@@ -79,7 +79,7 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
             }}
           />
         </div>
-        <div className="w-48 flex flex-col">
+        <div className="w-48">
           <FormLabel>زمان پایان</FormLabel>
           <Controller
             control={form.control}

@@ -60,7 +60,7 @@ const CustomerFields = ({
     <>
       <div
         className="grid grid-cols-6 gap-2 w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full">
-        <div className="flex items-center justify-start gap-2 w-fit">
+        <div className="flex flex-row items-end gap-2 w-fit">
           {" "}
           <div>
             <FormLabel>یافتن مشتری</FormLabel>
@@ -71,7 +71,7 @@ const CustomerFields = ({
             />
           </div>
           {!!search_item && (
-            <div className="flex items-center">
+            <div className="">
               <Button
                 type="button"
                 variant="outline-primary"
