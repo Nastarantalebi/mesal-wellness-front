@@ -11,6 +11,8 @@ export function mapFieldsToColumns(
     headerSort: config.sortable,
     hozAlign: "center",
     vertAlign: "middle",
+    headerHozAlign: "center",
+    resizable: false,
     // اگر نوع خاصی دارید (مثلاً date, number)
     sorter:
       config.type === "number"
