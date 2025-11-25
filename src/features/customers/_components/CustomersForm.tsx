@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import useCreateData from "@/services/useCreateData";
 import { initialValues, queryKey, schema, url } from "../_fixtures/data";
-import type { TDataById, TReqCustomers } from "../_types/types";
+import type { TDataById, TRecord, TReqCustomers } from "../_types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useUpdateData from "@/services/useUpdateData";
 import useGetById from "@/services/useGetById";
@@ -10,9 +10,10 @@ import useFormData from "../_hooks/useFormData";
 import FormComponent from "@/components/Form/Form";
 type TProps = {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedRecord?: number | null;
+  selectedRecord?: TRecord | null;
 };
 function CustomersForm({ setOpenModal, selectedRecord }: TProps) {
+  const id = selectedRecord?.id;
   const { fields } = useFormData();
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url: url,
@@ -21,12 +22,12 @@ function CustomersForm({ setOpenModal, selectedRecord }: TProps) {
   const { mutate: update, isPending: isPendingUpdate } = useUpdateData({
     url: url,
     queryKey: queryKey,
-    id: selectedRecord,
+    id: id,
   });
   const { data: dataById } = useGetById<TDataById>({
     url: url,
-    queryKey: [queryKey, String(selectedRecord)],
-    id: selectedRecord,
+    queryKey: [queryKey, String(selectedRecord?.id)],
+    id: id,
   });
 
   const form = useForm<TReqCustomers>({
@@ -57,7 +58,7 @@ function CustomersForm({ setOpenModal, selectedRecord }: TProps) {
       formFields={fields}
       isSubmitting={isPendingUpdate || isPendingCreate}
       onSubmit={(values) => {
-        const action = selectedRecord ? update : create;
+        const action = id ? update : create;
         action(values, {
           onSuccess: () => {
             setOpenModal(false);

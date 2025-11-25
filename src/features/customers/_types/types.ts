@@ -38,9 +38,9 @@ export type TReqCustomers = {
   user_id: number | null;
   membership_type: string;
   birth_date: string;
-  national_code: string| null;
-  joined_at: string| null;
-  notes: string| null;
+  national_code: string | null;
+  joined_at: string | null;
+  notes: string | null;
   status: string;
 };
 type Customer = {
@@ -75,4 +75,13 @@ export type TCreateData = {
   genders: TOption[];
   membership_types: TOption[];
   statuses: TOption[];
+};
+export type TRecord = {
+  actions?: string;
+  full_name: string;
+  gender: string;
+  id: 87;
+  joined_at: string | null;
+  membership_type: string;
+  national_code: string | null;
 };

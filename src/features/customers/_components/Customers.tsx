@@ -6,6 +6,7 @@ import useCreateData from "@/services/useCreateData";
 import Modal from "@/components/Headless/Dialog/Modal";
 import { useState } from "react";
 import CustomersForm from "./CustomersForm";
+import type { TRecord } from "../_types/types";
 
 function Customers() {
   const { data, refetch, isFetching } = useGetData<any>({
@@ -21,7 +22,7 @@ function Customers() {
     onSuccess: () => refetch(),
   });
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [selectedRecord, setSelectedRecord] = useState<number | null>(null);
+  const [selectedRecord, setSelectedRecord] = useState<TRecord | null>(null);
   return (
     <>
       <CustomTable
@@ -36,13 +37,12 @@ function Customers() {
         columns={data?.columns}
         data={data?.data}
         dataPagination={data?.paginate}
-        // onAdd={() => navigate("create")}
         onAdd={() => {
           setOpenModal(true);
           setSelectedRecord(null);
         }}
         onEdit={(record) => {
-          setSelectedRecord(record.id);
+          setSelectedRecord(record);
           setOpenModal(true);
         }}
         onDelete={(record) => Delete(record.id)}
@@ -52,9 +52,11 @@ function Customers() {
         open={openModal}
         size="xxl"
         cancelBtn={false}
-        title={`${
-          selectedRecord ? `ویرایش مشتری با شماره ${selectedRecord}` : "افزودن مشتری جدید"
-        }`}>
+        title={
+          selectedRecord
+            ? `ویرایش مشتری ${selectedRecord?.full_name}`
+            : "افزودن مشتری جدید"
+        }>
         <CustomersForm
           setOpenModal={setOpenModal}
           selectedRecord={selectedRecord}
