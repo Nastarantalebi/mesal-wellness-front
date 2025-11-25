@@ -22,7 +22,6 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
     name: "search_customer",
   });
 
-  console.log(search_item);
   console.log(dataById?.booking?.customer_name);
   const selectedCustomerId = useWatch({
     control: form.control,
