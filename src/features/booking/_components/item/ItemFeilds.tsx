@@ -1,8 +1,5 @@
 import Button from "@/components/Button";
 import { useFieldArray } from "react-hook-form";
-import type {
-  TCreateData,
-} from "../../_types/type";
 import { itemsValues } from "../../_fixtures/data";
 
 import { PlusIcon } from "lucide-react";
@@ -10,14 +7,12 @@ import ItemRowFields from "./ItemRowFields";
 
 type TProps = {
   form: any;
-  dataCreate?: TCreateData;
   selectedRecord: any;
 };
 
 
-const ItemForm = ({ form, dataCreate, selectedRecord }: TProps) => {
+const ItemForm = ({ form, selectedRecord }: TProps) => {
   const isEdit = !!selectedRecord;
-  console.log(dataCreate);
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "items",

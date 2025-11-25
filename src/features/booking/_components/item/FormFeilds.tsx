@@ -1,16 +1,14 @@
 import ItemForm from "./ItemFeilds";
 import TotalFields from "./TotalFields";
 import CustomerFields from "./CustomerFields";
-import type { TCreateData } from "../../_types/type";
+import type { TDataById } from "../../_types/type";
 type TProps = {
   form: any;
   selectedRecord: any;
-  dataCreate?: TCreateData ;
-  dataById?: any;
+  dataById?: TDataById;
 };
 const FormFeilds = ({
   form,
-  dataCreate,
   selectedRecord,
   dataById,
 }: TProps) => {
@@ -19,13 +17,11 @@ const FormFeilds = ({
       <CustomerFields
         form={form}
         selectedRecord={selectedRecord}
-        dataCreate={dataCreate}
         dataById={dataById}
       />
       <ItemForm
         form={form}
         selectedRecord={selectedRecord}
-        dataCreate={dataCreate}
       />
       <TotalFields form={form} />
     </>

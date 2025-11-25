@@ -61,7 +61,6 @@ function BookingForm() {
       form.reset(praparedData);
     }
   }, [form.reset, dataById]);
-  console.log(form.watch())
   return (
     <FormComponent
       form={form}
@@ -71,7 +70,7 @@ function BookingForm() {
         const action = selectedRecord ? update : create;
         action(values, { onSuccess: () => navigate("/booking") });
       }}>
-        <FormFeilds form={form} selectedRecord={selectedRecord} dataCreate={dataCreate} dataById={dataById}/>
+        <FormFeilds form={form} selectedRecord={selectedRecord} dataById={dataById}/>
     </FormComponent>
   );
 }
