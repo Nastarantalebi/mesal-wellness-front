@@ -67,58 +67,62 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
 
   return (
     <>
-      <div className="grid grid-cols-6 gap-2 w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full">
-        <div className="flex flex-row items-end gap-2 w-fit">
-          {" "}
-          <div>
+      <div className="grid grid-cols-12 gap-4 w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full">
+        {/* ردیف جستجو مشتری */}
+        <div className="col-span-12 md:col-span-4 xl:col-span-2 flex gap-2 items-end">
+          <div className="flex-1">
             <FormLabel>یافتن مشتری</FormLabel>
             <Controller
               control={form.control}
               name="search_customer"
-              render={({ field }) => <FormInput {...field} />}
+              render={({ field }) => (
+                <FormInput {...field} placeholder="نام یا شماره تلفن مشتری" />
+              )}
             />
           </div>
           {!!search_item && (
-            <div className="">
-              <Button
-                type="button"
-                variant="outline-primary"
-                size="sm"
-                onClick={() => refetch()}
-                className="whitespace-nowrap flex items-center gap-1 h-9">
-                <Lucide
-                  icon={`${isFetching ? "Loader" : "Search"}`}
-                  className={`w-4 h-4 ${isFetching ? "animate-spin" : ""}`}
-                />
-              </Button>
-            </div>
+            <Button
+              type="button"
+              variant="outline-primary"
+              size="sm"
+              onClick={() => refetch()}
+              className="h-9 flex items-center gap-1">
+              <Lucide
+                icon={isFetching ? "Loader" : "Search"}
+                className={`w-4 h-4 ${isFetching ? "animate-spin" : ""}`}
+              />
+            </Button>
           )}
         </div>
+        {/* پیام راهنما */}
         {!search_item ? (
-          <div className="text-gray-500 text-sm col-span-full mb-1">
+          <div className="col-span-12 text-gray-500 text-sm">
             برای یافتن مشتری، نام یا شماره تلفن را وارد کنید.
           </div>
-        ) : (
-          !data && (
-            <div className="text-gray-500 text-sm col-span-full mb-1">
-              برای دریافت نتیجه، روی دکمه جستجو کلیک کنید.
-            </div>
-          )
-        )}
+        ) : !data ? (
+          <div className="col-span-12 text-gray-500 text-sm">
+            برای دریافت نتیجه، روی دکمه جستجو کلیک کنید.
+          </div>
+        ) : null}
+
+        {/* مشتری پیدا نشد */}
         {data && data.data.length === 0 ? (
-          <div className="flex flex-row items-center justify-between gap-1 bg-red-50 text-red-700 p-3 rounded-lg col-span-full border border-red-200">
+          <div className="col-span-12 flex justify-between items-center gap-2 bg-red-50 text-red-700 p-3 rounded-lg border border-red-200">
             <span>مشتری یافت نشد.</span>
             <Button
               type="button"
               variant="outline-primary"
-              className=" text-sm w-fit"
+              size="sm"
               onClick={() => setOpenModal(true)}>
               + مشتری جدید
             </Button>
           </div>
-        ) : (
+        ) : null}
+
+        {/* مشتری پیدا شد */}
+        {data && data.data.length > 0 && (
           <>
-            <div className="mb-4">
+            <div className="col-span-12 md:col-span-4 xl:col-span-2">
               <FormLabel>مشتری</FormLabel>
               <Controller
                 control={form.control}
@@ -135,10 +139,9 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
                       field.onChange(firstOption);
                     }
                   }, [firstOption, field.value, field]);
-
                   return (
                     <FormSelect {...field}>
-                      {data?.data.map((item: any) => (
+                      {data.data.map((item: any) => (
                         <option key={item.id} value={item.id}>
                           {item.full_name}
                         </option>
@@ -149,7 +152,7 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
               />
             </div>
 
-            <div className="mb-4">
+            <div className="col-span-12 md:col-span-4 xl:col-span-2">
               <FormLabel>شماره تلفن</FormLabel>
               <Controller
                 control={form.control}
@@ -161,7 +164,9 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
             </div>
           </>
         )}
-        <div className="col-span-full">
+
+        {/* یادداشت */}
+        <div className="col-span-12">
           <FormLabel>یادداشت</FormLabel>
           <Controller
             control={form.control}
@@ -170,6 +175,8 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
           />
         </div>
       </div>
+
+      {/* مودال افزودن مشتری */}
       <Modal
         close={() => setOpenModal(false)}
         open={openModal}
