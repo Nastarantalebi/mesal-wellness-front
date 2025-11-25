@@ -13,7 +13,7 @@ import { RefreshCcwIcon } from "lucide-react";
 
 function Booking() {
   const navigate = useNavigate();
-  const { data, isFetching } = useGetData<any>({
+  const { data, isFetching, refetch } = useGetData<any>({
     queryKey: queryKey,
     url: url,
   });
@@ -33,6 +33,7 @@ function Booking() {
   return (
     <>
       <CustomTable
+        refetch={refetch}
         isLoading={isFetching}
         title="رزرو نوبت"
         columns={data?.columns}

@@ -53,8 +53,7 @@ function SidebarWrapper() {
         "fixed top-0 start-0 z-50 h-screen side-menu group",
         { "side-menu--collapsed": compactMenu },
         { "side-menu--on-hover": compactMenuOnHover },
-      ])}
-    >
+      ])}>
       {/* Close Button for Mobile */}
       {/* <div
         className={clsx([

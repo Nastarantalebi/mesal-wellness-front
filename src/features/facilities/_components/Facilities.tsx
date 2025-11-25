@@ -6,7 +6,7 @@ import useDeleteData from "@/services/useDeleteData";
 
 function Facilities() {
   const navigate = useNavigate();
-  const { data ,isFetching} = useGetData<any>({
+  const { data, isFetching ,refetch} = useGetData<any>({
     queryKey: queryKey,
     url: url,
   });
@@ -17,7 +17,8 @@ function Facilities() {
 
   return (
     <CustomTable
-    isLoading={isFetching}
+      isLoading={isFetching}
+      refetch={refetch}
       title="محل ارائه خدمات"
       columns={data?.columns}
       data={data?.data}

@@ -30,6 +30,7 @@ function ResourceAvailabilities({ id }: { id: number }) {
       )}
       <CustomTable
         isLoading={isFetching}
+        refetch={refetch}
         title="مکان‌های دردسترس"
         onAdd={() => {
           setShowForm(true);

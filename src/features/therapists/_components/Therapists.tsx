@@ -11,7 +11,7 @@ import TherapistService from "./therapistService/_components/TherapistService";
 
 function Therapists() {
   const navigate = useNavigate();
-  const { data ,isFetching} = useGetData<any>({
+  const { data ,isFetching,refetch} = useGetData<any>({
     queryKey: queryKey,
     url: url,
   });
@@ -31,6 +31,7 @@ function Therapists() {
     <>
       <CustomTable
        isLoading={isFetching}
+       refetch={refetch}
         title="درمانگر"
         columns={data?.columns}
         customActions={[

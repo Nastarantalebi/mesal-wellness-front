@@ -10,7 +10,7 @@ import ResourceAvailabilities from "./resource-availabilities/_components/Resour
 
 function Resources() {
   const navigate = useNavigate();
-  const { data ,isFetching} = useGetData<any>({
+  const { data ,isFetching,refetch} = useGetData<any>({
     queryKey: queryKey,
     url: url,
   });
@@ -24,6 +24,7 @@ function Resources() {
     <>
       <CustomTable
        isLoading={isFetching}
+       refetch={refetch}
         title="مکان‌های مجموعه"
         columns={data?.columns}
         data={data?.data}

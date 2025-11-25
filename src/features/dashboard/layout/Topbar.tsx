@@ -81,7 +81,9 @@ function Topbar({
       <div className="absolute transition-[padding] duration-100 xl:ps-[275px] group-[.side-menu--collapsed]:xl:ps-[91px] h-full inset-x-0">
         <div className="flex items-center w-full h-full px-5">
           {/* BEGIN: Breadcrumb */}
-          <DynamicBreadcrumb />
+          <div className="hidden xl:block">
+            <DynamicBreadcrumb />
+          </div>
 
           {/* END: Breadcrumb */}
           {/* BEGIN: Search */}
@@ -115,7 +117,7 @@ function Topbar({
                   </a> */}
               <a
                 href=""
-                className="p-2 rounded-full hover:bg-slate-100"
+                className="p-2 rounded-full hover:bg-slate-100 hidden lg:inline-block"
                 onClick={(e) => {
                   e.preventDefault();
                   requestFullscreen();
@@ -138,7 +140,7 @@ function Topbar({
                   alt="تیل وایز - قالب داشبورد مدیریتی"
                   src={users.fakeUsers()[0].photo}
                 /> */}
-                 <Lucide icon="User" className="w-5 h-5 mx-auto" />
+                <Lucide icon="User" className="w-5 h-5 mx-auto" />
               </Menu.Button>
               <Menu.Items className="w-56 mt-1">
                 <Menu.Item
@@ -146,7 +148,7 @@ function Topbar({
                     navigate("settings");
                   }}>
                   <Lucide icon="User" className="w-4 h-4 me-2" />
-                 نام کاربر
+                  نام کاربر
                 </Menu.Item>
                 <Menu.Divider />
                 <Menu.Item
