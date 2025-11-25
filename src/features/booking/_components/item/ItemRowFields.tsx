@@ -9,6 +9,7 @@ import Lucide from "@/components/Lucide";
 import { useEffect } from "react";
 import { Trash2 } from "lucide-react";
 import { end_time, start_time } from "@/features/_fixtures/data";
+import { DateObject } from "react-multi-date-picker";
 
 type TProps = {
   form: any;
@@ -46,7 +47,13 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
           <Controller
             control={form.control}
             name={`items.${index}.date`}
-            render={({ field }) => <DatePickerField field={field} placeholder="تاریخ نوبت"/>}
+            render={({ field }) => (
+              <DatePickerField
+                field={field}
+                placeholder="تاریخ نوبت"
+                min={new DateObject()}
+              />
+            )}
           />
         </div>
         <div className="w-48">
@@ -69,7 +76,7 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
 
               return (
                 <FormSelect {...field}>
-                  {start_time.map((item:any) => (
+                  {start_time.map((item: any) => (
                     <option key={item.value} value={item.value}>
                       {item.label}
                     </option>
@@ -99,7 +106,7 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
 
               return (
                 <FormSelect {...field}>
-                  {end_time.map((item:any) => (
+                  {end_time.map((item: any) => (
                     <option key={item.value} value={item.value}>
                       {item.label}
                     </option>
@@ -273,7 +280,7 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
             </div>
 
             <div className="flex-1 flex flex-col">
-              <FormLabel>مبلغ خدمت</FormLabel>
+              <FormLabel>قیمت نهایی (تومان) </FormLabel>
               <Controller
                 control={form.control}
                 name={`items.${index}.unit_price`}
@@ -284,7 +291,7 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
             </div>
 
             <div className="flex-1 flex flex-col">
-              <FormLabel>مبلغ قابل پرداخت</FormLabel>
+              <FormLabel>مبلغ قابل پرداخت(تومان)</FormLabel>
               <Controller
                 control={form.control}
                 name={`items.${index}.total_price`}

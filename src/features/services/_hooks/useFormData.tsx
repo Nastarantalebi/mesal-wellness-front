@@ -4,18 +4,16 @@ import useGetData from "@/services/useGetData";
 import { servicesQuerykey, servicesUrl } from "../_fixtures/data";
 
 const useFormData = (isEdit: boolean) => {
-  const { data: dataCreate, isLoading } = useGetData<TCreateData>(
-    {
-      url: `${servicesUrl}create`,
-      queryKey: `${servicesQuerykey},"dataCreate"`,
-    }
-  );
+  const { data: dataCreate, isLoading } = useGetData<TCreateData>({
+    url: `${servicesUrl}create`,
+    queryKey: `${servicesQuerykey},"dataCreate"`,
+  });
   const fields: (TFormData<TReqServices> | undefined)[] = [
     {
       name: "title",
-      label:"عنوان",
+      label: "عنوان",
       required: true,
-      placeholder:"عنوان",
+      placeholder: "عنوان",
     },
 
     {
@@ -36,15 +34,16 @@ const useFormData = (isEdit: boolean) => {
     },
     {
       name: "base_price",
-      label: "قیمت پایه",
+      label: "قیمت پایه(تومان)",
       required: true,
-      placeholder: "قیمت پایه",
+      placeholder: "قیمت پایه(تومان)",
       inputType: "number",
+      money: true,
     },
     {
       name: "gender_policy",
-      label:"پذیرش بر اساس جنسیت",
-      placeholder:"پذیرش بر اساس جنسیت",
+      label: "پذیرش بر اساس جنسیت",
+      placeholder: "پذیرش بر اساس جنسیت",
       type: "select",
       isLoading: isLoading,
       option: dataCreate?.genderPolicies ?? [],

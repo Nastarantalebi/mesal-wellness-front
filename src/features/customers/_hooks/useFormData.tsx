@@ -2,6 +2,7 @@ import type { TFormData } from "@/types";
 import type { TCreateData, TReqCustomers } from "../_types/types";
 import useGetData from "@/services/useGetData";
 import { queryKey, url } from "../_fixtures/data";
+import { DateObject } from "react-multi-date-picker";
 
 const useFormData = () => {
   const { data: dataCreate, isLoading } = useGetData<TCreateData>({
@@ -27,30 +28,34 @@ const useFormData = () => {
       required: true,
       placeholder: "تلفن",
       inputType: "number",
+      maxLength: 11,
     },
     {
       name: "national_code",
       label: "کدملی",
       placeholder: "کدملی",
       inputType: "number",
+      maxLength: 10,
     },
     {
       name: "birth_date",
       label: "تاریخ تولد",
       placeholder: "تاریخ تولد",
       type: "date",
+      maxDate: new DateObject(),
     },
     {
       name: "joined_at",
       label: "تاریخ عضویت",
       placeholder: "تاریخ عضویت",
       type: "date",
+      maxDate: new DateObject(),
     },
 
     {
       name: "membership_type",
-      label: "وضعیت کاربر",
-      placeholder: "وضعیت کاربر",
+      label: "نوع عضویت",
+      placeholder: "نوع عضویت",
       type: "select",
       isLoading: isLoading,
       option: dataCreate?.membership_types,

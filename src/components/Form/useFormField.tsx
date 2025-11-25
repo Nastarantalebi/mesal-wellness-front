@@ -142,6 +142,7 @@ function useFormField<TFormValues extends FieldValues>() {
             error={errors as any}
             min={props.minDate as any}
             max={props.maxDate as any}
+            placeholder={placeholder ?? "تاریخ"}
             {...rest}
           />
         );
@@ -256,6 +257,7 @@ function useFormField<TFormValues extends FieldValues>() {
             type={inputType}
             name={name}
             maxLength={maxLength}
+             placeholder={placeholder}
             minLength={minLength}
             className={clsx({
               "border-danger": errors[name],

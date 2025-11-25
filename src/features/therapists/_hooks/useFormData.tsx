@@ -2,6 +2,7 @@ import type { TFormData } from "@/types";
 import type { TCreateData, TReqTherapists } from "../_types/types";
 import useGetData from "@/services/useGetData";
 import { queryKey, url } from "../_fixtures/data";
+import { DateObject } from "react-multi-date-picker";
 
 const useFormData = () => {
   const { data, isLoading } = useGetData<TCreateData>({
@@ -56,6 +57,7 @@ const useFormData = () => {
       required: true,
       type: "date",
       placeholder: "تاریخ استخدام",
+      maxDate: new DateObject(),
     },
     {
       name: "license_number",
@@ -70,7 +72,6 @@ const useFormData = () => {
       required: true,
       placeholder: "موبایل",
       inputType: "number",
-      money: true,
     },
     {
       name: "status",

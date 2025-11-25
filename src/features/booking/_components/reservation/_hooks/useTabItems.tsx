@@ -11,7 +11,7 @@ const useTabItems = () => {
     },
     {
       key: "2",
-      title: "کلیه نوبت ها",
+      title: "کلیه نوبت‌ها",
       content: <CalendarRange/>
     },
     {

@@ -1,5 +1,4 @@
 export type TRequest = {
-  id: number | null;
   type: string;
   from: string;
   to: string;

@@ -4,18 +4,17 @@ import useGetData from "@/services/useGetData";
 import { queryKey, url } from "../_fixtures/data";
 
 const useFormData = () => {
-   const { data: dataCreate, isLoading } = useGetData<TCreateData>(
-    {
-      url: `${url}create`,
-      queryKey: `${queryKey},"dataCreate"`,
-    }
-  );
+  const { data: dataCreate, isLoading } = useGetData<TCreateData>({
+    url: `${url}create`,
+    queryKey: `${queryKey},"dataCreate"`,
+  });
   const fields: (TFormData<TReqResources> | undefined)[] = [
     {
       name: "code",
       label: "کد",
       required: true,
       placeholder: "کد",
+      dir:"ltr"
     },
     {
       name: "name",
@@ -25,10 +24,11 @@ const useFormData = () => {
     },
     {
       name: "capacity",
-      label: "ظرفیت",
+      label: "ظرفیت(نفر)",
       required: true,
-      placeholder: "ظرفیت",
+      placeholder: "ظرفیت(نفر)",
       inputType: "number",
+      money: true,
     },
 
     {
@@ -37,8 +37,8 @@ const useFormData = () => {
       required: true,
       placeholder: "محل ارائه خدمات",
       type: "select",
-      isLoading:isLoading,
-      option:dataCreate?.facilities,
+      isLoading: isLoading,
+      option: dataCreate?.facilities,
     },
     {
       name: "type_id",
@@ -46,16 +46,16 @@ const useFormData = () => {
       required: true,
       placeholder: "نوع خدمات",
       type: "select",
-      isLoading:isLoading,
-      option:dataCreate?.types,
+      isLoading: isLoading,
+      option: dataCreate?.types,
     },
     {
       name: "status",
       label: "وضعیت",
       placeholder: "وضعیت",
       type: "select",
-      isLoading:isLoading,
-      option:dataCreate?.statuses,
+      isLoading: isLoading,
+      option: dataCreate?.statuses,
     },
     {
       name: "description",

@@ -37,7 +37,7 @@ const DailyBoardTable: React.FC<TProps> = ({ data }) => {
               بیعانه
             </th>
             <th rowSpan={2} className="border p-2">
-              ثبت نهایی
+              وضعیت
             </th>
           </tr>
           <tr className="bg-gray-200 text-gray-700">
@@ -81,7 +81,11 @@ const DailyBoardTable: React.FC<TProps> = ({ data }) => {
                 )}
                 {rooms.map((room) => (
                   <td key={room.id} className="border p-2">
-                    {r.room.id === room.id ? <CheckIcon className="h-6 w-6 text-green-600 mx-auto"/>: ""}
+                    {r.room.id === room.id ? (
+                      <CheckIcon className="h-6 w-6 text-green-600 mx-auto" />
+                    ) : (
+                      ""
+                    )}
                   </td>
                 ))}
                 <td className="border p-2">{r.therapist.name}</td>

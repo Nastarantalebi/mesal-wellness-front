@@ -1,6 +1,5 @@
 import type { TFormData } from "@/types";
 import type { TRequest } from "../_types/type";
-import { DateObject } from "react-multi-date-picker";
 const useFormData = () => {
   const fields: (TFormData<TRequest> | undefined)[] = [
     {
@@ -9,7 +8,6 @@ const useFormData = () => {
       placeholder: "تاریخ شروع",
       type: "date",
       required: true,
-      maxDate: new DateObject(),
     },
     {
       label: "تاریخ پایان",
@@ -17,7 +15,6 @@ const useFormData = () => {
       placeholder: "تاریخ پایان",
       type: "date",
       required: true,
-      maxDate: new DateObject(),
     },
     {
       label: " نوع",

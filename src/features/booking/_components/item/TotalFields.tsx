@@ -7,7 +7,7 @@ const TotalFields = ({ form }: { form: any }) => {
       className={`w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full`}>
       <div className="grid grid-cols-3 gap-2 mt-5">
         <div className="mb-4">
-          <FormLabel>مبلغ بیعانه</FormLabel>
+          <FormLabel>مبلغ بیعانه(تومان)</FormLabel>
           <Controller
             control={form.control}
             name="deposit"
@@ -15,7 +15,7 @@ const TotalFields = ({ form }: { form: any }) => {
           />
         </div>
         <div className="total_amount">
-          <FormLabel>مبلغ کل</FormLabel>
+          <FormLabel>مبلغ کل(تومان)</FormLabel>
           <Controller
             control={form.control}
             name="total_amount"
@@ -23,7 +23,7 @@ const TotalFields = ({ form }: { form: any }) => {
           />
         </div>
         <div className="mb-4">
-          <FormLabel>مبلغ قابل پرداخت</FormLabel>
+          <FormLabel>مبلغ قابل پرداخت(تومان)</FormLabel>
           <Controller
             control={form.control}
             name="payable_amount"

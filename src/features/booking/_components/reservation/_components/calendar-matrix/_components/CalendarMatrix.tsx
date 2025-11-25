@@ -18,13 +18,12 @@ function CalendarMatrix() {
 
   const { from, to, type } = filters;
   const { data, isFetching, refetch } = useGetData<TResponse>({
-    url: `${url}calendar-matrix?from=${from}&to=${to}&type=${type}&id=5`,
+    url: `${url}calendar-matrix?from=${from}&to=${to}&type=${type}`,
     queryKey: [queryKey, from, to],
     enabled: false,
   });
   const handleSubmit = (values: TRequest) => {
     setFilters({
-      id: values.id,
       from: values.from,
       to: values.to,
       type: values.type,
