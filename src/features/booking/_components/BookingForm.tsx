@@ -24,7 +24,7 @@ function BookingForm() {
     queryKey: queryKey,
     id: selectedRecord,
   });
-  const { data: dataById } = useGetById<TDataById>({
+  const { data: dataById ,isFetching:isFetchingById} = useGetById<TDataById>({
     url: url,
     queryKey: [queryKey, selectedRecord],
     id: selectedRecord,
@@ -70,7 +70,7 @@ function BookingForm() {
         const action = selectedRecord ? update : create;
         action(values, { onSuccess: () => navigate("/booking") });
       }}>
-        <FormFeilds form={form} selectedRecord={selectedRecord} dataById={dataById}/>
+        <FormFeilds form={form} selectedRecord={selectedRecord} dataById={dataById} isFetchingById={isFetchingById}/>
     </FormComponent>
   );
 }
