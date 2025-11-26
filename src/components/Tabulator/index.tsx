@@ -89,10 +89,13 @@ CustomTableProps) {
           title: "عملیات",
           field: "actions",
           headerSort: false,
+          print: false,
           hozAlign: "center",
+          minWidth: 150,
           formatter: (cell) => {
             const rowData = cell.getRow().getData();
             const container = document.createElement("div");
+            container.className = "min-w-fit h-fit";
             const root = createRoot(container);
 
             root.render(
@@ -133,9 +136,7 @@ CustomTableProps) {
                     title="حذف"
                     variant="outline-danger"
                     size="sm"
-                    onClick={() => {
-                      setOpenModal(rowData);
-                    }}
+                    onClick={() => setOpenModal(rowData)}
                     className="flex items-center gap-1 p-1">
                     <Trash2Icon className="w-4 h-4" />
                   </Button>
@@ -143,9 +144,8 @@ CustomTableProps) {
               </div>
             );
 
-            return container; // <== این مهمه
+            return container;
           },
-          widthGrow: 0.6,
         },
       ],
       nestedFieldSeparator: false,
@@ -402,9 +402,12 @@ CustomTableProps) {
                 </Menu>
               </div>
             </div>
-            <div className="pb-5">
+            <div className="p-1 xl:p-4">
               <div className="overflow-x-auto scrollbar-hidden">
-                <div id="tabulator" ref={tableRef}></div>
+                <div
+                  id="tabulator"
+                  ref={tableRef}
+                  className="min-w-max w-full"></div>
               </div>
               {dataPagination && dataPagination.total > 10 && (
                 <Pagination dataPagination={dataPagination} />

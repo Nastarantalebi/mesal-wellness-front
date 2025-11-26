@@ -11,7 +11,7 @@ import TherapistService from "./therapistService/_components/TherapistService";
 
 function Therapists() {
   const navigate = useNavigate();
-  const { data ,isFetching,refetch} = useGetData<any>({
+  const { data, isFetching, refetch } = useGetData<any>({
     queryKey: queryKey,
     url: url,
   });
@@ -30,8 +30,8 @@ function Therapists() {
   return (
     <>
       <CustomTable
-       isLoading={isFetching}
-       refetch={refetch}
+        isLoading={isFetching}
+        refetch={refetch}
         title="درمانگر"
         columns={data?.columns}
         customActions={[
@@ -76,7 +76,7 @@ function Therapists() {
           setSelectedRecord(null);
           setShowModalTS(false);
         }}>
-        <TherapistService id={selectedRecord && selectedRecord.id}/>
+        <TherapistService id={selectedRecord && selectedRecord.id} />
       </Modal>
     </>
   );

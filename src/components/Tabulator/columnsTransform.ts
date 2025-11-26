@@ -12,6 +12,8 @@ export function mapFieldsToColumns(
     hozAlign: "center",
     vertAlign: "middle",
     headerHozAlign: "center",
+    widthShrink: 0,
+    widthGrow: 1,
     resizable: false,
     // اگر نوع خاصی دارید (مثلاً date, number)
     sorter:
