@@ -23,7 +23,7 @@ const ItemForm = ({ form, selectedRecord }: TProps) => {
   return (
     <>
       <div
-        className="w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full overflow-x-hidden">
+        className="w-full mt-4 p-2 md:p-4 border rounded-lg bg-gray-50 col-span-full overflow-x-hidden">
         <div className="flex items-center justify-between">
           <p className="font-semibold mb-3">آیتم‌ها</p>
           <Button

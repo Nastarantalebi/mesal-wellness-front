@@ -39,10 +39,21 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
   const services = dataServices?.data || [];
 
   return (
-    <div className="flex flex-col items-end justify-end gap-2 my-2 border border-gray-400 rounded-md md:p-3">
+    <div className="flex flex-col items-end justify-end gap-2 my-2 border border-gray-400 rounded-md p-2 md:p-3">
+      {/* دکمه حذف */}
+      <div className="flex items-end justify-end">
+        {form.getValues("items").length > 1 && (
+          <Button
+            type="button"
+            onClick={() => remove(index)}
+            variant="outline-danger">
+            <Trash2 size={16} />
+          </Button>
+        )}
+      </div>
       {/* تاریخ و زمان */}
-      <div className="flex flex-row w-full items-end gap-2">
-        <div className="w-48">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:flex md:flex-row items-end gap-2">
+        <div className="w-full md:w-48">
           <FormLabel>تاریخ</FormLabel>
           <Controller
             control={form.control}
@@ -56,7 +67,8 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
             )}
           />
         </div>
-        <div className="w-48">
+
+        <div className="w-full md:w-48">
           <FormLabel>زمان شروع</FormLabel>
           <Controller
             control={form.control}
@@ -86,7 +98,8 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
             }}
           />
         </div>
-        <div className="w-48">
+
+        <div className="w-full md:w-48">
           <FormLabel>زمان پایان</FormLabel>
           <Controller
             control={form.control}
@@ -116,8 +129,9 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
             }}
           />
         </div>
+
         {validItemDate && (
-          <div className="flex items-center">
+          <div className="flex items-center justify-end w-full md:w-auto">
             <Button
               type="button"
               variant="outline-primary"
@@ -133,11 +147,11 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
         )}
       </div>
 
-      {/* درمانگر و مکان */}
-      <div className="w-full flex flex-row items-center gap-2 mt-2">
+      {/* درمانگر، مکان، سرویس، مبلغ */}
+      <div className="w-full grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
         {(data || isEdit) && (
           <>
-            <div className="flex-1 flex flex-col">
+            <div className="flex flex-col">
               <FormLabel>درمانگر</FormLabel>
               <Controller
                 control={form.control}
@@ -154,6 +168,7 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
                       field.onChange(firstOption);
                     }
                   }, [firstOption, field.value, field]);
+
                   return isEdit ? (
                     <FormInput {...field} readOnly />
                   ) : (
@@ -169,7 +184,7 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
               />
             </div>
 
-            <div className="flex-1 flex flex-col">
+            <div className="flex flex-col">
               <FormLabel>مکان</FormLabel>
               <Controller
                 control={form.control}
@@ -204,10 +219,9 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
           </>
         )}
 
-        {/* سرویس و مبلغ */}
         {services && !!services.length && (
           <>
-            <div className="flex-1 flex flex-col">
+            <div className="flex flex-col">
               <FormLabel>خدمت</FormLabel>
               <Controller
                 control={form.control}
@@ -240,9 +254,7 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
                     }
                   }, [firstOption, field.value, field, services, form, index]);
 
-                  const handleChange = (
-                    e: React.ChangeEvent<HTMLSelectElement>
-                  ) => {
+                  const handleChange = (e: any) => {
                     const value = Number(e.target.value);
                     field.onChange(value);
 
@@ -279,8 +291,8 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
               />
             </div>
 
-            <div className="flex-1 flex flex-col">
-              <FormLabel>قیمت نهایی (تومان) </FormLabel>
+            <div className="flex flex-col">
+              <FormLabel>قیمت نهایی (تومان)</FormLabel>
               <Controller
                 control={form.control}
                 name={`items.${index}.unit_price`}
@@ -296,8 +308,8 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
               />
             </div>
 
-            <div className="flex-1 flex flex-col">
-              <FormLabel>مبلغ قابل پرداخت(تومان)</FormLabel>
+            <div className="flex flex-col">
+              <FormLabel>مبلغ قابل پرداخت (تومان)</FormLabel>
               <Controller
                 control={form.control}
                 name={`items.${index}.total_price`}
@@ -308,18 +320,6 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
             </div>
           </>
         )}
-
-        {/* دکمه حذف */}
-        <div className="flex">
-          {form.getValues("items").length > 1 && (
-            <Button
-              type="button"
-              onClick={() => remove(index)}
-              variant="outline-danger">
-              <Trash2 size={16} />
-            </Button>
-          )}
-        </div>
       </div>
     </div>
   );
