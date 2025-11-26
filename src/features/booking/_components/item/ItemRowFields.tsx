@@ -285,7 +285,7 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
                 control={form.control}
                 name={`items.${index}.unit_price`}
                 render={({ field }) => (
-                  <FormInput {...field} type="number" dir="ltr" readOnly />
+                  <FormInput {...field} type="number" dir="ltr" readOnly money/>
                 )}
               />
             </div>
@@ -296,7 +296,7 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
                 control={form.control}
                 name={`items.${index}.total_price`}
                 render={({ field }) => (
-                  <FormInput {...field} type="number" dir="ltr" />
+                  <FormInput {...field} type="number" dir="ltr" money/>
                 )}
               />
             </div>

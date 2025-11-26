@@ -37,7 +37,7 @@ export type TReqCustomers = {
   gender: string;
   user_id: number | null;
   membership_type: string;
-  birth_date: string;
+  birth_date: string | null;
   national_code: string | null;
   joined_at: string | null;
   notes: string | null;

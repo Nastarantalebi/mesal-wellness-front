@@ -1,5 +1,6 @@
 import z from "zod";
 import type { TReqTherapists } from "../_types/types";
+import { nationalCodeRequireValidationSchema } from "@/fixtures/zodValidations";
 
 export const url = "/wellness/therapists/";
 export const queryKey = "therapistsQuerykey";
@@ -12,7 +13,7 @@ export const schema = z.object({
   avatar_path: z.string(),
   gender: z.string(),
   hire_date: z.string(),
-  national_code: z.string(),
+  national_code:nationalCodeRequireValidationSchema,
   license_number: z.string(),
   status: z.string(),
   specialties: z.array(z.string()),

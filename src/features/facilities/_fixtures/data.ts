@@ -1,5 +1,6 @@
 import { z } from "zod";
 import type { TReqFacilities } from "../_types/types";
+import { phoneRequireValidationSchema } from "@/fixtures/zodValidations";
 
 export const url = "/wellness/facilities/";
 export const queryKey = "facilitiesQuerykey";
@@ -8,10 +9,10 @@ export const schema = z.object({
   name: z.string().min(1, "فیلد الزامی است."),
   city: z.string().min(1, "فیلد الزامی است."),
   address: z.string().min(1, "فیلد الزامی است."),
-  description: z.string().min(1, "فیلد الزامی است."),
+  description: z.string(),
   code: z.string().min(1, "فیلد الزامی است."),
   manager_name: z.string().min(1, "فیلد الزامی است."),
-  phone: z.string().min(1, "فیلد الزامی است."),
+  phone: phoneRequireValidationSchema,
   is_active: z.string(),
   meta: z
     .object({

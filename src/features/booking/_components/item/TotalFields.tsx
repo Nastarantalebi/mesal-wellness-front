@@ -11,7 +11,7 @@ const TotalFields = ({ form }: { form: any }) => {
           <Controller
             control={form.control}
             name="deposit"
-            render={({ field }) => <FormInput {...field} dir="ltr" />}
+            render={({ field }) => <FormInput {...field} dir="ltr" money />}
           />
         </div>
         <div className="total_amount">
@@ -19,7 +19,7 @@ const TotalFields = ({ form }: { form: any }) => {
           <Controller
             control={form.control}
             name="total_amount"
-            render={({ field }) => <FormInput {...field} dir="ltr" />}
+            render={({ field }) => <FormInput {...field} dir="ltr" money/>}
           />
         </div>
         <div className="mb-4">
@@ -27,7 +27,7 @@ const TotalFields = ({ form }: { form: any }) => {
           <Controller
             control={form.control}
             name="payable_amount"
-            render={({ field }) => <FormInput {...field} dir="ltr" />}
+            render={({ field }) => <FormInput {...field} dir="ltr" money/>}
           />
         </div>
       </div>

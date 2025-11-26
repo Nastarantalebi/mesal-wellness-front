@@ -1,5 +1,6 @@
 import z from "zod";
 import type { TReqCustomers } from "../_types/types";
+import { mobileRequireValidationSchema, nationalCodeValidationSchema } from "@/fixtures/zodValidations";
 
 export const url = "/wellness/customers/";
 export const queryKey = "customersQuerykey";
@@ -8,12 +9,12 @@ export const schema = z
   .object({
     first_name: z.string(),
     last_name: z.string(),
-    phone: z.string(),
-    birth_date: z.string(),
+    phone: mobileRequireValidationSchema,
+    birth_date: z.string().nullable(),
     gender: z.string(),
     joined_at: z.string().nullable(),
     membership_type: z.string(),
-    national_code: z.string().nullable(),
+    national_code: nationalCodeValidationSchema,
     notes: z.string().nullable(),
     status: z.string(),
     user_id: z.number().nullable(),
@@ -35,7 +36,7 @@ export const initialValues: TReqCustomers = {
   first_name: "",
   last_name: "",
   phone: "",
-  birth_date: "",
+  birth_date: null,
   gender: "",
   joined_at: null,
   membership_type: "",

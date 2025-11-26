@@ -45,7 +45,7 @@ export const itemsValues: TItems = {
 export const initialValues: TRequest = {
   customer_id: 0,
   notes: null,
-  deposit: 0,
+  deposit: 200000,
   total_amount: 0,
   payable_amount: 0,
   items: [itemsValues],

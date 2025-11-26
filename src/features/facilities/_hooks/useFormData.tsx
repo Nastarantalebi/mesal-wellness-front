@@ -53,6 +53,7 @@ const useFormData = (isEdit: boolean) => {
       name: "address",
       label: "آدرس",
       placeholder: "آدرس",
+      required: true,
     },
     {
       name: "description",

@@ -7,12 +7,13 @@ interface FormInputProps extends React.ComponentPropsWithoutRef<"input"> {
   formInputSize?: "sm" | "lg";
   rounded?: boolean;
   money?: boolean;
+  dir?: "ltr" | "rtl";
 }
 
 type FormInputRef = React.ComponentPropsWithRef<"input">["ref"];
 
 const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
-  const { money, onChange, value, ...restProps } = props;
+  const { money, dir, onChange, value, ...restProps } = props;
   const formInline = useContext(formInlineContext);
   const inputGroup = useContext(inputGroupContext);
 
@@ -53,7 +54,7 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
     <input
       {...restProps}
       ref={ref}
-      dir={money ? "ltr" : undefined}
+      dir={money ? "ltr" : dir}
       type={money ? "text" : restProps.type}
       onChange={handleChange}
       value={displayValue as any}
