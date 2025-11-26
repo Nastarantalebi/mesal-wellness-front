@@ -31,6 +31,7 @@ const useFormData = (isEdit: boolean) => {
       required: true,
       placeholder: "مدت زمان(دقیقه)",
       inputType: "number",
+      max: 120,
     },
     {
       name: "base_price",

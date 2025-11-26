@@ -24,13 +24,13 @@ export const schema = z.object({
     .optional(),
 });
 export const initialValues: TReqServices = {
-  base_price: "",
+  base_price: "0",
   branch_id: null,
   category_id: 0,
   code: null,
   currency: null,
   description: "",
-  duration_minutes: "",
+  duration_minutes: "60",
   gender_policy: "",
   title: "",
   is_active: "true",

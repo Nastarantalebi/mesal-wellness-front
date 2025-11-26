@@ -34,6 +34,7 @@ const useFormData = () => {
       required: true,
       placeholder: "مدت زمان تقریبی (دقیقه)",
       inputType: "number",
+      max: 120,
     },
     {
       name: "custom_price",

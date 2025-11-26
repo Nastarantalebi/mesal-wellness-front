@@ -35,7 +35,7 @@ const isValidNationalCode = (value: string) => {
 
 // 1) اختیاری
 export const nationalCodeValidationSchema = z.union([
-  z.literal(""),
+  z.literal("").nullable(),
   z
     .string()
     .regex(/^\d{10}$/, "کد ملی باید ۱۰ رقم باشد")

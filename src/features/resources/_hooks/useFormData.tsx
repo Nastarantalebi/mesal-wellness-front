@@ -28,7 +28,7 @@ const useFormData = () => {
       required: true,
       placeholder: "ظرفیت(نفر)",
       inputType: "number",
-      maxLength: 4,
+      maxLength: 2,
     },
 
     {
