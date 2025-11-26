@@ -10,7 +10,8 @@ const getCompactMenu = () => {
 };
 
 const initialState: CompactMenuState = {
-  value: localStorage.getItem("compactMenu") === null ? false : getCompactMenu(),
+  value:
+    localStorage.getItem("compactMenu") === null ? false : getCompactMenu(),
 };
 
 export const compactMenuSlice = createSlice({
@@ -27,7 +28,7 @@ export const { setCompactMenu } = compactMenuSlice.actions;
 
 export const selectCompactMenu = (state: RootState) => {
   if (localStorage.getItem("compactMenu") === null) {
-    localStorage.setItem("compactMenu", "true");
+    localStorage.setItem("compactMenu", "false");
   }
 
   return state.compactMenu.value;

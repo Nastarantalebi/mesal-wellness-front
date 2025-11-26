@@ -30,9 +30,13 @@ const CustomerTable: React.FC<TProps> = ({ listData }) => {
                 <Table.Td className="box shadow-[5px_3px_5px_#00000005] dark:bg-darkmode-600">
                   <div className="flex flex-col">
                     <div className="font-medium">
-                      {"customer_name" in order
-                        ? order.customer_name
-                        : order.full_name}
+                      {"customer_name" in order ? (
+                        order.customer_name
+                      ) : (
+                        <span>
+                          {order.first_name} {order.last_name}
+                        </span>
+                      )}
                     </div>
                     <div className="text-xs text-slate-500">{order.phone}</div>
                   </div>
@@ -64,10 +68,10 @@ const CustomerTable: React.FC<TProps> = ({ listData }) => {
                   </>
                 ) : (
                   <>
-                    <Table.Td className="box shadow-[5px_3px_5px_#00000005] dark:bg-darkmode-600">
+                    {/* <Table.Td className="box shadow-[5px_3px_5px_#00000005] dark:bg-darkmode-600">
                       <div className="text-xs text-slate-500">جنسیت</div>
                       <div>{order.gender}</div>
-                    </Table.Td>
+                    </Table.Td> */}
                     <Table.Td className="box shadow-[5px_3px_5px_#00000005] dark:bg-darkmode-600">
                       <div className="text-xs text-slate-500">نوع عضویت</div>
                       <div>{order.membership_type}</div>

@@ -1,6 +1,6 @@
 export default function LoadingSpin() {
   return (
-    <div className="flex flex-col justify-center items-center w-screen gap-4">
+    <div className="flex flex-col justify-center items-center w-full h-[80vh] gap-4">
 
       {/* حلقه آسمانی */}
       <div className="relative w-16 h-16">

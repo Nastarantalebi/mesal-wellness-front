@@ -18,12 +18,13 @@ export type TDashboard = {
             }
           | {
               id: number;
-              full_name: string;
+              gender: string;
               phone: string;
               national_code: string | null;
-              gender: string;
               membership_type: string;
               joined_at: string | null;
+              first_name:string;
+              last_name: string;
             }
         >;
         width: number;
