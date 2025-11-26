@@ -22,22 +22,31 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (money) {
-      const formatted = formatMoney(e.target.value);
-      e.target.value = formatted;
-      const rawValue = formatted.replace(/,/g, "");
-      if (onChange) {
-        onChange({
-          ...e,
-          target: {
-            ...e.target,
-            value: rawValue,
-          },
-        } as any);
-      }
-    } else {
+    if (!money) {
       onChange && onChange(e);
+      return;
     }
+    let val = e.target.value;
+    if (val.endsWith(" ")) {
+      const cleaned = val.replace(/[^\d]/g, "");
+      val = `${cleaned}000`;
+    }
+    const onlyNums = val.replace(/[^\d]/g, "");
+    if (onlyNums.length > 1 && onlyNums.startsWith("0")) {
+      val = onlyNums.replace(/^0+/, "");
+    }
+    const formatted = formatMoney(val);
+    const rawValue = formatted.replace(/,/g, "");
+    if (onChange) {
+      onChange({
+        ...e,
+        target: {
+          ...e.target,
+          value: rawValue,
+        },
+      } as any);
+    }
+    e.target.value = formatted;
   };
   const displayValue = money && value ? formatMoney(String(value)) : value;
   return (
