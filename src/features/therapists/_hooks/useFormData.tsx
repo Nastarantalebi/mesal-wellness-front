@@ -28,6 +28,7 @@ const useFormData = () => {
       required: true,
       placeholder: "کدملی",
       inputType: "number",
+      maxLength: 10,
     },
     {
       name: "bio",
@@ -72,6 +73,7 @@ const useFormData = () => {
       required: true,
       placeholder: "موبایل",
       inputType: "number",
+      maxLength: 11,
     },
     {
       name: "status",

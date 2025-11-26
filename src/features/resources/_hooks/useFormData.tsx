@@ -14,7 +14,7 @@ const useFormData = () => {
       label: "کد",
       required: true,
       placeholder: "کد",
-      dir:"ltr"
+      dir: "ltr",
     },
     {
       name: "name",
@@ -28,7 +28,7 @@ const useFormData = () => {
       required: true,
       placeholder: "ظرفیت(نفر)",
       inputType: "number",
-      money: true,
+      maxLength: 4,
     },
 
     {

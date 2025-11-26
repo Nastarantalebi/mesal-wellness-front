@@ -8,12 +8,24 @@ interface FormInputProps extends React.ComponentPropsWithoutRef<"input"> {
   rounded?: boolean;
   money?: boolean;
   dir?: "ltr" | "rtl";
+  maxLength?: number;
+  minLength?: number;
+  max?: number;
+  min?: number;
 }
-
 type FormInputRef = React.ComponentPropsWithRef<"input">["ref"];
-
 const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
-  const { money, dir, onChange, value, ...restProps } = props;
+  const {
+    money,
+    min,
+    max,
+    minLength,
+    maxLength,
+    dir,
+    onChange,
+    value,
+    ...restProps
+  } = props;
   const formInline = useContext(formInlineContext);
   const inputGroup = useContext(inputGroupContext);
 
@@ -21,13 +33,32 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
     const numbers = val.replace(/[^\d]/g, "");
     return numbers.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let val = e.target.value;
+
+    if (restProps.type === "number" && !money) {
+      if (maxLength !== undefined && val.length > maxLength) {
+        return;
+      }
+      if (val === "" || val === "-" || val === ".") {
+        onChange && onChange(e);
+        return;
+      }
+      const numericValue = parseFloat(val);
+      if (
+        !isNaN(numericValue) &&
+        ((max !== undefined && numericValue > max) ||
+          (min !== undefined && numericValue < min))
+      ) {
+        return;
+      }
+      onChange && onChange(e);
+      return;
+    }
     if (!money) {
       onChange && onChange(e);
       return;
     }
-    let val = e.target.value;
     if (val.endsWith(" ")) {
       const cleaned = val.replace(/[^\d]/g, "");
       val = `${cleaned}000`;
@@ -38,6 +69,20 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
     }
     const formatted = formatMoney(val);
     const rawValue = formatted.replace(/,/g, "");
+
+    if (maxLength !== undefined && rawValue.length > maxLength) {
+      return;
+    }
+    const numericValue = parseInt(rawValue, 10);
+
+    if (
+      !isNaN(numericValue) &&
+      ((max !== undefined && numericValue > max) ||
+        (min !== undefined && numericValue < min))
+    ) {
+      return;
+    }
+
     if (onChange) {
       onChange({
         ...e,
@@ -47,13 +92,20 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
         },
       } as any);
     }
+
     e.target.value = formatted;
   };
+
   const displayValue = money && value ? formatMoney(String(value)) : value;
+
   return (
     <input
       {...restProps}
       ref={ref}
+      max={max}
+      min={min}
+      maxLength={maxLength} // این ویژگی در اینجا پاس داده می‌شود، اما برای type="number" توسط مرورگر نادیده گرفته می‌شود.
+      minLength={minLength} // به همین دلیل اعتبارسنجی دستی لازم است.
       dir={money ? "ltr" : dir}
       type={money ? "text" : restProps.type}
       onChange={handleChange}

@@ -21,6 +21,8 @@ const useFormData = (isEdit: boolean) => {
       required: true,
       placeholder: "تلفن",
       inputType: "number",
+      maxLength: 11,
+      minLength: 8,
     },
     {
       name: "manager_name",

@@ -49,6 +49,8 @@ const useFormData = () => {
       required: true,
       placeholder: "درصد کمیسیون",
       inputType: "number",
+      min: 0,
+      max: 100,
     },
     {
       name: "is_active",
