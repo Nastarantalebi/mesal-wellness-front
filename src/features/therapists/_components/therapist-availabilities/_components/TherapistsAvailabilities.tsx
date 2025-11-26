@@ -8,7 +8,7 @@ type TProps = {
   id: number;
 };
 function TherapistsAvailabilities({ id }: TProps) {
-  const { data, isFetching ,refetch} = useGetData<any>({
+  const { data, isFetching, refetch } = useGetData<any>({
     queryKey: [queryKey, String(id)],
     url: `${url}?therapist_id=${id}`,
     enabled: !!id,
@@ -26,8 +26,8 @@ function TherapistsAvailabilities({ id }: TProps) {
         <TherapistsAvailabilitiesForm
           selectedRecord={selectedRecord}
           setShowForm={setShowForm}
-           therapistId={id}
-           refetch={refetch}
+          therapistId={id}
+          refetch={refetch}
         />
       )}
       <CustomTable
@@ -37,11 +37,11 @@ function TherapistsAvailabilities({ id }: TProps) {
         columns={data?.columns}
         data={data?.data}
         dataPagination={data?.paginate}
+        onDelete={(record) => Delete(record.id)}
         onAdd={() => {
           setShowForm(true);
           setSelectedRecord(null);
         }}
-        onDelete={(record) => Delete(record.id)}
         onEdit={(record) => {
           setSelectedRecord(record);
           setShowForm(true);
