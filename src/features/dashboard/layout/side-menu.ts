@@ -1,6 +1,5 @@
 import type { NavigateFunction } from "react-router-dom";
 import type { Menu } from "../../../stores/sideMenuSlice";
-import { slideDown, slideUp } from "../../../utils/helper";
 
 interface Location {
   pathname: string;
@@ -83,12 +82,7 @@ const linkTo = (menu: FormattedMenu, navigate: NavigateFunction) => {
   }
 };
 
-const enter = (el: HTMLElement) => {
-  slideDown(el, 300);
-};
-
-const leave = (el: HTMLElement) => {
-  slideUp(el, 300);
-};
+const enter = () => {};
+const leave = () => {};
 
 export { nestedMenu, linkTo, enter, leave };

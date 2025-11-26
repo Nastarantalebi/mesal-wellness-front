@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Transition } from "react-transition-group";
 import { useRef } from "react";
 import Lucide from "../../../components/Lucide";
+import React from "react";
 
 function Sidebar({
   setCompactMenuOnHover,
@@ -24,9 +25,22 @@ function Sidebar({
   const navigate = useNavigate();
   const scrollableRef = useRef<HTMLDivElement>(null);
 
+  const subMenuRefs = useRef<{
+    [key: string]: React.RefObject<HTMLUListElement | null>; 
+  }>({});
+
+  const getSubMenuRef = (
+    key: string
+  ): React.RefObject<HTMLUListElement | null> => {
+    if (!subMenuRefs.current[key]) {
+      subMenuRefs.current[key] = React.createRef<HTMLUListElement>();
+    }
+    return subMenuRefs.current[key]!;
+  };
+
   return (
     <div
-      className="absolute inset-y-0 xl:top-[65px] z-10 xl:z-0"
+      className="absolute inset-y-0 xl:top-[65px] z-10 xl:z-0 select-none"
       onMouseOver={() => setCompactMenuOnHover(true)}
       onMouseLeave={() => setCompactMenuOnHover(false)}>
       <div
@@ -44,7 +58,6 @@ function Sidebar({
           ])}>
           <a
             onClick={(_event) => {
-              // event.preventDefault();
               setActiveMobileMenu(false);
             }}
             className="mt-5 ms-5">
@@ -57,7 +70,7 @@ function Sidebar({
             "w-full h-full z-20 px-5 overflow-y-auto overflow-x-hidden pb-3 [&:-webkit-scrollbar]:w-0 [&:-webkit-scrollbar]:bg-transparent",
             "[&_.simplebar-content]:p-0 [&_.simplebar-track.simplebar-vertical]:w-[10px] [&_.simplebar-track.simplebar-vertical]:me-0.5 [&_.simplebar-track.simplebar-vertical_.simplebar-scrollbar]:before:bg-slate-400/30",
           ])}>
-          <ul className="scrollable">
+          <ul className="scrollable ">
             {/* BEGIN: First Child */}
             {formattedMenu.map((menu, menuKey) =>
               typeof menu == "string" ? (
@@ -69,7 +82,7 @@ function Sidebar({
                   <a
                     href={menu.pathname}
                     className={clsx([
-                      "side-menu__link",
+                      "side-menu__link ",
                       { "side-menu__link--active": menu.active },
                       {
                         "side-menu__link--active-dropdown": menu.activeDropdown,
@@ -84,7 +97,7 @@ function Sidebar({
                       icon={menu.icon}
                       className="side-menu__link__icon"
                     />
-                    <div className="side-menu__link__title">{menu.title}</div>
+                    <div className="side-menu__link__title !cursor-pointer">{menu.title}</div>
                     {menu.badge && (
                       <div className="side-menu__link__badge">{menu.badge}</div>
                     )}
@@ -98,22 +111,24 @@ function Sidebar({
                   {/* BEGIN: Second Child */}
                   {menu.subMenu && (
                     <Transition
+                      nodeRef={getSubMenuRef(`sub-menu-1-${menuKey}`)}
                       in={menu.activeDropdown}
                       onEnter={enter}
                       onExit={leave}
                       timeout={300}>
                       <ul
+                        ref={getSubMenuRef(`sub-menu-1-${menuKey}`)}
                         className={clsx([
                           "",
                           { block: menu.activeDropdown },
                           { hidden: !menu.activeDropdown },
                         ])}>
                         {menu.subMenu.map((subMenu, subMenuKey) => (
-                          <li key={subMenuKey}>
+                          <li key={subMenuKey} className="">
                             <a
                               href={subMenu.pathname}
                               className={clsx([
-                                "side-menu__link",
+                                "side-menu__link !pr-8",
                                 {
                                   "side-menu__link--active": subMenu.active,
                                 },
@@ -149,11 +164,17 @@ function Sidebar({
                             {/* BEGIN: Third Child */}
                             {subMenu.subMenu && (
                               <Transition
+                                nodeRef={getSubMenuRef(
+                                  `sub-menu-2-${menuKey}-${subMenuKey}`
+                                )}
                                 in={subMenu.activeDropdown}
                                 onEnter={enter}
                                 onExit={leave}
                                 timeout={300}>
                                 <ul
+                                  ref={getSubMenuRef(
+                                    `sub-menu-2-${menuKey}-${subMenuKey}`
+                                  )}
                                   className={clsx([
                                     "",
                                     {

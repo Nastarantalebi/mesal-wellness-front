@@ -23,51 +23,37 @@ const initialState: SideMenuState = {
       title: "داشبورد",
     },
     {
-      icon: "Shapes",
-      pathname: "/service-category",
-      title: "دسته‌بندی خدمات",
+      icon: "Baseline",
+      title: "اطلاعات پایه",
+      subMenu: [
+        {
+          icon: "Shapes",
+          pathname: "/service-category",
+          title: "دسته‌بندی خدمات",
+        },
+        {
+          icon: "Sparkles",
+          pathname: "/services",
+          title: "خدمات",
+        },
+        {
+          icon: "Building2",
+          pathname: "/facilities",
+          title: "محل ارائه خدمات",
+        },
+        {
+          icon: "MapPinHouse",
+          pathname: "/resource-type",
+          title: "نوع مکان",
+        },
+        {
+          icon: "MapPin",
+          pathname: "/resources",
+          title: "مکان‌های مجموعه",
+        },
+      ],
     },
-    {
-      icon: "Sparkles",
-      pathname: "/services",
-      title: "خدمات",
-    },
-    {
-      icon: "Building2",
-      pathname: "/facilities",
-      title: "محل ارائه خدمات",
-    },
-    {
-      icon: "MapPinHouse",
-      pathname: "/resource-type",
-      title: "نوع مکان",
-    },
-    {
-      icon: "MapPin",
-      pathname: "/resources",
-      title: "مکان‌های مجموعه",
-    },
-    // {
-    //   icon: "Baseline",
-    //   title: "اطلاعات پایه",
-    //   subMenu: [
-    //     {
-    //       icon: "HeartHandshake",
-    //       pathname: "/therapists",
-    //       title: "درمانگر",
-    //     },
-    //     {
-    //       icon: "UsersRound",
-    //       pathname: "/customers",
-    //       title: "مشتریان",
-    //     },
-    //     {
-    //       icon: "CalendarClock",
-    //       pathname: "/booking",
-    //       title: "رزرو نوبت",
-    //     },
-    //   ],
-    // },
+
     {
       icon: "HeartHandshake",
       pathname: "/therapists",
@@ -86,7 +72,7 @@ const initialState: SideMenuState = {
     {
       icon: "CalendarCheck2",
       pathname: "/calendar",
-      title:"نوبت‌های رزرو شده",
+      title: "نوبت‌های رزرو شده",
     },
   ],
 };
