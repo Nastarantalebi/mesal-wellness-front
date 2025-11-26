@@ -16,14 +16,14 @@ const BreakForm = ({ form }: TProps) => {
   if (fields.length === 0) append({ start_time: "", end_time: "" });
 
   return (
-    <div className="w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-2">
+    <div className="w-full mt-4 p-1 md:p-4 border rounded-lg bg-gray-50 md:col-span-2">
       <div className="flex items-center justify-between">
         <p className="font-semibold mb-3">زمانبندی استراحت</p>
         <Button
           type="button"
           onClick={() => append({ start_time: "", end_time: "" })}
-          variant="primary">
-          افزودن جدید
+          variant="outline-primary">
+          +
         </Button>
       </div>
       {fields.map((fieldItem, index) => (

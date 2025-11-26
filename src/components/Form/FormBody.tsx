@@ -117,13 +117,13 @@ function FormBody<TFormValues extends FieldValues>({
           <div
             key={fieldConfig.name}
             className={clsx(
-              largeField.includes(fieldConfig.name) && "md:col-span-3",
+              largeField.includes(fieldConfig.name) && "col-span-full md:col-span-3",
               fieldConfig.className
             )}>
             {fieldConfig.label && (
               <FormLabel
                 htmlFor={fieldConfig.name}
-                className="flex flex-col w-full sm:flex-row">
+                className="flex w-full flex-row">
                 {fieldConfig.label}
                 {fieldConfig.required && <span className="text-danger">*</span>}
               </FormLabel>

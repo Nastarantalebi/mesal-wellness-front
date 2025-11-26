@@ -205,7 +205,7 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
         )}
 
         {/* سرویس و مبلغ */}
-        {services && (
+        {services && !!services.length && (
           <>
             <div className="flex-1 flex flex-col">
               <FormLabel>خدمت</FormLabel>
@@ -285,7 +285,13 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
                 control={form.control}
                 name={`items.${index}.unit_price`}
                 render={({ field }) => (
-                  <FormInput {...field} type="number" dir="ltr" readOnly money/>
+                  <FormInput
+                    {...field}
+                    type="number"
+                    dir="ltr"
+                    readOnly
+                    money
+                  />
                 )}
               />
             </div>
@@ -296,7 +302,7 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
                 control={form.control}
                 name={`items.${index}.total_price`}
                 render={({ field }) => (
-                  <FormInput {...field} type="number" dir="ltr" money/>
+                  <FormInput {...field} type="number" dir="ltr" money />
                 )}
               />
             </div>

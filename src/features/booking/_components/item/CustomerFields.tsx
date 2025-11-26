@@ -67,7 +67,7 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
 
   return (
     <>
-      <div className="grid grid-cols-12 gap-4 w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full">
+      <div className="grid grid-cols-12 gap-4 w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full overflow-x-hidden">
         {/* ردیف جستجو مشتری */}
         <div className="col-span-12 md:col-span-4 xl:col-span-2 flex gap-2 items-end">
           <div className="flex-1">
