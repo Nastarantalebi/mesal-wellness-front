@@ -10,8 +10,8 @@ interface FormInputProps extends React.ComponentPropsWithoutRef<"input"> {
   dir?: "ltr" | "rtl";
   maxLength?: number;
   minLength?: number;
-  max?: number;
-  min?: number;
+  max?: number | string;
+  min?: number | string;
 }
 type FormInputRef = React.ComponentPropsWithRef<"input">["ref"];
 const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
@@ -47,8 +47,8 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
       const numericValue = parseFloat(val);
       if (
         !isNaN(numericValue) &&
-        ((max !== undefined && numericValue > max) ||
-          (min !== undefined && numericValue < min))
+        ((max !== undefined && numericValue > Number(max)) ||
+          (min !== undefined && numericValue < Number(min)))
       ) {
         return;
       }
@@ -77,8 +77,8 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
 
     if (
       !isNaN(numericValue) &&
-      ((max !== undefined && numericValue > max) ||
-        (min !== undefined && numericValue < min))
+      ((max !== undefined && numericValue > Number(max)) ||
+        (min !== undefined && numericValue < Number(min)))
     ) {
       return;
     }

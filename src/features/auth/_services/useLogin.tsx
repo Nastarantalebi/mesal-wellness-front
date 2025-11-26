@@ -24,7 +24,11 @@ function useLogin() {
         secure: true,
         sameSite: "Strict",
       });
-
+      const userData = {
+        ...data.data.user,
+        is_superadmin: data.data.is_superadmin,
+      };
+      localStorage.setItem("user_data", JSON.stringify(userData));
       // Cookies.set("refresh_token", data.refresh, {
       //   secure: true,
       //   sameSite: "Strict",

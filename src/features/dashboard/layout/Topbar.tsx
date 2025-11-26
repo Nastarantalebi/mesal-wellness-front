@@ -9,7 +9,7 @@ import Lucide from "../../../components/Lucide";
 import { useNavigate } from "react-router-dom";
 import { AlignJustify } from "lucide-react";
 import DynamicBreadcrumb from "./DynamicBreadcrumb";
-
+import { useAuth } from "../items/_hooks/useAuth";
 function Topbar({
   setActiveMobileMenu,
   setCompactMenuOnHover,
@@ -30,6 +30,7 @@ function Topbar({
     const el = document.documentElement;
     if (el.requestFullscreen) el.requestFullscreen();
   };
+  const { user } = useAuth();
   return (
     <div className="fixed top-0 inset-x-0 z-10 h-[65px] box bg-slate-50 border-x-0 border-t-0 rounded-none flex shadow-none">
       <div
@@ -148,7 +149,13 @@ function Topbar({
                     navigate("settings");
                   }}>
                   <Lucide icon="User" className="w-4 h-4 me-2" />
-                  نام کاربر
+                  {user ? (
+                    <span>
+                      {user.first_name} {user?.last_name}
+                    </span>
+                  ) : (
+                    <span> نام کاربر</span>
+                  )}
                 </Menu.Item>
                 <Menu.Divider />
                 <Menu.Item
