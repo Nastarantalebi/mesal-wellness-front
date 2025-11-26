@@ -37,7 +37,6 @@ const useFormData = (isEdit: boolean) => {
       label: "قیمت پایه(تومان)",
       required: true,
       placeholder: "قیمت پایه(تومان)",
-      inputType: "number",
       money: true,
     },
     {
