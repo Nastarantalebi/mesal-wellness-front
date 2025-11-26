@@ -9,7 +9,7 @@ import Lucide from "../Lucide";
 import { FormInline, FormInput, FormLabel, FormSelect } from "../Form";
 import { Menu } from "../Headless";
 import { createRoot } from "react-dom/client";
-import { Edit, Eye, Trash2Icon } from "lucide-react";
+import { Edit, Eye, RotateCcwIcon, SearchIcon, Trash2Icon } from "lucide-react";
 import TitlePage from "@/features/_components/TitlePage";
 import Pagination from "./Pagination";
 import Modal from "../Headless/Dialog/Modal";
@@ -330,17 +330,19 @@ CustomTableProps) {
                     id="tabulator-htms-filter-go"
                     variant="outline-primary"
                     type="button"
-                    className="w-full md:w-auto bg-primary/5 border-primary/20"
+                    className="w-fit md:w-auto bg-primary/5 border-primary/20"
                     onClick={onFilter}>
-                    یافتن
+                    <SearchIcon className="md:hidden inline-block" />
+                    <span className="hidden md:inline-block">یافتن</span>
                   </Button>
                   <Button
                     id="tabulator-htms-filter-reset"
                     variant="outline-secondary"
                     type="button"
-                    className="w-full md:w-auto bg-slate-50/50"
+                    className="w-fit md:w-auto bg-slate-50/50"
                     onClick={onResetFilter}>
-                    تنظیم مجدد
+                    <RotateCcwIcon className="md:hidden inline-block" />
+                    <span className="hidden md:inline-block"> تنظیم مجدد</span>
                   </Button>
                 </div>
               </form>
@@ -348,9 +350,9 @@ CustomTableProps) {
                 <Button variant="outline-secondary" onClick={printTable}>
                   <Lucide
                     icon="Printer"
-                    className="stroke-[1.3] w-4 h-4 me-2"
+                    className="stroke-[1.3] w-4 h-4 md:me-2"
                   />
-                  چاپ
+                  <span className="hidden md:inline-block"> چاپ</span>
                 </Button>
                 {onImport && (
                   <>
@@ -359,9 +361,9 @@ CustomTableProps) {
                       onClick={() => fileInputRef.current?.click()}>
                       <Lucide
                         icon="Download"
-                        className="stroke-[1.3] w-4 h-4 me-2"
+                        className="stroke-[1.3] w-4 h-4 md:me-2"
                       />
-                      وارد کردن
+                      <span className="hidden md:inline-block">وارد کردن</span>
                     </Button>
 
                     <input
@@ -379,13 +381,13 @@ CustomTableProps) {
                     variant="outline-secondary"
                     className="w-full sm:w-auto">
                     <Lucide
-                      icon="FileCheck2"
-                      className="stroke-[1.3] w-4 h-4 me-2"
+                      icon="Upload"
+                      className="stroke-[1.3] w-4 h-4 md:me-2"
                     />
-                    صادر کردن
+                    <span className="hidden md:inline-block">صادر کردن</span>
                     <Lucide
                       icon="ChevronDown"
-                      className="stroke-[1.3] w-4 h-4 ms-2"
+                      className="stroke-[1.3] w-4 h-4 md:ms-2"
                     />
                   </Menu.Button>
                   <Menu.Items className="w-40">
