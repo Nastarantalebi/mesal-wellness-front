@@ -90,7 +90,7 @@ TProps<TFormValues>) {
       className={clsx(formClassName)}>
       <div
         className={clsx(
-          "relative space-y-4 p-2 m-2 border border-primary-20 rounded-xl shadow bg-transparent",
+          "relative space-y-4 p-2 md:m-2 border border-primary-20 rounded-xl shadow bg-transparent",
           className
         )}>
         {onClose && (

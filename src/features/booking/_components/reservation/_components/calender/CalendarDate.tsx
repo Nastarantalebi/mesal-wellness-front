@@ -32,7 +32,7 @@ const CalendarDate = () => {
   return (
     <>
     <p>در این بخش میتوانید نوبت های یک روز خاص را مشاهده کنید</p>
-    <div className="p-5 space-y-4">
+    <div className="my-2 md:my-1 md:p-5 space-y-4">
       {/* انتخاب تاریخ */}
       <Calendar
         className={`

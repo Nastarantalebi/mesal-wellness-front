@@ -4,7 +4,7 @@ type TProps = { data?: CalendarDayEvents };
 
 const CalenderList = ({ data }: TProps) => {
   return (
-    <div className="space-y-4">
+    <div className="my-2 md:my-1 md:p-5 space-y-4">
       {data?.events?.length === 0 && (
         <p className="text-center text-gray-500 dark:text-gray-400">
           برای این تاریخ نوبتی ثبت نشده است.

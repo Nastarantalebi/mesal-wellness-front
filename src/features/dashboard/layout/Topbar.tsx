@@ -37,7 +37,7 @@ function Topbar({
     <div className="fixed top-0 inset-x-0 z-10 h-[65px] box bg-slate-50 border-x-0 border-t-0 rounded-none flex shadow-none">
       <div
         className={clsx([
-          "xl:bg-slate-100 flex-none flex items-center z-10 px-5 h-full xl:w-[275px] overflow-hidden relative duration-300 group-[.side-menu--collapsed]:xl:w-[91px] group-[.side-menu--collapsed.side-menu--on-hover]:xl:w-[275px] group-[.side-menu--collapsed.side-menu--on-hover]:xl:shadow-[6px_0_12px_-4px_#0000001f]",
+          "xl:bg-slate-100 flex-none flex items-center z-10 px-1 h-full xl:w-[275px] overflow-hidden relative duration-300 group-[.side-menu--collapsed]:xl:w-[91px] group-[.side-menu--collapsed.side-menu--on-hover]:xl:w-[275px] group-[.side-menu--collapsed.side-menu--on-hover]:xl:shadow-[6px_0_12px_-4px_#0000001f]",
           "before:content-[''] before:hidden before:xl:block before:absolute before:end-0 before:border-e before:border-slate-300/50 before:h-full",
         ])}
         onMouseOver={(event) => {
@@ -82,7 +82,7 @@ function Topbar({
         </div>
       </div>
       <div className="absolute transition-[padding] duration-100 xl:ps-[275px] group-[.side-menu--collapsed]:xl:ps-[91px] h-full inset-x-0">
-        <div className="flex items-center w-full h-full px-5">
+        <div className="flex items-center w-full h-full px-1 md:px-5">
           {/* BEGIN: Breadcrumb */}
           <div className="hidden xl:block">
             <DynamicBreadcrumb />
@@ -91,7 +91,7 @@ function Topbar({
           {/* END: Breadcrumb */}
           {/* BEGIN: Search */}
           <div
-            className="relative justify-center flex-1 hidden xl:flex"
+            className="relative  flex-1 hidden xl:flex justify-end"
             onClick={() => setQuickSearch(true)}>
             <div className="bg-slate-100 border w-[350px] flex items-center py-2 px-3.5 rounded-[0.5rem] text-slate-400 cursor-pointer hover:bg-slate-50 transition-colors">
               <Lucide icon="Search" className="w-[18px] h-[18px]" />
@@ -137,7 +137,7 @@ function Topbar({
                 <Lucide icon="Bell" className="w-[18px] h-[18px]" />
               </a>
             </div>
-            <Menu className="ms-5">
+            <Menu >
               <Menu.Button className="overflow-hidden rounded-full w-[36px] h-[36px] border-[3px] border-slate-200/70 image-fit">
                 {/* <img
                   alt="تیل وایز - قالب داشبورد مدیریتی"

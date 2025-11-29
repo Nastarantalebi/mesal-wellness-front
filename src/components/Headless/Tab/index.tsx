@@ -37,18 +37,16 @@ function Tab({
         <li
           className={twMerge([
             "focus-visible:outline-none",
-            fullWidth && "flex-1",
+            fullWidth && "flex-shrink-0 md:flex-1",
             list.variant === "tabs" && "-mb-px",
             className,
           ])}
-          {...props}
-        >
+          {...props}>
           <tabContext.Provider
             value={{
               selected: state.selected,
               disabled: state.disabled,
-            }}
-          >
+            }}>
             {typeof children === "function"
               ? children(state) // تمام state را بده
               : children}
@@ -110,8 +108,7 @@ function TabButton<C extends React.ElementType = "a">({
 
         className,
       ])}
-      {...props}
-    >
+      {...props}>
       {children}
     </Component>
   );
@@ -143,8 +140,7 @@ Tab.List = ({
     <listContext.Provider
       value={{
         variant: variant,
-      }}
-    >
+      }}>
       <HeadlessTab.List
         as="ul"
         className={twMerge([
@@ -152,11 +148,10 @@ Tab.List = ({
             "border-b border-slate-200 dark:border-darkmode-400",
           variant == "boxed-tabs" &&
             "p-0.5 border bg-slate-50/70 border-slate-200/70 rounded-lg dark:border-darkmode-400",
-          "w-full flex",
+          "w-full flex overflow-x-auto whitespace-nowrap",
           className,
         ])}
-        {...props}
-      >
+        {...props}>
         {children}
       </HeadlessTab.List>
     </listContext.Provider>
@@ -195,8 +190,7 @@ Tab.Panel = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
           className={className}
-          {...props}
-        >
+          {...props}>
           {typeof children === "function" ? children(state) : children}
         </Transition>
       )}

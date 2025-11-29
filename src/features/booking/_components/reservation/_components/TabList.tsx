@@ -5,7 +5,7 @@ import TitlePage from "@/features/_components/TitlePage";
 function TabList() {
   const { tabItems } = useTabItems();
   return (
-    <>
+    <div className="w-full">
       <TitlePage title="نوبت‌های رزرو شده" />
       <Tab.Group className="flex flex-col gap-y-7">
         <div className="flex flex-col p-2 box box--stacked">
@@ -33,7 +33,7 @@ function TabList() {
           </Tab.Panels>
         </div>
       </Tab.Group>
-    </>
+    </div>
   );
 }
 
