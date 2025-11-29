@@ -11,6 +11,9 @@ export default defineConfig({
       devOptions: {
         enabled: true,
       },
+      workbox: {
+        maximumFileSizeToCacheInBytes: 3.6 * 1024 * 1024,
+      },
       manifest: {
         name: "مجموعه ماساژ آسمان",
         short_name: "ماساژ آسمان",

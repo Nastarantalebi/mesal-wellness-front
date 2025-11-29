@@ -128,7 +128,7 @@ function Sidebar({
                             <a
                               href={subMenu.pathname}
                               className={clsx([
-                                "side-menu__link !pr-8",
+                                "side-menu__link !pr-4",
                                 {
                                   "side-menu__link--active": subMenu.active,
                                 },
