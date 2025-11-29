@@ -137,7 +137,7 @@ function Topbar({
                 <Lucide icon="Bell" className="w-[18px] h-[18px]" />
               </a>
             </div>
-            <Menu >
+            <Menu>
               <Menu.Button className="overflow-hidden rounded-full w-[36px] h-[36px] border-[3px] border-slate-200/70 image-fit">
                 {/* <img
                   alt="تیل وایز - قالب داشبورد مدیریتی"

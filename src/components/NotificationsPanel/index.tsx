@@ -15,8 +15,7 @@ function Main(props: MainProps) {
         open={props.notificationsPanel}
         onClose={() => {
           props.setNotificationsPanel(false);
-        }}
-      >
+        }}>
         <Slideover.Panel className="w-48 sm:w-56 lg:w-72 rounded-[0.75rem_0_0_0.75rem/1.1rem_0_0_1.1rem] rtl:rounded-[0_0.75rem_0.75rem_0/0_1.1rem_1.1rem_0]">
           <a
             href=""
@@ -24,8 +23,7 @@ function Main(props: MainProps) {
             onClick={(e) => {
               e.preventDefault();
               props.setNotificationsPanel(false);
-            }}
-          >
+            }}>
             <Lucide className="w-8 h-8 stroke-[1]" icon="X" />
           </a>
           <Slideover.Title className="px-6 py-5">

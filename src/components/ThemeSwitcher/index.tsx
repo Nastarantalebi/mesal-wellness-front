@@ -47,8 +47,7 @@ function ThemeSwitcher() {
         open={themeSwitcherSlideover}
         onClose={() => {
           setThemeSwitcherSlideover(false);
-        }}
-      >
+        }}>
         <Slideover.Panel className="w-48 sm:w-56 lg:w-72 rounded-[0.75rem_0_0_0.75rem/1.1rem_0_0_1.1rem] rtl:rounded-[0_0.75rem_0.75rem_0/0_1.1rem_1.1rem_0]">
           <a
             href=""
@@ -56,8 +55,7 @@ function ThemeSwitcher() {
             onClick={(e) => {
               e.preventDefault();
               setThemeSwitcherSlideover(false);
-            }}
-          >
+            }}>
             <Lucide className="w-3 h-3 sm:w-8 sm:h-8 stroke-[1]" icon="X" />
           </a>
           <Slideover.Description className="p-0">
@@ -75,22 +73,19 @@ function ThemeSwitcher() {
                         "h-12 cursor-pointer bg-slate-50 box rounded-full p-1 border-slate-300/80",
                         tempActiveColorScheme == colorScheme &&
                           "border-2 border-theme-1/60",
-                      ])}
-                    >
+                      ])}>
                       <div className="h-full overflow-hidden rounded-full">
                         <div className="flex items-center h-full gap-1 -mx-2">
                           <div
                             className={clsx([
                               "w-1/2 h-[140%] bg-theme-1 rotate-12",
                               colorScheme,
-                            ])}
-                          ></div>
+                            ])}></div>
                           <div
                             className={clsx([
                               "w-1/2 h-[140%] bg-theme-2 rotate-12",
                               colorScheme,
-                            ])}
-                          ></div>
+                            ])}></div>
                         </div>
                       </div>
                     </div>
@@ -106,8 +101,7 @@ function ThemeSwitcher() {
           event.preventDefault();
           setThemeSwitcherSlideover(true);
         }}
-        className="fixed bottom-0 end-0 z-50 flex items-center justify-center mb-5 me-5 text-white rounded-full shadow-lg cursor-pointer w-14 h-14 bg-theme-1"
-      >
+        className="fixed bottom-0 end-0 z-50 flex items-center justify-center mb-5 me-5 text-white rounded-full shadow-lg cursor-pointer w-14 h-14 bg-theme-1">
         <Lucide className="w-5 h-5 animate-spin" icon="Settings" />
       </div>
     </div>
