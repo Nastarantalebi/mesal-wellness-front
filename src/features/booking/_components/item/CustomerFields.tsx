@@ -93,6 +93,14 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
               />
             </Button>
           )}
+          <Button
+            type="button"
+            variant="outline-primary"
+            size="sm"
+            onClick={() => setOpenModal(true)}
+            className="h-9 flex items-center gap-1">
+            <Lucide icon="Plus" className={`w-4 h-4 `} />
+          </Button>
         </div>
         {/* پیام راهنما */}
         {!search_item ? (

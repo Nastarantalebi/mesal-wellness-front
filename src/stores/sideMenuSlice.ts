@@ -67,7 +67,7 @@ const initialState: SideMenuState = {
     {
       icon: "CalendarClock",
       pathname: "/booking",
-      title: "رزرو نوبت",
+      title: "لیست رزروها",
     },
     {
       icon: "CalendarCheck2",

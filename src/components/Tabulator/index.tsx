@@ -40,6 +40,7 @@ type CustomTableProps = {
   enableFilter?: boolean;
   isLoading?: boolean;
   customAddText?: string;
+  addText?: string;
   onAdd?: () => void;
   customAdd?: () => void;
   onEdit?: (record: any) => void;
@@ -58,6 +59,7 @@ function CustomTable({
   refetch,
   data,
   paginationSize = 10,
+  addText = "افزودن جدید",
   onAdd,
   customAddText,
   dataPagination,
@@ -248,7 +250,7 @@ CustomTableProps) {
                 className="group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent">
                 <Lucide icon="Plus" className="stroke-[1.3] w-4 h-4 me-2" />{" "}
                 <span className="md:hidden inline-block"> جدید</span>
-                <span className="hidden md:inline-block">افزودن جدید</span>
+                <span className="hidden md:inline-block">{addText}</span>
               </Button>
             )}
           </div>

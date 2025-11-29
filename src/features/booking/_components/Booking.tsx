@@ -35,10 +35,11 @@ function Booking() {
       <CustomTable
         refetch={refetch}
         isLoading={isFetching}
-        title="رزرو نوبت"
+        title="لیست رزروها"
         columns={data?.columns}
         data={data?.data}
         dataPagination={data?.paginate}
+        addText="افزودن رزرو جدید"
         onAdd={() => navigate("create")}
         onEdit={(record) => navigate("create", { state: { record } })}
         onDelete={(record) => Delete(record.id)}
