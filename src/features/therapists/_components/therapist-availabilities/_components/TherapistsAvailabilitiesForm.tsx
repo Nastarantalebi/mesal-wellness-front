@@ -43,8 +43,12 @@ function TherapistsAvailabilitiesForm({
     defaultValues: initialValues,
   });
   useEffect(() => {
+    if (!id) {
+      form.reset(initialValues);
+      form.setValue("therapist_id", therapistId);
+    }
     form.setValue("therapist_id", therapistId);
-  }, [therapistId]);
+  }, [id, form, therapistId]);
   useEffect(() => {
     if (dataById) {
       const praparedData: TReqTherapistsAvailabilities = {

@@ -43,8 +43,12 @@ function ResourceAvailabilitiesForm({
     defaultValues: initialValues,
   });
   useEffect(() => {
+    if (!id) {
+      form.reset(initialValues);
+      form.setValue("resource_id", resourceId);
+    }
     form.setValue("resource_id", resourceId);
-  }, [resourceId]);
+  }, [id, form, resourceId]);
   useEffect(() => {
     if (dataById) {
       const praparedData: TReqResourceAvailabilities = {

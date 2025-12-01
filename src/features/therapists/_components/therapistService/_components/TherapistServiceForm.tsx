@@ -43,8 +43,12 @@ function TherapistServiceForm({
   });
   const { fields } = useFormData();
   useEffect(() => {
+    if (!id) {
+      form.reset(initialValue);
+      form.setValue("therapist_id", therapistId);
+    }
     form.setValue("therapist_id", therapistId);
-  }, [therapistId]);
+  }, [id, form, therapistId]);
   useEffect(() => {
     if (dataById) {
       const preparedData: TReqTherapistService = {
