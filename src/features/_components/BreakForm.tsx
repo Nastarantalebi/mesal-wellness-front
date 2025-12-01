@@ -1,6 +1,7 @@
 import Button from "@/components/Button";
 import { FormLabel } from "@/components/Form";
 import TimePickerField from "@/components/Form/TimePicker";
+import { PlusIcon, TrashIcon } from "lucide-react";
 import { Controller, useFieldArray } from "react-hook-form";
 
 interface TProps {
@@ -19,12 +20,11 @@ const BreakForm = ({ form }: TProps) => {
     <div className="w-full mt-4 p-1 md:p-4 border rounded-lg bg-gray-50 md:col-span-2">
       <div className="flex items-center justify-between">
         <p className="font-semibold mb-3">زمانبندی استراحت</p>
-        <Button
+        <button
           type="button"
-          onClick={() => append({ start_time: "", end_time: "" })}
-          variant="outline-primary">
-          +
-        </Button>
+          onClick={() => append({ start_time: "", end_time: "" })}>
+          <PlusIcon className="text-blue-700 w-5 h-5" />
+        </button>
       </div>
       {fields.map((fieldItem, index) => (
         <div
@@ -68,8 +68,8 @@ const BreakForm = ({ form }: TProps) => {
               <Button
                 type="button"
                 onClick={() => remove(index)}
-                variant="danger">
-                ×
+                variant="outline-danger">
+                <TrashIcon className="w-5 h-5 " />
               </Button>
             )}
           </div>

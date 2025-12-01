@@ -3,6 +3,7 @@ import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 
 type Variant =
+  | "none"
   | "primary"
   | "secondary"
   | "success"
@@ -81,6 +82,9 @@ const Button: ButtonComponent = forwardRef(
     const large = ["text-lg py-1.5 px-4"];
 
     // Main Colors
+    const none = [
+      "bg-transparent border-none text-blue-500", // none
+    ];
     const primary = [
       "bg-primary border-primary text-white dark:border-primary", // Default
     ];
@@ -214,6 +218,7 @@ const Button: ButtonComponent = forwardRef(
           size == "sm" && small,
           size == "lg" && large,
           isPending && pending,
+          variant == "none" && none,
           variant == "primary" && primary,
           variant == "secondary" && secondary,
           variant == "success" && success,
@@ -242,8 +247,7 @@ const Button: ButtonComponent = forwardRef(
           rounded && "rounded-full",
           elevated && "shadow-md",
           props.className,
-        ])}
-      >
+        ])}>
         {isPending && <Loader2 className="h-8 w-8 animate-spin text-white" />}
         {children}
       </Component>

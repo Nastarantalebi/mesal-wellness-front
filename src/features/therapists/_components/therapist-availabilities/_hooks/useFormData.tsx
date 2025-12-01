@@ -22,7 +22,7 @@ const useFormData = () => {
       isLoading: isLoading,
       option: data?.data.therapists ?? [],
     },
-      {
+    {
       name: "weekday",
       label: "روز هفته",
       required: true,
