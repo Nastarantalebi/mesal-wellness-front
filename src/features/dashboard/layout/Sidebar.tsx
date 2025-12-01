@@ -3,9 +3,9 @@ import clsx from "clsx";
 import { linkTo, enter, leave, type FormattedMenu } from "./side-menu";
 import { useNavigate } from "react-router-dom";
 import { Transition } from "react-transition-group";
-import { useRef } from "react";
-import Lucide from "../../../components/Lucide";
+import { useEffect, useRef } from "react";
 import React from "react";
+import Lucide from "@/components/Lucide";
 
 function Sidebar({
   setCompactMenuOnHover,
@@ -26,7 +26,7 @@ function Sidebar({
   const scrollableRef = useRef<HTMLDivElement>(null);
 
   const subMenuRefs = useRef<{
-    [key: string]: React.RefObject<HTMLUListElement | null>; 
+    [key: string]: React.RefObject<HTMLUListElement | null>;
   }>({});
 
   const getSubMenuRef = (
@@ -37,7 +37,14 @@ function Sidebar({
     }
     return subMenuRefs.current[key]!;
   };
-
+  useEffect(() => {
+    activeMobileMenu
+      ? document.body.classList.add("overflow-hidden")
+      : document.body.classList.remove("overflow-hidden");
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [activeMobileMenu]);
   return (
     <div
       className="absolute inset-y-0 xl:top-[65px] z-10 xl:z-0 select-none"
@@ -61,13 +68,13 @@ function Sidebar({
               setActiveMobileMenu(false);
             }}
             className="mt-5 ms-5">
-            <Lucide icon="X" className="w-8 h-8 text-white" />
+            <Lucide icon="CircleX" className="w-8 h-8 text-white" />
           </a>
         </div>
         <div
           ref={scrollableRef}
           className={clsx([
-            "w-full h-full z-20 px-5 overflow-y-auto overflow-x-hidden pb-3 [&:-webkit-scrollbar]:w-0 [&:-webkit-scrollbar]:bg-transparent",
+            "w-full h-full z-20 px-2 xlpx-5 overflow-y-auto overflow-x-hidden py-3 xl:pt-0 [&:-webkit-scrollbar]:w-0 [&:-webkit-scrollbar]:bg-transparent",
             "[&_.simplebar-content]:p-0 [&_.simplebar-track.simplebar-vertical]:w-[10px] [&_.simplebar-track.simplebar-vertical]:me-0.5 [&_.simplebar-track.simplebar-vertical_.simplebar-scrollbar]:before:bg-slate-400/30",
           ])}>
           <ul className="scrollable ">
@@ -97,7 +104,9 @@ function Sidebar({
                       icon={menu.icon}
                       className="side-menu__link__icon"
                     />
-                    <div className="side-menu__link__title !cursor-pointer">{menu.title}</div>
+                    <div className="side-menu__link__title !cursor-pointer">
+                      {menu.title}
+                    </div>
                     {menu.badge && (
                       <div className="side-menu__link__badge">{menu.badge}</div>
                     )}
