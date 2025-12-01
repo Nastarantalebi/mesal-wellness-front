@@ -160,7 +160,7 @@ CustomTableProps) {
       // paginationSizeSelector: [10, 20, 30, 50, 100, 200],
       printAsHtml: true,
       printStyled: true,
-      responsiveLayout: "collapse",
+      responsiveLayout: "hide",
       placeholder: "داده‌ای یافت نشد",
     });
 
