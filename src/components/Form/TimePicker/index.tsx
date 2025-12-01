@@ -13,6 +13,7 @@ import DatePicker, {
   type DatePickerRef,
 } from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
+import { useOutsideClick } from "../useOutsideClick";
 
 type TProps<TFormValues extends FieldValues> = {
   field: ControllerRenderProps<TFormValues, Path<TFormValues>>;
@@ -62,25 +63,30 @@ function TimePickerField<TFormValues extends FieldValues>({
   };
 
   const isError = !!error;
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useOutsideClick(wrapperRef, datePickerRef);
 
   return (
-    <DatePicker
-      portal={portal}
-      ref={datePickerRef}
-      disableDayPicker
-      format="HH:mm"
-      containerStyle={{ width: "100%", direction: "ltr" }}
-      value={convertToDateObject(fieldValue)}
-      onChange={handleChange}
-      plugins={[<TimePicker hideSeconds key="time-picker" />]}
-      inputClass={clsx(
-        "w-full rounded-md border px-3 py-2 text-sm",
-        "bg-white text-gray-900 border-gray-300 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
-        "disabled:cursor-not-allowed disabled:opacity-50",
-        isError && "border-destructive focus-visible:ring-destructive",
-        inputClassName
-      )}
-    />
+    <div ref={wrapperRef}>
+      <DatePicker
+        portal={portal}
+        ref={datePickerRef}
+        disableDayPicker
+        format="HH:mm"
+        containerStyle={{ width: "100%", direction: "ltr" }}
+        value={convertToDateObject(fieldValue)}
+        onChange={handleChange}
+        plugins={[<TimePicker hideSeconds key="time-picker" />]}
+        inputClass={clsx(
+          "w-full rounded-md border px-3 py-2 text-sm",
+          "bg-white text-gray-900 border-gray-300 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
+          "disabled:cursor-not-allowed disabled:opacity-50",
+          isError && "border-destructive focus-visible:ring-destructive",
+          inputClassName
+        )}
+      />
+    </div>
   );
 }
 

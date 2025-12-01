@@ -17,6 +17,7 @@ import DatePicker, {
 } from "react-multi-date-picker";
 import highlightWeekends from "react-multi-date-picker/plugins/highlight_weekends";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
+import { useOutsideClick } from "../useOutsideClick";
 
 type TProps<TFormValues extends FieldValues> = {
   field: ControllerRenderProps<TFormValues, Path<TFormValues>>;
@@ -91,45 +92,49 @@ function DatePickerField<TFormValues extends FieldValues>({
   };
 
   const isError = !!error;
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  useOutsideClick(wrapperRef, datePickerRef);
 
   return (
-    <DatePicker
-      portal={portal}
-      ref={datePickerRef}
-      placeholder={placeholder}
-      inputClass={clsx(
-        "h-10 w-full rounded-md border px-3 py-2 text-sm ltr",
-        "bg-white text-gray-900 border-gray-300 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
-        "disabled:cursor-not-allowed disabled:opacity-50",
-        // دارک مود
-        "dark:bg-neutral-800 dark:text-gray-100 dark:border-neutral-600 dark:placeholder-gray-400 dark:focus-visible:ring-blue-400",
-        isError && "border-destructive focus-visible:ring-destructive",
-        inputClassName
-      )}
-      containerStyle={{ width: "100%", direction: "ltr" }}
-      minDate={min || undefined}
-      maxDate={max || undefined}
-      currentDate={max || min || new DateObject()}
-      calendar={persian}
-      locale={persian_fa}
-      value={fieldValue || ""}
-      onChange={handleChange}
-      format={showTimePicker ? "YYYY/MM/DD HH:mm" : "YYYY/MM/DD"}
-      plugins={[
-        highlightWeekends(),
-        showTimePicker
-          ? [
-              <TimePicker
-                className="dark:text-neutral-900"
-                key="time-picker"
-                position="bottom"
-                hideSeconds
-                format="HH:mm:ss"
-              />,
-            ]
-          : [],
-      ]}
-    />
+    <div ref={wrapperRef}>
+      <DatePicker
+        portal={portal}
+        ref={datePickerRef}
+        placeholder={placeholder}
+        inputClass={clsx(
+          "h-10 w-full rounded-md border px-3 py-2 text-sm ltr",
+          "bg-white text-gray-900 border-gray-300 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
+          "disabled:cursor-not-allowed disabled:opacity-50",
+          // دارک مود
+          "dark:bg-neutral-800 dark:text-gray-100 dark:border-neutral-600 dark:placeholder-gray-400 dark:focus-visible:ring-blue-400",
+          isError && "border-destructive focus-visible:ring-destructive",
+          inputClassName
+        )}
+        containerStyle={{ width: "100%", direction: "ltr" }}
+        minDate={min || undefined}
+        maxDate={max || undefined}
+        currentDate={max || min || new DateObject()}
+        calendar={persian}
+        locale={persian_fa}
+        value={fieldValue || ""}
+        onChange={handleChange}
+        format={showTimePicker ? "YYYY/MM/DD HH:mm" : "YYYY/MM/DD"}
+        plugins={[
+          highlightWeekends(),
+          showTimePicker
+            ? [
+                <TimePicker
+                  className="dark:text-neutral-900"
+                  key="time-picker"
+                  position="bottom"
+                  hideSeconds
+                  format="HH:mm:ss"
+                />,
+              ]
+            : [],
+        ]}
+      />
+    </div>
   );
 }
 

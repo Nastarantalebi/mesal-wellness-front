@@ -2,6 +2,7 @@
 
 import Button from "@/components/Button";
 import clsx from "clsx";
+import { PlusIcon } from "lucide-react";
 import { useState, useEffect } from "react";
 import type { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
 
@@ -67,8 +68,11 @@ export default function TagsInput<TFormValues extends FieldValues>({
             inputClassName
           )}
         />
-        <Button type="button" variant="primary" onClick={() => addTag(input)}>
-          +
+        <Button
+          type="button"
+          variant="outline-primary"
+          onClick={() => addTag(input)}>
+          <PlusIcon className=" w-4 h-4" />
         </Button>
       </div>
 

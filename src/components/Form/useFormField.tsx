@@ -202,7 +202,6 @@ function useFormField<TFormValues extends FieldValues>() {
             error={errors as any}
             min={props.min}
             max={props.max}
-            portal={true}
             {...rest}
           />
         );
