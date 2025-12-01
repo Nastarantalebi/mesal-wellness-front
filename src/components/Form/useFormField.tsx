@@ -202,6 +202,7 @@ function useFormField<TFormValues extends FieldValues>() {
             error={errors as any}
             min={props.min}
             max={props.max}
+            portal={true}
             {...rest}
           />
         );
@@ -257,7 +258,7 @@ function useFormField<TFormValues extends FieldValues>() {
             type={inputType}
             name={name}
             maxLength={maxLength}
-             placeholder={placeholder}
+            placeholder={placeholder}
             minLength={minLength}
             className={clsx({
               "border-danger": errors[name],
