@@ -19,15 +19,16 @@ import ProtectedRoute from "./ProtectedRoutes";
 import Booking from "@/features/booking/_components/Booking";
 import BookingForm from "@/features/booking/_components/BookingForm";
 import TabList from "@/features/booking/_components/reservation/_components/TabList";
+import NotFound from "@/features/_components/NotFound";
 
 function Router() {
   const routes = [
     {
       path: "/",
       element: (
-         <ProtectedRoute>
+        <ProtectedRoute>
           <Layout />
-         </ProtectedRoute>
+        </ProtectedRoute>
       ),
       children: [
         {
@@ -108,6 +109,7 @@ function Router() {
       path: "login",
       element: <Login />,
     },
+    { path: "*", element: <NotFound /> },
     // {
     //   path: "register",
     //   element: <Register />,
