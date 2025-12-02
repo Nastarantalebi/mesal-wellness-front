@@ -6,22 +6,33 @@ import type { TItems } from "../../_types/type";
 const TotalFields = ({ form }: { form: any }) => {
   const items = useWatch({ control: form.control, name: "items" }) || [];
   const deposit = useWatch({ control: form.control, name: "deposit" }) || 0;
+  const manualPayable =
+    useWatch({ control: form.control, name: "payable_amount" }) || 0;
 
   useEffect(() => {
     const total = items.reduce(
       (sum: number, item: TItems) => sum + (Number(item?.total_price) || 0),
       0
     );
+
     const validDeposit = deposit > total ? total : deposit;
+    const payableAmount =
+      manualPayable !== total - validDeposit
+        ? manualPayable
+        : total - validDeposit;
+
+    const remainingAmount = payableAmount;
+
     form.setValue("total_amount", total);
     form.setValue("deposit", validDeposit);
-    form.setValue("payable_amount", total - validDeposit);
-  }, [items, deposit, form]);
+    form.setValue("payable_amount", payableAmount);
+    form.setValue("remaining_amount", remainingAmount);
+  }, [items, deposit, manualPayable, form]);
 
   return (
     <div
       className={`w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full overflow-x-hidden`}>
-      <div className="grid grid-cols-3 gap-2 mt-5">
+      <div className="grid grid-cols-4 gap-2 mt-5">
         <div className="col-span-full md:col-span-1 mb-1 md:mb-4">
           <FormLabel>مبلغ بیعانه(تومان)</FormLabel>
           <Controller
@@ -45,6 +56,14 @@ const TotalFields = ({ form }: { form: any }) => {
           <Controller
             control={form.control}
             name="payable_amount"
+            render={({ field }) => <FormInput {...field} dir="ltr" money />}
+          />
+        </div>
+        <div className="col-span-full md:col-span-1 mb-1 md:mb-4">
+          <FormLabel>مبلغ باقیمانده(تومان)</FormLabel>
+          <Controller
+            control={form.control}
+            name="remaining_amount"
             render={({ field }) => (
               <FormInput {...field} dir="ltr" money readOnly />
             )}

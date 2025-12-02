@@ -26,7 +26,12 @@ export default function DynamicBreadcrumb() {
         icon: "FileText",
       };
     }
-
+    if (segment.toLowerCase() === "create") {
+      return { label: "ایجاد" };
+    }
+    if (segment.toLowerCase() === "edit") {
+      return { label: "ویرایش" };
+    }
     const path = "/" + segment;
 
     // اگر در منو باشد
@@ -61,11 +66,8 @@ export default function DynamicBreadcrumb() {
             key={i}
             index={i + 1}
             to={isLast ? undefined : buildPath(i)}
-            active={isLast}
-          >
-            <span className="flex items-center gap-1">
-              {info.label}
-            </span>
+            active={isLast}>
+            <span className="flex items-center gap-1">{info.label}</span>
           </Breadcrumb.Link>
         );
       })}
