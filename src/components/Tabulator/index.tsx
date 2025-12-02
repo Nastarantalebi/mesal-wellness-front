@@ -6,7 +6,7 @@ import { mapFieldsToColumns } from "./columnsTransform";
 import type { TColumns, TPaginate } from "../../types";
 import Button from "../Button";
 import Lucide from "../Lucide";
-import { FormInline, FormInput, FormLabel, FormSelect } from "../Form";
+import { FormInline, FormInput, FormLabel } from "../Form";
 import { Menu } from "../Headless";
 import { createRoot } from "react-dom/client";
 import { Edit, Eye, RotateCcwIcon, SearchIcon, Trash2Icon } from "lucide-react";
@@ -17,6 +17,7 @@ import type {
   QueryObserverResult,
   RefetchOptions,
 } from "@tanstack/react-query";
+import { useLocation, useNavigate } from "react-router-dom";
 type TableAction = {
   title: string;
   icon: React.ReactNode;
@@ -80,6 +81,8 @@ CustomTableProps) {
     value: "",
   });
   const [openModal, setOpenModal] = useState<any>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
   const initTabulator = () => {
     if (!tableRef.current) return;
 
@@ -174,9 +177,12 @@ CustomTableProps) {
   };
 
   const onFilter = () => {
-    if (tabulator.current) {
-      tabulator.current.setFilter(filter.field, filter.type, filter.value);
-    }
+    // if (tabulator.current) {
+    //   tabulator.current.setFilter(filter.field, filter.type, filter.value);
+    // }
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("q", filter.value);
+    navigate({ pathname: location.pathname, search: searchParams.toString() });
   };
 
   // On reset filter
@@ -187,7 +193,7 @@ CustomTableProps) {
       type: "like",
       value: "",
     });
-    onFilter();
+    navigate(location.pathname, { replace: true });
     refetch && refetch();
   };
 
@@ -265,7 +271,7 @@ CustomTableProps) {
                   e.preventDefault();
                   onFilter();
                 }}>
-                <FormInline className="flex-col items-start xl:flex-row xl:items-center gap-y-2">
+                {/* <FormInline className="flex-col items-start xl:flex-row xl:items-center gap-y-2">
                   <FormLabel className="me-3 whitespace-nowrap">
                     جستجو بر اساس
                   </FormLabel>
@@ -287,7 +293,7 @@ CustomTableProps) {
                         </option>
                       ))}
                   </FormSelect>
-                </FormInline>
+                </FormInline> */}
                 {/* <FormInline className="flex-col items-start xl:flex-row xl:items-center gap-y-2">
                   <FormLabel className="me-3 whitespace-nowrap">Type</FormLabel>
                   <FormSelect
@@ -311,7 +317,7 @@ CustomTableProps) {
                 </FormInline> */}
                 <FormInline className="flex-col items-start xl:flex-row xl:items-center gap-y-2">
                   <FormLabel className="me-3 whitespace-nowrap">
-                    کلمات کلیدی
+                    جستجو
                   </FormLabel>
                   <FormInput
                     id="tabulator-htms-filter-value"
