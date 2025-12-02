@@ -20,9 +20,7 @@ type TProps = {
 };
 
 const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
-  console.log(dataById?.booking.customer_name);
   const isEdit = !!selectedRecord;
-  console.log(isEdit);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const search_item = useWatch({
     control: form.control,
