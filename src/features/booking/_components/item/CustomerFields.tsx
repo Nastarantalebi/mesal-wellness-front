@@ -130,7 +130,7 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
         {/* مشتری پیدا شد */}
         {data && data.data.length > 0 && (
           <>
-            <div className="col-span-12 md:col-span-4 xl:col-span-2">
+            <div className="col-span-12 md:col-span-6 xl:col-span-3">
               <FormLabel>مشتری</FormLabel>
               <Controller
                 control={form.control}
@@ -151,7 +151,7 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
                     <FormSelect {...field}>
                       {data.data.map((item: any) => (
                         <option key={item.id} value={item.id}>
-                          {item.full_name}
+                          {item.label}
                         </option>
                       ))}
                     </FormSelect>
@@ -160,7 +160,7 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
               />
             </div>
 
-            <div className="col-span-12 md:col-span-4 xl:col-span-2">
+            {/* <div className="col-span-12 md:col-span-4 xl:col-span-2">
               <FormLabel>شماره تلفن</FormLabel>
               <Controller
                 control={form.control}
@@ -169,7 +169,7 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
                   <FormInput {...field} readOnly dir="ltr" />
                 )}
               />
-            </div>
+            </div> */}
           </>
         )}
 

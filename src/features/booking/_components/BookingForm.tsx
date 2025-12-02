@@ -8,8 +8,8 @@ import useGetById from "@/services/useGetById";
 import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
 import type { TDataById, TRequest } from "../_types/type";
-// import useGetData from "@/services/useGetData";
 import FormFeilds from "./item/FormFeilds";
+import BokkingDescription from "./BokkingDescription";
 
 function BookingForm() {
   const navigate = useNavigate();
@@ -24,16 +24,11 @@ function BookingForm() {
     queryKey: queryKey,
     id: selectedRecord,
   });
-  const { data: dataById ,isFetching:isFetchingById} = useGetById<TDataById>({
+  const { data: dataById, isFetching: isFetchingById } = useGetById<TDataById>({
     url: url,
     queryKey: [queryKey, selectedRecord],
     id: selectedRecord,
   });
-  // const { data: dataCreate } =
-  //   useGetData<TCreateData>({
-  //     url: `${url}create`,
-  //     queryKey: `${queryKey},"dataCreate"`,
-  //   });
   const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
@@ -62,16 +57,24 @@ function BookingForm() {
     }
   }, [form.reset, dataById]);
   return (
-    <FormComponent
-      form={form}
-      // formFields={fields}
-      isSubmitting={isPendingUpdate || isPendingCreate}
-      onSubmit={(values) => {
-        const action = selectedRecord ? update : create;
-        action(values, { onSuccess: () => navigate("/booking") });
-      }}>
-        <FormFeilds form={form} selectedRecord={selectedRecord} dataById={dataById} isFetchingById={isFetchingById}/>
-    </FormComponent>
+    <>
+      <BokkingDescription />
+      <FormComponent
+        btnSubmitText="ثبت نوبت"
+        form={form}
+        isSubmitting={isPendingUpdate || isPendingCreate}
+        onSubmit={(values) => {
+          const action = selectedRecord ? update : create;
+          action(values, { onSuccess: () => navigate("/booking") });
+        }}>
+        <FormFeilds
+          form={form}
+          selectedRecord={selectedRecord}
+          dataById={dataById}
+          isFetchingById={isFetchingById}
+        />
+      </FormComponent>
+    </>
   );
 }
 
