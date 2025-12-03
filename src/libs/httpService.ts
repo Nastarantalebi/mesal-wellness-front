@@ -1,4 +1,4 @@
-import axios from "axios";
+import instance from "./axios";
 
 type Config = {
   params?: Record<string, any>;
@@ -6,13 +6,13 @@ type Config = {
 };
 
 export const Request = {
-  get: (url: string, params = {}) => axios.get(url, { params }),
+  get: (url: string, params = {}) => instance.get(url, { params }),
 
   post: (url: string, body = {}, config: Config = {}) =>
-    axios.post(url, body, config),
+    instance.post(url, body, config),
 
   put: (url: string, body = {}, config: Config = {}) =>
-    axios.put(url, body, config),
+    instance.put(url, body, config),
 
-  delete: (url: string, params = {}) => axios.delete(url, { params }),
+  delete: (url: string, params = {}) => instance.delete(url, { params }),
 };

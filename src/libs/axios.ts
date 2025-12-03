@@ -74,7 +74,6 @@ instance.interceptors.response.use(
 );
 
 export const plainInstance = axios.create({
-  // baseURL: import.meta.env.VITE_BASE_URL,
   baseURL: LOGIN_URL,
   withCredentials: true,
 });

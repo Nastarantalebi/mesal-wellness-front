@@ -7,6 +7,7 @@ import type {
 } from "../_types/types";
 import { Request } from "@/libs/httpService";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const LOGIN_URL = import.meta.env.VITE_LOGIN_URL;
 export async function sendMobile(values: ISendMobile) {
   const { data } = await Request.post(`${LOGIN_URL}/otp/request/`, values);
@@ -39,7 +40,6 @@ export async function logout() {
 }
 
 export const removeFcmToken = async (token: string) => {
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
   await axios.post(
     `${BASE_URL}/fcm/unregister/`,
     { token },
