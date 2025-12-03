@@ -18,7 +18,7 @@ const DailyBoardTable: React.FC<TProps> = ({ data }) => {
             <th rowSpan={2} className="border p-2 w-20">
               ساعت
             </th>
-            <th colSpan={rooms.length} className="border p-2">
+            <th colSpan={rooms?.length} className="border p-2">
               اتاق
             </th>
             <th rowSpan={2} className="border p-2">
@@ -41,7 +41,7 @@ const DailyBoardTable: React.FC<TProps> = ({ data }) => {
             </th>
           </tr>
           <tr className="bg-gray-200 text-gray-700">
-            {rooms.map((room) => (
+            {rooms?.map((room) => (
               <th key={room.id} className="border p-2">
                 {room.name}
               </th>
@@ -49,7 +49,7 @@ const DailyBoardTable: React.FC<TProps> = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {data.slots.map((slot, i) => {
+          {data?.slots?.map((slot, i) => {
             const slotRows = slot.rows;
 
             if (slotRows.length === 0) {
@@ -57,7 +57,7 @@ const DailyBoardTable: React.FC<TProps> = ({ data }) => {
               return (
                 <tr key={i} className="bg-gray-100 font-bold">
                   <td className="border p-3 text-black">{slot.label}</td>
-                  {rooms.map((room) => (
+                  {rooms?.map((room) => (
                     <td key={room.id} className="border p-3"></td>
                   ))}
                   <td className="border p-3"></td>
@@ -79,7 +79,7 @@ const DailyBoardTable: React.FC<TProps> = ({ data }) => {
                     {slot.label}
                   </td>
                 )}
-                {rooms.map((room) => (
+                {rooms?.map((room) => (
                   <td key={room.id} className="border p-2">
                     {r.room.id === room.id ? (
                       <CheckIcon className="h-6 w-6 text-green-600 mx-auto" />

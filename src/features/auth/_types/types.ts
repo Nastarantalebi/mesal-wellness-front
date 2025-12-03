@@ -1,28 +1,39 @@
-export interface ILogin {
+export interface ISendMobile {
+  mobile: string;
+}
+export interface ISendPassword {
   mobile: string;
   password: string;
 }
-
-export interface ISignUp {
-  first_name: string;
-  last_name: string;
+export interface IForgotPassword {
   mobile: string;
-  password: string;
-  password2: string;
+  new_password: string;
+  confirm_password: string;
+  otp: string;
+}
+export type TChangePass = {
+  old_password: string;
+  new_password: string;
+  confirm_password: string;
+};
+
+export interface ISendOTP {
+  mobile: string;
+  otp: string;
+  new_password?: string;
+  confirm_password?: string;
+}
+
+export interface IOTPResponse {
+  type: string;
+  mobile: string;
+  otp_expire: string;
+  new_otp_created: boolean;
+  is_used: boolean;
+  has_password: boolean;
 }
 
 export interface ILoginResponse {
-  success: boolean;
-  message: string;
-  data: {
-    token: string;
-    user: {
-      id: number;
-      first_name: string;
-      last_name: string;
-      mobile: string;
-      avatar: string;
-    };
-    is_superadmin: boolean;
-  };
+  refresh: string;
+  access: string;
 }

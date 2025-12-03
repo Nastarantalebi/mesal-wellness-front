@@ -1,27 +1,43 @@
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState, type ReactNode } from "react";
-import Cookies from "js-cookie";
+import LoadingSpin from "@/components/Loading";
+import { plainInstance } from "@/libs/axios";
+import { useEffect, useState } from "react";
 
-function ProtectedRoute({ children }: { children: ReactNode }) {
-  const navigate = useNavigate();
-  const [isAuthChecked, setIsAuthChecked] = useState(false);
-  // const { mutateAsync } = useRefresh();
-
-  useEffect(() => {
-    const accessToken = Cookies.get("access_token");
-    // const refreshToken = Cookies.get("refresh_token");
-
-    if (!accessToken) {
-      // if (!accessToken && !refreshToken) {
-      navigate("/login");
-      // } else if (!accessToken && refreshToken) {
-      //   mutateAsync({ refresh: refreshToken });
-    } else {
-      setIsAuthChecked(true);
-    }
-  }, [navigate]);
-
-  return isAuthChecked ? children : null;
+interface TProps {
+  children: React.ReactNode;
 }
 
-export default ProtectedRoute;
+export default function ProtectedRoutes({ children }: TProps) {
+  const [checkingAuth, setCheckingAuth] = useState(true);
+  const [authorized, setAuthorized] = useState(false);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const refreshRes = await plainInstance.post("/refresh/", null);
+        if (refreshRes.status === 200) {
+          setAuthorized(true);
+        } else {
+          window.location.assign("/login");
+        }
+      } catch (err: any) {
+        window.location.assign("/login");
+      } finally {
+        setCheckingAuth(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
+  if (checkingAuth) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <LoadingSpin />
+      </div>
+    );
+  }
+
+  if (!authorized) return null;
+
+  return <>{children}</>;
+}

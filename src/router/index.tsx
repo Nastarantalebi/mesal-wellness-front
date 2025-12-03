@@ -15,7 +15,6 @@ import SevicesForm from "@/features/services/_components/SevicesForm";
 import Therapists from "@/features/therapists/_components/Therapists";
 import TherapistsForm from "@/features/therapists/_components/TherapistsForm";
 import { useRoutes } from "react-router-dom";
-import ProtectedRoute from "./ProtectedRoutes";
 import Booking from "@/features/booking/_components/Booking";
 import BookingForm from "@/features/booking/_components/BookingForm";
 import TabList from "@/features/booking/_components/reservation/_components/TabList";
@@ -26,9 +25,9 @@ function Router() {
     {
       path: "/",
       element: (
-        <ProtectedRoute>
-          <Layout />
-        </ProtectedRoute>
+        // <ProtectedRoutes>
+        <Layout />
+        // </ProtectedRoutes>
       ),
       children: [
         {
