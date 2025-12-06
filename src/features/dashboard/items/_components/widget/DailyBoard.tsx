@@ -29,12 +29,16 @@ const DailyBoard = () => {
 
   // فلش عقب (یک روز کم کن)
   const handlePrev = () => {
-    const prevDate = new DateObject({ calendar: persian, date }).add(-1, "days").format("YYYY/MM/DD");
+    const prevDate = new DateObject({ calendar: persian, date })
+      .add(-1, "days")
+      .format("YYYY/MM/DD");
     setValue("date", prevDate);
   };
   // فلش جلو (یک روز اضافه کن)
   const handleNext = () => {
-    const nextDate = new DateObject({ calendar: persian, date }).add(1, "days").format("YYYY/MM/DD");
+    const nextDate = new DateObject({ calendar: persian, date })
+      .add(1, "days")
+      .format("YYYY/MM/DD");
     setValue("date", nextDate);
   };
 
@@ -44,8 +48,8 @@ const DailyBoard = () => {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-lg font-semibold">دفتر نوبت دهی روزانه</h1>
 
-        <div className="flex items-center gap-2 bg-white p-2 rounded-xl shadow-sm border">
-          <ChevronRightIcon 
+        <div className="flex items-center gap-2 bg-white p-2 rounded-xl shadow-sm border ">
+          <ChevronRightIcon
             className="cursor-pointer text-gray-600 hover:text-black transition"
             onClick={handlePrev}
           />
@@ -74,7 +78,9 @@ const DailyBoard = () => {
       {data ? (
         <DailyBoardTable data={data} />
       ) : (
-        <p className="text-center text-gray-400 pt-10">لطفا یک تاریخ انتخاب کنید</p>
+        <p className="text-center text-gray-400 pt-10">
+          لطفا یک تاریخ انتخاب کنید
+        </p>
       )}
     </div>
   );

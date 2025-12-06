@@ -2,7 +2,7 @@ import z from "zod";
 import type { TReqTherapists } from "../_types/types";
 import {
   mobileRequireValidationSchema,
-  nationalCodeRequireValidationSchema,
+  nationalCodeValidationSchema,
 } from "@/fixtures/zodValidations";
 
 export const url = "/wellness/therapists/";
@@ -16,7 +16,7 @@ export const schema = z.object({
   avatar_path: z.string(),
   gender: z.string(),
   hire_date: z.string(),
-  national_code: nationalCodeRequireValidationSchema,
+  national_code: nationalCodeValidationSchema,
   license_number: z.string(),
   status: z.string(),
   specialties: z.array(z.string()),
@@ -31,7 +31,7 @@ export const initialValues: TReqTherapists = {
   avatar_path: "",
   gender: "",
   hire_date: "",
-  national_code: "",
+  national_code: null,
   license_number: "",
   status: "",
   facility_id: 0,

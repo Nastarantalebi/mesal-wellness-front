@@ -19,15 +19,16 @@ import Booking from "@/features/booking/_components/Booking";
 import BookingForm from "@/features/booking/_components/BookingForm";
 import TabList from "@/features/booking/_components/reservation/_components/TabList";
 import NotFound from "@/features/_components/NotFound";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 function Router() {
   const routes = [
     {
       path: "/",
       element: (
-        // <ProtectedRoutes>
-        <Layout />
-        // </ProtectedRoutes>
+        <ProtectedRoutes>
+          <Layout />
+        </ProtectedRoutes>
       ),
       children: [
         {

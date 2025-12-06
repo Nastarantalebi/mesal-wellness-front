@@ -11,11 +11,10 @@ function FormLabel(props: FormLabelProps) {
     <label
       {...props}
       className={twMerge([
-        "inline-block mb-2",
+        "inline-block mb-2 select-none",
         formInline && "mb-2 sm:mb-0 sm:me-5 sm:text-end ",
         props.className,
-      ])}
-    >
+      ])}>
       {props.children}
     </label>
   );

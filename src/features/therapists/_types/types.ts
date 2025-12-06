@@ -15,11 +15,11 @@ export type TTherapists = {
     id: number;
     first_name: string;
     last_name: string;
-    mobile:  string;
-    national_code:  string;
-    facility:  string;
+    mobile: string;
+    national_code: string;
+    facility: string;
     status: string;
-    hire_date:  string;
+    hire_date: string;
   }[];
   paginate: {
     current_page: number;
@@ -34,7 +34,7 @@ export type TReqTherapists = {
   first_name: string;
   last_name: string;
   mobile: string;
-  national_code: string;
+  national_code: string | null;
   gender: string;
   facility_id: number;
   status: string;
