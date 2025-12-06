@@ -37,9 +37,10 @@ function AuthPassword() {
         {...register("mobile")}
         id="validation-form-login"
         name="mobile"
+        inputMode="numeric"
         type="number"
         dir="ltr"
-        minLength={11}
+        maxLength={11}
         className={clsx(
           "block px-4 py-3.5 rounded-[0.6rem] border-slate-300/80",
           {
