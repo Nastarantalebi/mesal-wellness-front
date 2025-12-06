@@ -26,11 +26,11 @@ function Main(props: MainProps) {
             }}>
             <Lucide className="w-8 h-8 stroke-[1]" icon="X" />
           </a>
-          <Slideover.Title className="px-6 py-5">
-            <h2 className="me-auto text-base font-medium">اطلاعیه‌ها</h2>
+          <Slideover.Title className="px-6 py-5 flex flex-col">
+            <h2 className="me-auto text-base font-medium ">اطلاعیه‌ها</h2>
             <Button variant="outline-secondary" className="hidden sm:flex">
-              <Lucide icon="ShieldCheck" className="w-4 h-4 me-2" /> علامت‌گذاری
-              همه به عنوان read
+              <Lucide icon="ShieldCheck" className="w-4 h-4 me-2" />
+              <span> علامت‌گذاری همه به عنوان خوانده‌شده</span>
             </Button>
           </Slideover.Title>
           <Slideover.Description className="p-0">
