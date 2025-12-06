@@ -45,8 +45,8 @@ export default function BookingVisit({ isFetchingById, dataById }: TProps) {
                   {item.service_label ?? ""}
                 </p>
                 <p>
-                  <span className="font-medium">درمانگر:</span>{" "}
-                  {item.therapist_label ??""}
+                  <span className="font-medium">ماساژور:</span>{" "}
+                  {item.therapist_label ?? ""}
                 </p>
                 <p>
                   <span className="font-medium">مکان:</span>{" "}

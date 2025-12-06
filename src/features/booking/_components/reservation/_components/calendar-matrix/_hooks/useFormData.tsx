@@ -22,8 +22,8 @@ const useFormData = () => {
       placeholder: "نوع",
       type: "select",
       option: [
-        {label:"درمانگر",value:"therapist"},
-        {label:"مکان",value:"resource"},
+        { label: "ماساژور", value: "therapist" },
+        { label: "مکان", value: "resource" },
       ],
     },
   ];

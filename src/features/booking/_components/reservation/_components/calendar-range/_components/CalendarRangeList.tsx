@@ -30,7 +30,7 @@ const CalendarRangeList = ({ data }: TProps) => {
                 </h3>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
                   سرویس: <span className="font-medium">{event.service}</span> |
-                  درمانگر:{" "}
+                  ماساژور:{" "}
                   <span className="font-medium">{event.therapist}</span>| مکان:{" "}
                   <span className="font-medium">{event.resource}</span>
                 </p>

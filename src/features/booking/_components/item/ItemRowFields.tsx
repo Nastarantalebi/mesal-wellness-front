@@ -147,12 +147,12 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
         )}
       </div>
 
-      {/* درمانگر، مکان، سرویس، مبلغ */}
+      {/* ماساژور، مکان، سرویس، مبلغ */}
       <div className="w-full grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
         {(data || isEdit) && (
           <>
             <div className="flex flex-col">
-              <FormLabel>درمانگر</FormLabel>
+              <FormLabel>ماساژور</FormLabel>
               <Controller
                 control={form.control}
                 name={`items.${index}.therapist_id`}

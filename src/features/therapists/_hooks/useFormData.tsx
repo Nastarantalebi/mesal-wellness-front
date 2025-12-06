@@ -13,19 +13,18 @@ const useFormData = () => {
     {
       name: "first_name",
       label: "نام",
-      required: true,
       placeholder: "نام",
+      required: true,
     },
     {
       name: "last_name",
       label: "نام خانوادگی",
-      required: true,
       placeholder: "نام خانوادگی",
+      required: true,
     },
     {
       name: "national_code",
       label: "کدملی",
-      required: true,
       placeholder: "کدملی",
       inputType: "number",
       maxLength: 10,
@@ -38,7 +37,6 @@ const useFormData = () => {
     {
       name: "facility_id",
       label: "محل ارائه خدمات",
-      required: true,
       placeholder: "محل ارائه خدمات",
       type: "select",
       isLoading: isLoading,
@@ -55,7 +53,6 @@ const useFormData = () => {
     {
       name: "hire_date",
       label: "تاریخ استخدام",
-      required: true,
       type: "date",
       placeholder: "تاریخ استخدام",
       maxDate: new DateObject(),
@@ -63,7 +60,6 @@ const useFormData = () => {
     {
       name: "license_number",
       label: "شماره مجوز",
-      required: true,
       placeholder: "شماره مجوز",
       dir: "ltr",
     },

@@ -14,9 +14,9 @@ const useFormData = () => {
   const fields: (TFormData<TReqTherapistsAvailabilities> | undefined)[] = [
     {
       name: "therapist_id",
-      label: "درمانگر",
+      label: "ماساژور",
       required: true,
-      placeholder: "درمانگر",
+      placeholder: "ماساژور",
       type: "select",
       disabled: true,
       isLoading: isLoading,

@@ -33,7 +33,7 @@ function TherapistService({ id }: TProps) {
       <CustomTable
         isLoading={isFetching}
         refetch={refetch}
-        title="خدمات درمانگر"
+        title="خدمات ماساژور"
         columns={data?.columns}
         data={data?.data}
         dataPagination={data?.paginate}
