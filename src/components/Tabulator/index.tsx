@@ -6,7 +6,7 @@ import { mapFieldsToColumns } from "./columnsTransform";
 import type { TColumns, TPaginate } from "../../types";
 import Button from "../Button";
 import Lucide from "../Lucide";
-import { FormInline, FormInput, FormLabel } from "../Form";
+import { FormInline, FormInput } from "../Form";
 import { Menu } from "../Headless";
 import { createRoot } from "react-dom/client";
 import { Edit, Eye, RotateCcwIcon, SearchIcon, Trash2Icon } from "lucide-react";
@@ -227,7 +227,6 @@ CustomTableProps) {
   };
 
   const printTable = () => tabulator.current?.print();
-
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <TitlePage title={title} />
@@ -263,7 +262,7 @@ CustomTableProps) {
         </div>
         <div className="flex flex-col gap-8 mt-3.5">
           <div className="flex flex-col box box--stacked">
-            <div className="flex flex-col p-5 xl:items-center xl:flex-row gap-y-2">
+            <div className="flex flex-col p-5 pb-1 xl:items-center xl:flex-row gap-y-2">
               <form
                 id="tabulator-htms-filter-form"
                 className="flex md:flex-row flex-col border-dashed gap-x-5 gap-y-2 border border-slate-300/80 xl:border-0 rounded-[0.6rem] p-4 sm:p-5 xl:p-0"
@@ -315,46 +314,42 @@ CustomTableProps) {
                     <option value="!=">!=</option>
                   </FormSelect>
                 </FormInline> */}
-                <FormInline className="flex-col items-start xl:flex-row xl:items-center gap-y-2">
-                  <FormLabel className="me-3 whitespace-nowrap">
-                    جستجو
-                  </FormLabel>
-                  <FormInput
-                    id="tabulator-htms-filter-value"
-                    value={filter.value}
-                    onChange={(e) => {
-                      setFilter({
-                        ...filter,
-                        value: e.target.value,
-                      });
-                    }}
-                    type="text"
-                    className=""
-                    placeholder="جست‌وجو..."
-                  />
+                <FormInline className="flex-col items-start xl:flex-row xl:items-center gap-y-2 w-full">
+                  <div className="relative w-full xl:w-auto flex-1">
+                    <FormInput
+                      id="tabulator-htms-filter-value"
+                      value={filter.value}
+                      onChange={(e) =>
+                        setFilter({ ...filter, value: e.target.value })
+                      }
+                      type="text"
+                      className="pl-10 pr-3 w-full"
+                      placeholder="جست‌وجو..."
+                    />
+                    {/* ایکون داخل input */}
+                    <Button
+                      type="button"
+                      onClick={onFilter}
+                      variant={`${
+                        !filter.value ? "outline-secondary" : "outline-primary"
+                      }`}
+                      disabled={!filter.value}
+                      className="absolute left-0 top-1/2 -translate-y-1/2 h-full px-2  flex items-center justify-center">
+                      <SearchIcon className="w-5 h-5" />
+                    </Button>
+                  </div>
                 </FormInline>
-                <div className="flex gap-2 mt-2 flex-row xl:mt-0">
-                  <Button
-                    id="tabulator-htms-filter-go"
-                    variant="outline-primary"
-                    type="button"
-                    className="w-fit md:w-auto bg-primary/5 border-primary/20"
-                    onClick={onFilter}>
-                    <SearchIcon className="md:hidden inline-block" />
-                    <span className="hidden md:inline-block">یافتن</span>
-                  </Button>
-                  <Button
-                    id="tabulator-htms-filter-reset"
-                    variant="outline-secondary"
-                    type="button"
-                    className="w-fit md:w-auto bg-slate-50/50"
-                    onClick={onResetFilter}>
-                    <RotateCcwIcon className="md:hidden inline-block" />
-                    <span className="hidden md:inline-block"> تنظیم مجدد</span>
-                  </Button>
-                </div>
               </form>
               <div className="flex items-center justify-end mt-3 flex-row gap-x-3 gap-y-2 xl:ms-auto xl:mt-0">
+                <Button
+                  id="tabulator-htms-filter-reset"
+                  variant="outline-secondary"
+                  type="button"
+                  className="w-fit md:w-auto bg-slate-50/50 flex items-center gap-1"
+                  onClick={onResetFilter}>
+                  <RotateCcwIcon className="w-5 h-5" />
+                  <span className="hidden md:inline-block">تنظیم مجدد</span>
+                </Button>
                 <Button variant="outline-secondary" onClick={printTable}>
                   <Lucide
                     icon="Printer"
@@ -412,7 +407,7 @@ CustomTableProps) {
                 </Menu>
               </div>
             </div>
-            <div className="p-1 xl:p-4">
+            <div className="p-1 xl:p-4 xl:pt-1">
               <div className="overflow-x-auto scrollbar-hidden">
                 <div
                   id="tabulator"
