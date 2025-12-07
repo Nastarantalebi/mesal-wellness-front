@@ -8,7 +8,6 @@ import SwitchAccount from "../../../components/SwitchAccount";
 import Lucide from "../../../components/Lucide";
 import { useNavigate } from "react-router-dom";
 import { AlignJustify } from "lucide-react";
-import Cookies from "js-cookie";
 import DynamicBreadcrumb from "./DynamicBreadcrumb";
 import { useAuth } from "../items/_hooks/useAuth";
 import { logout } from "@/features/auth/_services/authServices";
@@ -194,7 +193,6 @@ function Topbar({
                     logout();
                     navigate("login");
                     localStorage.clear();
-                    Cookies.remove("access_token");
                   }}>
                   <Lucide icon="Power" className="w-4 h-4 me-2" />
                   خروج

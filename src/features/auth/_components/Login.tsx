@@ -1,8 +1,38 @@
 import clsx from "clsx";
 import CustomTabs from "@/components/Headless/Tab/CustomTab";
 import useTabItems from "../_hooks/useTabItems";
+import { useEffect, useState } from "react";
+import { plainInstance } from "@/libs/axios";
+import LoadingSpin from "@/components/Loading";
+import { useNavigate } from "react-router-dom";
 function Login() {
   const { tabItems } = useTabItems();
+  const [checkingAuth, setCheckingAuth] = useState(true);
+ const navigate = useNavigate();
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await plainInstance.post("/refresh/", null);
+        if (res.status === 200) {
+          window.location.assign("/");
+          navigate("/", { replace: true });
+        } else {
+          setCheckingAuth(false);
+        }
+      } catch (err) {
+        setCheckingAuth(false);
+      }
+    };
+    checkAuth();
+  }, []);
+
+  if (checkingAuth) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <LoadingSpin />
+      </div>
+    );
+  }
   return (
     <>
       <div className="container grid lg:h-full grid-cols-12 lg:max-w-[1550px] 2xl:max-w-[1750px] py-10 px-5 sm:py-14 sm:px-10 md:px-36 lg:py-0 lg:ps-14 lg:pe-12 xl:px-24">

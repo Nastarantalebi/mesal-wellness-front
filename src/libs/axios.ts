@@ -61,7 +61,7 @@ instance.interceptors.response.use(
       } catch (refreshErr) {
         processQueue(refreshErr as any, null);
         if (!isLoginRoute) {
-          window.location.assign("/login");
+          window.location.replace("/login");
         }
         return Promise.reject(refreshErr);
       } finally {
