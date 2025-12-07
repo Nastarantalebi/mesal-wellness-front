@@ -8,13 +8,12 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const { tabItems } = useTabItems();
   const [checkingAuth, setCheckingAuth] = useState(true);
- const navigate = useNavigate();
+  const navigate = useNavigate();
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const res = await plainInstance.post("/refresh/", null);
         if (res.status === 200) {
-          window.location.assign("/");
           navigate("/", { replace: true });
         } else {
           setCheckingAuth(false);

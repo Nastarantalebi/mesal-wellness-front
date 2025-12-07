@@ -35,7 +35,9 @@ export async function login(values: ISendOTP) {
 }
 
 export async function logout() {
-  const { data } = await Request.post(`${LOGIN_URL}/logout/`);
+  const { data } = await Request.post(`${LOGIN_URL}/logout/`, {
+    withCredentials: true,
+  });
   return data;
 }
 
