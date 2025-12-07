@@ -10,7 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { AlignJustify } from "lucide-react";
 import DynamicBreadcrumb from "./DynamicBreadcrumb";
 import { useAuth } from "../items/_hooks/useAuth";
-import { logout } from "@/features/auth/_services/authServices";
+import { useLogout } from "@/features/auth/_services/useLogout";
+import Modal from "@/components/Headless/Dialog/Modal";
 function Topbar({
   setActiveMobileMenu,
   setCompactMenuOnHover,
@@ -26,12 +27,13 @@ function Topbar({
   const [switchAccount, setSwitchAccount] = useState(false);
   const [notificationsPanel, setNotificationsPanel] = useState(false);
   const [activitiesPanel, setActivitiesPanel] = useState(false);
-
+  const { mutateAsync: logoutApi } = useLogout();
   const requestFullscreen = () => {
     const el = document.documentElement;
     if (el.requestFullscreen) el.requestFullscreen();
   };
   const { user } = useAuth();
+  const [logout, setLogout] = useState<boolean>(false);
   return (
     <div className="fixed top-0 inset-x-0 z-10 h-[65px] box bg-slate-50 border-x-0 border-t-0 rounded-none flex shadow-none">
       <div
@@ -188,12 +190,7 @@ function Topbar({
                   <Lucide icon="ToggleLeft" className="w-4 h-4 me-2" />
                   تغییر حساب
                 </Menu.Item>
-                <Menu.Item
-                  onClick={() => {
-                    logout();
-                    navigate("login");
-                    localStorage.clear();
-                  }}>
+                <Menu.Item onClick={() => setLogout(true)}>
                   <Lucide icon="Power" className="w-4 h-4 me-2" />
                   خروج
                 </Menu.Item>
@@ -215,6 +212,20 @@ function Topbar({
           {/* END: Notification & User Menu */}
         </div>
       </div>
+      <Modal
+        open={logout}
+        close={() => setLogout(false)}
+        title="خروج از حساب کاربری"
+        cancelText="انصراف"
+        submitText="خروج از حساب"
+        onSubmit={() => {
+          logoutApi();
+          setLogout(false);
+        }}>
+        <div className="text-center py-2">
+          <span>آیا از خروج از حساب کاربری خود اطمینان دارید؟</span>
+        </div>
+      </Modal>
     </div>
   );
 }

@@ -1,23 +1,26 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import Toastify from "toastify-js";
-import { logout, removeFcmToken } from "./authServices";
+import { logout } from "./authServices";
+import useAuthState from "../store/authState";
 
-export function useLogout(fcmToken: string) {
+export function useLogout() {
   const navigate = useNavigate();
   const { isPending, mutateAsync } = useMutation({
     mutationFn: async () => {
       // حذف توکن FCM
-      if (fcmToken) {
-        await removeFcmToken(fcmToken);
-      }
+      // if (fcmToken) {
+      //   await removeFcmToken(fcmToken);
+      // }
       // لاگ اوت از سرور
       await logout();
       return true;
     },
     onSuccess: () => {
+      useAuthState.getState().logout();
+      localStorage.clear();
       Toastify({
-        text: "خروج با موفقیت انجام شد",
+        text: "از حساب کاربری خود خارج شدید",
         duration: 3000,
         newWindow: true,
         close: true,
