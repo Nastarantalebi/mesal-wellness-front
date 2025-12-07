@@ -27,7 +27,7 @@ function Topbar({
   const [switchAccount, setSwitchAccount] = useState(false);
   const [notificationsPanel, setNotificationsPanel] = useState(false);
   const [activitiesPanel, setActivitiesPanel] = useState(false);
-  const { mutateAsync: logoutApi } = useLogout();
+  const { mutateAsync: logoutApi, isPending } = useLogout();
   const requestFullscreen = () => {
     const el = document.documentElement;
     if (el.requestFullscreen) el.requestFullscreen();
@@ -217,11 +217,8 @@ function Topbar({
         close={() => setLogout(false)}
         title="خروج از حساب کاربری"
         cancelText="انصراف"
-        submitText="خروج از حساب"
-        onSubmit={() => {
-          logoutApi();
-          setLogout(false);
-        }}>
+        submitText={isPending ? "درحال خروج" : "خروج"}
+        onSubmit={() => logoutApi()}>
         <div className="text-center py-2">
           <span>آیا از خروج از حساب کاربری خود اطمینان دارید؟</span>
         </div>
