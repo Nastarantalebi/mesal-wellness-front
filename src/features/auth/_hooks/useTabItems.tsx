@@ -4,14 +4,14 @@ import AuthPassword from "../_components/AuthPassword";
 const useTabItems = () => {
   const tabItems = [
     {
+      key: "otp_login",
+      title: "ورود با کد یکبارمصرف",
+      content: <AuthOTP />,
+    },
+    {
       key: "password_login",
       title: "ورود با رمزعبور",
       content: <AuthPassword />,
-    },
-    {
-      key: "otp_login",
-      title: "ورود با کد یکبارمصرف",
-      content: <AuthOTP/>,
     },
   ];
   return { tabItems };
