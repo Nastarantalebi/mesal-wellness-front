@@ -47,7 +47,6 @@ const useFormData = () => {
     {
       name: "commission_rate",
       label: "درصد کمیسیون",
-      required: true,
       placeholder: "درصد کمیسیون",
       inputType: "number",
       min: 0,
