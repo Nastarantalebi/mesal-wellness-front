@@ -1,46 +1,96 @@
-import { QueryClient, QueryCache, MutationCache } from "@tanstack/react-query";
-import Cookies from "js-cookie";
 import Toastify from "toastify-js";
+import { QueryClient, QueryCache, MutationCache } from "@tanstack/react-query";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handleHttpError = (error: any) => {
   const status = error?.response?.status;
-  const data = error?.response?.data;
-
-  const message = data?.message ?? error.message;
-  const errors = data?.errors;
-
-  // ساخت پیام کامل
-  let fullMessage = message;
-
-  if (errors && typeof errors === "object") {
-    const flatErrors = Object.values(errors).flat(); // تبدیل {file:[...]} به آرایه ساده
-
-    if (flatErrors.length > 0) {
-      fullMessage += "\n" + flatErrors.join("\n");
-    }
-  }
-
-  Toastify({
-    text: fullMessage,
-    duration: 5000,
-    newWindow: true,
-    close: false,
-    gravity: "top",
-    position: "right",
-    stopOnFocus: true,
-    style: {
-      background: "linear-gradient(90deg,#ef4444,#dc2626)",
-      color: "#fff",
-      fontSize: "14px",
-      borderRadius: "8px",
-      padding: "12px 16px",
-      direction: "rtl",
-    },
-  }).showToast();
-
-  if (status === 401) {
-    Cookies.remove("access_token");
+  const message = error?.response?.data?.message ?? error.message;
+  let errorMessage =
+    error?.response?.data?.message ||
+    error?.response?.data?.error ||
+    error?.response?.data?.detail ||
+    error?.message ||
+    "خطای ناشناخته‌ای رخ داده است";
+  switch (status) {
+    case 401:
+      Toastify({
+        text: message || "لطفاً ابتدا وارد شوید.",
+        duration: 5000,
+        newWindow: true,
+        close: false,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(90deg,#ef4444,#dc2626)",
+          color: "#fff",
+          fontSize: "14px",
+          borderRadius: "8px",
+          padding: "12px 16px",
+          direction: "rtl",
+        },
+      }).showToast();
+      break;
+    case 429:
+      Toastify({
+        text:
+          message ||
+          "آیپی شما به دلیل ارسال درخواست زیاد محدود شده است. لطفاً دقایقی دیگر تلاش کنید.",
+        duration: 5000,
+        newWindow: true,
+        close: false,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(90deg,#ef4444,#dc2626)",
+          color: "#fff",
+          fontSize: "14px",
+          borderRadius: "8px",
+          padding: "12px 16px",
+          direction: "rtl",
+        },
+      }).showToast();
+      break;
+    case 500:
+      Toastify({
+        text: message || "خطای سرور رخ داده است.",
+        duration: 5000,
+        newWindow: true,
+        close: false,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(90deg,#ef4444,#dc2626)",
+          color: "#fff",
+          fontSize: "14px",
+          borderRadius: "8px",
+          padding: "12px 16px",
+          direction: "rtl",
+        },
+      }).showToast();
+      break;
+    default:
+      if (Array.isArray(error?.response?.data?.non_field_errors)) {
+        errorMessage = error.response.data.non_field_errors.join("، ");
+      }
+      Toastify({
+        text: errorMessage,
+        duration: 5000,
+        newWindow: true,
+        close: false,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+          background: "linear-gradient(90deg,#ef4444,#dc2626)",
+          color: "#fff",
+          fontSize: "14px",
+          borderRadius: "8px",
+          padding: "12px 16px",
+          direction: "rtl",
+        },
+      }).showToast();
   }
 };
 

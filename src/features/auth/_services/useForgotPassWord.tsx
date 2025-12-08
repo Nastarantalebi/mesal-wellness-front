@@ -1,24 +1,16 @@
 import { useMutation } from "@tanstack/react-query";
-import Toastify from "toastify-js";
 import { forgotPassword } from "./authServices";
-
+import type { IForgotPassword } from "../_types/types";
+import Toastify from "toastify-js";
 function useForgotPassWord() {
   const { isPending, mutateAsync } = useMutation({
-    mutationFn: forgotPassword,
-    onSuccess: () => {
-      Toastify({
-        text: "رمز عبور جدید با موفقیت ایجاد شد",
-        duration: 3000,
-        newWindow: true,
-        close: true,
-        gravity: "top",
-        position: "right",
-        stopOnFocus: true,
-      }).showToast();
+    mutationFn: async (values: IForgotPassword) => {
+      const response = await forgotPassword(values);
+      return response;
     },
-    onError: (e: Error) => {
+    onSuccess: (data) => {
       Toastify({
-        text: e.message || "خطایی رخ داد لطفا دوباره وارد شوید",
+        text: data?.message || "رمز عبور جدید با موفقیت ایجاد شد",
         duration: 3000,
         newWindow: true,
         close: true,

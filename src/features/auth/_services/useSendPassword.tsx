@@ -2,14 +2,18 @@ import { useMutation } from "@tanstack/react-query";
 import Toastify from "toastify-js";
 import { sendPassword } from "./authServices";
 import { useNavigate } from "react-router-dom";
+import type { ISendMobile } from "../_types/types";
 
 function useSendPassword() {
   const navigate = useNavigate();
   const { isPending, mutateAsync } = useMutation({
-    mutationFn: sendPassword,
-    onSuccess: () => {
+    mutationFn: async (values: ISendMobile) => {
+      const response = await sendPassword(values);
+      return response;
+    },
+    onSuccess: (data) => {
       Toastify({
-        text: "با موفقیت به پنل کاربری خود وارد شدید",
+        text: data?.message || "با موفقیت به پنل کاربری خود وارد شدید",
         duration: 3000,
         newWindow: true,
         close: true,
@@ -18,17 +22,6 @@ function useSendPassword() {
         stopOnFocus: true,
       }).showToast();
       navigate("/");
-    },
-    onError: (e: Error) => {
-      Toastify({
-        text: e.message || "خطایی رخ داد لطفا دوباره وارد شوید",
-        duration: 3000,
-        newWindow: true,
-        close: true,
-        gravity: "top",
-        position: "right",
-        stopOnFocus: true,
-      }).showToast();
     },
   });
   return { isPending, mutateAsync };

@@ -8,19 +8,15 @@ export function useLogout() {
   const navigate = useNavigate();
   const { isPending, mutateAsync } = useMutation({
     mutationFn: async () => {
-      // حذف توکن FCM
-      // if (fcmToken) {
-      //   await removeFcmToken(fcmToken);
-      // }
-      // لاگ اوت از سرور
-      await logout();
-      return true;
+      const response = await logout();
+      return response;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       useAuthState.getState().logout();
       localStorage.clear();
+      navigate("/login", { replace: true });
       Toastify({
-        text: "از حساب کاربری خود خارج شدید",
+        text: data?.message || "از حساب کاربری خود خارج شدید",
         duration: 3000,
         newWindow: true,
         close: true,
@@ -28,11 +24,14 @@ export function useLogout() {
         position: "right",
         stopOnFocus: true,
       }).showToast();
-      navigate("/login", { replace: true });
     },
-    onError: () => {
+    onError: (error: any) => {
+      const msg =
+        error?.message ||
+        error?.response?.data?.message ||
+        "مشکلی در خروج پیش آمد";
       Toastify({
-        text: "مشکلی در خروج پیش آمد",
+        text: msg,
         duration: 3000,
         newWindow: true,
         close: true,
