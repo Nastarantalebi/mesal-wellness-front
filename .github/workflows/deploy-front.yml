@@ -20,6 +20,6 @@ jobs:
           # disable host-key checking (or supply known_hosts via a secret)
           # strict_host_key_checking: false
           script: |
-            cd ~/server_deploy
+            cd ~/server_deploy/repos/wellness
             chmod +x ./deploy-wn-front.sh
             ./deploy-wn-front.sh
