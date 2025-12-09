@@ -81,6 +81,7 @@ function CustomTable({
           field: "actions",
           headerSort: false,
           print: false,
+          resizable: false,
           visible: !!data,
           hozAlign: "center",
           minWidth: 150,
