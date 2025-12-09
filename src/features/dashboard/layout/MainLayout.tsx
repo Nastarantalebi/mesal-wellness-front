@@ -12,8 +12,7 @@ function MainLayout() {
       className={clsx([
         "viper",
         "before:content-[''] before:z-[-1] before:w-screen before:bg-slate-50 before:top-0 before:h-screen before:fixed",
-      ])}
-    >
+      ])}>
       <SidebarWrapper />
 
       <div
@@ -21,9 +20,8 @@ function MainLayout() {
           "transition-[margin,width] duration-100 md:px-5 px-0.5 mt-[65px] pt-[31px] pb-16 relative z-10",
           { "xl:ms-[275px]": !compactMenu },
           { "xl:ms-[91px]": compactMenu },
-        ])}
-      >
-        <div className="p-1">
+        ])}>
+        <div className="xl:container p-1">
           <Outlet />
         </div>
       </div>
