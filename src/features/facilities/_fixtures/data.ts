@@ -6,12 +6,12 @@ export const url = "/wellness/facilities/";
 export const queryKey = "facilitiesQuerykey";
 
 export const schema = z.object({
-  name: z.string().min(1, "فیلد الزامی است."),
-  city: z.string().min(1, "فیلد الزامی است."),
-  address: z.string().min(1, "فیلد الزامی است."),
+  name: z.string().min(1, " "),
+  city: z.string().min(1, " "),
+  address: z.string(),
   description: z.string(),
-  code: z.string().min(1, "فیلد الزامی است."),
-  manager_name: z.string().min(1, "فیلد الزامی است."),
+  code: z.string(),
+  manager_name: z.string().min(1, " "),
   phone: phoneRequireValidationSchema,
   is_active: z.string(),
   meta: z

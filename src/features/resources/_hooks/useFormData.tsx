@@ -12,7 +12,6 @@ const useFormData = () => {
     {
       name: "code",
       label: "کد",
-      required: true,
       placeholder: "کد",
       dir: "ltr",
     },

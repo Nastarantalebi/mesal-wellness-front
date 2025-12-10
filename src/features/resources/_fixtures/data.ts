@@ -6,12 +6,12 @@ export const queryKey = "resourcesQuerykey";
 
 export const schema = z.object({
   name: z.string().min(1, " "),
-  capacity: z.string(),
-  code: z.string(),
-  description: z.string(),
+  capacity: z.string().min(1, " "),
+  code: z.string().nullable(),
+  description: z.string().nullable(),
   status: z.string(),
-  type_id: z.coerce.number(),
-  facility_id: z.coerce.number(),
+  type_id: z.coerce.number().min(1, " "),
+  facility_id: z.coerce.number().min(1, " "),
   meta: z
     .object({
       notes: z.string(),
@@ -26,8 +26,8 @@ export const schema = z.object({
 export const initialValue: TReqResources = {
   name: "",
   capacity: "",
-  code: "",
-  description: "",
+  code: null,
+  description: null,
   status: "",
   type_id: 0,
   facility_id: 0,

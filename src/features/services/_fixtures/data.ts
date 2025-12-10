@@ -6,14 +6,14 @@ export const servicesQuerykey = "servicesQuerykey";
 
 export const schema = z.object({
   branch_id: z.number().nullable(),
-  base_price: z.string().min(1, "فیلد الزامی است."),
-  category_id: z.coerce.number().min(1, "فیلد الزامی است."),
+  base_price: z.string().min(1, " "),
+  category_id: z.coerce.number().min(1, " "),
   code: z.string().nullable(),
   currency: z.string().nullable(),
   description: z.string().nullable(),
-  duration_minutes: z.string().min(1, "فیلد الزامی است."),
-  gender_policy: z.string().min(1, "فیلد الزامی است."),
-  title: z.string().min(1, "فیلد الزامی است."),
+  duration_minutes: z.string().min(1, " "),
+  gender_policy: z.string().min(1, " "),
+  title: z.string().min(1, " "),
   is_active: z.string(),
   meta: z
     .object({

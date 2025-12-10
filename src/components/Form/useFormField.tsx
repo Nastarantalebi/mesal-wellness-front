@@ -53,6 +53,7 @@ function useFormField<TFormValues extends FieldValues>() {
       money,
       minLength,
       maxLength,
+      required,
       // mode,
       // min,
       // max,

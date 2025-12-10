@@ -46,11 +46,11 @@ export type TDataById = {
 export type TReqResources = {
   facility_id: number;
   type_id: number;
-  code: string;
+  code: string | null;
   name: string;
   capacity: string;
   status: string;
-  description: string;
+  description: string | null;
   meta?: {
     floor: number;
     area_m2: number;

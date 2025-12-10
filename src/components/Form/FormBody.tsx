@@ -92,7 +92,7 @@ function FormBody<TFormValues extends FieldValues>({
     <>
       {formFields?.map((fieldConfig, index) => {
         if (!fieldConfig) return null;
-
+        const { required, ...rendererProps } = fieldConfig;
         if (fieldConfig.name === "separator")
           return (
             <div className="col-span-full" key={fieldConfig.name + index}>
@@ -117,7 +117,8 @@ function FormBody<TFormValues extends FieldValues>({
           <div
             key={fieldConfig.name}
             className={clsx(
-              largeField.includes(fieldConfig.name) && "col-span-full md:col-span-3",
+              largeField.includes(fieldConfig.name) &&
+                "col-span-full md:col-span-3",
               fieldConfig.className
             )}>
             {fieldConfig.label && (
@@ -140,7 +141,7 @@ function FormBody<TFormValues extends FieldValues>({
                       : "rtl"
                   }>
                   {fieldRenderer({
-                    ...fieldConfig,
+                    ...rendererProps,
                     field,
                     onKeyDown: (e: React.KeyboardEvent<HTMLElement>) => {
                       handleEnterKey(e, index);
@@ -172,7 +173,7 @@ function FormBody<TFormValues extends FieldValues>({
                   })}
                   {"message" in (errors?.[fieldConfig.name] ?? {}) &&
                     typeof errors?.[fieldConfig.name]?.message === "string" && (
-                      <div className="mt-2 text-danger">
+                      <div className="mt-2 text-danger text-right">
                         {errors[fieldConfig.name]!.message as string}
                       </div>
                     )}

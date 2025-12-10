@@ -33,7 +33,7 @@ export type TDataById = {
 };
 
 export type TReqResourceType = {
-  code: string;
+  code: string | null;
   name: string;
   icon: string | null;
   description: string;

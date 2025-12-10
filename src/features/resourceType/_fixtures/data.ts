@@ -5,8 +5,8 @@ export const url = "/wellness/resource-types/";
 export const queryKey = "resourceTypesQuerykey";
 
 export const schema = z.object({
-  name: z.string().min(1, "فیلد الزامی است."),
-  code: z.string().min(1, "فیلد الزامی است."),
+  name: z.string().min(1, " "),
+  code: z.string().nullable(),
   description: z.string(),
   is_active: z.string(),
   icon: z.string().nullable(),
@@ -22,7 +22,7 @@ export const schema = z.object({
 
 export const initialValue: TReqResourceType = {
   name: "",
-  code: "",
+  code: null,
   description: "",
   is_active: "true",
   icon: null,

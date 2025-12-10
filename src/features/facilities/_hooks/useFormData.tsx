@@ -4,12 +4,6 @@ import type { TReqFacilities } from "../_types/types";
 const useFormData = (isEdit: boolean) => {
   const fields: (TFormData<TReqFacilities> | undefined)[] = [
     {
-      name: "code",
-      label: "کد مکان",
-      required: true,
-      placeholder: "کد مکان",
-    },
-    {
       name: "name",
       label: "نام",
       required: true,
@@ -37,7 +31,11 @@ const useFormData = (isEdit: boolean) => {
       required: true,
       placeholder: "شهر",
     },
-
+    {
+      name: "code",
+      label: "کد مکان",
+      placeholder: "کد مکان",
+    },
     isEdit
       ? {
           name: "is_active",
@@ -55,7 +53,6 @@ const useFormData = (isEdit: boolean) => {
       name: "address",
       label: "آدرس",
       placeholder: "آدرس",
-      required: true,
     },
     {
       name: "description",

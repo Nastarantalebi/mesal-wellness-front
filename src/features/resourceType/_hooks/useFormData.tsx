@@ -6,7 +6,6 @@ const useFormData = (isEdit: boolean) => {
     {
       name: "code",
       label: "کد",
-      required: true,
       placeholder: "کد",
     },
     {
