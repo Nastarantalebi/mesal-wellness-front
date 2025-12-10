@@ -1,14 +1,17 @@
 import z from "zod";
 import type { TReqCustomers } from "../_types/types";
-import { mobileRequireValidationSchema, nationalCodeValidationSchema } from "@/fixtures/zodValidations";
+import {
+  mobileRequireValidationSchema,
+  nationalCodeValidationSchema,
+} from "@/fixtures/zodValidations";
 
 export const url = "/wellness/customers/";
 export const queryKey = "customersQuerykey";
 
 export const schema = z
   .object({
-    first_name: z.string(),
-    last_name: z.string(),
+    first_name: z.string().min(1, " "),
+    last_name: z.string().min(1, " "),
     phone: mobileRequireValidationSchema,
     birth_date: z.string().nullable(),
     gender: z.string(),

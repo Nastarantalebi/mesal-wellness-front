@@ -23,24 +23,19 @@ const useFormData = () => {
       required: true,
     },
     {
+      name: "mobile",
+      label: "موبایل",
+      required: true,
+      placeholder: "موبایل",
+      inputType: "number",
+      maxLength: 11,
+    },
+    {
       name: "national_code",
       label: "کدملی",
       placeholder: "کدملی",
       inputType: "number",
       maxLength: 10,
-    },
-    {
-      name: "bio",
-      label: "درباره",
-      placeholder: "درباره",
-    },
-    {
-      name: "facility_id",
-      label: "محل ارائه خدمات",
-      placeholder: "محل ارائه خدمات",
-      type: "select",
-      isLoading: isLoading,
-      option: data?.facilities ?? [],
     },
     {
       name: "gender",
@@ -58,19 +53,26 @@ const useFormData = () => {
       maxDate: new DateObject(),
     },
     {
+      name: "bio",
+      label: "درباره",
+      placeholder: "درباره",
+    },
+    {
+      name: "facility_id",
+      label: "محل ارائه خدمات",
+      placeholder: "محل ارائه خدمات",
+      type: "select",
+      isLoading: isLoading,
+      option: data?.facilities ?? [],
+    },
+
+    {
       name: "license_number",
       label: "شماره مجوز",
       placeholder: "شماره مجوز",
       dir: "ltr",
     },
-    {
-      name: "mobile",
-      label: "موبایل",
-      required: true,
-      placeholder: "موبایل",
-      inputType: "number",
-      maxLength: 11,
-    },
+
     {
       name: "status",
       label: "وضعیت",

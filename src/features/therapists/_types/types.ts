@@ -39,9 +39,9 @@ export type TReqTherapists = {
   facility_id: number;
   status: string;
   specialties: string[];
-  license_number: string;
-  hire_date: string;
-  bio: string;
+  license_number: string | null;
+  hire_date: string | null;
+  bio: string | null;
   avatar_path: string;
 };
 type Therapist = {

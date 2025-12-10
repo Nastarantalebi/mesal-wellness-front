@@ -4,9 +4,9 @@ import path from "path";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
-  // server: {
-  //   host: "test.mesal.ir",
-  // },
+  build: {
+    sourcemap: true,
+  },
   plugins: [
     react(),
     VitePWA({

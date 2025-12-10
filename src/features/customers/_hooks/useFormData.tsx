@@ -24,9 +24,9 @@ const useFormData = () => {
     },
     {
       name: "phone",
-      label: "تلفن",
+      label: "موبایل",
       required: true,
-      placeholder: "تلفن",
+      placeholder: "موبایل",
       inputType: "number",
       maxLength: 11,
     },
