@@ -22,7 +22,7 @@ const useFormData = () => {
       placeholder: "نوع",
       type: "select",
       option: [
-        { label: "ماساژور", value: "therapist" },
+        { label: "ماساژیست", value: "therapist" },
         { label: "مکان", value: "resource" },
       ],
     },

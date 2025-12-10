@@ -57,7 +57,7 @@ const initialState: SideMenuState = {
     {
       icon: "HeartHandshake",
       pathname: "/therapists",
-      title: "ماساژور",
+      title: "ماساژیست",
     },
     {
       icon: "UsersRound",

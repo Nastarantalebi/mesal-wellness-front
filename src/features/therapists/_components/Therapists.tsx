@@ -32,11 +32,11 @@ function Therapists() {
       <CustomTable
         isLoading={isFetching}
         refetch={refetch}
-        title="ماساژور"
+        title="ماساژیست"
         columns={data?.columns}
         customActions={[
           {
-            title: "خدمات ماساژور",
+            title: "خدمات ماساژیست",
             icon: <HandHeartIcon className="w-4 h-4" />,
             onClick: (record) => {
               setShowModalTS(true);
@@ -44,7 +44,7 @@ function Therapists() {
             },
           },
           {
-            title: "ماساژور دردسترس",
+            title: "ماساژیست دردسترس",
             icon: <AlarmClockCheckIcon className="w-4 h-4" />,
             onClick: (record) => {
               setShowModalTA(true);
@@ -69,7 +69,7 @@ function Therapists() {
         <TherapistsAvailabilities id={selectedRecord && selectedRecord.id} />
       </Modal>
       <Modal
-        title={`  خدمات ماساژور ${full_name}`}
+        title={`  خدمات ماساژیست ${full_name}`}
         open={showModalTS}
         size="xxl"
         close={() => {

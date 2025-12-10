@@ -11,9 +11,9 @@ const useFormData = () => {
   const fields: (TFormData<TReqTherapistService> | undefined)[] = [
     {
       name: "therapist_id",
-      label: "ماساژور",
+      label: "ماساژیست",
       required: true,
-      placeholder: "ماساژور",
+      placeholder: "ماساژیست",
       type: "select",
       disabled: true,
       isLoading: isLoading,

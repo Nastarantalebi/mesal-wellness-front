@@ -22,7 +22,7 @@ const DailyBoardTable: React.FC<TProps> = ({ data }) => {
               اتاق
             </th>
             <th rowSpan={2} className="border p-2">
-              ماساژور
+              ماساژیست
             </th>
             <th rowSpan={2} className="border p-2">
               مشتری

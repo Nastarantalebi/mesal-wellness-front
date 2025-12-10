@@ -11,12 +11,29 @@ export const schema = z
     resource_id: z.coerce.number(),
     is_active: z.coerce.boolean(),
     weekday: z.string().min(1, "فیلد الزامی است."),
-    breaks: z.array(
-      z.object({
-        start_time: z.string().nullable(),
-        end_time: z.string().nullable(),
-      })
-    ),
+    breaks: z
+      .array(
+        z.object({
+          start_time: z.string().nullable(),
+          end_time: z.string().nullable(),
+        })
+      )
+      .superRefine((data, ctx) => {
+        data.forEach((item, index) => {
+          if (item.start_time && item.end_time) {
+            const [sh, sm] = item.start_time.split(":").map(Number);
+            const [eh, em] = item.end_time.split(":").map(Number);
+
+            if (eh * 60 + em <= sh * 60 + sm) {
+              ctx.addIssue({
+                code: "custom",
+                message: "پایان باید بعد از شروع باشد",
+                path: ["breaks", index, "end_time"],
+              });
+            }
+          }
+        });
+      }),
   })
   .refine(
     (data) => {

@@ -22,7 +22,7 @@ const CalenderList = ({ data }: TProps) => {
             </h3>
             <p className="text-xs text-gray-500 dark:text-gray-400">
               سرویس: <span className="font-medium">{event.service}</span> |
-              ماساژور: <span className="font-medium">{event.therapist}</span>
+              ماساژیست: <span className="font-medium">{event.therapist}</span>
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">
               مشتری: <span className="font-medium">{event.customer}</span>

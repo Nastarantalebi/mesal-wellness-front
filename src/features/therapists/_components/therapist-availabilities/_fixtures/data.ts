@@ -6,8 +6,8 @@ export const queryKey = "therapistsAvailabilitiesQuerykey";
 
 export const schema = z
   .object({
-    end_time: z.string(),
-    start_time: z.string(),
+    end_time: z.string().min(1, "فیلد الزامی است."),
+    start_time: z.string().min(1, "فیلد الزامی است."),
     therapist_id: z.coerce.number(),
     is_active: z.coerce.boolean(),
     weekday: z.string(),
@@ -33,7 +33,23 @@ export const schema = z
       message: "زمان پایان باید بعد از زمان شروع باشد",
       path: ["end_time"],
     }
-  );
+  )
+  .superRefine((data, ctx) => {
+    data.breaks.forEach((item, index) => {
+      if (item.start_time && item.end_time) {
+        const [sh, sm] = item.start_time.split(":").map(Number);
+        const [eh, em] = item.end_time.split(":").map(Number);
+
+        if (eh * 60 + em <= sh * 60 + sm) {
+          ctx.addIssue({
+            code: "custom",
+            message: "پایان باید بعد از شروع باشد",
+            path: ["breaks", index, "end_time"],
+          });
+        }
+      }
+    });
+  });
 
 export const initialValues: TReqTherapistsAvailabilities = {
   end_time: "",

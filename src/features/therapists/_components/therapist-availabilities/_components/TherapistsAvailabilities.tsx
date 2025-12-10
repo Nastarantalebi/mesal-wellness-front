@@ -33,7 +33,7 @@ function TherapistsAvailabilities({ id }: TProps) {
       <CustomTable
         isLoading={isFetching}
         refetch={refetch}
-        title="ماساژور در دسترس"
+        title="ماساژیست در دسترس"
         columns={data?.columns}
         data={data?.data}
         dataPagination={data?.paginate}
