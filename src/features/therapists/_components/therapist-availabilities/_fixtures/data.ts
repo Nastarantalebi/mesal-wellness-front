@@ -35,15 +35,46 @@ export const schema = z
     }
   )
   .superRefine((data, ctx) => {
+    let mainStartMinutes = -1;
+    let mainEndMinutes = -1;
+
+    if (data.start_time && data.end_time) {
+      const [mainSH, mainSM] = data.start_time.split(":").map(Number);
+      const [mainEH, mainEM] = data.end_time.split(":").map(Number);
+      mainStartMinutes = mainSH * 60 + mainSM;
+      mainEndMinutes = mainEH * 60 + mainEM;
+    }
     data.breaks.forEach((item, index) => {
       if (item.start_time && item.end_time) {
         const [sh, sm] = item.start_time.split(":").map(Number);
         const [eh, em] = item.end_time.split(":").map(Number);
-
-        if (eh * 60 + em <= sh * 60 + sm) {
+        const breakStartMinutes = sh * 60 + sm;
+        const breakEndMinutes = eh * 60 + em;
+        if (breakEndMinutes <= breakStartMinutes) {
           ctx.addIssue({
             code: "custom",
             message: "پایان باید بعد از شروع باشد",
+            path: ["breaks", index, "end_time"],
+          });
+          return;
+        }
+        if (mainStartMinutes === -1 || mainEndMinutes === -1) {
+          return;
+        }
+
+        const isBreakWithinMainSchedule =
+          breakStartMinutes >= mainStartMinutes &&
+          breakEndMinutes <= mainEndMinutes;
+
+        if (!isBreakWithinMainSchedule) {
+          ctx.addIssue({
+            code: "custom",
+            message: "استراحت باید درون بازه زمانی اصلی تعریف شود.",
+            path: ["breaks", index, "start_time"],
+          });
+          ctx.addIssue({
+            code: "custom",
+            message: "استراحت باید درون بازه زمانی اصلی تعریف شود.",
             path: ["breaks", index, "end_time"],
           });
         }
