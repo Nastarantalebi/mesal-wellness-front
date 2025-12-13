@@ -41,9 +41,9 @@ const useFormData = () => {
     },
     {
       name: "type_id",
-      label: "نوع خدمات",
+      label: "نوع مکان",
       required: true,
-      placeholder: "نوع خدمات",
+      placeholder: "نوع مکان",
       type: "select",
       isLoading: isLoading,
       option: dataCreate?.types,
