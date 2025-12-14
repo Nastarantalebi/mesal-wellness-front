@@ -3,32 +3,32 @@ import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const LOGIN_URL = import.meta.env.VITE_LOGIN_URL;
 
-// single instance
+// ---- Single Axios instance ----
 const instance = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true, // send cookies
-  xsrfCookieName: "csrftoken", // Django's default CSRF cookie name
-  xsrfHeaderName: "X-CSRFToken", // Django expects this header
+  withCredentials: true, // ارسال کوکی‌ها، مخصوصاً HttpOnly
+  xsrfCookieName: "csrftoken",
+  xsrfHeaderName: "X-CSRFToken",
   timeout: 15000,
   headers: {
     Accept: "application/json",
   },
 });
 
-// ---- Refresh-on-401 (with HttpOnly refresh cookie) ----
+// ---- Refresh-on-401 (HttpOnly refresh cookie) ----
 let isRefreshing = false;
 let pendingQueue: Array<{
   resolve: (v: any) => void;
   reject: (e: any) => void;
 }> = [];
 
-const processQueue = (error: any, token: string | null = null) => {
-  pendingQueue.forEach((p) => (error ? p.reject(error) : p.resolve(token)));
+const processQueue = (error: any) => {
+  pendingQueue.forEach((p) => (error ? p.reject(error) : p.resolve(null)));
   pendingQueue = [];
 };
 
 instance.interceptors.response.use(
-  (res) => res,
+  (response) => response,
   async (error: AxiosError) => {
     const original = error.config as InternalAxiosRequestConfig & {
       _retry?: boolean;
@@ -36,14 +36,15 @@ instance.interceptors.response.use(
 
     if (!error.response) return Promise.reject(error);
 
+    // جلوگیری از refresh در مسیر login
     const isLoginRoute = window.location.pathname.startsWith("/login");
-    if (isLoginRoute) {
-      return Promise.reject(error);
-    }
-    if (error.response.status === 401 && !original?._retry) {
+    if (isLoginRoute) return Promise.reject(error);
+
+    if (error.response.status === 401 && !original._retry) {
       original._retry = true;
 
       if (isRefreshing) {
+        // اگر refresh در حال اجراست، صف بگذار
         return new Promise((resolve, reject) => {
           pendingQueue.push({ resolve, reject });
         }).then(() => instance(original));
@@ -52,16 +53,17 @@ instance.interceptors.response.use(
       isRefreshing = true;
 
       try {
+        // refresh token با HttpOnly cookie
         await axios.post(`${LOGIN_URL}/refresh/`, null, {
           withCredentials: true,
         });
 
-        processQueue(null, null);
-        return instance(original);
+        processQueue(null); // ادامه pending requests
+        return instance(original); // اجرای دوباره request اصلی
       } catch (refreshErr) {
-        processQueue(refreshErr as any, null);
+        processQueue(refreshErr);
         if (!isLoginRoute) {
-          window.location.replace("/login");
+          window.location.replace("/login"); // هدایت به login
         }
         return Promise.reject(refreshErr);
       } finally {
@@ -73,6 +75,7 @@ instance.interceptors.response.use(
   }
 );
 
+// ---- Plain instance برای login و public routes ----
 export const plainInstance = axios.create({
   baseURL: LOGIN_URL,
   withCredentials: true,
