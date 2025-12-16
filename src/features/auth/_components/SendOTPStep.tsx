@@ -146,7 +146,20 @@ function SendOTPStep({
         کنید.
       </p>
 
-      <form className="w-full" onSubmit={handleSubmit(onVerify)}>
+      <form
+        className="w-full"
+        onSubmit={handleSubmit(onVerify)}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Backspace") {
+            const target = e.target as HTMLElement;
+            const isInput =
+              target.tagName === "INPUT" || target.tagName === "TEXTAREA";
+            if (!isInput) {
+              e.preventDefault();
+            }
+          }
+        }}>
         {/* OTP Inputs */}
         <div className="flex gap-2 mt-2 justify-center flex-row-reverse">
           {Array.from({ length: 6 }).map((_, idx) => (

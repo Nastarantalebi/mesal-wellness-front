@@ -31,7 +31,18 @@ function AuthPassword() {
   ) : (
     <form
       className="validate-form-login mt-6"
-      onSubmit={handleSubmit(onSubmit)}>
+      onSubmit={handleSubmit(onSubmit)}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Backspace") {
+          const target = e.target as HTMLElement;
+          const isInput =
+            target.tagName === "INPUT" || target.tagName === "TEXTAREA";
+          if (!isInput) {
+            e.preventDefault();
+          }
+        }
+      }}>
       <FormLabel>شماره همراه</FormLabel>
       <FormInput
         {...register("mobile")}

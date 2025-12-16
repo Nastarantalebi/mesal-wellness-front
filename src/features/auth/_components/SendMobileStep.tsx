@@ -36,7 +36,20 @@ function SendMobileStep({ isPending, mutateAsync, startOtp }: any) {
   };
 
   return (
-    <form className="mt-6 w-full" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="mt-6 w-full"
+      onSubmit={handleSubmit(onSubmit)}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Backspace") {
+          const target = e.target as HTMLElement;
+          const isInput =
+            target.tagName === "INPUT" || target.tagName === "TEXTAREA";
+          if (!isInput) {
+            e.preventDefault();
+          }
+        }
+      }}>
       {/* Mobile Label */}
       <FormLabel>شماره همراه</FormLabel>
 
