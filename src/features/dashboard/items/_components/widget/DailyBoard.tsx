@@ -1,5 +1,3 @@
-"use client";
-
 import { useForm, Controller } from "react-hook-form";
 import DatePickerField from "@/components/Form/DatePicker";
 import useGetData from "@/services/useGetData";

@@ -1,7 +1,7 @@
 import { Tab } from "@/components/Headless";
 import TitlePage from "@/features/_components/TitlePage";
 
-interface TabItem {
+export interface TabItem {
   key: string | number;
   title: string;
   content: React.ReactNode;

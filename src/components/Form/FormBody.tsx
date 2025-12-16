@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useRef } from "react";
 import useFormField from "./useFormField";
 import type { Control, FieldErrors, FieldValues } from "react-hook-form";

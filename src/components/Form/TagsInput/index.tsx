@@ -1,5 +1,3 @@
-"use client";
-
 import Button from "@/components/Button";
 import clsx from "clsx";
 import { PlusIcon } from "lucide-react";

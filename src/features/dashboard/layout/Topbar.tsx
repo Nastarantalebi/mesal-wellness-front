@@ -12,6 +12,7 @@ import DynamicBreadcrumb from "./DynamicBreadcrumb";
 import { useAuth } from "../items/_hooks/useAuth";
 import { useLogout } from "@/features/auth/_services/useLogout";
 import Modal from "@/components/Headless/Dialog/Modal";
+import useMe from "@/stores/useMe";
 function Topbar({
   setActiveMobileMenu,
   setCompactMenuOnHover,
@@ -22,7 +23,7 @@ function Topbar({
   toggleCompactMenu: () => void;
 }) {
   const navigate = useNavigate();
-
+  const { data } = useMe();
   const [quickSearch, setQuickSearch] = useState(false);
   const [switchAccount, setSwitchAccount] = useState(false);
   const [notificationsPanel, setNotificationsPanel] = useState(false);
@@ -144,12 +145,23 @@ function Topbar({
                   alt="تیل وایز - قالب داشبورد مدیریتی"
                   src={users.fakeUsers()[0].photo}
                 /> */}
-                <Lucide icon="User" className="w-5 h-5 mx-auto" />
+                {data?.avatar ? (
+                  <img
+                    alt="تصویر پروفایل"
+                    src={data.avatar}
+                    className="cursor-pointer transition-transform hover:scale-110 h-6 w-6 object-cover rounded-full"
+                  />
+                ) : (
+                  <Lucide
+                    icon="User"
+                    className="text-white cursor-pointer transition-transform hover:scale-110 h-6 w-6"
+                  />
+                )}
               </Menu.Button>
               <Menu.Items className="w-56 mt-1">
                 <Menu.Item
                   onClick={() => {
-                    navigate("settings");
+                    navigate("profile");
                   }}>
                   <Lucide icon="User" className="w-4 h-4 me-2" />
                   {user ? (
@@ -157,11 +169,11 @@ function Topbar({
                       {user.first_name} {user?.last_name}
                     </span>
                   ) : (
-                    <span> نام کاربر</span>
+                    <span>پروفایل</span>
                   )}
                 </Menu.Item>
-                <Menu.Divider />
-                <Menu.Item
+                {/* <Menu.Divider /> */}
+                {/* <Menu.Item
                   onClick={() => {
                     navigate("settings?page=connected-services");
                   }}>
@@ -181,15 +193,15 @@ function Topbar({
                   }}>
                   <Lucide icon="Lock" className="w-4 h-4 me-2" />
                   بازنشانی رمز عبور
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Divider />
-                <Menu.Item
+                {/* <Menu.Item
                   onClick={() => {
                     setSwitchAccount(true);
                   }}>
                   <Lucide icon="ToggleLeft" className="w-4 h-4 me-2" />
                   تغییر حساب
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item onClick={() => setLogout(true)}>
                   <Lucide icon="Power" className="w-4 h-4 me-2" />
                   خروج

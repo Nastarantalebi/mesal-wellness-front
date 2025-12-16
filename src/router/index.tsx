@@ -20,6 +20,7 @@ import BookingForm from "@/features/booking/_components/BookingForm";
 import TabList from "@/features/booking/_components/reservation/_components/TabList";
 import NotFound from "@/features/_components/NotFound";
 import ProtectedRoutes from "./ProtectedRoutes";
+import Profile from "@/features/profile/_components/Profile";
 
 function Router() {
   const routes = [
@@ -34,6 +35,10 @@ function Router() {
         {
           path: "/",
           element: <Dashboard />,
+        },
+        {
+          path: "/profile",
+          element: <Profile />,
         },
         {
           path: "/service-category",
