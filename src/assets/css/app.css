@@ -411,11 +411,12 @@ input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
 /* Firefox */
 input[type="number"] {
-  -moz-appearance: textfield;
+  appearance: textfield; /* استاندارد */
+  -moz-appearance: textfield; /* Firefox */
 }
+
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
   width: 0;
@@ -424,4 +425,32 @@ input[type="number"] {
 .scrollbar-hidden {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+input::placeholder {
+  text-align: right;
+}
+.simple-select__input {
+  box-shadow: none !important;
+}
+/* app/globals.css یا یک فایل CSS اصلی دیگر */
+
+.custom-scrollbar {
+  /* برای مرورگرهای Webkit (Chrome, Safari) */
+  scrollbar-width: thin; /* برای فایرفاکس: عرض باریک */
+  scrollbar-color: theme("colors.gray.400") theme("colors.gray.200"); /* برای فایرفاکس */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px; /* عرض اسکرول‌بار */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  /* رنگ دستگیره (Thumb) */
+  background-color: theme("colors.amber.500");
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  /* رنگ مسیر (Track) */
+  background-color: theme("colors.amber.100");
 }

@@ -2,16 +2,16 @@ import Login from "@/features/auth/_components/Login";
 import Customers from "@/features/customers/_components/Customers";
 import Dashboard from "@/features/dashboard/Dashboard";
 import Layout from "@/features/dashboard/layout";
-import Facilities from "@/features/facilities/_components/Facilities";
-import FacilitiesForm from "@/features/facilities/_components/FacilitiesForm";
-import Resources from "@/features/resources/_components/Resources";
-import ResourcesForm from "@/features/resources/_components/ResourcesForm";
-import ResourceType from "@/features/resourceType/_components/ResourcesType";
-import ResourceTypeForm from "@/features/resourceType/_components/ResourcesTypeForm";
-import ServiceCategory from "@/features/serviceCategory/_components/ServiceCategory";
-import ServiceCategoryForm from "@/features/serviceCategory/_components/ServiceCategoryForm";
-import Services from "@/features/services/_components/Services";
-import SevicesForm from "@/features/services/_components/SevicesForm";
+import Facilities from "@/features/basics/facilities/_components/Facilities";
+import FacilitiesForm from "@/features/basics/facilities/_components/FacilitiesForm";
+import Resources from "@/features/basics/resources/_components/Resources";
+import ResourcesForm from "@/features/basics/resources/_components/ResourcesForm";
+import ResourceType from "@/features/basics/resourceType/_components/ResourcesType";
+import ResourceTypeForm from "@/features/basics/resourceType/_components/ResourcesTypeForm";
+import ServiceCategory from "@/features/basics/serviceCategory/_components/ServiceCategory";
+import ServiceCategoryForm from "@/features/basics/serviceCategory/_components/ServiceCategoryForm";
+import Services from "@/features/basics/services/_components/Services";
+import SevicesForm from "@/features/basics/services/_components/SevicesForm";
 import Therapists from "@/features/therapists/_components/Therapists";
 import TherapistsForm from "@/features/therapists/_components/TherapistsForm";
 import { useRoutes } from "react-router-dom";
@@ -21,6 +21,10 @@ import TabList from "@/features/booking/_components/reservation/_components/TabL
 import NotFound from "@/features/_components/NotFound";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Profile from "@/features/profile/_components/Profile";
+import Company from "@/features/basics/company/_components/Company";
+import CompanyForm from "@/features/basics/company/_components/CompanyForm";
+import Contract from "@/features/basics/contract/_components/Contract";
+import ContractForm from "@/features/basics/contract/_components/ContractForm";
 
 function Router() {
   const routes = [
@@ -91,6 +95,22 @@ function Router() {
         {
           path: "/facilities/create",
           element: <FacilitiesForm />,
+        },
+        {
+          path: "/company",
+          element: <Company />,
+        },
+        {
+          path: "/company/create",
+          element: <CompanyForm />,
+        },
+        {
+          path: "/contract",
+          element: <Contract />,
+        },
+        {
+          path: "/contract/create",
+          element: <ContractForm />,
         },
         {
           path: "/booking",

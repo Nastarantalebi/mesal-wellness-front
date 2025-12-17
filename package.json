@@ -28,6 +28,7 @@
     "react-multi-date-picker": "^4.5.2",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.9.4",
+    "react-select": "^5.10.2",
     "react-transition-group": "^4.4.5",
     "simplebar-react": "^3.3.2",
     "tabulator-tables": "^6.3.1",

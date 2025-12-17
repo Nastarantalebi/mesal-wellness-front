@@ -1,11 +1,6 @@
 import clsx from "clsx";
 import { useEffect, useRef } from "react";
-import type {
-  ControllerRenderProps,
-  FieldError,
-  FieldValues,
-  Path,
-} from "react-hook-form";
+import type { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
 import DatePicker, {
   DateObject,
   type DatePickerRef,
@@ -15,7 +10,6 @@ import { useOutsideClick } from "../useOutsideClick";
 
 type TProps<TFormValues extends FieldValues> = {
   field: ControllerRenderProps<TFormValues, Path<TFormValues>>;
-  error?: FieldError;
   inputClassName?: string;
   autoFocus?: boolean;
   portal?: boolean;
@@ -23,7 +17,6 @@ type TProps<TFormValues extends FieldValues> = {
 
 function TimePickerField<TFormValues extends FieldValues>({
   field,
-  error,
   inputClassName,
   autoFocus = false,
   portal = false,
@@ -60,7 +53,6 @@ function TimePickerField<TFormValues extends FieldValues>({
     else onChange("");
   };
 
-  const isError = !!error;
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useOutsideClick(wrapperRef, datePickerRef);
@@ -80,7 +72,6 @@ function TimePickerField<TFormValues extends FieldValues>({
           "w-full rounded-md border px-3 py-2 text-sm",
           "bg-white text-gray-900 border-gray-300 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
           "disabled:cursor-not-allowed disabled:opacity-50",
-          isError && "border-destructive focus-visible:ring-destructive",
           inputClassName
         )}
       />

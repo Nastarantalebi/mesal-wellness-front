@@ -3,12 +3,7 @@ import { useEffect, useRef } from "react";
 import persian from "react-date-object/calendars/persian";
 import persian_en from "react-date-object/locales/persian_en";
 import persian_fa from "react-date-object/locales/persian_fa";
-import type {
-  ControllerRenderProps,
-  FieldError,
-  FieldValues,
-  Path,
-} from "react-hook-form";
+import type { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
 import DatePicker, {
   DateObject,
   type DatePickerRef,
@@ -19,7 +14,6 @@ import { useOutsideClick } from "../useOutsideClick";
 
 type TProps<TFormValues extends FieldValues> = {
   field: ControllerRenderProps<TFormValues, Path<TFormValues>>;
-  error?: FieldError;
   inputClassName?: string;
   placeholder?: string;
   showTimePicker?: boolean;
@@ -31,7 +25,6 @@ type TProps<TFormValues extends FieldValues> = {
 
 function DatePickerField<TFormValues extends FieldValues>({
   field,
-  error,
   inputClassName,
   placeholder = "یک تاریخ وارد کنید",
   showTimePicker = false,
@@ -89,7 +82,6 @@ function DatePickerField<TFormValues extends FieldValues>({
     else onChange((input as HTMLInputElement).value);
   };
 
-  const isError = !!error;
   const wrapperRef = useRef<HTMLDivElement>(null);
   useOutsideClick(wrapperRef, datePickerRef);
 
@@ -105,7 +97,6 @@ function DatePickerField<TFormValues extends FieldValues>({
           "disabled:cursor-not-allowed disabled:opacity-50",
           // دارک مود
           "dark:bg-neutral-800 dark:text-gray-100 dark:border-neutral-600 dark:placeholder-gray-400 dark:focus-visible:ring-blue-400",
-          isError && "border-destructive focus-visible:ring-destructive",
           inputClassName
         )}
         containerStyle={{ width: "100%", direction: "ltr" }}

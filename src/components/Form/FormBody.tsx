@@ -90,7 +90,7 @@ function FormBody<TFormValues extends FieldValues>({
     <>
       {formFields?.map((fieldConfig, index) => {
         if (!fieldConfig) return null;
-        const { required, ...rendererProps } = fieldConfig;
+        const { ...rendererProps } = fieldConfig;
         if (fieldConfig.name === "separator")
           return (
             <div className="col-span-full" key={fieldConfig.name + index}>

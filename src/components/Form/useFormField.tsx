@@ -5,13 +5,12 @@ import type {
   Path,
 } from "react-hook-form";
 import type { TFormData } from "@/types";
-import FormSelect from "./FormSelect";
 import clsx from "clsx";
 import FormInput from "./FormInput";
 import DatePickerField from "./DatePicker";
 import TimePickerField from "./TimePicker";
 import TagsInput from "./TagsInput";
-import { useEffect } from "react";
+import ReactSelect from "./FormSelect/ReactSelect";
 
 /**
  * @description
@@ -71,29 +70,41 @@ function useFormField<TFormValues extends FieldValues>() {
     // بر اساس نوع فیلد، کامپوننت مناسب را برمی‌گردانیم
     switch (type) {
       case "select": {
-        const firstOption = option?.[0]?.value;
-
-        useEffect(() => {
-          if (
-            firstOption !== undefined &&
-            (field.value === undefined ||
-              // field.value === null ||
-              field.value === "" ||
-              field.value === 0)
-          ) {
-            field.onChange(firstOption);
-          }
-        }, [firstOption, field.value]);
-
         return (
-          <FormSelect {...field} id={name} {...rest}>
-            {option?.map(({ label, value }: any) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </FormSelect>
+          <ReactSelect
+            className={clsx({
+              "border border-danger": errors[name],
+            })}
+            field={field}
+            options={option || ([] as any)}
+            placeholder={placeholder}
+            isDisabled={rest.disabled}
+            isClearable={!required}
+          />
         );
+        // const firstOption = option?.[0]?.value;
+
+        // useEffect(() => {
+        //   if (
+        //     firstOption !== undefined &&
+        //     (field.value === undefined ||
+        //       // field.value === null ||
+        //       field.value === "" ||
+        //       field.value === 0)
+        //   ) {
+        //     field.onChange(firstOption);
+        //   }
+        // }, [firstOption, field.value]);
+
+        // return (
+        //   <FormSelect {...field} id={name} {...rest}>
+        //     {option?.map(({ label, value }: any) => (
+        //       <option key={value} value={value}>
+        //         {label}
+        //       </option>
+        //     ))}
+        //   </FormSelect>
+        // );
       }
 
       // case "treeSelect":
@@ -137,8 +148,10 @@ function useFormField<TFormValues extends FieldValues>() {
       case "date":
         return (
           <DatePickerField<TFormValues>
+            inputClassName={clsx({
+              "!border !border-danger": errors[name],
+            })}
             field={field}
-            error={errors as any}
             min={props.minDate as any}
             max={props.maxDate as any}
             placeholder={placeholder ?? "تاریخ"}
@@ -198,7 +211,9 @@ function useFormField<TFormValues extends FieldValues>() {
         return (
           <TimePickerField<TFormValues>
             field={field}
-            error={errors as any}
+            className={clsx({
+              "border border-danger": errors[name],
+            })}
             min={props.min}
             max={props.max}
             {...rest}
@@ -211,6 +226,9 @@ function useFormField<TFormValues extends FieldValues>() {
             min={props.min}
             placeholder={placeholder}
             max={props.max}
+            className={clsx({
+              "border border-danger": errors[name],
+            })}
             {...rest}
           />
         );
