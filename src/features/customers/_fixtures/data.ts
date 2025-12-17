@@ -14,12 +14,12 @@ export const schema = z
     last_name: z.string().min(1, " "),
     phone: mobileRequireValidationSchema,
     birth_date: z.string().nullable(),
-    gender: z.string(),
+    gender: z.string().min(1, " "),
     joined_at: z.string().nullable(),
-    membership_type: z.string(),
+    membership_type: z.string().min(1, " "),
     national_code: nationalCodeValidationSchema,
     notes: z.string().nullable(),
-    status: z.string(),
+    status: z.string().min(1, " "),
     user_id: z.number().nullable(),
   })
   .refine(

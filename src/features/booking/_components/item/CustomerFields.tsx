@@ -67,39 +67,53 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
     <>
       <div className="grid grid-cols-12 gap-4 w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full overflow-x-hidden">
         {/* ردیف جستجو مشتری */}
-        <div className="col-span-12 md:col-span-4 xl:col-span-2 flex gap-2 items-end">
-          <div className="flex-1">
-            <FormLabel>یافتن مشتری</FormLabel>
+        <div className="col-span-12 md:col-span-4 xl:col-span-3">
+          <FormLabel>یافتن مشتری</FormLabel>
+
+          <div className="relative">
             <Controller
               control={form.control}
               name="search_customer"
               render={({ field }) => (
-                <FormInput {...field} placeholder="نام یا شماره تلفن مشتری" />
+                <FormInput
+                  {...field}
+                  placeholder="نام یا شماره تلفن مشتری"
+                  className="pl-20" // جا برای دکمه‌ها
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      if (!isFetching) {
+                        refetch();
+                      }
+                    }
+                  }}
+                />
               )}
             />
+            <div className="absolute inset-y-0 end-1 flex items-center gap-1">
+              {!!search_item && (
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="primary"
+                  onClick={() => refetch()}>
+                  <Lucide
+                    icon={isFetching ? "Loader" : "Search"}
+                    className={`w-4 h-4 ${isFetching ? "animate-spin" : ""}`}
+                  />
+                </Button>
+              )}
+              <Button
+                type="button"
+                size="sm"
+                variant="success"
+                onClick={() => setOpenModal(true)}>
+                <Lucide icon="Plus" className="w-4 h-4" />
+              </Button>
+            </div>
           </div>
-          {!!search_item && (
-            <Button
-              type="button"
-              variant="outline-primary"
-              size="sm"
-              onClick={() => refetch()}
-              className="h-9 flex items-center gap-1">
-              <Lucide
-                icon={isFetching ? "Loader" : "Search"}
-                className={`w-4 h-4 ${isFetching ? "animate-spin" : ""}`}
-              />
-            </Button>
-          )}
-          <Button
-            type="button"
-            variant="outline-primary"
-            size="sm"
-            onClick={() => setOpenModal(true)}
-            className="h-9 flex items-center gap-1">
-            <Lucide icon="Plus" className={`w-4 h-4 `} />
-          </Button>
         </div>
+
         {/* پیام راهنما */}
         {!search_item ? (
           <div className="col-span-12 text-gray-500 text-sm">
