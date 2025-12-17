@@ -4,7 +4,6 @@ export type TDataById = {
       id: number;
       name: string;
     };
-    company_id: number;
     discount_percent: string;
     finished_at: string;
     id: number;

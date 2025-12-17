@@ -52,14 +52,14 @@ const initialState: SideMenuState = {
           title: "مکان‌های مجموعه",
         },
         {
-          icon: "Handshake",
-          pathname: "/contract",
-          title: "قراردادها",
-        },
-        {
           icon: "Building2",
           pathname: "/company",
           title: "شرکت‌های طرف قرارداد",
+        },
+        {
+          icon: "Handshake",
+          pathname: "/contract",
+          title: "قراردادها",
         },
       ],
     },
