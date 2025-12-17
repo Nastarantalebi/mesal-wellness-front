@@ -8,9 +8,10 @@ import ItemRowFields from "./ItemRowFields";
 type TProps = {
   form: any;
   selectedRecord: any;
+  companyDiscount: number;
 };
 
-const ItemForm = ({ form, selectedRecord }: TProps) => {
+const ItemForm = ({ form, selectedRecord, companyDiscount }: TProps) => {
   const isEdit = !!selectedRecord;
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -18,7 +19,6 @@ const ItemForm = ({ form, selectedRecord }: TProps) => {
   });
 
   if (fields.length === 0) append(itemsValues);
-
   return (
     <>
       <div className="w-full mt-4 p-2 md:p-4 border rounded-lg bg-gray-50 col-span-full overflow-x-hidden">
@@ -39,6 +39,7 @@ const ItemForm = ({ form, selectedRecord }: TProps) => {
             index={index}
             isEdit={isEdit}
             remove={remove}
+            companyDiscount={companyDiscount}
           />
         ))}
       </div>

@@ -21,12 +21,9 @@ const TotalFields = ({ form }: { form: any }) => {
         ? manualPayable
         : total - validDeposit;
 
-    const remainingAmount = payableAmount;
-
     form.setValue("total_amount", total);
     form.setValue("deposit", validDeposit);
     form.setValue("payable_amount", payableAmount);
-    form.setValue("remaining_amount", remainingAmount);
   }, [items, deposit, manualPayable, form]);
 
   return (
@@ -57,16 +54,6 @@ const TotalFields = ({ form }: { form: any }) => {
             control={form.control}
             name="payable_amount"
             render={({ field }) => <FormInput {...field} dir="ltr" money />}
-          />
-        </div>
-        <div className="col-span-full md:col-span-1 mb-1 md:mb-4">
-          <FormLabel>مبلغ باقیمانده(تومان)</FormLabel>
-          <Controller
-            control={form.control}
-            name="remaining_amount"
-            render={({ field }) => (
-              <FormInput {...field} dir="ltr" money readOnly />
-            )}
           />
         </div>
       </div>

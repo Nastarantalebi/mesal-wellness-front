@@ -13,15 +13,22 @@ import Modal from "@/components/Headless/Dialog/Modal";
 import CustomersForm from "@/features/customers/_components/CustomersForm";
 import ReactSelect from "@/components/Form/FormSelect/ReactSelect";
 import clsx from "clsx";
+import { queryKey, url } from "../../_fixtures/data";
 
 type TProps = {
   form: any;
   dataCreate?: TCreateData;
   selectedRecord: any;
   dataById?: TDataById;
+  setCompanyDiscount: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
+const CustomerFields = ({
+  form,
+  selectedRecord,
+  dataById,
+  setCompanyDiscount,
+}: TProps) => {
   const isEdit = !!selectedRecord;
   const [openModal, setOpenModal] = useState<boolean>(false);
   const search_item = useWatch({
@@ -39,11 +46,10 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
     queryKey: ["customer_search", search_item],
     enabled: false,
   });
-  const { data: dataCompony } = useGetData<any>({
-    url: "/wellness/bookings/create/",
-    queryKey: "bookingComponyQueryKey",
+  const { data: dataCreate } = useGetData<TCreateData>({
+    url: `${url}create`,
+    queryKey: `${queryKey},"dataCreate"`,
   });
-  console.log(dataCompony);
   const errorField = form.formState.errors;
   useEffect(() => {
     if (isEdit && dataById?.booking?.customer_name) {
@@ -70,7 +76,20 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
       form.setValue("phone", "");
     }
   }, [selectedCustomerId, data]);
-
+  const selectedCompanyId = useWatch({
+    control: form.control,
+    name: "compony",
+  });
+  useEffect(() => {
+    if (!selectedCompanyId || !dataCreate?.data?.companies) {
+      setCompanyDiscount(0);
+      return;
+    }
+    const selectedCompany = dataCreate.data.companies.find(
+      (item) => item.id === Number(selectedCompanyId)
+    );
+    setCompanyDiscount(selectedCompany?.discount_percent ?? 0);
+  }, [selectedCompanyId, dataCreate]);
   return (
     <>
       <div className="grid grid-cols-12 gap-4 w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full overflow-x-hidden">
@@ -194,8 +213,8 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
                     <ReactSelect
                       field={field}
                       options={
-                        data?.data?.map((item) => ({
-                          label: item.full_name,
+                        dataCreate?.data?.companies.map((item) => ({
+                          label: item.name,
                           value: item.id,
                         })) ?? []
                       }

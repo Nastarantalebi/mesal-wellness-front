@@ -17,11 +17,35 @@ type TProps = {
   index: number;
   isEdit: boolean;
   remove: (index: number) => void;
+  companyDiscount: number;
 };
 
-const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
+const ItemRowFields = ({
+  form,
+  index,
+  isEdit,
+  remove,
+  companyDiscount,
+}: TProps) => {
+  const applyDiscount = (price: number, discount: number) => {
+    if (!price || !discount) return price;
+    return Math.round(price - (price * discount) / 100);
+  };
+
   const item = useWatch({ control: form.control, name: `items.${index}` });
   const validItemDate = !!item?.date && !!item?.start_at && !!item?.end_at;
+  const unitPrice = useWatch({
+    control: form.control,
+    name: `items.${index}.unit_price`,
+  });
+  useEffect(() => {
+    if (!unitPrice) {
+      form.setValue(`items.${index}.total_price`, 0);
+      return;
+    }
+    const finalPrice = applyDiscount(unitPrice, companyDiscount);
+    form.setValue(`items.${index}.total_price`, finalPrice);
+  }, [unitPrice, companyDiscount, form, index]);
 
   const { data, refetch, isFetching } = useGetData<TAvailabilityData>({
     url: validItemDate
