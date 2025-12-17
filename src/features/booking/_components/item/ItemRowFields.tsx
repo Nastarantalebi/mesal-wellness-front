@@ -73,7 +73,6 @@ const ItemRowFields = ({
 
   const services = dataServices?.data || [];
   const errorField = form.formState.errors.items;
-  console.log(errorField);
   return (
     <div className="flex flex-col items-end justify-end gap-2 my-2 border border-gray-400 rounded-md p-2 md:p-3">
       {/* دکمه حذف */}
