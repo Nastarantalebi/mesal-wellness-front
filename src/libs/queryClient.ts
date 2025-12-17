@@ -32,9 +32,7 @@ const handleHttpError = (error: any) => {
       break;
     case 429:
       Toastify({
-        text:
-          message ||
-          "آیپی شما به دلیل ارسال درخواست زیاد محدود شده است. لطفاً دقایقی دیگر تلاش کنید.",
+        text: "درخواست‌ها بیش از حد مجاز است. لطفاً کمی بعد دوباره تلاش کنید",
         duration: 5000,
         newWindow: true,
         close: false,
