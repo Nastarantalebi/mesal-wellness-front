@@ -112,29 +112,6 @@ const ItemRowFields = ({
           <Controller
             control={form.control}
             name={`items.${index}.start_at`}
-            // render={({ field }) => {
-            //   const firstOption = start_time[0]?.value;
-            //   useEffect(() => {
-            //     if (
-            //       firstOption !== undefined &&
-            //       (field.value === undefined ||
-            //         field.value === "" ||
-            //         field.value === 0)
-            //     ) {
-            //       field.onChange(firstOption);
-            //     }
-            //   }, [firstOption, field.value, field]);
-
-            //   return (
-            //     <FormSelect {...field}>
-            //       {start_time.map((item: any) => (
-            //         <option key={item.value} value={item.value}>
-            //           {item.label}
-            //         </option>
-            //       ))}
-            //     </FormSelect>
-            //   );
-            // }}
             render={({ field }) => (
               <>
                 <ReactSelect
@@ -157,29 +134,6 @@ const ItemRowFields = ({
           <Controller
             control={form.control}
             name={`items.${index}.end_at`}
-            // render={({ field }) => {
-            //   const firstOption = end_time[0]?.value;
-            //   useEffect(() => {
-            //     if (
-            //       firstOption !== undefined &&
-            //       (field.value === undefined ||
-            //         field.value === "" ||
-            //         field.value === 0)
-            //     ) {
-            //       field.onChange(firstOption);
-            //     }
-            //   }, [firstOption, field.value, field]);
-
-            //   return (
-            //     <FormSelect {...field}>
-            //       {end_time.map((item: any) => (
-            //         <option key={item.value} value={item.value}>
-            //           {item.label}
-            //         </option>
-            //       ))}
-            //     </FormSelect>
-            //   );
-            // }}
             render={({ field }) => (
               <>
                 <ReactSelect
@@ -251,36 +205,6 @@ const ItemRowFields = ({
                     />
                   );
                 }}
-                // render={({ field }) => {
-                //   const firstOption = data?.available_therapists?.[0]?.id;
-                //   useEffect(() => {
-                //     if (
-                //       firstOption !== undefined &&
-                //       (field.value === undefined ||
-                //         field.value === "" ||
-                //         field.value === 0)
-                //     ) {
-                //       field.onChange(firstOption);
-                //     }
-                //   }, [firstOption, field.value, field]);
-
-                //   return isEdit ? (
-                //     <FormInput {...field} readOnly />
-                //   ) : (
-                //     <FormSelect
-                //       {...field}
-                //       className={clsx({
-                //         "!border !border-danger":
-                //           errorField?.[index]?.therapist_id,
-                //       })}>
-                //       {data?.available_therapists?.map((therapist) => (
-                //         <option key={therapist.id} value={therapist.id}>
-                //           {therapist.name}
-                //         </option>
-                //       ))}
-                //     </FormSelect>
-                //   );
-                // }}
               />
             </div>
 
@@ -289,36 +213,6 @@ const ItemRowFields = ({
               <Controller
                 control={form.control}
                 name={`items.${index}.resource_id`}
-                // render={({ field }) => {
-                //   const firstOption = data?.available_rooms?.[0]?.id;
-                //   useEffect(() => {
-                //     if (
-                //       firstOption !== undefined &&
-                //       (field.value === undefined ||
-                //         field.value === "" ||
-                //         field.value === 0)
-                //     ) {
-                //       field.onChange(firstOption);
-                //     }
-                //   }, [firstOption, field.value, field]);
-
-                //   return isEdit ? (
-                //     <FormInput {...field} readOnly />
-                //   ) : (
-                //     <FormSelect
-                //       {...field}
-                //       className={clsx({
-                //         "!border !border-danger":
-                //           errorField?.[index]?.resource_id,
-                //       })}>
-                //       {data?.available_rooms?.map((room) => (
-                //         <option key={room.id} value={room.id}>
-                //           {room.name}
-                //         </option>
-                //       ))}
-                //     </FormSelect>
-                //   );
-                // }}
                 render={({ field }) => {
                   return isEdit ? (
                     <FormInput {...field} readOnly />
@@ -354,33 +248,6 @@ const ItemRowFields = ({
                 control={form.control}
                 name={`items.${index}.service_id`}
                 render={({ field }) => {
-                  // const firstOption = services?.[0]?.value;
-
-                  // useEffect(() => {
-                  //   if (
-                  //     firstOption !== undefined &&
-                  //     (field.value === undefined ||
-                  //       field.value === "" ||
-                  //       field.value === 0)
-                  //   ) {
-                  //     field.onChange(firstOption);
-
-                  //     const selectedService = services.find(
-                  //       (s) => s.value === firstOption
-                  //     );
-                  //     if (selectedService) {
-                  //       form.setValue(
-                  //         `items.${index}.unit_price`,
-                  //         selectedService.custom_price
-                  //       );
-                  //       form.setValue(
-                  //         `items.${index}.total_price`,
-                  //         selectedService.custom_price
-                  //       );
-                  //     }
-                  //   }
-                  // }, [firstOption, field.value, field, services, form, index]);
-
                   const handleChange = (option: any) => {
                     const value = option?.value ?? null;
                     field.onChange(value);
@@ -425,20 +292,6 @@ const ItemRowFields = ({
                       }
                       onChange={handleChange}
                     />
-
-                    // <FormSelect
-                    //   {...field}
-                    //   onChange={handleChange}
-                    //   className={clsx({
-                    //     "!border !border-danger":
-                    //       errorField?.[index]?.service_id,
-                    //   })}>
-                    //   {services.map((s) => (
-                    //     <option key={s.value} value={s.value}>
-                    //       {s.label}
-                    //     </option>
-                    //   ))}
-                    // </FormSelect>
                   );
                 }}
               />

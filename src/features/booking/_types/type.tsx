@@ -32,7 +32,9 @@ export type TRequest = {
   notes: string | null;
   deposit: number;
   total_amount: number;
+  discount_amount: number;
   payable_amount: number;
+  company_id: number | null;
   items: TItems[];
 };
 export type TResponse = {

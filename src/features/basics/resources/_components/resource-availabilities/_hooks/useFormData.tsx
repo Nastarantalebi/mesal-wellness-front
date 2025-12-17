@@ -48,6 +48,7 @@ const useFormData = () => {
       label: "وضعیت",
       placeholder: "وضعیت",
       type: "select",
+      required: true,
       isLoading: isLoading,
       option: data?.data.statuses ?? [],
     },

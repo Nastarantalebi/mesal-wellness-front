@@ -25,7 +25,15 @@ const TotalFields = ({ form }: { form: any }) => {
     form.setValue("deposit", validDeposit);
     form.setValue("payable_amount", payableAmount);
   }, [items, deposit, manualPayable, form]);
-
+  const totalDiscount =
+    form.getValues("items")?.reduce((sum: any, item: any) => {
+      const unit = item.unit_price || 0;
+      const total = item.total_price || 0;
+      return sum + (unit - total);
+    }, 0) || 0;
+  useEffect(() => {
+    form.setValue("discount_amount", totalDiscount);
+  }, [form, totalDiscount]);
   return (
     <div
       className={`w-full mt-4 p-4 border rounded-lg bg-gray-50 col-span-full overflow-x-hidden`}>

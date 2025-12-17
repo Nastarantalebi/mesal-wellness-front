@@ -17,10 +17,10 @@ import { queryKey, url } from "../../_fixtures/data";
 
 type TProps = {
   form: any;
-  dataCreate?: TCreateData;
   selectedRecord: any;
-  dataById?: TDataById;
   setCompanyDiscount: React.Dispatch<React.SetStateAction<number>>;
+  dataCreate?: TCreateData;
+  dataById?: TDataById;
 };
 
 const CustomerFields = ({
@@ -78,7 +78,7 @@ const CustomerFields = ({
   }, [selectedCustomerId, data]);
   const selectedCompanyId = useWatch({
     control: form.control,
-    name: "compony",
+    name: "company_id",
   });
   useEffect(() => {
     if (!selectedCompanyId || !dataCreate?.data?.companies) {
@@ -179,28 +179,6 @@ const CustomerFields = ({
               <Controller
                 control={form.control}
                 name="customer_id"
-                // render={({ field }) => {
-                //   const firstOption = data?.data?.[0]?.id;
-                //   useEffect(() => {
-                //     if (
-                //       firstOption !== undefined &&
-                //       (field.value === undefined ||
-                //         field.value === "" ||
-                //         field.value === 0)
-                //     ) {
-                //       field.onChange(firstOption);
-                //     }
-                //   }, [firstOption, field.value, field]);
-                //   return (
-                //     <FormSelect {...field}>
-                //       {data.data.map((item: any) => (
-                //         <option key={item.id} value={item.id}>
-                //           {item.label}
-                //         </option>
-                //       ))}
-                //     </FormSelect>
-                //   );
-                // }}
                 render={({ field }) => (
                   <>
                     <ReactSelect
@@ -223,7 +201,7 @@ const CustomerFields = ({
               <FormLabel>شرکت</FormLabel>
               <Controller
                 control={form.control}
-                name="compony"
+                name="company_id"
                 render={({ field }) => (
                   <>
                     <ReactSelect
@@ -241,17 +219,6 @@ const CustomerFields = ({
                 )}
               />
             </div>
-
-            {/* <div className="col-span-12 md:col-span-4 xl:col-span-2">
-              <FormLabel>شماره تلفن</FormLabel>
-              <Controller
-                control={form.control}
-                name="phone"
-                render={({ field }) => (
-                  <FormInput {...field} readOnly dir="ltr" />
-                )}
-              />
-            </div> */}
           </>
         )}
 

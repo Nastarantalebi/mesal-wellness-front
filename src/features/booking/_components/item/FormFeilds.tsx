@@ -17,7 +17,6 @@ const FormFeilds = ({
   dataById,
 }: TProps) => {
   const [companyDiscount, setCompanyDiscount] = useState<number>(0);
-
   return (
     <>
       {isFetchingById ? (

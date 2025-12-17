@@ -11,8 +11,10 @@ export const timeToMinutes = (time: string) => {
 export const schema = z
   .object({
     customer_id: z.coerce.number().min(1, " "),
+    company_id: z.coerce.number().nullable(),
     notes: z.string().nullable(),
     payable_amount: z.coerce.number(),
+    discount_amount: z.coerce.number(),
     total_amount: z.coerce.number(),
     deposit: z.coerce.number(),
     items: z.array(
@@ -57,6 +59,8 @@ export const initialValues: TRequest = {
   notes: null,
   deposit: 200000,
   total_amount: 0,
+  company_id: null,
   payable_amount: 0,
+  discount_amount: 0,
   items: [itemsValues],
 };

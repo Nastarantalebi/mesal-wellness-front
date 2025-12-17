@@ -55,6 +55,7 @@ const useFormData = () => {
       type: "select",
       isLoading: isLoading,
       option: dataCreate?.statuses,
+      required: true,
     },
     {
       name: "description",

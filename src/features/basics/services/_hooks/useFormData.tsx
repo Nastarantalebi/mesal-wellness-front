@@ -44,6 +44,7 @@ const useFormData = (isEdit: boolean) => {
       name: "gender_policy",
       label: "پذیرش بر اساس جنسیت",
       placeholder: "پذیرش بر اساس جنسیت",
+      required: true,
       type: "select",
       isLoading: isLoading,
       option: dataCreate?.genderPolicies ?? [],
@@ -54,6 +55,7 @@ const useFormData = (isEdit: boolean) => {
           name: "is_active",
           label: "وضعیت",
           placeholder: "وضعیت",
+          required: true,
           type: "select",
           option: [
             { label: "فعال", value: "true" },
