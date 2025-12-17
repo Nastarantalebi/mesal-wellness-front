@@ -116,6 +116,12 @@ export type TCreateData = {
       value: number;
       label: string;
     }[];
+    companies: {
+      id: number;
+      name: string;
+      discount_percent: number;
+      has_active_contract: boolean;
+    }[];
     resources: {
       value: number;
       label: string;

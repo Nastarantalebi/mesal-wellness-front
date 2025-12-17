@@ -11,6 +11,8 @@ import Lucide from "@/components/Lucide";
 import { useEffect, useState } from "react";
 import Modal from "@/components/Headless/Dialog/Modal";
 import CustomersForm from "@/features/customers/_components/CustomersForm";
+import ReactSelect from "@/components/Form/FormSelect/ReactSelect";
+import clsx from "clsx";
 
 type TProps = {
   form: any;
@@ -37,6 +39,12 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
     queryKey: ["customer_search", search_item],
     enabled: false,
   });
+  const { data: dataCompony } = useGetData<any>({
+    url: "/wellness/bookings/create/",
+    queryKey: "bookingComponyQueryKey",
+  });
+  console.log(dataCompony);
+  const errorField = form.formState.errors;
   useEffect(() => {
     if (isEdit && dataById?.booking?.customer_name) {
       form.setValue("search_customer", dataById.booking.customer_name);
@@ -78,7 +86,12 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
                 <FormInput
                   {...field}
                   placeholder="نام یا شماره تلفن مشتری"
-                  className="pl-20" // جا برای دکمه‌ها
+                  className={clsx([
+                    "pl-20",
+                    {
+                      "!border !border-danger": errorField?.customer_id,
+                    },
+                  ])}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       e.preventDefault();
@@ -169,6 +182,28 @@ const CustomerFields = ({ form, selectedRecord, dataById }: TProps) => {
                     </FormSelect>
                   );
                 }}
+              />
+            </div>
+            <div className="col-span-12 md:col-span-6 xl:col-span-3">
+              <FormLabel>شرکت</FormLabel>
+              <Controller
+                control={form.control}
+                name="compony"
+                render={({ field }) => (
+                  <>
+                    <ReactSelect
+                      field={field}
+                      options={
+                        data?.data?.map((item) => ({
+                          label: item.full_name,
+                          value: item.id,
+                        })) ?? []
+                      }
+                      placeholder="انتخاب شرکت"
+                      isSearchable
+                    />
+                  </>
+                )}
               />
             </div>
 

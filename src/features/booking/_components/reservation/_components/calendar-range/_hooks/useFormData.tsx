@@ -24,9 +24,7 @@ const useFormData = ({ isLoadingCreate, dataCreate }: TProps) => {
       placeholder: "وضعیت نوبت",
       type: "select",
       isLoading: isLoadingCreate,
-      option: dataCreate?.data.statuses
-        ? [{ label: "همه نوبت‌ها", value: "" }, ...dataCreate.data.statuses]
-        : [],
+      option: dataCreate?.data.statuses,
     },
   ];
   return { fields };

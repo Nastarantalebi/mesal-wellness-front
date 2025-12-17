@@ -1,7 +1,7 @@
 import useGetData from "@/services/useGetData";
 import { Controller, useWatch } from "react-hook-form";
 import type { TAvailabilityData, TTherapistService } from "../../_types/type";
-import { url } from "../../_fixtures/data";
+import { timeToMinutes, url } from "../../_fixtures/data";
 import { FormInput, FormLabel, FormSelect } from "@/components/Form";
 import DatePickerField from "@/components/Form/DatePicker";
 import Button from "@/components/Button";
@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { Trash2 } from "lucide-react";
 import { end_time, start_time } from "@/features/_fixtures/data";
 import { DateObject } from "react-multi-date-picker";
+import clsx from "clsx";
 
 type TProps = {
   form: any;
@@ -35,9 +36,20 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
     queryKey: ["therapist_services", therapistId],
     enabled: !!therapistId,
   });
+  const startAt = form.watch(`items.${index}.start_at`);
+  const endAt = form.watch(`items.${index}.end_at`);
+
+  const isInvalidTime = (() => {
+    const start = timeToMinutes(startAt);
+    const end = timeToMinutes(endAt);
+
+    if (start === null || end === null) return false;
+    return start >= end;
+  })();
 
   const services = dataServices?.data || [];
-
+  const errorField = form.formState.errors.items;
+  console.log(errorField);
   return (
     <div className="flex flex-col items-end justify-end gap-2 my-2 border border-gray-400 rounded-md p-2 md:p-3">
       {/* دکمه حذف */}
@@ -60,6 +72,9 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
             name={`items.${index}.date`}
             render={({ field }) => (
               <DatePickerField
+                inputClassName={clsx({
+                  "!border !border-danger": errorField?.[index]?.date,
+                })}
                 field={field}
                 placeholder="تاریخ نوبت"
                 min={new DateObject()}
@@ -128,6 +143,11 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
               );
             }}
           />
+          {isInvalidTime && (
+            <p className="text-danger text-xs text-right mt-1">
+              زمان پایان باید بعد از زمان شروع باشد
+            </p>
+          )}
         </div>
 
         {validItemDate && (
@@ -136,8 +156,9 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
               type="button"
               variant="outline-primary"
               size="sm"
+              disabled={isInvalidTime}
               onClick={() => refetch()}
-              className="whitespace-nowrap flex items-center gap-1 h-9">
+              className="whitespace-nowrap flex items-center gap-1 h-9 mx-auto cursor-pointer">
               <Lucide
                 icon={isFetching ? "Loader" : "Search"}
                 className={`w-4 h-4 ${isFetching ? "animate-spin" : ""}`}
@@ -148,7 +169,7 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
       </div>
 
       {/* ماساژیست، مکان، سرویس، مبلغ */}
-      <div className="w-full grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-2">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-3">
         {(data || isEdit) && (
           <>
             <div className="flex flex-col">
@@ -172,7 +193,12 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
                   return isEdit ? (
                     <FormInput {...field} readOnly />
                   ) : (
-                    <FormSelect {...field}>
+                    <FormSelect
+                      {...field}
+                      className={clsx({
+                        "!border !border-danger":
+                          errorField?.[index]?.therapist_id,
+                      })}>
                       {data?.available_therapists?.map((therapist) => (
                         <option key={therapist.id} value={therapist.id}>
                           {therapist.name}
@@ -205,7 +231,12 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
                   return isEdit ? (
                     <FormInput {...field} readOnly />
                   ) : (
-                    <FormSelect {...field}>
+                    <FormSelect
+                      {...field}
+                      className={clsx({
+                        "!border !border-danger":
+                          errorField?.[index]?.resource_id,
+                      })}>
                       {data?.available_rooms?.map((room) => (
                         <option key={room.id} value={room.id}>
                           {room.name}
@@ -279,7 +310,13 @@ const ItemRowFields = ({ form, index, isEdit, remove }: TProps) => {
                   return isEdit ? (
                     <FormInput {...field} readOnly />
                   ) : (
-                    <FormSelect {...field} onChange={handleChange}>
+                    <FormSelect
+                      {...field}
+                      onChange={handleChange}
+                      className={clsx({
+                        "!border !border-danger":
+                          errorField?.[index]?.service_id,
+                      })}>
                       {services.map((s) => (
                         <option key={s.value} value={s.value}>
                           {s.label}
