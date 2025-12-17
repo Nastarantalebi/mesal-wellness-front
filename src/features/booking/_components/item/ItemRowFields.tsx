@@ -2,7 +2,7 @@ import useGetData from "@/services/useGetData";
 import { Controller, useWatch } from "react-hook-form";
 import type { TAvailabilityData, TTherapistService } from "../../_types/type";
 import { timeToMinutes, url } from "../../_fixtures/data";
-import { FormInput, FormLabel, FormSelect } from "@/components/Form";
+import { FormInput, FormLabel } from "@/components/Form";
 import DatePickerField from "@/components/Form/DatePicker";
 import Button from "@/components/Button";
 import Lucide from "@/components/Lucide";
@@ -11,6 +11,7 @@ import { Trash2 } from "lucide-react";
 import { end_time, start_time } from "@/features/_fixtures/data";
 import { DateObject } from "react-multi-date-picker";
 import clsx from "clsx";
+import ReactSelect from "@/components/Form/FormSelect/ReactSelect";
 
 type TProps = {
   form: any;
@@ -111,29 +112,43 @@ const ItemRowFields = ({
           <Controller
             control={form.control}
             name={`items.${index}.start_at`}
-            render={({ field }) => {
-              const firstOption = start_time[0]?.value;
-              useEffect(() => {
-                if (
-                  firstOption !== undefined &&
-                  (field.value === undefined ||
-                    field.value === "" ||
-                    field.value === 0)
-                ) {
-                  field.onChange(firstOption);
-                }
-              }, [firstOption, field.value, field]);
+            // render={({ field }) => {
+            //   const firstOption = start_time[0]?.value;
+            //   useEffect(() => {
+            //     if (
+            //       firstOption !== undefined &&
+            //       (field.value === undefined ||
+            //         field.value === "" ||
+            //         field.value === 0)
+            //     ) {
+            //       field.onChange(firstOption);
+            //     }
+            //   }, [firstOption, field.value, field]);
 
-              return (
-                <FormSelect {...field}>
-                  {start_time.map((item: any) => (
-                    <option key={item.value} value={item.value}>
-                      {item.label}
-                    </option>
-                  ))}
-                </FormSelect>
-              );
-            }}
+            //   return (
+            //     <FormSelect {...field}>
+            //       {start_time.map((item: any) => (
+            //         <option key={item.value} value={item.value}>
+            //           {item.label}
+            //         </option>
+            //       ))}
+            //     </FormSelect>
+            //   );
+            // }}
+            render={({ field }) => (
+              <>
+                <ReactSelect
+                  field={field}
+                  options={start_time?.map((item) => ({
+                    label: item.label,
+                    value: item.value,
+                  }))}
+                  placeholder="زمان شروع"
+                  isSearchable
+                  isClearable={false}
+                />
+              </>
+            )}
           />
         </div>
 
@@ -142,29 +157,43 @@ const ItemRowFields = ({
           <Controller
             control={form.control}
             name={`items.${index}.end_at`}
-            render={({ field }) => {
-              const firstOption = end_time[0]?.value;
-              useEffect(() => {
-                if (
-                  firstOption !== undefined &&
-                  (field.value === undefined ||
-                    field.value === "" ||
-                    field.value === 0)
-                ) {
-                  field.onChange(firstOption);
-                }
-              }, [firstOption, field.value, field]);
+            // render={({ field }) => {
+            //   const firstOption = end_time[0]?.value;
+            //   useEffect(() => {
+            //     if (
+            //       firstOption !== undefined &&
+            //       (field.value === undefined ||
+            //         field.value === "" ||
+            //         field.value === 0)
+            //     ) {
+            //       field.onChange(firstOption);
+            //     }
+            //   }, [firstOption, field.value, field]);
 
-              return (
-                <FormSelect {...field}>
-                  {end_time.map((item: any) => (
-                    <option key={item.value} value={item.value}>
-                      {item.label}
-                    </option>
-                  ))}
-                </FormSelect>
-              );
-            }}
+            //   return (
+            //     <FormSelect {...field}>
+            //       {end_time.map((item: any) => (
+            //         <option key={item.value} value={item.value}>
+            //           {item.label}
+            //         </option>
+            //       ))}
+            //     </FormSelect>
+            //   );
+            // }}
+            render={({ field }) => (
+              <>
+                <ReactSelect
+                  field={field}
+                  options={end_time?.map((item) => ({
+                    label: item.label,
+                    value: item.value,
+                  }))}
+                  placeholder="زمان پایان"
+                  isSearchable
+                  isClearable={false}
+                />
+              </>
+            )}
           />
           {isInvalidTime && (
             <p className="text-danger text-xs text-right mt-1">
@@ -201,35 +230,57 @@ const ItemRowFields = ({
                 control={form.control}
                 name={`items.${index}.therapist_id`}
                 render={({ field }) => {
-                  const firstOption = data?.available_therapists?.[0]?.id;
-                  useEffect(() => {
-                    if (
-                      firstOption !== undefined &&
-                      (field.value === undefined ||
-                        field.value === "" ||
-                        field.value === 0)
-                    ) {
-                      field.onChange(firstOption);
-                    }
-                  }, [firstOption, field.value, field]);
-
                   return isEdit ? (
                     <FormInput {...field} readOnly />
                   ) : (
-                    <FormSelect
-                      {...field}
+                    <ReactSelect
+                      field={field}
+                      options={
+                        data?.available_therapists?.map((item) => ({
+                          label: item.name,
+                          value: item.id,
+                        })) ?? []
+                      }
+                      placeholder="ماساژیست"
+                      isSearchable
+                      isClearable={false}
                       className={clsx({
                         "!border !border-danger":
                           errorField?.[index]?.therapist_id,
-                      })}>
-                      {data?.available_therapists?.map((therapist) => (
-                        <option key={therapist.id} value={therapist.id}>
-                          {therapist.name}
-                        </option>
-                      ))}
-                    </FormSelect>
+                      })}
+                    />
                   );
                 }}
+                // render={({ field }) => {
+                //   const firstOption = data?.available_therapists?.[0]?.id;
+                //   useEffect(() => {
+                //     if (
+                //       firstOption !== undefined &&
+                //       (field.value === undefined ||
+                //         field.value === "" ||
+                //         field.value === 0)
+                //     ) {
+                //       field.onChange(firstOption);
+                //     }
+                //   }, [firstOption, field.value, field]);
+
+                //   return isEdit ? (
+                //     <FormInput {...field} readOnly />
+                //   ) : (
+                //     <FormSelect
+                //       {...field}
+                //       className={clsx({
+                //         "!border !border-danger":
+                //           errorField?.[index]?.therapist_id,
+                //       })}>
+                //       {data?.available_therapists?.map((therapist) => (
+                //         <option key={therapist.id} value={therapist.id}>
+                //           {therapist.name}
+                //         </option>
+                //       ))}
+                //     </FormSelect>
+                //   );
+                // }}
               />
             </div>
 
@@ -238,34 +289,56 @@ const ItemRowFields = ({
               <Controller
                 control={form.control}
                 name={`items.${index}.resource_id`}
-                render={({ field }) => {
-                  const firstOption = data?.available_rooms?.[0]?.id;
-                  useEffect(() => {
-                    if (
-                      firstOption !== undefined &&
-                      (field.value === undefined ||
-                        field.value === "" ||
-                        field.value === 0)
-                    ) {
-                      field.onChange(firstOption);
-                    }
-                  }, [firstOption, field.value, field]);
+                // render={({ field }) => {
+                //   const firstOption = data?.available_rooms?.[0]?.id;
+                //   useEffect(() => {
+                //     if (
+                //       firstOption !== undefined &&
+                //       (field.value === undefined ||
+                //         field.value === "" ||
+                //         field.value === 0)
+                //     ) {
+                //       field.onChange(firstOption);
+                //     }
+                //   }, [firstOption, field.value, field]);
 
+                //   return isEdit ? (
+                //     <FormInput {...field} readOnly />
+                //   ) : (
+                //     <FormSelect
+                //       {...field}
+                //       className={clsx({
+                //         "!border !border-danger":
+                //           errorField?.[index]?.resource_id,
+                //       })}>
+                //       {data?.available_rooms?.map((room) => (
+                //         <option key={room.id} value={room.id}>
+                //           {room.name}
+                //         </option>
+                //       ))}
+                //     </FormSelect>
+                //   );
+                // }}
+                render={({ field }) => {
                   return isEdit ? (
                     <FormInput {...field} readOnly />
                   ) : (
-                    <FormSelect
-                      {...field}
+                    <ReactSelect
+                      field={field}
+                      options={
+                        data?.available_rooms?.map((item) => ({
+                          label: item.name,
+                          value: item.id,
+                        })) ?? []
+                      }
+                      placeholder="مکان"
+                      isSearchable
+                      isClearable={false}
                       className={clsx({
                         "!border !border-danger":
                           errorField?.[index]?.resource_id,
-                      })}>
-                      {data?.available_rooms?.map((room) => (
-                        <option key={room.id} value={room.id}>
-                          {room.name}
-                        </option>
-                      ))}
-                    </FormSelect>
+                      })}
+                    />
                   );
                 }}
               />
@@ -281,35 +354,35 @@ const ItemRowFields = ({
                 control={form.control}
                 name={`items.${index}.service_id`}
                 render={({ field }) => {
-                  const firstOption = services?.[0]?.value;
+                  // const firstOption = services?.[0]?.value;
 
-                  useEffect(() => {
-                    if (
-                      firstOption !== undefined &&
-                      (field.value === undefined ||
-                        field.value === "" ||
-                        field.value === 0)
-                    ) {
-                      field.onChange(firstOption);
+                  // useEffect(() => {
+                  //   if (
+                  //     firstOption !== undefined &&
+                  //     (field.value === undefined ||
+                  //       field.value === "" ||
+                  //       field.value === 0)
+                  //   ) {
+                  //     field.onChange(firstOption);
 
-                      const selectedService = services.find(
-                        (s) => s.value === firstOption
-                      );
-                      if (selectedService) {
-                        form.setValue(
-                          `items.${index}.unit_price`,
-                          selectedService.custom_price
-                        );
-                        form.setValue(
-                          `items.${index}.total_price`,
-                          selectedService.custom_price
-                        );
-                      }
-                    }
-                  }, [firstOption, field.value, field, services, form, index]);
+                  //     const selectedService = services.find(
+                  //       (s) => s.value === firstOption
+                  //     );
+                  //     if (selectedService) {
+                  //       form.setValue(
+                  //         `items.${index}.unit_price`,
+                  //         selectedService.custom_price
+                  //       );
+                  //       form.setValue(
+                  //         `items.${index}.total_price`,
+                  //         selectedService.custom_price
+                  //       );
+                  //     }
+                  //   }
+                  // }, [firstOption, field.value, field, services, form, index]);
 
-                  const handleChange = (e: any) => {
-                    const value = Number(e.target.value);
+                  const handleChange = (option: any) => {
+                    const value = option?.value ?? null;
                     field.onChange(value);
 
                     const selectedService = services.find(
@@ -333,19 +406,39 @@ const ItemRowFields = ({
                   return isEdit ? (
                     <FormInput {...field} readOnly />
                   ) : (
-                    <FormSelect
-                      {...field}
-                      onChange={handleChange}
+                    <ReactSelect
+                      options={services.map((item) => ({
+                        label: item.label,
+                        value: item.value,
+                      }))}
+                      placeholder="خدمات"
+                      isSearchable
+                      isClearable={false}
                       className={clsx({
                         "!border !border-danger":
                           errorField?.[index]?.service_id,
-                      })}>
-                      {services.map((s) => (
-                        <option key={s.value} value={s.value}>
-                          {s.label}
-                        </option>
-                      ))}
-                    </FormSelect>
+                      })}
+                      value={
+                        services
+                          .map((s) => ({ label: s.label, value: s.value }))
+                          .find((o) => o.value === field.value) ?? null
+                      }
+                      onChange={handleChange}
+                    />
+
+                    // <FormSelect
+                    //   {...field}
+                    //   onChange={handleChange}
+                    //   className={clsx({
+                    //     "!border !border-danger":
+                    //       errorField?.[index]?.service_id,
+                    //   })}>
+                    //   {services.map((s) => (
+                    //     <option key={s.value} value={s.value}>
+                    //       {s.label}
+                    //     </option>
+                    //   ))}
+                    // </FormSelect>
                   );
                 }}
               />

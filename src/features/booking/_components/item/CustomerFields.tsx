@@ -1,5 +1,5 @@
 import { Controller, useWatch } from "react-hook-form";
-import { FormInput, FormLabel, FormSelect } from "@/components/Form";
+import { FormInput, FormLabel } from "@/components/Form";
 import useGetData from "@/services/useGetData";
 import type {
   TCreateData,
@@ -179,28 +179,44 @@ const CustomerFields = ({
               <Controller
                 control={form.control}
                 name="customer_id"
-                render={({ field }) => {
-                  const firstOption = data?.data?.[0]?.id;
-                  useEffect(() => {
-                    if (
-                      firstOption !== undefined &&
-                      (field.value === undefined ||
-                        field.value === "" ||
-                        field.value === 0)
-                    ) {
-                      field.onChange(firstOption);
-                    }
-                  }, [firstOption, field.value, field]);
-                  return (
-                    <FormSelect {...field}>
-                      {data.data.map((item: any) => (
-                        <option key={item.id} value={item.id}>
-                          {item.label}
-                        </option>
-                      ))}
-                    </FormSelect>
-                  );
-                }}
+                // render={({ field }) => {
+                //   const firstOption = data?.data?.[0]?.id;
+                //   useEffect(() => {
+                //     if (
+                //       firstOption !== undefined &&
+                //       (field.value === undefined ||
+                //         field.value === "" ||
+                //         field.value === 0)
+                //     ) {
+                //       field.onChange(firstOption);
+                //     }
+                //   }, [firstOption, field.value, field]);
+                //   return (
+                //     <FormSelect {...field}>
+                //       {data.data.map((item: any) => (
+                //         <option key={item.id} value={item.id}>
+                //           {item.label}
+                //         </option>
+                //       ))}
+                //     </FormSelect>
+                //   );
+                // }}
+                render={({ field }) => (
+                  <>
+                    <ReactSelect
+                      field={field}
+                      options={
+                        data?.data?.map((item) => ({
+                          label: item.label,
+                          value: item.id,
+                        })) ?? []
+                      }
+                      placeholder="انتخاب مشتری"
+                      isSearchable
+                      isClearable={false}
+                    />
+                  </>
+                )}
               />
             </div>
             <div className="col-span-12 md:col-span-6 xl:col-span-3">

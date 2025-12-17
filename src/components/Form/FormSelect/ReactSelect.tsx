@@ -3,7 +3,7 @@ import type { ControllerRenderProps } from "react-hook-form";
 
 export type SelectOption = {
   label: string;
-  value: string | number;
+  value: string | number | boolean;
 };
 
 type BaseProps = {
@@ -17,7 +17,7 @@ type BaseProps = {
 type RHFProps = {
   field: ControllerRenderProps<any, any>;
   value?: never;
-  onChange?: never;
+  onChange?: (option: SelectOption | null) => void;
   className?: string;
 };
 
@@ -47,6 +47,8 @@ export default function ReactSelect({
 
     return (
       <Select
+        menuPortalTarget={document.body}
+        menuPosition="fixed"
         options={options}
         value={selectedOption}
         onChange={(opt) => field?.onChange(opt?.value ?? null)}
@@ -54,6 +56,9 @@ export default function ReactSelect({
         isSearchable={isSearchable}
         isClearable={isClearable}
         isDisabled={isDisabled}
+        styles={{
+          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+        }}
         isRtl
         classNamePrefix="simple-select"
         className={`rounded-md ${props.className}`}
@@ -68,6 +73,8 @@ export default function ReactSelect({
   /** حالت Controlled */
   return (
     <Select
+      menuPortalTarget={document.body}
+      menuPosition="fixed"
       options={options}
       value={props.value}
       onChange={props.onChange}
@@ -76,6 +83,9 @@ export default function ReactSelect({
       isClearable={isClearable}
       isDisabled={isDisabled}
       isRtl
+      styles={{
+        menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+      }}
       classNamePrefix="simple-select"
       className={`rounded-md ${props.className}`}
       loadingMessage={() => "در حال بارگذاری..."}
