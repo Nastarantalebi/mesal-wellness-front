@@ -3,9 +3,9 @@ import type { TRequest } from "../_types/type";
 
 export const schema = z
   .object({
-    type: z.string().min(1, "فیلد الزامی است"),
-    from: z.string().min(1, "فیلد الزامی است"),
-    to: z.string().min(1, "فیلد الزامی است"),
+    type: z.string().min(1, " "),
+    from: z.string().min(1, " "),
+    to: z.string().min(1, " "),
   })
   .refine(
     (data) => {
@@ -20,7 +20,7 @@ export const schema = z
     }
   );
 export const initialValues: TRequest = {
-  type: "therapist",
+  type: "",
   to: "",
   from: "",
 };

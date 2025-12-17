@@ -53,7 +53,7 @@ function AuthPassword() {
         dir="ltr"
         maxLength={11}
         className={clsx(
-          "block px-4 py-3.5 rounded-[0.6rem] border-slate-300/80",
+          "block px-4 py-3.5 rounded-[0.6rem] border-slate-300/80 placeholder:!text-left",
           {
             "border-danger": errors.mobile,
           }
@@ -76,7 +76,7 @@ function AuthPassword() {
           name="password"
           type={showPassword ? "text" : "password"}
           className={clsx(
-            "block w-full px-4 py-3.5 pr-10 rounded-[0.6rem] border-slate-300/80",
+            "block w-full px-4 py-3.5 pr-10 rounded-[0.6rem] border-slate-300/80 placeholder:!text-left",
             { "border-danger": errors.password }
           )}
           placeholder="************"

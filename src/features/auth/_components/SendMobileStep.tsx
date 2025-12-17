@@ -62,7 +62,7 @@ function SendMobileStep({ isPending, mutateAsync, startOtp }: any) {
           maxLength={11}
           placeholder="09123456789"
           className={clsx(
-            "block w-full px-4 py-3.5 rounded-[0.6rem] border-slate-300/80 pl-10",
+            "block w-full px-4 py-3.5 rounded-[0.6rem] border-slate-300/80 pl-10 placeholder:!text-left",
             { "border-danger": errors.mobile }
           )}
           disabled={isPending}

@@ -35,10 +35,6 @@ const CustomerFields = ({
     control: form.control,
     name: "search_customer",
   });
-  const selectedCustomerId = useWatch({
-    control: form.control,
-    name: "customer_id",
-  });
   const { data, refetch, isFetching } = useGetData<TCustomerSearch>({
     url: `/wellness/customers/search?q=${
       isEdit && !search_item ? dataById?.booking.customer_name : search_item
@@ -58,24 +54,6 @@ const CustomerFields = ({
       refetch();
     }
   }, [isEdit, dataById, form, refetch]);
-  useEffect(() => {
-    if (!data?.data) {
-      form.setValue("phone", "");
-      return;
-    }
-    if (!selectedCustomerId) {
-      form.setValue("phone", "");
-      return;
-    }
-    const selectedCustomer = data.data.find(
-      (item: any) => item.id === Number(selectedCustomerId)
-    );
-    if (selectedCustomer) {
-      form.setValue("phone", selectedCustomer.phone || "");
-    } else {
-      form.setValue("phone", "");
-    }
-  }, [selectedCustomerId, data]);
   const selectedCompanyId = useWatch({
     control: form.control,
     name: "company_id",

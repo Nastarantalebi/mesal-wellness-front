@@ -151,7 +151,7 @@ function ForgotPassword({ setForgotPass }: TProp) {
         dir="ltr"
         minLength={11}
         className={clsx(
-          "block px-4 py-3.5 rounded-[0.6rem] border-slate-300/80",
+          "block px-4 py-3.5 rounded-[0.6rem] border-slate-300/80 placeholder:!text-left",
           { "border-danger": errors.mobile }
         )}
         placeholder="09123456789"
@@ -185,7 +185,7 @@ function ForgotPassword({ setForgotPass }: TProp) {
                 value={otp[idx] || ""}
                 dir="ltr"
                 className={clsx(
-                  "w-12 h-12 text-center rounded-lg border-slate-300/80",
+                  "w-12 h-12 text-center rounded-lg border-slate-300/80 placeholder:!text-left",
                   { "border-danger": errors.otp }
                 )}
                 ref={(el) => {
@@ -217,7 +217,7 @@ function ForgotPassword({ setForgotPass }: TProp) {
               dir="ltr"
               placeholder="********"
               className={clsx(
-                "block w-full px-4 py-3.5 pr-10 rounded-[0.6rem] border-slate-300/80",
+                "block w-full px-4 py-3.5 pr-10 rounded-[0.6rem] border-slate-300/80 placeholder:!text-left",
                 { "border-danger": errors.new_password }
               )}
             />
@@ -240,7 +240,7 @@ function ForgotPassword({ setForgotPass }: TProp) {
               dir="ltr"
               placeholder="********"
               className={clsx(
-                "block w-full px-4 py-3.5 pr-10 rounded-[0.6rem] border-slate-300/80",
+                "block w-full px-4 py-3.5 pr-10 rounded-[0.6rem] border-slate-300/80 placeholder:!text-left",
                 { "border-danger": errors.confirm_password }
               )}
             />

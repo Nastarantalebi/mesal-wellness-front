@@ -226,7 +226,7 @@ function SendOTPStep({
                 type={showPassword.new ? "text" : "password"}
                 dir="ltr"
                 className={clsx(
-                  "block w-full px-4 py-3.5 rounded-[0.6rem] border-slate-300/80 pl-8",
+                  "block w-full px-4 py-3.5 rounded-[0.6rem] border-slate-300/80 pl-8 placeholder:!text-left",
                   { "border-danger": errors.new_password }
                 )}
                 placeholder="********"
@@ -260,7 +260,7 @@ function SendOTPStep({
                 type={showPassword.confirm ? "text" : "password"}
                 dir="ltr"
                 className={clsx(
-                  "block w-full px-4 py-3.5 rounded-[0.6rem] border-slate-300/80 pl-8",
+                  "block w-full px-4 py-3.5 rounded-[0.6rem] border-slate-300/80 pl-8 placeholder:!text-left",
                   { "border-danger": errors.mobile }
                 )}
                 placeholder="********"

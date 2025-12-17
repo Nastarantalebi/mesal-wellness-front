@@ -18,6 +18,7 @@ const useFormData = () => {
     },
     {
       label: " نوع",
+      required: true,
       name: "type",
       placeholder: "نوع",
       type: "select",
