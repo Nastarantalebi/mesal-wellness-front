@@ -2,23 +2,40 @@ import { FormInput, FormLabel } from "@/components/Form";
 import { useEffect } from "react";
 import { Controller, useWatch } from "react-hook-form";
 import type { TItems } from "../../_types/type";
+import { numberToWords } from "@persian-tools/persian-tools";
 
-const TotalFields = ({ form }: { form: any }) => {
+const TotalFields = ({
+  form,
+  companyName,
+}: {
+  form: any;
+  companyName: string;
+}) => {
+  const safeNumberToWords = (num: number | string) => {
+    try {
+      return numberToWords(String(num ?? 0));
+    } catch {
+      return "0";
+    }
+  };
+  console.log(form.watch());
   const items = useWatch({ control: form.control, name: "items" }) || [];
   const deposit = useWatch({ control: form.control, name: "deposit" }) || 0;
   const manualPayable =
     useWatch({ control: form.control, name: "payable_amount" }) || 0;
   useEffect(() => {
     const total = items.reduce(
+      (sum: number, item: TItems) => sum + (Number(item?.unit_price) || 0),
+      0
+    );
+    const payble = items.reduce(
       (sum: number, item: TItems) => sum + (Number(item?.total_price) || 0),
       0
     );
-
     const validDeposit = deposit > total ? total : deposit;
-    const payableAmount = total - validDeposit;
-    form.setValue("total_amount", total);
     form.setValue("deposit", validDeposit);
-    form.setValue("payable_amount", payableAmount);
+    form.setValue("total_amount", total);
+    form.setValue("payable_amount", payble);
   }, [items, deposit, manualPayable, form]);
   const totalDiscount =
     form.getValues("items")?.reduce((sum: any, item: any) => {
@@ -51,6 +68,7 @@ const TotalFields = ({ form }: { form: any }) => {
             )}
           />
         </div>
+
         <div className="col-span-full md:col-span-1 mb-1 md:mb-4">
           <FormLabel>مبلغ قابل پرداخت(تومان)</FormLabel>
           <Controller
@@ -60,6 +78,19 @@ const TotalFields = ({ form }: { form: any }) => {
           />
         </div>
       </div>
+      {companyName && (
+        <div className="flex items-center gap-1">
+          <span className="text-success">
+            تخفیف اعمال شده(
+            {companyName}
+            ):
+          </span>
+          <span className="text-primary">
+            {safeNumberToWords(totalDiscount) as string}
+          </span>
+          <span className="text-primary">تومان</span>
+        </div>
+      )}
     </div>
   );
 };

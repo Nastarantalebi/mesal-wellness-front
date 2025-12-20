@@ -286,7 +286,7 @@ const ItemRowFields = ({
             </div>
 
             <div className="flex flex-col">
-              <FormLabel>قیمت نهایی (تومان)</FormLabel>
+              <FormLabel>مبلغ کل(تومان)</FormLabel>
               <Controller
                 control={form.control}
                 name={`items.${index}.unit_price`}
