@@ -136,7 +136,7 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
 
       {/* بخش نمایش حروف */}
       {money && valueInWords && (
-        <span className="text-[13px] text-success mt-1 p-1 px-1 font-medium italic animate-in fade-in slide-in-from-top-1">
+        <span className="text-[13px] text-success mt-1 p-1 px-1 font-medium italic animate-in fade-in slide-in-from-top-1 text-right" dir="rtl">
           {String(valueInWords)} تومان
         </span>
       )}
