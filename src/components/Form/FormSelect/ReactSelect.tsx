@@ -1,5 +1,6 @@
-import Select from "react-select";
+import Select, { type CSSObjectWithLabel } from "react-select";
 import type { ControllerRenderProps } from "react-hook-form";
+import clsx from "clsx";
 
 export type SelectOption = {
   label: string;
@@ -12,6 +13,7 @@ type BaseProps = {
   isSearchable?: boolean;
   isClearable?: boolean;
   isDisabled?: boolean;
+  hasError?: boolean;
 };
 
 type RHFProps = {
@@ -36,15 +38,36 @@ export default function ReactSelect({
   isSearchable = true,
   isClearable = true,
   isDisabled = false,
+  hasError,
+  className,
   ...props
 }: AppSelectProps) {
   /** حالت RHF */
+  const style = {
+    menuPortal: (base: CSSObjectWithLabel) => ({ ...base, zIndex: 9999 }),
+    placeholder: (base: CSSObjectWithLabel) => ({
+      ...base,
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+    }),
+    valueContainer: (base: CSSObjectWithLabel) => ({
+      ...base,
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+    }),
+    singleValue: (base: CSSObjectWithLabel) => ({
+      ...base,
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+    }),
+  };
   if ("field" in props) {
     const { field } = props;
 
     const selectedOption =
       options.find((opt) => opt.value === field?.value) ?? null;
-
     return (
       <Select
         menuPortalTarget={document.body}
@@ -56,12 +79,12 @@ export default function ReactSelect({
         isSearchable={isSearchable}
         isClearable={isClearable}
         isDisabled={isDisabled}
-        styles={{
-          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-        }}
+        styles={style}
         isRtl
         classNamePrefix="simple-select"
-        className={`rounded-md ${props.className}`}
+        className={clsx("rounded-md", className, {
+          "!border !border-danger": hasError,
+        })}
         loadingMessage={() => "در حال بارگذاری..."}
         noOptionsMessage={({ inputValue }) =>
           inputValue ? "نتیجه‌ای پیدا نشد" : "گزینه‌ای وجود ندارد"
@@ -83,11 +106,11 @@ export default function ReactSelect({
       isClearable={isClearable}
       isDisabled={isDisabled}
       isRtl
-      styles={{
-        menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-      }}
+      styles={style}
       classNamePrefix="simple-select"
-      className={`rounded-md ${props.className}`}
+      className={clsx("rounded-md", className, {
+        "!border !border-danger": hasError,
+      })}
       loadingMessage={() => "در حال بارگذاری..."}
       noOptionsMessage={({ inputValue }) =>
         inputValue ? "نتیجه‌ای پیدا نشد" : "گزینه‌ای وجود ندارد"

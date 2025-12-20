@@ -54,9 +54,12 @@ const BreakForm = ({ form }: TProps) => {
                 control={form.control}
                 name={`breaks.${index}.end_time`}
                 render={({ field }) => (
-                  <>
+                  <div className="flex flex-col w-full flex-1">
                     {" "}
                     <TimePickerField
+                      inputClassName={`${
+                        breakErrors?.end_time ? "!border !border-danger" : ""
+                      }`}
                       field={{
                         ...field,
                         value: field.value || "",
@@ -64,11 +67,13 @@ const BreakForm = ({ form }: TProps) => {
                       }}
                     />
                     {breakErrors?.end_time && (
-                      <p className=" text-xs  mt-2 text-danger text-right">
+                      <p
+                        className=" text-xs  mt-1 p-1 px-1 text-danger text-right"
+                        dir="rtl">
                         {breakErrors.end_time.message}
                       </p>
                     )}
-                  </>
+                  </div>
                 )}
               />
             </div>

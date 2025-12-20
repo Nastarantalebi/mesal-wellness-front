@@ -9,6 +9,7 @@ type TagsInputProps<TFormValues extends FieldValues> = {
   placeholder?: string;
   inputClassName?: string;
   containerClassName?: string;
+  hasError?: boolean;
 };
 
 export default function TagsInput<TFormValues extends FieldValues>({
@@ -16,6 +17,7 @@ export default function TagsInput<TFormValues extends FieldValues>({
   placeholder = "اضافه کردن ویژگی...",
   inputClassName,
   containerClassName,
+  hasError,
 }: TagsInputProps<TFormValues>) {
   const { value = [], onChange } = field;
 
@@ -63,7 +65,10 @@ export default function TagsInput<TFormValues extends FieldValues>({
           placeholder={placeholder}
           className={clsx(
             "flex-1 border-none outline-none bg-transparent text-sm h-10 px-1", // ارتفاع ثابت h-10
-            inputClassName
+            inputClassName,
+            {
+              "!border !border-danger": hasError,
+            }
           )}
         />
         <Button

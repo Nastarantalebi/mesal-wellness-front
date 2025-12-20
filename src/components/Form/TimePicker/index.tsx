@@ -13,6 +13,7 @@ type TProps<TFormValues extends FieldValues> = {
   inputClassName?: string;
   autoFocus?: boolean;
   portal?: boolean;
+  hasError?: boolean;
 };
 
 function TimePickerField<TFormValues extends FieldValues>({
@@ -20,6 +21,7 @@ function TimePickerField<TFormValues extends FieldValues>({
   inputClassName,
   autoFocus = false,
   portal = false,
+  hasError,
 }: TProps<TFormValues>) {
   const { onChange, value: fieldValue } = field;
   const datePickerRef = useRef<DatePickerRef>(null);
@@ -71,7 +73,10 @@ function TimePickerField<TFormValues extends FieldValues>({
           "w-full rounded-md border px-3 py-2 text-sm",
           "bg-white text-gray-900 border-gray-300 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
           "disabled:cursor-not-allowed disabled:opacity-50",
-          inputClassName
+          inputClassName,
+          {
+            "!border !border-danger": hasError,
+          }
         )}
       />
     </div>

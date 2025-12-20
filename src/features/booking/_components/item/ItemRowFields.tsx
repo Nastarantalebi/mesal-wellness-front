@@ -10,7 +10,6 @@ import { useEffect } from "react";
 import { Trash2 } from "lucide-react";
 import { end_time, start_time } from "@/features/_fixtures/data";
 import { DateObject } from "react-multi-date-picker";
-import clsx from "clsx";
 import ReactSelect from "@/components/Form/FormSelect/ReactSelect";
 
 type TProps = {
@@ -96,9 +95,7 @@ const ItemRowFields = ({
             name={`items.${index}.date`}
             render={({ field }) => (
               <DatePickerField
-                inputClassName={clsx({
-                  "!border !border-danger": errorField?.[index]?.date,
-                })}
+                hasError={!!errorField?.[index]?.date}
                 field={field}
                 placeholder="تاریخ نوبت"
                 min={new DateObject()}
@@ -198,10 +195,7 @@ const ItemRowFields = ({
                       placeholder="ماساژیست"
                       isSearchable
                       isClearable={false}
-                      className={clsx({
-                        "!border !border-danger":
-                          errorField?.[index]?.therapist_id,
-                      })}
+                      hasError={!!errorField?.[index]?.therapist_id}
                     />
                   );
                 }}
@@ -228,10 +222,7 @@ const ItemRowFields = ({
                       placeholder="مکان"
                       isSearchable
                       isClearable={false}
-                      className={clsx({
-                        "!border !border-danger":
-                          errorField?.[index]?.resource_id,
-                      })}
+                      hasError={!!errorField?.[index]?.resource_id}
                     />
                   );
                 }}
@@ -281,10 +272,7 @@ const ItemRowFields = ({
                       placeholder="خدمات"
                       isSearchable
                       isClearable={false}
-                      className={clsx({
-                        "!border !border-danger":
-                          errorField?.[index]?.service_id,
-                      })}
+                      hasError={!!errorField?.[index]?.service_id}
                       value={
                         services
                           .map((s) => ({ label: s.label, value: s.value }))

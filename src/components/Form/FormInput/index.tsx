@@ -1,12 +1,13 @@
 import { useContext, forwardRef } from "react";
 import { formInlineContext } from "../FormInline";
 import { inputGroupContext } from "../InputGroup";
-import { twMerge } from "tailwind-merge";
 import { numberToWords } from "@persian-tools/persian-tools"; // اضافه شد
+import clsx from "clsx";
 
 interface FormInputProps extends React.ComponentPropsWithoutRef<"input"> {
   formInputSize?: "sm" | "lg";
   rounded?: boolean;
+  hasError?: boolean;
   money?: boolean;
   dir?: "ltr" | "rtl";
   maxLength?: number;
@@ -22,6 +23,7 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
     max,
     minLength,
     maxLength,
+    hasError,
     dir,
     onChange,
     value,
@@ -109,7 +111,10 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
       : "";
 
   return (
-    <div className={twMerge("flex flex-col w-full", formInline && "flex-1")}>
+    <div
+      className={clsx("flex flex-col w-full", {
+        "flex-1": formInline,
+      })}>
       <input
         {...restProps}
         ref={ref}
@@ -121,7 +126,7 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
         type={money ? "text" : restProps.type}
         onChange={handleChange}
         value={displayValue as any}
-        className={twMerge([
+        className={clsx(
           "disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent",
           "[&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent",
           "transition duration-200 ease-in-out w-full text-sm border-slate-300/60 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-1 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80",
@@ -131,12 +136,17 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
           inputGroup &&
             "rounded-none [&:not(:first-child)]:border-s-transparent first:rounded-s last:rounded-e z-10",
           className,
-        ])}
+          {
+            "!border !border-danger": hasError,
+          }
+        )}
       />
 
       {/* بخش نمایش حروف */}
       {money && valueInWords && (
-        <span className="text-[13px] text-success mt-1 p-1 px-1 font-medium italic animate-in fade-in slide-in-from-top-1 text-right" dir="rtl">
+        <span
+          className="text-[13px] text-success mt-1 p-1 px-1 font-medium italic animate-in fade-in slide-in-from-top-1 text-right"
+          dir="rtl">
           {String(valueInWords)} تومان
         </span>
       )}

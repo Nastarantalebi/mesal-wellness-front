@@ -5,7 +5,6 @@ import type {
   Path,
 } from "react-hook-form";
 import type { TFormData } from "@/types";
-import clsx from "clsx";
 import FormInput from "./FormInput";
 import DatePickerField from "./DatePicker";
 import TimePickerField from "./TimePicker";
@@ -72,9 +71,7 @@ function useFormField<TFormValues extends FieldValues>() {
       case "select": {
         return (
           <ReactSelect
-            className={clsx({
-              "!border !border-danger": errors[name],
-            })}
+            hasError={!!errors[name]}
             field={field}
             options={option || ([] as any)}
             placeholder={placeholder}
@@ -148,9 +145,7 @@ function useFormField<TFormValues extends FieldValues>() {
       case "date":
         return (
           <DatePickerField<TFormValues>
-            inputClassName={clsx({
-              "!border !border-danger": errors[name],
-            })}
+            hasError={!!errors[name]}
             field={field}
             min={props.minDate as any}
             max={props.maxDate as any}
@@ -211,9 +206,7 @@ function useFormField<TFormValues extends FieldValues>() {
         return (
           <TimePickerField<TFormValues>
             field={field}
-            inputClassName={clsx({
-              "!border !border-danger": errors[name],
-            })}
+            hasError={!!errors[name]}
             min={props.min}
             max={props.max}
             {...rest}
@@ -222,13 +215,11 @@ function useFormField<TFormValues extends FieldValues>() {
       case "tags":
         return (
           <TagsInput<TFormValues>
+            hasError={!!errors[name]}
             field={field}
             min={props.min}
             placeholder={placeholder}
             max={props.max}
-            className={clsx({
-              "!border !border-danger": errors[name],
-            })}
             {...rest}
           />
         );
@@ -276,9 +267,7 @@ function useFormField<TFormValues extends FieldValues>() {
             maxLength={maxLength}
             placeholder={placeholder}
             minLength={minLength}
-            className={clsx({
-              "!border-danger": errors[name],
-            })}
+            hasError={!!errors[name]}
             {...rest}
           />
         );

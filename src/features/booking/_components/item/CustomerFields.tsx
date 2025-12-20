@@ -12,7 +12,6 @@ import { useEffect, useState } from "react";
 import Modal from "@/components/Headless/Dialog/Modal";
 import CustomersForm from "@/features/customers/_components/CustomersForm";
 import ReactSelect from "@/components/Form/FormSelect/ReactSelect";
-import clsx from "clsx";
 import { queryKey, url } from "../../_fixtures/data";
 
 type TProps = {
@@ -83,12 +82,8 @@ const CustomerFields = ({
                 <FormInput
                   {...field}
                   placeholder="نام یا شماره تلفن مشتری"
-                  className={clsx([
-                    "pl-20",
-                    {
-                      "!border !border-danger": errorField?.customer_id,
-                    },
-                  ])}
+                  className="pl-20"
+                  hasError={!!errorField?.customer_id}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       e.preventDefault();

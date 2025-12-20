@@ -14,13 +14,13 @@ export const schema = z.object({
   mobile: mobileRequireValidationSchema,
   bio: z.string().nullable(),
   avatar_path: z.string(),
-  gender: z.string(),
+  gender: z.string().min(1, " "),
   hire_date: z.string().nullable(),
   national_code: nationalCodeValidationSchema,
   license_number: z.string().nullable(),
-  status: z.string(),
+  status: z.string().min(1, " "),
   specialties: z.array(z.string()),
-  facility_id: z.coerce.number(),
+  facility_id: z.coerce.number().min(1, " "),
 });
 
 export const initialValues: TReqTherapists = {

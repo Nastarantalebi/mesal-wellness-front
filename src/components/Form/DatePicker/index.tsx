@@ -21,6 +21,7 @@ type TProps<TFormValues extends FieldValues> = {
   max?: DateObject | null;
   min?: DateObject | null;
   portal?: boolean;
+  hasError?: boolean;
 };
 
 function DatePickerField<TFormValues extends FieldValues>({
@@ -29,6 +30,7 @@ function DatePickerField<TFormValues extends FieldValues>({
   placeholder = "یک تاریخ وارد کنید",
   showTimePicker = false,
   autoFocus = false,
+  hasError,
   max,
   min,
   portal = false,
@@ -97,7 +99,10 @@ function DatePickerField<TFormValues extends FieldValues>({
           "disabled:cursor-not-allowed disabled:opacity-50",
           // دارک مود
           "dark:bg-neutral-800 dark:text-gray-100 dark:border-neutral-600 dark:placeholder-gray-400 dark:focus-visible:ring-blue-400",
-          inputClassName
+          inputClassName,
+          {
+            "!border !border-danger": hasError,
+          }
         )}
         containerStyle={{ width: "100%", direction: "ltr" }}
         minDate={min || undefined}
