@@ -166,7 +166,7 @@ function CustomTable({
               printTable={printTable}
             />
             <div className="p-1 xl:p-4 xl:pt-1">
-              <div className="overflow-x-auto scrollbar-hidden">
+              <div className="overflow-x-auto custom-scrollbar">
                 <div
                   id="tabulator"
                   ref={tableRef}

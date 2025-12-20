@@ -9,7 +9,8 @@ import BookingVisit from "./BookingVisit";
 import useGetById from "@/services/useGetById";
 import type { TDataById, TSelect } from "../_types/type";
 import ChangeStatus from "./ChangeStatus";
-import { RefreshCcwIcon } from "lucide-react";
+import { FileIcon, RefreshCcwIcon } from "lucide-react";
+import PersonalInfo from "./PersonalInfo";
 
 function Booking() {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ function Booking() {
   const [open, setOpen] = useState(false);
   const [openStatus, setOpenStatus] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState<TSelect | undefined>();
+  const [openModalPersonal, setOpenModalPersonal] = useState<boolean>(false);
   const id = selectedRecord && selectedRecord.id;
   const { data: dataById, isFetching: isFetchingById } = useGetById<TDataById>({
     url: url,
@@ -56,8 +58,25 @@ function Booking() {
               setSelectedRecord(record);
             },
           },
+          {
+            title: "فرم اطلاعات مشتری",
+            icon: <FileIcon className="w-4 h-4" />,
+            onClick: (record) => {
+              setOpenModalPersonal(true);
+              setSelectedRecord(record);
+              console.log(record);
+            },
+          },
         ]}
       />
+      <Modal
+        close={() => setOpenModalPersonal(false)}
+        open={openModalPersonal}
+        size="xxl"
+        cancelBtn={false}
+        title="فرم اطلاعات مشتری">
+        <PersonalInfo selectedRecord={selectedRecord} />
+      </Modal>
       <Modal close={() => setOpen(false)} open={open} size="xl" title="">
         <BookingVisit dataById={dataById} isFetchingById={isFetchingById} />
       </Modal>

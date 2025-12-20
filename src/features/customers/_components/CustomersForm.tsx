@@ -26,7 +26,7 @@ function CustomersForm({ setOpenModal, selectedRecord }: TProps) {
   });
   const { data: dataById } = useGetById<TDataById>({
     url: url,
-    queryKey: [queryKey, String(selectedRecord?.id)],
+    queryKey: [queryKey, String(id)],
     id: id,
   });
 

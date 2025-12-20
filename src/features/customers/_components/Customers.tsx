@@ -1,11 +1,11 @@
-import CustomTable from "../../../components/Tabulator";
-import useGetData from "../../../services/useGetData";
 import { queryKey, url } from "../_fixtures/data";
 import useDeleteData from "@/services/useDeleteData";
 import useCreateData from "@/services/useCreateData";
 import Modal from "@/components/Headless/Dialog/Modal";
 import { useState } from "react";
 import CustomersForm from "./CustomersForm";
+import useGetData from "@/services/useGetData";
+import CustomTable from "@/components/Tabulator";
 
 function Customers() {
   const { data, refetch, isFetching } = useGetData<any>({

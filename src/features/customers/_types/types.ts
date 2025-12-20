@@ -48,7 +48,6 @@ type Customer = {
   code: null;
   first_name: string;
   last_name: string;
-  full_name: string;
   phone: string;
   gender: string;
   birth_date: string;
