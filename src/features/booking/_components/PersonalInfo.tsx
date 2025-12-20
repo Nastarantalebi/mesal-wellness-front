@@ -58,7 +58,9 @@ const PersonalInfo = ({ selectedRecord }: TProps) => {
             {label}
             <input
               placeholder={placeholder}
-              className={clsx("!border-none !outline-none !ring-0 w-fit")}
+              className={clsx(
+                "!border-none !outline-none !ring-0 w-fit m-0 p-0 px-0.5"
+              )}
             />
           </label>
         ) : (
@@ -85,10 +87,10 @@ const PersonalInfo = ({ selectedRecord }: TProps) => {
         <h2 className="font-bold text-center text-lg">مشخصات فردی</h2>
         <div className="flex flex-wrap gap-2">
           {dataById?.booking.customer_name ? (
-            <>
+            <div className="flex items-center">
               <span>نام و نام خانوادگی:</span>
               <span>{dataById?.booking.customer_name}</span>
-            </>
+            </div>
           ) : (
             <InputComponents label="نام و نام‌خانوادگی" />
           )}
