@@ -18,7 +18,6 @@ const TotalFields = ({
       return "0";
     }
   };
-  console.log(form.watch());
   const items = useWatch({ control: form.control, name: "items" }) || [];
   const deposit = useWatch({ control: form.control, name: "deposit" }) || 0;
   const manualPayable =
@@ -79,16 +78,16 @@ const TotalFields = ({
         </div>
       </div>
       {companyName && (
-        <div className="flex items-center gap-1">
-          <span className="text-success">
-            تخفیف اعمال شده(
-            {companyName}
+        <div className="flex flex-wrap items-center gap-2 bg-green-50 p-2 rounded-md border border-green-200">
+          <span className=" text-green-700">
+            تخفیف اعمال شده (
+            <span className="text-green-900">{companyName}</span>
             ):
           </span>
-          <span className="text-primary">
+          <span className="font-bold text-blue-600">
             {safeNumberToWords(totalDiscount) as string}
           </span>
-          <span className="text-primary">تومان</span>
+          <span className="font-bold text-blue-600">تومان</span>
         </div>
       )}
     </div>
