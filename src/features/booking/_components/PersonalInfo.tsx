@@ -45,21 +45,28 @@ const PersonalInfo = ({ selectedRecord }: TProps) => {
   });
   type TInputProps = {
     label?: string;
-    className?: string;
     placeholder?: string;
   };
   const InputComponents = ({
     label,
-    className = "w-44",
-    placeholder = ".....................................................................",
+    placeholder = "..................................",
   }: TInputProps) => {
     return (
       <>
-        {label && <label htmlFor="">{label}</label>}
-        <input
-          placeholder={placeholder}
-          className={clsx("!border-none !outline-none !ring-0", className)}
-        />
+        {label ? (
+          <label htmlFor="">
+            {label}
+            <input
+              placeholder={placeholder}
+              className={clsx("!border-none !outline-none !ring-0 w-fit")}
+            />
+          </label>
+        ) : (
+          <input
+            placeholder={placeholder}
+            className={clsx("!border-none !outline-none !ring-0 w-fit")}
+          />
+        )}
       </>
     );
   };
@@ -87,7 +94,7 @@ const PersonalInfo = ({ selectedRecord }: TProps) => {
           )}
           <InputComponents label="تاریخ تولد" />
           <InputComponents label="شماره تماس" />
-          <InputComponents label="آدرس" className="w-72" />
+          <InputComponents label="آدرس" />
           <InputComponents label="معرف" />
           <InputComponents label="  شغل(دانستن حرفه‌ی شما برای انتخاب خدمات مناسب بسیار مهم است):" />
           <InputComponents label="آیا سابقه ماساژ دارید؟" />
@@ -105,8 +112,8 @@ const PersonalInfo = ({ selectedRecord }: TProps) => {
             </label>
           ))}
         </div>
-        <InputComponents label="سایر موارد (توضیح دهید)" className="w-96" />
-        <InputComponents label="بیماری خاص" className="w-96" />
+        <InputComponents label="سایر موارد (توضیح دهید)" />
+        <InputComponents label="بیماری خاص" />
         <div className="flex items-center gap-4 mt-2">
           <span>مصرف هر نوع دارو: (خوراکی، موضعی، تزریق)</span>
           <label className="flex items-center gap-1">
@@ -116,19 +123,16 @@ const PersonalInfo = ({ selectedRecord }: TProps) => {
             <input type="radio" name="drug" /> خیر
           </label>
         </div>
-        <InputComponents label="نام دارو" className="w-96" />
+        <InputComponents label="نام دارو" />
       </section>
 
       {/* Body Status */}
       <section className="border border-gray-300 rounded-lg p-4 space-y-4">
         <h2 className="font-bold text-center text-lg">وضعیت عمومی بدن</h2>
         <div>
-          <InputComponents label="وزن" className="w-16" />
-          <InputComponents label="قد" className="w-16" />
-          <InputComponents
-            label="تغییر وزن شدید در یک سال اخیر"
-            className="w-24"
-          />
+          <InputComponents label="وزن" />
+          <InputComponents label="قد" />
+          <InputComponents label="تغییر وزن شدید در یک سال اخیر" />
           <div>
             <div className="flex flex-wrap gap-3 items-center">
               <span>تحرک :</span>
@@ -140,8 +144,8 @@ const PersonalInfo = ({ selectedRecord }: TProps) => {
               ))}
             </div>
           </div>
-          <InputComponents label="سوابق ورزش دارید؟" className="w-72" />
-          <InputComponents label="توضیح دهید" className="w-72" />
+          <InputComponents label="سوابق ورزش دارید؟" />
+          <InputComponents label="توضیح دهید" />
         </div>
       </section>
 
@@ -160,28 +164,18 @@ const PersonalInfo = ({ selectedRecord }: TProps) => {
             </label>
           ))}
         </div>
-        <div className="grid grid-cols-2 gap-2">
-          <InputComponents
-            label="آیا عمل زیبایی انجام دادین؟"
-            className="w-24"
-          />
+        <div className="">
+          <InputComponents label="آیا عمل زیبایی انجام دادین؟" />
           <InputComponents
             label="درصورت انجام عمل زیبایی موضع و نوع عمل زیبایی را ذکر
 کنید"
-            className="w-72"
           />
-          <InputComponents
-            label="آیا تا کنون تزریق ژل و بوتاکس انجام داده اید ؟"
-            className="w-24"
-          />
+          <InputComponents label="آیا تا کنون تزریق ژل و بوتاکس انجام داده اید ؟" />
           <InputComponents label="کدام قسمت" />
           <InputComponents label="تاریخ تزریق" />
           <InputComponents label="آیا در حال حاضردرمان های حرا رتی مانند سونا سوالریوم یا موارد دیگر انجام میدهید؟" />
           <InputComponents label="آیا یکماه پیش لیزر، پلینگ انجام داده اید؟" />
-          <InputComponents
-            label="در صورت وجود هر مورد مرتبط با زیبایی و ممنوعیت ها لطفا توضیح دهید"
-            className="w-72"
-          />
+          <InputComponents label="در صورت وجود هر مورد مرتبط با زیبایی و ممنوعیت ها لطفا توضیح دهید" />
         </div>
       </section>
 
@@ -194,7 +188,7 @@ const PersonalInfo = ({ selectedRecord }: TProps) => {
           <label className="flex items-center gap-2">
             بارداری <input type="checkbox" className="w-4 h-4" />
           </label>
-          <InputComponents label="تعداد بارداری" className="w-16" />
+          <InputComponents label="تعداد بارداری" />
           <label className="flex items-center gap-2">
             در حال شیردهی به کودک <input type="checkbox" className="w-4 h-4" />
           </label>
