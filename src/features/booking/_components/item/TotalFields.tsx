@@ -15,11 +15,7 @@ const TotalFields = ({ form }: { form: any }) => {
     );
 
     const validDeposit = deposit > total ? total : deposit;
-    const payableAmount =
-      manualPayable !== total - validDeposit
-        ? manualPayable
-        : total - validDeposit;
-
+    const payableAmount = total - validDeposit;
     form.setValue("total_amount", total);
     form.setValue("deposit", validDeposit);
     form.setValue("payable_amount", payableAmount);
