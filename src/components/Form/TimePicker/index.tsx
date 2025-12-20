@@ -23,7 +23,6 @@ function TimePickerField<TFormValues extends FieldValues>({
 }: TProps<TFormValues>) {
   const { onChange, value: fieldValue } = field;
   const datePickerRef = useRef<DatePickerRef>(null);
-
   useEffect(() => {
     if (autoFocus && datePickerRef.current) {
       datePickerRef.current.focus();

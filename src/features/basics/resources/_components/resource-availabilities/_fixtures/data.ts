@@ -6,11 +6,11 @@ export const queryKey = "resourceAvailabilitiesQuerykey";
 
 export const schema = z
   .object({
-    end_time: z.string().min(1, "فیلد الزامی است."),
-    start_time: z.string().min(1, "فیلد الزامی است."),
+    end_time: z.string().min(1, " "),
+    start_time: z.string().min(1, " "),
     resource_id: z.coerce.number(),
     is_active: z.coerce.boolean(),
-    weekday: z.string().min(1, "فیلد الزامی است."),
+    weekday: z.string().min(1, " "),
     breaks: z.array(
       z.object({
         start_time: z.string().nullable(),

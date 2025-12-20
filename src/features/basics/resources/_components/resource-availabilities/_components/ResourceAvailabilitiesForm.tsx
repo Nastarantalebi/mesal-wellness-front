@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
 import BreakForm from "@/features/_components/BreakForm";
+import Button from "@/components/Button";
 type TProps = {
   selectedRecord: any;
   setShowForm: any;
@@ -72,8 +73,24 @@ function ResourceAvailabilitiesForm({
           onSuccess: () => setShowForm(false),
         });
       }}
-      isSubmitting={isPendingUpdate || isPendingCreate}
-      formFields={fields}>
+      formFields={fields}
+      button={
+        <div className="flex flex-row items-center justify-end gap-2">
+          <Button
+            type="button"
+            variant="outline-danger"
+            onClick={() => {
+              setShowForm(false);
+            }}>
+            بستن
+          </Button>
+          <Button
+            variant="primary"
+            isPending={isPendingUpdate || isPendingCreate}>
+            <span>ثبت اطلاعات</span>
+          </Button>
+        </div>
+      }>
       <BreakForm form={form} />
     </FormComponent>
   );

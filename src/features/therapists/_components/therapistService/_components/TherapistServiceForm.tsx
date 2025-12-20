@@ -8,6 +8,7 @@ import useGetById from "@/services/useGetById";
 import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
+import Button from "@/components/Button";
 type TProps = {
   selectedRecord: any;
   setShowForm: any;
@@ -78,7 +79,23 @@ function TherapistServiceForm({
         });
       }}
       formFields={fields}
-      isSubmitting={isPendingUpdate || isPendingCreate}
+      button={
+        <div className="flex flex-row items-center justify-end gap-2">
+          <Button
+            type="button"
+            variant="outline-danger"
+            onClick={() => {
+              setShowForm(false);
+            }}>
+            بستن
+          </Button>
+          <Button
+            variant="primary"
+            isPending={isPendingUpdate || isPendingCreate}>
+            <span>ثبت اطلاعات</span>
+          </Button>
+        </div>
+      }
     />
   );
 }

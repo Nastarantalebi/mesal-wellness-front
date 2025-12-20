@@ -8,7 +8,7 @@ export const schema = z
   .object({
     finished_at: z.string().min(1, " "),
     start_at: z.string().min(1, " "),
-    discount_percent: z.string(),
+    discount_percent: z.string().min(1, " "),
     company_id: z.coerce.number().min(1, " "),
   })
   .refine(

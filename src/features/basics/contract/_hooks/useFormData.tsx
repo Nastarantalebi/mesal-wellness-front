@@ -26,6 +26,7 @@ const useFormData = () => {
       label: "درصد تخفیف",
       placeholder: "درصد تخفیف",
       inputType: "number",
+      required: true,
       max: 100,
     },
     {

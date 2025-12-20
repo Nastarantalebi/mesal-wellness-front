@@ -6,8 +6,8 @@ export const queryKey = "therapistsAvailabilitiesQuerykey";
 
 export const schema = z
   .object({
-    end_time: z.string().min(1, "فیلد الزامی است."),
-    start_time: z.string().min(1, "فیلد الزامی است."),
+    end_time: z.string().min(1, " "),
+    start_time: z.string().min(1, " "),
     therapist_id: z.coerce.number(),
     is_active: z.coerce.boolean(),
     weekday: z.string(),

@@ -73,7 +73,7 @@ function useFormField<TFormValues extends FieldValues>() {
         return (
           <ReactSelect
             className={clsx({
-              "border border-danger": errors[name],
+              "!border !border-danger": errors[name],
             })}
             field={field}
             options={option || ([] as any)}
@@ -211,8 +211,8 @@ function useFormField<TFormValues extends FieldValues>() {
         return (
           <TimePickerField<TFormValues>
             field={field}
-            className={clsx({
-              "border border-danger": errors[name],
+            inputClassName={clsx({
+              "!border !border-danger": errors[name],
             })}
             min={props.min}
             max={props.max}
@@ -227,7 +227,7 @@ function useFormField<TFormValues extends FieldValues>() {
             placeholder={placeholder}
             max={props.max}
             className={clsx({
-              "border border-danger": errors[name],
+              "!border !border-danger": errors[name],
             })}
             {...rest}
           />
@@ -277,7 +277,7 @@ function useFormField<TFormValues extends FieldValues>() {
             placeholder={placeholder}
             minLength={minLength}
             className={clsx({
-              "border-danger": errors[name],
+              "!border-danger": errors[name],
             })}
             {...rest}
           />
