@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^2.2.9",
     "@hookform/resolvers": "^5.2.2",
+    "@persian-tools/persian-tools": "^4.0.4",
     "@reduxjs/toolkit": "^2.9.1",
     "@tailwindcss/vite": "^4.1.14",
     "@tanstack/react-query": "^5.90.5",
