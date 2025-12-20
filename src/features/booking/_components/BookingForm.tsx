@@ -52,6 +52,9 @@ function BookingForm() {
         deposit: dataById.booking.deposit ?? 0,
         payable_amount: dataById.booking.payable_amount,
         items: preparedDataItem,
+        company_id:dataById.booking.customer_id,
+        discount_amount:dataById.booking.customer_id,
+
       };
       form.reset(praparedData);
     }
