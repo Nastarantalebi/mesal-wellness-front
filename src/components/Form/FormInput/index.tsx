@@ -125,7 +125,7 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
         dir={money ? "ltr" : dir}
         type={money ? "text" : restProps.type}
         onChange={handleChange}
-        value={displayValue as any}
+        value={displayValue ?? ""}
         className={clsx(
           "disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent",
           "[&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent",
