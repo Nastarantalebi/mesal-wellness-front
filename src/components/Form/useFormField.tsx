@@ -50,6 +50,7 @@ function useFormField<TFormValues extends FieldValues>() {
       minLength,
       maxLength,
       required,
+      mode,
       // mode,
       // min,
       // max,
@@ -77,6 +78,7 @@ function useFormField<TFormValues extends FieldValues>() {
             placeholder={placeholder}
             isDisabled={rest.disabled}
             isClearable={!required}
+            mode={mode}
           />
         );
         // const firstOption = option?.[0]?.value;

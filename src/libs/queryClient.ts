@@ -39,6 +39,12 @@ const handleHttpError = (error: any) => {
         type: "error",
       });
       break;
+    case 503:
+      showToastify({
+        message: "سرویس در دسترس نیست",
+        type: "error",
+      });
+      break;
     case 500:
       showToastify({
         message: message || "خطای سرور رخ داده است.",

@@ -1,4 +1,8 @@
-import Select, { type CSSObjectWithLabel } from "react-select";
+import Select, {
+  type CSSObjectWithLabel,
+  type MultiValue,
+  type SingleValue,
+} from "react-select";
 import type { ControllerRenderProps } from "react-hook-form";
 import clsx from "clsx";
 
@@ -14,20 +18,20 @@ type BaseProps = {
   isClearable?: boolean;
   isDisabled?: boolean;
   hasError?: boolean;
+  mode?: "multiple" | "single";
+  className?: string;
 };
 
 type RHFProps = {
   field: ControllerRenderProps<any, any>;
   value?: never;
-  onChange?: (option: SelectOption | null) => void;
-  className?: string;
+  onChange?: (option: SelectOption | SelectOption[] | null) => void;
 };
 
 type ControlledProps = {
   field?: never;
-  className?: string;
-  value: SelectOption | null;
-  onChange: (option: SelectOption | null) => void;
+  value: SelectOption | SelectOption[] | null;
+  onChange: (option: SelectOption | SelectOption[] | null) => void;
 };
 
 type AppSelectProps = BaseProps & (RHFProps | ControlledProps);
@@ -40,9 +44,11 @@ export default function ReactSelect({
   isDisabled = false,
   hasError,
   className,
+  mode = "single",
   ...props
 }: AppSelectProps) {
-  /** حالت RHF */
+  const isMulti = mode === "multiple";
+
   const style = {
     menuPortal: (base: CSSObjectWithLabel) => ({ ...base, zIndex: 9999 }),
     placeholder: (base: CSSObjectWithLabel) => ({
@@ -63,22 +69,43 @@ export default function ReactSelect({
       textOverflow: "ellipsis",
     }),
   };
+
+  const handleChange = (
+    option: SingleValue<SelectOption> | MultiValue<SelectOption>
+  ) => {
+    if (isMulti) {
+      const vals = (option as MultiValue<SelectOption>).map((o) => o.value);
+      if ("field" in props) props.field?.onChange(vals);
+      else props.onChange(vals as any);
+    } else {
+      const val = (option as SingleValue<SelectOption>)?.value ?? null;
+      if ("field" in props) props.field?.onChange(val);
+      else props.onChange(val as any);
+    }
+  };
+
+  // حالت RHF
   if ("field" in props) {
     const { field } = props;
 
-    const selectedOption =
-      options.find((opt) => opt.value === field?.value) ?? null;
+    const selectedOption = isMulti
+      ? options.filter((opt) =>
+          Array.isArray(field?.value) ? field.value.includes(opt.value) : false
+        )
+      : options.find((opt) => opt.value === field?.value) ?? null;
+
     return (
       <Select
         menuPortalTarget={document.body}
         menuPosition="fixed"
         options={options}
         value={selectedOption}
-        onChange={(opt) => field?.onChange(opt?.value ?? null)}
+        onChange={handleChange}
         placeholder={placeholder}
         isSearchable={isSearchable}
         isClearable={isClearable}
         isDisabled={isDisabled}
+        isMulti={isMulti}
         styles={style}
         isRtl
         classNamePrefix="simple-select"
@@ -93,18 +120,19 @@ export default function ReactSelect({
     );
   }
 
-  /** حالت Controlled */
+  // حالت Controlled
   return (
     <Select
       menuPortalTarget={document.body}
       menuPosition="fixed"
       options={options}
       value={props.value}
-      onChange={props.onChange}
+      onChange={handleChange}
       placeholder={placeholder}
       isSearchable={isSearchable}
       isClearable={isClearable}
       isDisabled={isDisabled}
+      isMulti={isMulti}
       isRtl
       styles={style}
       classNamePrefix="simple-select"
