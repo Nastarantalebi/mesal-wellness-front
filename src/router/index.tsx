@@ -25,6 +25,8 @@ import Company from "@/features/basics/company/_components/Company";
 import CompanyForm from "@/features/basics/company/_components/CompanyForm";
 import Contract from "@/features/basics/contract/_components/Contract";
 import ContractForm from "@/features/basics/contract/_components/ContractForm";
+import Roles from "@/features/settings/roles/_components/Roles";
+import Menus from "@/features/settings/menus/_components/Menus";
 
 function Router() {
   const routes = [
@@ -123,6 +125,14 @@ function Router() {
         {
           path: "/booking/create",
           element: <BookingForm />,
+        },
+        {
+          path: "/roles",
+          element: <Roles />,
+        },
+        {
+          path: "/menus",
+          element: <Menus />,
         },
       ],
     },

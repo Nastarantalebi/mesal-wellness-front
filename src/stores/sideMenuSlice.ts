@@ -84,6 +84,22 @@ const initialState: SideMenuState = {
       pathname: "/calendar",
       title: "نوبت‌های رزرو شده",
     },
+    {
+      icon: "Settings",
+      title: "تنظیمات سامانه",
+      subMenu: [
+        {
+          icon: "ShieldCheck",
+          pathname: "/roles",
+          title: "مدیریت نقش‌ها",
+        },
+        {
+          icon: "SquareMenu",
+          pathname: "/menus",
+          title: "مدیریت منوها",
+        },
+      ],
+    },
   ],
 };
 
