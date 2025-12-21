@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { login as loginApi } from "./authServices";
-import Toastify from "toastify-js";
 import { useNavigate } from "react-router-dom";
 import type { ISendOTP } from "../_types/types";
+import { showToastify } from "@/components/Headless/Toast";
 
 function useLogin() {
   const navigate = useNavigate();
@@ -13,15 +13,10 @@ function useLogin() {
       return response;
     },
     onSuccess: (data) => {
-      Toastify({
-        text: data?.message || "با موفقیت به پنل کاربری خود وارد شدید",
-        duration: 3000,
-        newWindow: true,
-        close: true,
-        gravity: "top",
-        position: "right",
-        stopOnFocus: true,
-      }).showToast();
+      showToastify({
+        message: data?.message || "به پنل کاربری خود وارد شدید",
+        type: "success",
+      });
       navigate("/");
     },
   });

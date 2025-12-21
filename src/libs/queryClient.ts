@@ -1,5 +1,5 @@
-import Toastify from "toastify-js";
 import { QueryClient, QueryCache, MutationCache } from "@tanstack/react-query";
+import { showToastify } from "@/components/Headless/Toast";
 
 const handleHttpError = (error: any) => {
   const status = error?.response?.status;
@@ -10,85 +10,49 @@ const handleHttpError = (error: any) => {
     error?.response?.data?.detail ||
     error?.message ||
     "خطای ناشناخته‌ای رخ داده است";
+
+  if (error.code === "ECONNABORTED" || error.message.includes("timeout")) {
+    showToastify({
+      message: "پاسخی از سرور دریافت نشد.لطفا دوباره تلاش کنید",
+      type: "error",
+    });
+    return;
+  }
+  if (!error.response) {
+    showToastify({
+      message: "خطا در اتصال به سرور. لطفاً اتصال اینترنت خود را بررسی کنید.",
+      type: "error",
+    });
+    return;
+  }
   switch (status) {
     case 401:
-      Toastify({
-        text: message || "لطفاً ابتدا وارد شوید.",
-        duration: 5000,
-        newWindow: true,
-        close: false,
-        gravity: "top",
-        position: "right",
-        stopOnFocus: true,
-        style: {
-          background: "linear-gradient(90deg,#ef4444,#dc2626)",
-          color: "#fff",
-          fontSize: "14px",
-          borderRadius: "8px",
-          padding: "12px 16px",
-          direction: "rtl",
-        },
-      }).showToast();
+      showToastify({
+        message: message || "لطفاً ابتدا وارد شوید.",
+        type: "error",
+      });
       break;
     case 429:
-      Toastify({
-        text: "درخواست‌ها بیش از حد مجاز است. لطفاً کمی بعد دوباره تلاش کنید",
-        duration: 5000,
-        newWindow: true,
-        close: false,
-        gravity: "top",
-        position: "right",
-        stopOnFocus: true,
-        style: {
-          background: "linear-gradient(90deg,#ef4444,#dc2626)",
-          color: "#fff",
-          fontSize: "14px",
-          borderRadius: "8px",
-          padding: "12px 16px",
-          direction: "rtl",
-        },
-      }).showToast();
+      showToastify({
+        message:
+          "درخواست‌ها بیش از حد مجاز است. لطفاً کمی بعد دوباره تلاش کنید",
+        type: "error",
+      });
       break;
     case 500:
-      Toastify({
-        text: message || "خطای سرور رخ داده است.",
-        duration: 5000,
-        newWindow: true,
-        close: false,
-        gravity: "top",
-        position: "right",
-        stopOnFocus: true,
-        style: {
-          background: "linear-gradient(90deg,#ef4444,#dc2626)",
-          color: "#fff",
-          fontSize: "14px",
-          borderRadius: "8px",
-          padding: "12px 16px",
-          direction: "rtl",
-        },
-      }).showToast();
+      showToastify({
+        message: message || "خطای سرور رخ داده است.",
+        type: "error",
+      });
       break;
     default:
       if (Array.isArray(error?.response?.data?.non_field_errors)) {
         errorMessage = error.response.data.non_field_errors.join("، ");
       }
-      Toastify({
-        text: errorMessage,
-        duration: 5000,
-        newWindow: true,
-        close: false,
-        gravity: "top",
-        position: "right",
-        stopOnFocus: true,
-        style: {
-          background: "linear-gradient(90deg,#ef4444,#dc2626)",
-          color: "#fff",
-          fontSize: "14px",
-          borderRadius: "8px",
-          padding: "12px 16px",
-          direction: "rtl",
-        },
-      }).showToast();
+      showToastify({
+        message: errorMessage,
+        type: "error",
+      });
   }
 };
 

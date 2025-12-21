@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Request } from "../libs/httpService";
-import Toastify from "toastify-js";
+import { showToastify } from "@/components/Headless/Toast";
 
 type TDeleteData = {
   url: string;
@@ -25,15 +25,10 @@ function useDeleteData<T>({ url, queryKey, onError, onSuccess }: TDeleteData) {
         onSuccess();
       } else {
         queryClient.invalidateQueries({ queryKey: [queryKey] });
-        Toastify({
-          text: "آیتم با موفقیت حذف شد",
-          duration: 3000,
-          newWindow: true,
-          close: true,
-          gravity: "top",
-          position: "right",
-          stopOnFocus: true,
-        }).showToast();
+        showToastify({
+          message: "آیتم حذف شد",
+          type: "success",
+        });
       }
     },
     onError: () => {

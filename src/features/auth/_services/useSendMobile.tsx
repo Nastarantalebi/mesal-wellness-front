@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { sendMobile } from "./authServices";
-import Toastify from "toastify-js";
 import type { ISendMobile } from "../_types/types";
+import { showToastify } from "@/components/Headless/Toast";
 function useSendMobile() {
   const { isPending, mutateAsync, data } = useMutation({
     mutationFn: async (values: ISendMobile) => {
@@ -9,15 +9,10 @@ function useSendMobile() {
       return response;
     },
     onSuccess: (data) => {
-      Toastify({
-        text: data?.message || "کد یکبارمصرف برای شماره شما ارسال شد",
-        duration: 3000,
-        newWindow: true,
-        close: true,
-        gravity: "top",
-        position: "right",
-        stopOnFocus: true,
-      }).showToast();
+      showToastify({
+        message: data?.message || "کد یکبارمصرف برای شما ارسال شد",
+        type: "success",
+      });
     },
   });
   return { isPending, mutateAsync, data };

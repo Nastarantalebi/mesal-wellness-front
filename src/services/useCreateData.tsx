@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import Toastify from "toastify-js";
 import { Request } from "../libs/httpService";
+import { showToastify } from "@/components/Headless/Toast";
 
 type TCreateData<TRes> = {
   url: string;
@@ -36,15 +36,10 @@ function useCreateData<TReq extends object, TRes>({
       } else {
         queryClient.invalidateQueries({ queryKey: [queryKey] });
         if (showToast)
-          Toastify({
-            text: "آیتم با موفقیت ساخته شد",
-            duration: 3000,
-            newWindow: true,
-            close: true,
-            gravity: "top",
-            position: "right",
-            stopOnFocus: true,
-          }).showToast();
+          showToastify({
+            message: "آیتم ساخته شد",
+            type: "success",
+          });
       }
     },
     onError: () => {

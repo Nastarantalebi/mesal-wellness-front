@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Request } from "../libs/httpService";
-import Toastify from "toastify-js";
+import { showToastify } from "@/components/Headless/Toast";
 
 type TUpdateData = {
   url: string;
@@ -39,15 +39,10 @@ function useUpdateData<TReq extends object, TRes>({
       } else {
         queryClient.invalidateQueries({ queryKey: [queryKey] });
         if (showToast)
-          Toastify({
-            text: "آیتم با موفقیت ویرایش شد",
-            duration: 3000,
-            newWindow: true,
-            close: true,
-            gravity: "top",
-            position: "right",
-            stopOnFocus: true,
-          }).showToast();
+          showToastify({
+            message: "آیتم ویرایش شد",
+            type: "success",
+          });
       }
     },
     onError: () => {
