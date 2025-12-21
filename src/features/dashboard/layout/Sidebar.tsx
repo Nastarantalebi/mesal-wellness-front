@@ -63,13 +63,9 @@ function Sidebar({
             { flex: activeMobileMenu },
             { hidden: !activeMobileMenu },
           ])}>
-          <a
-            onClick={(_event) => {
-              setActiveMobileMenu(false);
-            }}
-            className="mt-5 ms-5">
-            <Lucide icon="CircleX" className="w-8 h-8 text-white" />
-          </a>
+          <span role="button" onClick={() => setActiveMobileMenu(false)}>
+            <Lucide icon="CircleX" className="w-8 h-8 text-white mt-5 ms-5" />
+          </span>
         </div>
         <div
           ref={scrollableRef}
@@ -87,7 +83,7 @@ function Sidebar({
               ) : (
                 <li key={menuKey}>
                   <a
-                    href={menu.pathname}
+                    href={menu.pathname!}
                     className={clsx([
                       "side-menu__link ",
                       { "side-menu__link--active": menu.active },
@@ -95,8 +91,8 @@ function Sidebar({
                         "side-menu__link--active-dropdown": menu.activeDropdown,
                       },
                     ])}
-                    onClick={(_event: React.MouseEvent) => {
-                      // event.preventDefault();
+                    onClick={(event: React.MouseEvent) => {
+                      event.preventDefault();
                       linkTo(menu, navigate);
                       setFormattedMenu([...formattedMenu]);
                     }}>
@@ -146,8 +142,8 @@ function Sidebar({
                                     subMenu.activeDropdown,
                                 },
                               ])}
-                              onClick={(_event: React.MouseEvent) => {
-                                // event.preventDefault();
+                              onClick={(event: React.MouseEvent) => {
+                                event.preventDefault();
                                 linkTo(subMenu, navigate);
                                 setFormattedMenu([...formattedMenu]);
                               }}>
@@ -208,9 +204,9 @@ function Sidebar({
                                             },
                                           ])}
                                           onClick={(
-                                            _event: React.MouseEvent
+                                            event: React.MouseEvent
                                           ) => {
-                                            // event.preventDefault();
+                                            event.preventDefault();
                                             linkTo(lastSubMenu, navigate);
                                             setFormattedMenu([
                                               ...formattedMenu,
