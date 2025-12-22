@@ -1,80 +1,70 @@
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Button from "@/components/Button";
+import FormComponent from "@/components/Form/Form";
+import PasswordField from "@/features/_components/PasswordField";
 import {
   changePassInitialValue,
   changePassValidationSchema,
 } from "../_fixtures/validation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Button from "@/components/Button";
-import useChangePassword from "../_services/useChangePassword";
 import type { TChangePass } from "../_types/type";
-import PasswordInput from "@/features/_components/PasswordInput";
-const ChangePassword = () => {
+import useChangePassword from "../_services/useChangePassword";
+
+const ChangePasswordForm = () => {
   const { isPending, mutateAsync } = useChangePassword();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<TChangePass>({
+
+  const form = useForm<TChangePass>({
     resolver: zodResolver(changePassValidationSchema),
     defaultValues: changePassInitialValue,
   });
-  const onSubmit = (values: TChangePass) => {
+
+  const handleSubmitForm = (values: TChangePass) => {
     mutateAsync(values, {
       onSuccess: () => {
-        reset();
+        form.reset();
       },
     });
   };
+
   return (
-    <form
-      className="mt-6 w-full outline-none"
-      onSubmit={handleSubmit(onSubmit)}
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Backspace") {
-          const target = e.target as HTMLElement;
-          const isInput =
-            target.tagName === "INPUT" || target.tagName === "TEXTAREA";
-          if (!isInput) {
-            e.preventDefault();
-          }
-        }
-      }}>
-      <div className="grid grid-cols-1 md:grid-cols-3  xl:grid-cols-4 gap-2">
-        <PasswordInput
+    <FormComponent
+      form={form}
+      onSubmit={handleSubmitForm}
+      size="custom"
+      button={
+        <div className="w-full text-end">
+          <Button
+            type="submit"
+            variant="primary"
+            isPending={isPending}
+            className="mt-5">
+            تغییر رمز عبور
+          </Button>
+        </div>
+      }
+      className="mt-6 w-full outline-none">
+      <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-2">
+        <PasswordField
+          control={form.control}
+          name="old_password"
           label="رمز عبور قدیمی"
-          register={register("old_password")}
-          error={errors.old_password?.message}
-          isRequired
           disabled={isPending}
         />
-        <PasswordInput
+        <PasswordField
+          control={form.control}
+          name="new_password"
           label="رمز عبور جدید"
-          register={register("new_password")}
-          error={errors.new_password?.message}
-          isRequired
           disabled={isPending}
         />
-        <PasswordInput
+        <PasswordField
+          control={form.control}
+          name="confirm_password"
           label="تکرار رمز عبور جدید"
-          register={register("confirm_password")}
-          error={errors.confirm_password?.message}
-          isRequired
           disabled={isPending}
         />
       </div>
-      <div className="w-full text-end">
-        <Button
-          variant="primary"
-          type="submit"
-          className="mt-5"
-          isPending={isPending}>
-          تغییر رمز عبور
-        </Button>
-      </div>
-    </form>
+    </FormComponent>
   );
 };
 
-export default ChangePassword;
+export default ChangePasswordForm;
