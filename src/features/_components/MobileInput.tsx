@@ -40,7 +40,7 @@ export default function MobileInput({
               className={clsx(
                 "block w-full px-4 py-3.5 rounded-[0.6rem] border-slate-300/80 pl-10 placeholder:!text-left",
                 className,
-                { "border-danger": !!fieldState.error }
+                { "!border-danger": !!fieldState?.error?.message }
               )}
               disabled={disabled}
               onKeyDown={(e) => {
@@ -62,7 +62,12 @@ export default function MobileInput({
             <PhoneIcon
               width={20}
               height={20}
-              className="absolute left-3 top-1/2 -translate-y-1/2 select-none opacity-70"
+              className={clsx(
+                "absolute left-3 top-1/2 -translate-y-1/2 select-none opacity-70",
+                {
+                  "!top-1/3": !!fieldState?.error?.message,
+                }
+              )}
             />
             {fieldState.error && (
               <div className="mt-2 text-danger text-sm">

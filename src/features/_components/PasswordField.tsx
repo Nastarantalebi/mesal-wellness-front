@@ -38,13 +38,18 @@ export default function PasswordField({
             disabled={disabled}
             className={clsx(
               "block w-full px-4 py-3.5 pr-10 rounded-[0.6rem] border-slate-300/80 placeholder:!text-left",
-              { "border-danger": !!fieldState.error },
+              { "!border !border-danger": !!fieldState?.error?.message },
               className
             )}
           />
           <span
             onClick={() => setShow((prev) => !prev)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer select-none">
+            className={clsx(
+              "absolute right-3 top-2/3 -translate-y-1/2 text-gray-500 cursor-pointer select-none",
+              {
+                "!top-1/2": !!fieldState?.error?.message,
+              }
+            )}>
             {show ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
           </span>
           {fieldState.error && (
