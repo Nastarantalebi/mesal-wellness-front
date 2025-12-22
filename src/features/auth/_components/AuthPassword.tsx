@@ -1,116 +1,53 @@
-import clsx from "clsx";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormInput, FormLabel } from "@/components/Form";
 import Button from "@/components/Button";
-import { useState } from "react";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { sendPasswordvalidationSchema } from "../_fixtures";
 import useSendPassword from "../_services/useSendPassword";
 import ForgotPassword from "./ForgotPassword";
+import PasswordField from "@/features/_components/PasswordField";
+import MobileInput from "@/features/_components/MobileInput";
+import FormComponent from "@/components/Form/Form";
 
-function AuthPassword() {
+function AuthPasswordForm() {
   const { isPending, mutateAsync } = useSendPassword();
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [forgotPass, setForgotPass] = useState<boolean>(false);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<any>({
+  const [forgotPass, setForgotPass] = useState(false);
+
+  const form = useForm<any>({
     mode: "onChange",
     resolver: zodResolver(sendPasswordvalidationSchema),
   });
 
-  const onSubmit = (values: any) => {
+  if (forgotPass) return <ForgotPassword setForgotPass={setForgotPass} />;
+
+  const handleSubmitForm = (values: any) => {
     mutateAsync(values);
   };
 
-  return forgotPass ? (
-    <ForgotPassword setForgotPass={setForgotPass} />
-  ) : (
-    <form
-      className="validate-form-login mt-6"
-      onSubmit={handleSubmit(onSubmit)}
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Backspace") {
-          const target = e.target as HTMLElement;
-          const isInput =
-            target.tagName === "INPUT" || target.tagName === "TEXTAREA";
-          if (!isInput) {
-            e.preventDefault();
-          }
-        }
-      }}>
-      <FormLabel>شماره همراه</FormLabel>
-      <FormInput
-        {...register("mobile")}
-        id="validation-form-login"
-        name="mobile"
-        type="tel"
-        inputMode="numeric"
-        dir="ltr"
-        maxLength={11}
-        className={clsx(
-          "block px-4 py-3.5 rounded-[0.6rem] border-slate-300/80 placeholder:!text-left",
-          {
-            "border-danger": errors.mobile,
-          }
-        )}
-        placeholder="09123456789"
-      />
-      {errors.mobile && (
-        <div className="mt-2 text-danger">
-          {typeof errors.mobile.message === "string" && errors.mobile.message}
-        </div>
-      )}
-
-      <FormLabel className="mt-4">رمز عبور</FormLabel>
-
-      <div className="relative mb-2">
-        <FormInput
-          {...register("password")}
-          id="validation-form-login"
-          dir="ltr"
-          name="password"
-          type={showPassword ? "text" : "password"}
-          className={clsx(
-            "block w-full px-4 py-3.5 pr-10 rounded-[0.6rem] border-slate-300/80 placeholder:!text-left",
-            { "border-danger": errors.password }
-          )}
-          placeholder="************"
-        />
-        <span
-          onClick={() => setShowPassword(!showPassword)}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 select-none cursor-pointer">
-          {showPassword ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
-        </span>
-      </div>
-
-      {errors.password && (
-        <div className="mt-2 text-danger">
-          {typeof errors.password.message === "string" &&
-            errors.password.message}
-        </div>
-      )}
-      <span
-        className="text-blue-800 tracking-wide cursor-pointer"
-        onClick={() => setForgotPass(true)}>
-        فراموشی رمز عبور
-      </span>
-      <div className="mt-5 text-center xl:mt-8 xl:text-start">
+  return (
+    <FormComponent
+      form={form}
+      onSubmit={handleSubmitForm}
+      size="custom"
+      button={
         <Button
           type="submit"
           variant="primary"
           isPending={isPending}
           rounded
-          className="bg-gradient-to-r from-theme-1/70 to-theme-2/70 w-full py-3.5 xl:me-3">
+          className="bg-gradient-to-r from-theme-1/70 to-theme-2/70 w-full py-3.5">
           ورود
         </Button>
-      </div>
-    </form>
+      }>
+      <MobileInput control={form.control} name="mobile" />
+      <PasswordField control={form.control} name="password" label="رمز عبور" />
+      <span
+        className="text-blue-800 tracking-wide cursor-pointer mt-2 inline-block"
+        onClick={() => setForgotPass(true)}>
+        فراموشی رمز عبور
+      </span>
+    </FormComponent>
   );
 }
 
-export default AuthPassword;
+export default AuthPasswordForm;
