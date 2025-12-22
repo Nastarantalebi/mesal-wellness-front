@@ -23,12 +23,10 @@ const Roles = () => {
         data={data?.data}
         dataPagination={data?.paginate}
         onAdd={() => {
-          console.log("object");
           setOpenModal(true);
           setSelectedRecord(null);
         }}
         onEdit={(record) => {
-          console.log(record);
           setOpenModal(true);
           setSelectedRecord(record);
         }}

@@ -3,8 +3,7 @@ type TProps = {
   selectedRecord?: any;
 };
 const RolesForm = ({ setOpenModal, selectedRecord }: TProps) => {
-  console.log(setOpenModal);
-  console.log(selectedRecord);
+  console.log(setOpenModal, selectedRecord);
   return <div>RolesForm</div>;
 };
 

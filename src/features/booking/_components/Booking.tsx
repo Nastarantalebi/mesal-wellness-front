@@ -64,7 +64,6 @@ function Booking() {
             onClick: (record) => {
               setOpenModalPersonal(true);
               setSelectedRecord(record);
-              console.log(record);
             },
           },
         ]}
