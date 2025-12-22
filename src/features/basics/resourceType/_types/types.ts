@@ -1,20 +1,3 @@
-import type { TColumns, TPaginate } from "@/types";
-
-export type TResourceType = {
-  columns: {
-    id: TColumns;
-    code: TColumns;
-    name: TColumns;
-    is_active: TColumns;
-  };
-  data: {
-    id: number;
-    code: string;
-    name: string;
-    is_active: boolean;
-  }[];
-  paginate: TPaginate;
-};
 export type TDataById = {
   type: {
     id: number;
@@ -37,7 +20,7 @@ export type TReqResourceType = {
   name: string;
   icon: string | null;
   description: string;
-  is_active: string;
+  is_active: boolean | null | "true" | "false";
   meta?: {
     capacity: number;
     floor: number;

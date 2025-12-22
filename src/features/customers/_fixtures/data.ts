@@ -16,10 +16,10 @@ export const schema = z
     birth_date: z.string().nullable(),
     gender: z.string().min(1, " "),
     joined_at: z.string().nullable(),
-    membership_type: z.string().min(1, " "),
+    membership_type: z.string().nullable(),
     national_code: nationalCodeValidationSchema,
     notes: z.string().nullable(),
-    status: z.string().min(1, " "),
+    status: z.string().nullable(),
     user_id: z.number().nullable(),
   })
   .refine(
@@ -42,9 +42,9 @@ export const initialValues: TReqCustomers = {
   birth_date: null,
   gender: "",
   joined_at: null,
-  membership_type: "",
+  membership_type: null,
   national_code: null,
   notes: null,
-  status: "",
+  status: null,
   user_id: null,
 };

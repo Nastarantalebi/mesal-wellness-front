@@ -1,5 +1,6 @@
 import z from "zod";
 import type { TReqServices } from "../_types/types";
+import { booleanNullableSchema } from "@/fixtures/zodValidations";
 
 export const servicesUrl = "/wellness/services/";
 export const servicesQuerykey = "servicesQuerykey";
@@ -14,7 +15,7 @@ export const schema = z.object({
   duration_minutes: z.string().min(1, " "),
   gender_policy: z.string().min(1, " "),
   title: z.string().min(1, " "),
-  is_active: z.string(),
+  is_active: booleanNullableSchema,
   meta: z
     .object({
       discount_percent: z.number(),
@@ -33,7 +34,7 @@ export const initialValues: TReqServices = {
   duration_minutes: "60",
   gender_policy: "",
   title: "",
-  is_active: "true",
+  is_active: true,
   meta: {
     discount_percent: 0,
     requires_shower: true,

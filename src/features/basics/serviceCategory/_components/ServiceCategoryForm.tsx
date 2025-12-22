@@ -30,7 +30,7 @@ function ServiceCategoryForm() {
     url: url,
     id: selectedRecord,
   });
-  const form = useForm<TReqServiceCategory>({
+  const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initialValue,
   });
@@ -38,7 +38,7 @@ function ServiceCategoryForm() {
     if (dataById) {
       const preparedData: TReqServiceCategory = {
         description: String(dataById.category.description ?? ""),
-        is_active: dataById.category.is_active?"true":"false",
+        is_active: dataById.category.is_active,
         title: dataById.category.title,
         branch_id: dataById.category.parent_id ?? null,
         parent_id: dataById.category.parent_id ?? null,
@@ -52,7 +52,7 @@ function ServiceCategoryForm() {
       onSubmit={(values) => {
         const preparedData = {
           ...values,
-          is_active: values.is_active === "true",
+          is_active: values.is_active !== false,
         };
         const action = !!selectedRecord ? update : create;
         action(preparedData, {

@@ -22,6 +22,7 @@ function TherapistServiceForm({
   refetch,
 }: TProps) {
   const id = selectedRecord?.id;
+  const isEdit = !!id;
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url: url,
     queryKey: queryKey,
@@ -42,7 +43,7 @@ function TherapistServiceForm({
     resolver: zodResolver(schema),
     defaultValues: initialValue,
   });
-  const { fields } = useFormData();
+  const { fields } = useFormData(isEdit);
   useEffect(() => {
     if (!id) {
       form.reset(initialValue);
@@ -53,7 +54,7 @@ function TherapistServiceForm({
   useEffect(() => {
     if (dataById) {
       const preparedData: TReqTherapistService = {
-        is_active: dataById.therapist_service.is_active ? "true" : "false",
+        is_active: dataById.therapist_service.is_active,
         commission_rate: String(dataById.therapist_service.commission_rate),
         custom_price: String(dataById.therapist_service.custom_price),
         estimated_duration: String(
@@ -71,9 +72,9 @@ function TherapistServiceForm({
       onSubmit={(values) => {
         const preparedData = {
           ...values,
-          is_active: values.is_active === "true",
+          is_active: values.is_active !== false,
         };
-        const action = !!id ? update : create;
+        const action = isEdit ? update : create;
         action(preparedData, {
           onSuccess: () => setShowForm(false),
         });

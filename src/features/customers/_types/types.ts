@@ -36,12 +36,12 @@ export type TReqCustomers = {
   phone: string;
   gender: string;
   user_id: number | null;
-  membership_type: string;
+  membership_type: string | null;
   birth_date: string | null;
   national_code: string | null;
   joined_at: string | null;
   notes: string | null;
-  status: string;
+  status: string | null;
 };
 type Customer = {
   id: number;

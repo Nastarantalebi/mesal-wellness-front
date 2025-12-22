@@ -1,5 +1,6 @@
 import { z } from "zod";
 import type { TReqTherapistService } from "../_types/types";
+import { booleanNullableSchema } from "@/fixtures/zodValidations";
 
 export const url = "/wellness/therapist-services/";
 export const queryKey = "therapistServiceQuerykey";
@@ -8,7 +9,7 @@ export const schema = z.object({
   commission_rate: z.string().nullable(),
   custom_price: z.string().min(1, " "),
   estimated_duration: z.string().min(1, " "),
-  is_active: z.string(),
+  is_active: booleanNullableSchema,
   service_id: z.coerce.number(),
   therapist_id: z.coerce.number(),
 });
@@ -17,7 +18,7 @@ export const initialValue: TReqTherapistService = {
   commission_rate: "0",
   custom_price: "",
   estimated_duration: "",
-  is_active: "true",
+  is_active:true,
   service_id: 0,
   therapist_id: 0,
 };

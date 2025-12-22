@@ -1,5 +1,6 @@
 import { z } from "zod";
 import type { TReqServiceCategory } from "../_types/types";
+import { booleanNullableSchema } from "@/fixtures/zodValidations";
 
 export const url = "/wellness/service-categories/";
 export const queryKey = "serviceCategoryQuerykey";
@@ -10,7 +11,7 @@ export const schema = z.object({
   parent_id: z.number().nullable(),
   icon: z.string().nullable(),
   description: z.string(),
-  is_active: z.string(),
+  is_active: booleanNullableSchema,
   meta: z
     .object({
       color: z.string(),
@@ -24,7 +25,7 @@ export const initialValue: TReqServiceCategory = {
   title: "",
   branch_id: null,
   parent_id: null,
-  is_active: "true",
+  is_active: true,
   description: "",
   icon: null,
   meta: {

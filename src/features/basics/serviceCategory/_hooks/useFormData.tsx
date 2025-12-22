@@ -20,11 +20,10 @@ const useFormData = (isEdit: boolean) => {
           name: "is_active",
           label: "وضعیت",
           placeholder: "وضعیت",
-          required: true,
           type: "select",
           option: [
-            { label: "فعال", value: "true" },
-            { label: "غیرفعال", value: "false" },
+            { label: "فعال", value: true },
+            { label: "غیرفعال", value: false },
           ],
         }
       : undefined,

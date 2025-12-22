@@ -49,7 +49,7 @@ function SevicesForm() {
         currency: dataById.service.currency ?? null,
         gender_policy: dataById.service.gender_policy.value,
         description: dataById.service.description,
-        is_active: dataById.service.is_active ? "true" : "false",
+        is_active: dataById.service.is_active,
         branch_id: dataById.service.category?.branch_id ?? null,
       };
 
@@ -61,7 +61,7 @@ function SevicesForm() {
       onSubmit={(values) => {
         const preparedData = {
           ...values,
-          is_active: values.is_active === "true",
+          is_active: values.is_active !== false,
         };
         const action = !!selectedRecord ? update : create;
         action(preparedData, { onSuccess: () => navigate("/services") });

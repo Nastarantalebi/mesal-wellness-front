@@ -15,6 +15,7 @@ const ChangePassword = () => {
     handleSubmit,
     reset,
     formState: { errors },
+    watch,
   } = useForm<TChangePass>({
     resolver: zodResolver(changePassValidationSchema),
     defaultValues: changePassInitialValue,
@@ -26,6 +27,7 @@ const ChangePassword = () => {
       },
     });
   };
+  console.log(watch);
   return (
     <form
       className="mt-6 w-full outline-none"

@@ -43,7 +43,7 @@ function Booking() {
         dataPagination={data?.paginate}
         addText="افزودن رزرو جدید"
         onAdd={() => navigate("create")}
-        onEdit={(record) => navigate("create", { state: { record } })}
+        // onEdit={(record) => navigate("create", { state: { record } })}
         onDelete={(record) => Delete(record.id)}
         onVisit={(record) => {
           setOpen(true);

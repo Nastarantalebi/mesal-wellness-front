@@ -1,6 +1,9 @@
 import { z } from "zod";
 import type { TReqFacilities } from "../_types/types";
-import { phoneRequireValidationSchema } from "@/fixtures/zodValidations";
+import {
+  booleanNullableSchema,
+  phoneRequireValidationSchema,
+} from "@/fixtures/zodValidations";
 
 export const url = "/wellness/facilities/";
 export const queryKey = "facilitiesQuerykey";
@@ -13,7 +16,7 @@ export const schema = z.object({
   code: z.string(),
   manager_name: z.string().min(1, " "),
   phone: phoneRequireValidationSchema,
-  is_active: z.string(),
+  is_active: booleanNullableSchema,
   meta: z
     .object({
       google_map_link: z.string(),
@@ -27,7 +30,7 @@ export const initialValue: TReqFacilities = {
   name: "",
   address: "",
   city: "",
-  is_active: "true",
+  is_active: true,
   description: "",
   phone: "",
   code: "",

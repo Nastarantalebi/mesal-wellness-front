@@ -3,7 +3,7 @@ import useGetData from "@/services/useGetData";
 import { queryKey, url } from "../_fixtures/data";
 import type { TCreateData, TReqTherapistService } from "../_types/types";
 
-const useFormData = () => {
+const useFormData = (isEdit: boolean) => {
   const { data, isLoading } = useGetData<TCreateData>({
     url: `${url}create`,
     queryKey: `${queryKey},"dataCreate"`,
@@ -52,17 +52,18 @@ const useFormData = () => {
       min: 0,
       max: 100,
     },
-    {
-      name: "is_active",
-      label: "وضعیت",
-      placeholder: "وضعیت",
-      required: true,
-      type: "select",
-      option: [
-        { label: "فعال", value: "true" },
-        { label: "غیرفعال", value: "false" },
-      ],
-    },
+    isEdit
+      ? {
+          name: "is_active",
+          label: "وضعیت",
+          placeholder: "وضعیت",
+          type: "select",
+          option: [
+            { label: "فعال", value: true },
+            { label: "غیرفعال", value: false },
+          ],
+        }
+      : undefined,
   ];
   return { fields };
 };

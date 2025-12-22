@@ -38,7 +38,7 @@ function ResourceTypeForm() {
     if (dataById) {
       const preparedData: TReqResourceType = {
         description: String(dataById.type.description ?? ""),
-        is_active: dataById.type.is_active ? "true" : "false",
+        is_active: dataById.type.is_active,
         name: dataById.type.name,
         code: dataById.type.code,
         icon: dataById.type.icon ?? null,
@@ -51,7 +51,7 @@ function ResourceTypeForm() {
       onSubmit={(values) => {
         const preparedData = {
           ...values,
-          is_active: values.is_active === "true",
+          is_active: values.is_active !== false,
         };
         const action = !!selectedRecord ? update : create;
         action(preparedData, { onSuccess: () => navigate("/resource-type") });

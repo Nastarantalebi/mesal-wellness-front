@@ -1,4 +1,15 @@
 import { z } from "zod";
+export const booleanSchema = z.union([
+  z.literal("true").transform(() => true),
+  z.literal("false").transform(() => false),
+  z.boolean(),
+]);
+export const booleanNullableSchema = z.union([
+  z.literal("true").transform(() => true),
+  z.literal("false").transform(() => false),
+  z.boolean(),
+  z.null(),
+]);
 
 export const mobileValidationSchema = z.union([
   z.literal(""),

@@ -23,6 +23,7 @@ function TherapistsAvailabilitiesForm({
   refetch,
 }: TProps) {
   const id = selectedRecord?.id;
+  const isEdit = !!id;
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url: url,
     queryKey: queryKey,
@@ -63,12 +64,12 @@ function TherapistsAvailabilitiesForm({
       form.reset(praparedData);
     }
   }, [form, dataById]);
-  const { fields } = useFormData();
+  const { fields } = useFormData(isEdit);
   return (
     <FormComponent
       form={form}
       onSubmit={(values) => {
-        const action = !!id ? update : create;
+        const action = isEdit ? update : create;
         action(values, {
           onSuccess: () => setShowForm(false),
         });

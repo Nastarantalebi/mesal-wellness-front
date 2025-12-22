@@ -35,7 +35,7 @@ export type TReqServiceCategory = {
   title: string;
   icon: string | null;
   description: string;
-  is_active: string;
+  is_active: boolean | null;
   meta?: {
     color: string;
     order: number;

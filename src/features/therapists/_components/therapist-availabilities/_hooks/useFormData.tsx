@@ -6,7 +6,7 @@ import type {
 import useGetData from "@/services/useGetData";
 import { queryKey, url } from "../_fixtures/data";
 
-const useFormData = () => {
+const useFormData = (isEdit: boolean) => {
   const { data, isLoading } = useGetData<TCreateData>({
     url: `${url}create`,
     queryKey: `${queryKey},"dataCreate"`,
@@ -45,15 +45,17 @@ const useFormData = () => {
       type: "time",
       placeholder: "پایان شیفت",
     },
-    {
-      name: "is_active",
-      label: "وضعیت",
-      required: true,
-      placeholder: "وضعیت",
-      type: "select",
-      isLoading: isLoading,
-      option: data?.data.statuses ?? [],
-    },
+    isEdit
+      ? {
+          name: "is_active",
+          label: "وضعیت",
+          required: true,
+          placeholder: "وضعیت",
+          type: "select",
+          isLoading: isLoading,
+          option: data?.data.statuses ?? [],
+        }
+      : undefined,
   ];
   return { fields };
 };

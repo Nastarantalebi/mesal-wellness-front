@@ -44,7 +44,7 @@ function FacilitiesForm() {
         manager_name: dataById.facility.manager_name ?? "",
         name: dataById.facility.name ?? "",
         phone: dataById.facility.phone ?? "",
-        is_active: dataById.facility.is_active ? "true" : "false",
+        is_active: dataById.facility.is_active,
       };
       form.reset(preparedData);
     }
@@ -54,7 +54,7 @@ function FacilitiesForm() {
       onSubmit={(values) => {
         const preparedData = {
           ...values,
-          is_active: values.is_active === "true" 
+          is_active: values.is_active !== false,
         };
         const action = !!selectedRecord ? update : create;
         action(preparedData, { onSuccess: () => navigate("/facilities") });
