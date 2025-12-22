@@ -1,8 +1,8 @@
 import { useContext, forwardRef } from "react";
+import clsx from "clsx";
+import { numberToWords } from "@persian-tools/persian-tools";
 import { formInlineContext } from "../FormInline";
 import { inputGroupContext } from "../InputGroup";
-import { numberToWords } from "@persian-tools/persian-tools"; // اضافه شد
-import clsx from "clsx";
 
 interface FormInputProps extends React.ComponentPropsWithoutRef<"input"> {
   formInputSize?: "sm" | "lg";
@@ -10,28 +10,28 @@ interface FormInputProps extends React.ComponentPropsWithoutRef<"input"> {
   hasError?: boolean;
   money?: boolean;
   dir?: "ltr" | "rtl";
-  maxLength?: number;
-  minLength?: number;
-  max?: number | string;
-  min?: number | string;
 }
-type FormInputRef = React.ComponentPropsWithRef<"input">["ref"];
-const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
+
+// type FormInputRef = React.ComponentPropsWithRef<"input">["ref"];
+
+const FormInput = forwardRef<HTMLInputElement, FormInputProps>((props, ref) => {
   const {
     money,
-    min,
-    max,
-    minLength,
-    maxLength,
     hasError,
     dir,
-    onChange,
     value,
+    onChange,
     className,
-    ...restProps
+    max,
+    min,
+    maxLength,
+    ...rest
   } = props;
+
   const formInline = useContext(formInlineContext);
   const inputGroup = useContext(inputGroupContext);
+
+  const isControlled = value !== undefined;
 
   const formatMoney = (val: string) => {
     const numbers = val.replace(/[^\d]/g, "");
@@ -39,76 +39,27 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let val = e.target.value;
-
-    if (restProps.type === "number" && !money) {
-      if (maxLength !== undefined && val.length > maxLength) return;
-      if (val === "" || val === "-" || val === ".") {
-        onChange && onChange(e);
-        return;
-      }
-      const numericValue = parseFloat(val);
-      if (
-        !isNaN(numericValue) &&
-        ((max !== undefined && numericValue > Number(max)) ||
-          (min !== undefined && numericValue < Number(min)))
-      ) {
-        return;
-      }
-      onChange && onChange(e);
-      return;
-    }
-
     if (!money) {
-      onChange && onChange(e);
+      onChange?.(e);
       return;
     }
 
-    if (val.endsWith(" ")) {
-      const cleaned = val.replace(/[^\d]/g, "");
-      val = `${cleaned}000`;
-    }
-
-    const onlyNums = val.replace(/[^\d]/g, "");
-    if (onlyNums.length > 1 && onlyNums.startsWith("0")) {
-      val = onlyNums.replace(/^0+/, "");
-    }
-
+    let val = e.target.value.replace(/[^\d]/g, "");
     const formatted = formatMoney(val);
-    const rawValue = formatted.replace(/,/g, "");
 
-    if (maxLength !== undefined && rawValue.length > maxLength) return;
+    onChange?.({
+      ...e,
+      target: { ...e.target, value: val },
+    } as any);
 
-    const numericValue = parseInt(rawValue, 10);
-    if (
-      !isNaN(numericValue) &&
-      ((max !== undefined && numericValue > Number(max)) ||
-        (min !== undefined && numericValue < Number(min)))
-    ) {
-      return;
-    }
-
-    if (onChange) {
-      onChange({
-        ...e,
-        target: { ...e.target, value: rawValue },
-      } as any);
-    }
     e.target.value = formatted;
   };
 
-  const displayValue = money && value ? formatMoney(String(value)) : value;
-  const safeNumberToWords = (value: number) => {
-    try {
-      return numberToWords(value);
-    } catch {
-      return "";
-    }
-  };
+  const displayValue =
+    money && value !== undefined ? formatMoney(String(value)) : value;
+
   const valueInWords =
-    money && value && !isNaN(Number(value))
-      ? safeNumberToWords(Number(value))
-      : "";
+    money && value && !isNaN(Number(value)) ? numberToWords(Number(value)) : "";
 
   return (
     <div
@@ -116,37 +67,28 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
         "flex-1": formInline,
       })}>
       <input
-        {...restProps}
+        {...rest}
         ref={ref}
+        dir={money ? "ltr" : dir}
+        type={money ? "text" : rest.type}
         max={max}
         min={min}
         maxLength={money ? 20 : maxLength}
-        minLength={minLength}
-        dir={money ? "ltr" : dir}
-        type={money ? "text" : restProps.type}
         onChange={handleChange}
-        value={displayValue ?? ""}
+        {...(isControlled ? { value: displayValue ?? "" } : {})}
         className={clsx(
-          "disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent",
-          "[&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent",
-          "transition duration-200 ease-in-out w-full text-sm border-slate-300/60 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-1 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80",
-          props.formInputSize == "sm" && "text-xs py-1.5 px-2",
-          props.formInputSize == "lg" && "text-lg py-1.5 px-4",
-          props.rounded && "rounded-full",
+          "transition duration-200 ease-in-out w-full text-sm border rounded-md",
+          "border-slate-300/60 focus:ring-1 focus:ring-primary",
+          "disabled:bg-slate-100 disabled:cursor-not-allowed",
           inputGroup &&
-            "rounded-none [&:not(:first-child)]:border-s-transparent first:rounded-s last:rounded-e z-10",
+            "rounded-none [&:not(:first-child)]:border-s-transparent",
           className,
-          {
-            "!border !border-danger": hasError,
-          }
+          { "!border !border-danger": hasError }
         )}
       />
 
-      {/* بخش نمایش حروف */}
       {money && valueInWords && (
-        <span
-          className="text-[13px] text-success mt-1 p-1 px-1 font-medium italic animate-in fade-in slide-in-from-top-1 text-right"
-          dir="rtl">
+        <span className="text-xs text-success mt-1 italic" dir="rtl">
           {String(valueInWords)} تومان
         </span>
       )}
@@ -154,4 +96,5 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
   );
 });
 
+FormInput.displayName = "FormInput";
 export default FormInput;
