@@ -48,8 +48,8 @@ function AuthPassword() {
         {...register("mobile")}
         id="validation-form-login"
         name="mobile"
+        type="tel"
         inputMode="numeric"
-        type="number"
         dir="ltr"
         maxLength={11}
         className={clsx(

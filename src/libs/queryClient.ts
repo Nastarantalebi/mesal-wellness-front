@@ -27,10 +27,17 @@ const handleHttpError = (error: any) => {
   }
   switch (status) {
     case 401:
-      showToastify({
-        message: message || "لطفاً ابتدا وارد شوید.",
-        type: "error",
-      });
+      if (error?.response?.data?.code === "USER_NOT_FOUND") {
+        showToastify({
+          message: "کاربر وارد شده در این سامانه وجود ندارد",
+          type: "error",
+        });
+      } else {
+        showToastify({
+          message: message || "لطفاً ابتدا وارد شوید.",
+          type: "error",
+        });
+      }
       break;
     case 429:
       showToastify({

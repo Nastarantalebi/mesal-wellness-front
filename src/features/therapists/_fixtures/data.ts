@@ -18,7 +18,7 @@ export const schema = z.object({
   hire_date: z.string().nullable(),
   national_code: nationalCodeValidationSchema,
   license_number: z.string().nullable(),
-  status: z.string().min(1, " "),
+  status: z.string().nullable(),
   specialties: z.array(z.string()),
   facility_id: z.coerce.number().min(1, " "),
 });
@@ -33,7 +33,7 @@ export const initialValues: TReqTherapists = {
   hire_date: null,
   national_code: null,
   license_number: null,
-  status: "",
+  status: null,
   facility_id: 0,
   specialties: [],
 };

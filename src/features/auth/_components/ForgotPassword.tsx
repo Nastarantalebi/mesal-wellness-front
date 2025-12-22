@@ -147,7 +147,8 @@ function ForgotPassword({ setForgotPass }: TProp) {
       <FormLabel>شماره همراه</FormLabel>
       <FormInput
         {...register("mobile")}
-        type="number"
+        type="tel"
+        inputMode="numeric"
         dir="ltr"
         minLength={11}
         className={clsx(

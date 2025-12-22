@@ -57,7 +57,8 @@ function SendMobileStep({ isPending, mutateAsync, startOtp }: any) {
       <div className="relative">
         <FormInput
           {...register("mobile")}
-          type="number"
+          type="tel"
+          inputMode="numeric"
           dir="ltr"
           maxLength={11}
           placeholder="09123456789"

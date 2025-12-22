@@ -239,13 +239,11 @@ const ItemRowFields = ({
                 control={form.control}
                 name={`items.${index}.service_id`}
                 render={({ field }) => {
-                  const handleChange = (option: any) => {
-                    const value = option?.value ?? null;
-                    field.onChange(value);
-
+                  useEffect(() => {
                     const selectedService = services.find(
-                      (s) => s.value === value
+                      (s) => s.value === field.value
                     );
+
                     if (selectedService) {
                       form.setValue(
                         `items.${index}.unit_price`,
@@ -259,12 +257,13 @@ const ItemRowFields = ({
                       form.setValue(`items.${index}.unit_price`, 0);
                       form.setValue(`items.${index}.total_price`, 0);
                     }
-                  };
+                  }, [field.value]);
 
                   return isEdit ? (
                     <FormInput {...field} readOnly />
                   ) : (
                     <ReactSelect
+                      field={field}
                       options={services.map((item) => ({
                         label: item.label,
                         value: item.value,
@@ -273,12 +272,6 @@ const ItemRowFields = ({
                       isSearchable
                       isClearable={false}
                       hasError={!!errorField?.[index]?.service_id}
-                      value={
-                        services
-                          .map((s) => ({ label: s.label, value: s.value }))
-                          .find((o) => o.value === field.value) ?? null
-                      }
-                      onChange={handleChange}
                     />
                   );
                 }}

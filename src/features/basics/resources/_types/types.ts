@@ -49,7 +49,7 @@ export type TReqResources = {
   code: string | null;
   name: string;
   capacity: string;
-  status: string;
+  status: string | null;
   description: string | null;
   meta?: {
     floor: number;

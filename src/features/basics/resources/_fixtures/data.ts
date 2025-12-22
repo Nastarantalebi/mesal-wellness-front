@@ -9,7 +9,7 @@ export const schema = z.object({
   capacity: z.string().min(1, " "),
   code: z.string().nullable(),
   description: z.string().nullable(),
-  status: z.string(),
+  status: z.string().nullable(),
   type_id: z.coerce.number().min(1, " "),
   facility_id: z.coerce.number().min(1, " "),
   meta: z
@@ -28,7 +28,7 @@ export const initialValue: TReqResources = {
   capacity: "",
   code: null,
   description: null,
-  status: "",
+  status: null,
   type_id: 0,
   facility_id: 0,
   meta: {

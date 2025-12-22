@@ -1,5 +1,6 @@
 import z from "zod";
 import type { TReqResourceAvailabilities } from "../_types/types";
+import { booleanNullableSchema } from "@/fixtures/zodValidations";
 
 export const url = "/wellness/resource/availabilities/";
 export const queryKey = "resourceAvailabilitiesQuerykey";
@@ -9,7 +10,7 @@ export const schema = z
     end_time: z.string().min(1, " "),
     start_time: z.string().min(1, " "),
     resource_id: z.coerce.number(),
-    is_active: z.coerce.boolean(),
+    is_active: booleanNullableSchema,
     weekday: z.string().min(1, " "),
     breaks: z.array(
       z.object({

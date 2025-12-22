@@ -1,35 +1,4 @@
-import type { TColumns, TOption } from "@/types";
-
-export type TTherapists = {
-  columns: {
-    id: TColumns;
-    first_name: TColumns;
-    last_name: TColumns;
-    mobile: TColumns;
-    national_code: TColumns;
-    facility: TColumns;
-    status: TColumns;
-    hire_date: TColumns;
-  };
-  data: {
-    id: number;
-    first_name: string;
-    last_name: string;
-    mobile: string;
-    national_code: string;
-    facility: string;
-    status: string;
-    hire_date: string;
-  }[];
-  paginate: {
-    current_page: number;
-    per_page: number;
-    total: number;
-    last_page: number;
-    has_more: boolean;
-  };
-};
-
+import type { TOption } from "@/types";
 export type TReqTherapists = {
   first_name: string;
   last_name: string;
@@ -37,7 +6,7 @@ export type TReqTherapists = {
   national_code: string | null;
   gender: string;
   facility_id: number;
-  status: string;
+  status: string | null;
   specialties: string[];
   license_number: string | null;
   hire_date: string | null;
