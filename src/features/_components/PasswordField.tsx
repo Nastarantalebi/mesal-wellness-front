@@ -44,19 +44,12 @@ export default function PasswordField({
           />
           <span
             onClick={() => setShow((prev) => !prev)}
-            className={clsx(
-              "absolute right-3 top-2/3 -translate-y-1/2 text-gray-500 cursor-pointer select-none",
-              {
-                "!top-1/2": !!fieldState?.error?.message,
-              }
-            )}>
+            className="absolute inset-y-0 right-3 flex items-center text-gray-500 cursor-pointer select-none">
             {show ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
           </span>
-          {fieldState.error && (
-            <div className="mt-2 text-danger text-sm">
-              {String(fieldState.error.message)}
-            </div>
-          )}
+          <div className="min-h-[20px] mt-2 text-danger text-sm">
+            {fieldState.error?.message}
+          </div>
         </div>
       )}
     />

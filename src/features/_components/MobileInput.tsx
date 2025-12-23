@@ -62,18 +62,11 @@ export default function MobileInput({
             <PhoneIcon
               width={20}
               height={20}
-              className={clsx(
-                "absolute left-3 top-1/2 -translate-y-1/2 select-none opacity-70",
-                {
-                  "!top-1/3": !!fieldState?.error?.message,
-                }
-              )}
+              className="absolute inset-y-0 left-3 top-1/3 -translate-y-1/2 flex items-center text-gray-500 opacity-70  select-none"
             />
-            {fieldState.error && (
-              <div className="mt-2 text-danger text-sm">
-                {String(fieldState.error.message)}
-              </div>
-            )}
+            <div className="min-h-[20px] mt-2 text-danger text-sm">
+              {fieldState.error?.message}
+            </div>
           </div>
         )}
       />

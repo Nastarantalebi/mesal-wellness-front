@@ -166,6 +166,13 @@ function SendOTPStep({
                 }}
                 onChange={(e) => handleOtpChange(idx, e.target.value)}
                 onKeyDown={(e) => {
+                  if (
+                    !/[0-9]/.test(e.key) &&
+                    e.key !== "Enter" &&
+                    e.key !== "Backspace"
+                  ) {
+                    e.preventDefault();
+                  }
                   if (e.key === "Backspace") {
                     e.preventDefault();
                     const otpArr = [...(field.value || "")];

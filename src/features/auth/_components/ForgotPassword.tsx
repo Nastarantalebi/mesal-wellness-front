@@ -118,7 +118,6 @@ export default function ForgotPassword({ setForgotPass }: TProp) {
       }
     );
   };
-
   return (
     <FormComponent
       form={form}
@@ -130,7 +129,7 @@ export default function ForgotPassword({ setForgotPass }: TProp) {
         <Button
           type="button"
           className="w-full mt-4 py-3.5"
-          disabled={!mobileNumber}
+          disabled={!mobileNumber || !!form.formState.errors.mobile}
           isPending={isPendingSendMobile}
           onClick={handleSendCode}>
           ارسال کد تأیید
