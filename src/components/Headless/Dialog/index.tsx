@@ -97,7 +97,7 @@ function DialogPanel({
             dialog.size === "sm" && "sm:w-[300px]",
             dialog.size === "lg" && "sm:w-[600px]",
             dialog.size === "xl" && "sm:w-[600px] lg:w-[900px]",
-            dialog.size === "xxl" && "sm:w-[900px] lg:w-[1200px]",
+            dialog.size === "xxl" && "sm:max-w-[900px] lg:max-w-[1200px]",
             dialog.zoom && "scale-105",
             className,
           ])}

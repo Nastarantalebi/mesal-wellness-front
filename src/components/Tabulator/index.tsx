@@ -69,6 +69,11 @@ function CustomTable({
 }: CustomTableProps) {
   const tableRef = useRef<HTMLDivElement | null>(null);
   const tabulator = useRef<Tabulator | null>(null);
+  const getLayout = () => {
+    if (window.innerWidth < 460) return "fitDataFill";
+    return "fitColumns";
+  };
+
   const initTabulator = () => {
     if (!tableRef.current) return;
 
@@ -105,7 +110,7 @@ function CustomTable({
         },
       ],
       nestedFieldSeparator: false,
-      layout: "fitColumns",
+      layout: getLayout(),
       // paginationMode: "local",
       filterMode: "local",
       sortMode: "local",
@@ -138,7 +143,12 @@ function CustomTable({
   };
   useEffect(() => {
     initTabulator();
-    const resizeHandler = () => tabulator.current?.redraw();
+    // const resizeHandler = () => tabulator.current?.redraw();
+    const resizeHandler = () => {
+      if (!tabulator.current) return;
+      tabulator.current.destroy();
+      initTabulator();
+    };
     window.addEventListener("resize", resizeHandler);
     return () => window.removeEventListener("resize", resizeHandler);
     // eslint-disable-next-line react-hooks/exhaustive-deps

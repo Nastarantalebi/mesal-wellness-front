@@ -39,6 +39,8 @@ const handleHttpError = (error: any) => {
         });
       }
       break;
+    case 404:
+      break;
     case 429:
       showToastify({
         message:
@@ -46,15 +48,15 @@ const handleHttpError = (error: any) => {
         type: "error",
       });
       break;
-    case 503:
-      showToastify({
-        message: "سرویس در دسترس نیست",
-        type: "error",
-      });
-      break;
     case 500:
       showToastify({
         message: message || "خطای سرور رخ داده است.",
+        type: "error",
+      });
+      break;
+    case 503:
+      showToastify({
+        message: "سرویس در دسترس نیست",
         type: "error",
       });
       break;
