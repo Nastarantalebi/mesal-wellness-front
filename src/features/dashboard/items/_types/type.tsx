@@ -23,7 +23,7 @@ export type TDashboard = {
               national_code: string | null;
               membership_type: string;
               joined_at: string | null;
-              first_name:string;
+              first_name: string;
               last_name: string;
             }
         >;
@@ -47,6 +47,9 @@ export type TDailyBoard = {
       room: {
         id: number;
         name: string;
+      };
+      company: {
+        name: string | null;
       };
       therapist: {
         id: number;

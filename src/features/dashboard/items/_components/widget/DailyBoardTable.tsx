@@ -28,6 +28,9 @@ const DailyBoardTable: React.FC<TProps> = ({ data }) => {
               مشتری
             </th>
             <th rowSpan={2} className="border p-2">
+              شرکت
+            </th>
+            <th rowSpan={2} className="border p-2">
               شماره تماس
             </th>
             <th rowSpan={2} className="border p-2">
@@ -66,6 +69,7 @@ const DailyBoardTable: React.FC<TProps> = ({ data }) => {
                   <td className="border p-3"></td>
                   <td className="border p-3"></td>
                   <td className="border p-3"></td>
+                  <td className="border p-3"></td>
                 </tr>
               );
             }
@@ -90,6 +94,7 @@ const DailyBoardTable: React.FC<TProps> = ({ data }) => {
                 ))}
                 <td className="border p-2">{r.therapist.name}</td>
                 <td className="border p-2">{r.customer.name}</td>
+                <td className="border p-2">{r.company.name ?? ""}</td>
                 <td className="border p-2">{r.customer.phone}</td>
                 <td className="border p-2">{r.service.title}</td>
                 <td className="border p-2">{r.deposit}</td>
