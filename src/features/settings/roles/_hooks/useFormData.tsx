@@ -5,14 +5,9 @@ import type {
   TRequest,
   TWidget,
 } from "../_types/types";
-import useGetData from "@/services/useGetData";
-import { queryKey, url } from "../_fixtures/data";
+type TProps = { dataRoles?: TCreateData; isLoadingRoles?: boolean };
 
-const useFormData = () => {
-  const { data, isLoading } = useGetData<TCreateData>({
-    queryKey: queryKey + "createdata",
-    url: url + "create",
-  });
+const useFormData = ({ dataRoles, isLoadingRoles }: TProps = {}) => {
   const fields: (TFormData<TRequest> | undefined)[] = [
     {
       name: "name",
@@ -20,8 +15,8 @@ const useFormData = () => {
       required: true,
       placeholder: "نقش",
       type: "select",
-      option: data?.roles ?? [],
-      isLoading,
+      option: dataRoles?.roles ?? [],
+      isLoading: isLoadingRoles,
       className: "col-span-full",
     },
   ];
@@ -32,8 +27,7 @@ const useFormData = () => {
       required: true,
       placeholder: "ویجت",
       type: "select",
-      option: data?.roles ?? [],
-      isLoading,
+      option: [],
       mode: "multiple",
       className: "col-span-full",
     },
@@ -45,8 +39,7 @@ const useFormData = () => {
       required: true,
       placeholder: "دسترسی‌ها",
       type: "select",
-      option: data?.roles ?? [],
-      isLoading,
+      option: [],
       mode: "multiple",
       className: "col-span-full",
     },

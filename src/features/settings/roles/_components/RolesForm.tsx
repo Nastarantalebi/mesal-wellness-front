@@ -1,10 +1,11 @@
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
 import { useForm } from "react-hook-form";
-import type { TRequest } from "../_types/types";
+import type { TCreateData, TRequest } from "../_types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { initailValues, queryKey, schema, url } from "../_fixtures/data";
 import useCreateData from "@/services/useCreateData";
+import useGetData from "@/services/useGetData";
 
 type TProps = {
   setOpenModal: (value: boolean) => void;
@@ -18,6 +19,11 @@ const RolesForm = ({ setOpenModal, selectedRecord }: TProps) => {
     url,
     queryKey,
   });
+  const { data: dataRoles, isLoading: isLoadingRoles } =
+    useGetData<TCreateData>({
+      queryKey: queryKey + "createdata",
+      url: url + "create",
+    });
   // const { mutate: update, isPending: isPendingUpdate } = useCreateData({
   //   url,
   //   queryKey,
@@ -27,7 +33,7 @@ const RolesForm = ({ setOpenModal, selectedRecord }: TProps) => {
   //   queryKey,
   //   id,
   // });
-  const { fields } = useFormData();
+  const { fields } = useFormData({ dataRoles, isLoadingRoles });
   const form = useForm<TRequest>({
     resolver: zodResolver(schema),
     defaultValues: initailValues,
