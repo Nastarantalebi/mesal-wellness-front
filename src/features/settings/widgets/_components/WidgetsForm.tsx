@@ -1,30 +1,24 @@
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
 import { useForm } from "react-hook-form";
-import type { TCreateData, TDataById, TRequest } from "../_types/types";
+import type { TDataById, TRequest } from "../_types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { initailValues, queryKey, schema, url } from "../_fixtures/data";
 import useCreateData from "@/services/useCreateData";
-import useGetData from "@/services/useGetData";
 import useGetById from "@/services/useGetById";
 import useUpdateData from "@/services/useUpdateData";
 import { useEffect } from "react";
 
 type TProps = {
-  setOpenModal: (value: boolean) => void;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   id?: number;
 };
-const RolesForm = ({ setOpenModal, id }: TProps) => {
+const WidgetsForm = ({ setOpenModal, id }: TProps) => {
   const isEdit = !!id;
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url,
     queryKey,
   });
-  const { data: dataRoles, isLoading: isLoadingRoles } =
-    useGetData<TCreateData>({
-      queryKey: queryKey + "createdata",
-      url: url + "create",
-    });
   const { mutate: update, isPending: isPendingUpdate } = useUpdateData({
     url,
     queryKey,
@@ -35,7 +29,7 @@ const RolesForm = ({ setOpenModal, id }: TProps) => {
     queryKey: [queryKey, String(id)],
     id,
   });
-  const { fields } = useFormData({ dataRoles, isLoadingRoles, isEdit });
+  const { fields } = useFormData();
   const form = useForm<TRequest>({
     resolver: zodResolver(schema),
     defaultValues: initailValues,
@@ -60,4 +54,4 @@ const RolesForm = ({ setOpenModal, id }: TProps) => {
   );
 };
 
-export default RolesForm;
+export default WidgetsForm;

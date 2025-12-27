@@ -5,7 +5,7 @@ import { useState } from "react";
 import Modal from "@/components/Headless/Dialog/Modal";
 import RolesForm from "./RolesForm";
 import useDeleteData from "@/services/useDeleteData";
-import { LayoutIcon, ShieldIcon } from "lucide-react";
+import { LayoutGridIcon, ShieldIcon } from "lucide-react";
 import WidgetsForm from "./WidgetsForm";
 import PermissionsForm from "./PermissionsForm";
 export type TModal = {
@@ -49,10 +49,10 @@ const Roles = () => {
           toggleModal("general", true);
           setSelectedRecord(null);
         }}
-        // onEdit={(record) => {
-        //   toggleModal("general", true);
-        //   setSelectedRecord(record);
-        // }}
+        onEdit={(record) => {
+          toggleModal("general", true);
+          setSelectedRecord(record);
+        }}
         onDelete={(record) => Delete(record.id)}
         customActions={[
           {
@@ -63,7 +63,7 @@ const Roles = () => {
             },
           },
           {
-            icon: <LayoutIcon className="w-4 h-4" />,
+            icon: <LayoutGridIcon className="w-4 h-4" />,
             title: "ویجت‌ها",
             onClick: () => {
               toggleModal("widget", true);
@@ -76,10 +76,14 @@ const Roles = () => {
         open={openModal.general}
         size="md"
         cancelBtn={false}
-        title="نقش جدید">
+        title={
+          selectedRecord
+            ? "ویرایش" + " " + selectedRecord?.display_name
+            : "ایجاد نقش جدید"
+        }>
         <RolesForm
           setOpenModal={(value: boolean) => toggleModal("general", value)}
-          selectedRecord={selectedRecord}
+          id={selectedRecord?.id}
         />
       </Modal>
       <Modal

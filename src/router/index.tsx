@@ -27,6 +27,7 @@ import Contract from "@/features/basics/contract/_components/Contract";
 import ContractForm from "@/features/basics/contract/_components/ContractForm";
 import Roles from "@/features/settings/roles/_components/Roles";
 import Menus from "@/features/settings/menus/_components/Menus";
+import Widgets from "@/features/settings/widgets/_components/Widgets";
 
 function Router() {
   const routes = [
@@ -129,6 +130,10 @@ function Router() {
         {
           path: "/roles",
           element: <Roles />,
+        },
+        {
+          path: "/widgets",
+          element: <Widgets />,
         },
         {
           path: "/menus",

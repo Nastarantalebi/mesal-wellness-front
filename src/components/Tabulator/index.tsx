@@ -89,6 +89,7 @@ function CustomTable({
           resizable: false,
           visible: !!data,
           hozAlign: "center",
+          vertAlign: "middle",
           minWidth: 150,
           formatter: (cell) => {
             const rowData = cell.getRow().getData();

@@ -94,6 +94,11 @@ const initialState: SideMenuState = {
           title: "مدیریت نقش‌ها",
         },
         {
+          icon: "LayoutList",
+          pathname: "/widgets",
+          title: "مدیریت ویجت‌ها",
+        },
+        {
           icon: "SquareMenu",
           pathname: "/menus",
           title: "مدیریت منوها",

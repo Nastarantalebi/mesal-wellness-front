@@ -2,7 +2,7 @@ import { Loader2 } from "lucide-react";
 import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 
-type Variant =
+export type Variant =
   | "none"
   | "primary"
   | "secondary"

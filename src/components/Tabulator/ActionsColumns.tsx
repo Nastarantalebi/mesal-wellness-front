@@ -1,8 +1,7 @@
 import type { TableAction } from ".";
 import Button from "../Button";
-import { EditIcon, EyeIcon, Trash2Icon } from "lucide-react";
+import { BadgeAlert, EditIcon, EyeIcon, Trash2Icon } from "lucide-react";
 import Modal from "../Headless/Dialog/Modal";
-import Lucide from "../Lucide";
 import { useState } from "react";
 type TProps = {
   customActions: TableAction[] | undefined;
@@ -73,13 +72,15 @@ const ActionsColumns = ({
         title="حذف آیتم"
         cancelText="انصراف"
         submitText="حذف"
+        variant_cancel="outline-dark"
+        variant_submit="outline-danger"
         onSubmit={() => {
           setOpenModal(null);
           onDelete?.(openModal as any);
         }}>
         <div className="flex flex-row items-center gap-2 text-center py-2">
           <div className="text-red-600">
-            <Lucide icon="BadgeAlert" className="w-7 h-7" />
+            <BadgeAlert className="w-5 h-5" />
           </div>
           <p className="text-sm text-gray-700 dark:text-gray-300">
             آیا از حذف این آیتم اطمینان دارید؟ این عمل قابل بازگشت نیست.

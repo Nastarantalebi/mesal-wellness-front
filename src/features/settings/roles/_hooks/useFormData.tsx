@@ -5,9 +5,13 @@ import type {
   TRequest,
   TWidget,
 } from "../_types/types";
-type TProps = { dataRoles?: TCreateData; isLoadingRoles?: boolean };
+type TProps = {
+  dataRoles?: TCreateData;
+  isLoadingRoles?: boolean;
+  isEdit?: boolean;
+};
 
-const useFormData = ({ dataRoles, isLoadingRoles }: TProps = {}) => {
+const useFormData = ({ dataRoles, isLoadingRoles, isEdit }: TProps = {}) => {
   const fields: (TFormData<TRequest> | undefined)[] = [
     {
       name: "name",
@@ -17,7 +21,14 @@ const useFormData = ({ dataRoles, isLoadingRoles }: TProps = {}) => {
       type: "select",
       option: dataRoles?.roles ?? [],
       isLoading: isLoadingRoles,
-      className: "col-span-full",
+      className: `${isEdit ? "hidden" : "col-span-full"}`,
+    },
+    {
+      name: "display_name",
+      label: "عنوان نقش",
+      placeholder: "عنوان نقش",
+      required: true,
+      className: `${isEdit ? "col-span-full" : "hidden"}`,
     },
   ];
   const fieldsWidget: (TFormData<TWidget> | undefined)[] = [

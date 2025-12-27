@@ -1,4 +1,4 @@
-import Button from "@/components/Button";
+import Button, { type Variant } from "@/components/Button";
 import { Dialog } from "@/components/Headless";
 import { XIcon } from "lucide-react";
 import type { ReactNode } from "react";
@@ -9,8 +9,10 @@ type TProps = {
   children: ReactNode;
   title: string;
   submitText?: string;
-  size?: "sm" | "md" | "lg" | "xl"| "xxl";
+  size?: "sm" | "md" | "lg" | "xl" | "xxl";
   cancelText?: string;
+  variant_cancel?: Variant;
+  variant_submit?: Variant;
   cancelBtn?: boolean;
 };
 export default function Modal({
@@ -23,6 +25,8 @@ export default function Modal({
   cancelBtn = true,
   onSubmit,
   submitText = "تایید",
+  variant_submit = "outline-success",
+  variant_cancel = "outline-danger",
 }: TProps) {
   return (
     <>
@@ -39,12 +43,12 @@ export default function Modal({
 
           <Dialog.Footer className="flex gap-1 items-center justify-end">
             {!!cancelBtn && (
-              <Button variant="outline-danger" onClick={close}>
+              <Button variant={variant_cancel} onClick={close}>
                 {cancelText ?? "بستن"}
               </Button>
             )}
             {!!onSubmit && (
-              <Button variant="outline-success" onClick={onSubmit}>
+              <Button variant={variant_submit} onClick={onSubmit}>
                 {submitText ?? "تایید"}
               </Button>
             )}
