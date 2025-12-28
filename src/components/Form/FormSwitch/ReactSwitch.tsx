@@ -19,7 +19,9 @@ const AccessSwitch: React.FC<AccessSwitchProps> = ({
   };
 
   return (
-    <div className="flex items-center space-x-3 mb-2 w-fit">
+    <div
+      className="flex items-center space-x-3 mb-2  bg-gray-200 rounded-md justify-between p-2"
+      dir="rtl">
       {label && <span className="text-sm font-medium">{label}</span>}
       <button
         onClick={toggle}
