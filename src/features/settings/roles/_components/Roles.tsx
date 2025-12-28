@@ -7,7 +7,7 @@ import RolesForm from "./RolesForm";
 import useDeleteData from "@/services/useDeleteData";
 import { LayoutGridIcon, ShieldIcon } from "lucide-react";
 import WidgetsForm from "./WidgetsForm";
-import PermissionsForm from "./PermissionsForm";
+import Permission from "./permissions/_components/Permission";
 export type TModal = {
   general: boolean;
   permission: boolean;
@@ -100,13 +100,14 @@ const Roles = () => {
       <Modal
         close={() => toggleModal("permission", false)}
         open={openModal.permission}
-        size="md"
+        size="xxl"
         cancelBtn={false}
         title="دسترسی‌ها">
-        <PermissionsForm
+        {/* <PermissionsForm
           id={selectedRecord?.id}
           setOpenModal={(value: boolean) => toggleModal("permission", value)}
-        />
+        /> */}
+        <Permission />
       </Modal>
     </>
   );
