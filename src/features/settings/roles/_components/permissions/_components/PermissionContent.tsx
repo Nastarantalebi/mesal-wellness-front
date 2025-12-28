@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import useGetData from "@/services/useGetData";
 import { queryKey, url } from "../_fixtures/data";
 import type { RootPermissions } from "../_types/type";
@@ -6,16 +6,15 @@ import AccessSwitch from "@/components/Form/FormSwitch/ReactSwitch";
 
 type TProps = {
   label: string;
+  setActiveIds: React.Dispatch<React.SetStateAction<number[]>>;
+  activeIds: number[];
 };
 
-const PermissionContent = ({ label }: TProps) => {
+const PermissionContent = ({ label, setActiveIds, activeIds }: TProps) => {
   const { data } = useGetData<RootPermissions>({
     url: url,
     queryKey: queryKey,
   });
-
-  const [activeIds, setActiveIds] = useState<number[]>([]);
-  console.log(activeIds);
   // گروه‌بندی پرمیشن‌ها بر اساس module_name
   const groupedPermissions = useMemo(() => {
     const perms = data?.permissions[label] || [];
@@ -26,35 +25,51 @@ const PermissionContent = ({ label }: TProps) => {
     }, {});
   }, [data, label]);
 
-  // فعال/غیرفعال کردن یک ماژول
-  const toggleModule = (moduleName: string, isOn: boolean) => {
-    const ids = groupedPermissions[moduleName].map((p) => p.id);
-    setActiveIds((prev) =>
-      isOn
-        ? Array.from(new Set([...prev, ...ids]))
-        : prev.filter((id) => !ids.includes(id))
-    );
+  // IDs مربوط به تب فعلی
+  const currentTabIds = useMemo(
+    () =>
+      Object.values(groupedPermissions)
+        .flat()
+        .map((p) => p.id),
+    [groupedPermissions]
+  );
+
+  // فعال/غیرفعال کردن همه پرمیشن‌ها در تب فعلی
+  const toggleAll = (isOn: boolean) => {
+    setActiveIds((prev) => {
+      if (isOn) {
+        // اضافه کردن آیتم‌های تب فعلی بدون حذف قبلی
+        return Array.from(new Set([...prev, ...currentTabIds]));
+      } else {
+        // حذف فقط آیتم‌های این تب
+        return prev.filter((id) => !currentTabIds.includes(id));
+      }
+    });
   };
 
-  // فعال/غیرفعال کردن همه پرمیشن‌ها
-  const toggleAll = (isOn: boolean) => {
-    const allIds = Object.values(groupedPermissions)
-      .flat()
-      .map((p) => p.id);
-    setActiveIds(isOn ? allIds : []);
+  // فعال/غیرفعال کردن یک ماژول
+  const toggleModule = (moduleName: string, isOn: boolean) => {
+    const moduleIds = groupedPermissions[moduleName].map((p) => p.id);
+    setActiveIds((prev) => {
+      if (isOn) {
+        return Array.from(new Set([...prev, ...moduleIds]));
+      } else {
+        return prev.filter((id) => !moduleIds.includes(id));
+      }
+    });
   };
 
   // بررسی وضعیت ماژول و سراسری
   const isModuleAllSelected = (moduleName: string) =>
     groupedPermissions[moduleName].every((p) => activeIds.includes(p.id));
-  const isAllSelected = Object.values(groupedPermissions)
-    .flat()
-    .every((p) => activeIds.includes(p.id));
+  const isAllSelected = currentTabIds.every((id) => activeIds.includes(id));
 
   // بروزرسانی خودکار سوییچ‌ها وقتی کاربر یک پرمیشن تکی تغییر می‌دهد
   const handleTogglePermission = (id: number, isOn: boolean) => {
     setActiveIds((prev) =>
-      isOn ? [...prev, id] : prev.filter((item) => item !== id)
+      isOn
+        ? Array.from(new Set([...prev, id]))
+        : prev.filter((item) => item !== id)
     );
   };
 
@@ -64,7 +79,7 @@ const PermissionContent = ({ label }: TProps) => {
       <div className="mb-4">
         <AccessSwitch
           label="انتخاب همه"
-          checked={isAllSelected} // ✅ controlled
+          checked={isAllSelected}
           onChange={toggleAll}
         />
       </div>
@@ -76,7 +91,7 @@ const PermissionContent = ({ label }: TProps) => {
             <h3 className="font-semibold">{moduleName}</h3>
             <AccessSwitch
               label="انتخاب همه"
-              checked={isModuleAllSelected(moduleName)} // ✅ controlled
+              checked={isModuleAllSelected(moduleName)}
               onChange={(isOn) => toggleModule(moduleName, isOn)}
             />
           </div>
@@ -86,7 +101,7 @@ const PermissionContent = ({ label }: TProps) => {
               <AccessSwitch
                 key={item.id}
                 label={item.label}
-                checked={activeIds.includes(item.id)} // ✅ controlled
+                checked={activeIds.includes(item.id)}
                 onChange={(isOn) => handleTogglePermission(item.id, isOn)}
               />
             ))}
