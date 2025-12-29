@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { useEffect, useState } from "react";
 
 type AccessSwitchProps = {
@@ -30,7 +31,12 @@ const AccessSwitch: React.FC<AccessSwitchProps> = ({
 
   return (
     <div
-      className="flex items-center space-x-3 mb-2 bg-gray-200 rounded-md justify-between p-2"
+      className={clsx(
+        "flex items-center space-x-3 mb-2 rounded-md justify-between p-2",
+        {
+          "bg-gray-200": label,
+        }
+      )}
       dir="rtl">
       {label && <span className="text-sm font-medium">{label}</span>}
       <button
