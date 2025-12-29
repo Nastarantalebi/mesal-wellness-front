@@ -8,6 +8,7 @@ import useDeleteData from "@/services/useDeleteData";
 import { LayoutGridIcon, ShieldIcon } from "lucide-react";
 import WidgetsForm from "./WidgetsForm";
 import Permission from "./permissions/_components/Permission";
+import { PermissionProvider } from "./permissions/_components/PermissionContext";
 export type TModal = {
   general: boolean;
   permission: boolean;
@@ -58,8 +59,9 @@ const Roles = () => {
           {
             icon: <ShieldIcon className="w-4 h-4" />,
             title: "دسترسی‌ها",
-            onClick: () => {
+            onClick: (record) => {
               toggleModal("permission", true);
+              setSelectedRecord(record);
             },
           },
           {
@@ -107,7 +109,12 @@ const Roles = () => {
           id={selectedRecord?.id}
           setOpenModal={(value: boolean) => toggleModal("permission", value)}
         /> */}
-        <Permission />
+        <PermissionProvider>
+          <Permission
+            id={selectedRecord?.id}
+            setOpenModal={(value: boolean) => toggleModal("permission", value)}
+          />
+        </PermissionProvider>
       </Modal>
     </>
   );

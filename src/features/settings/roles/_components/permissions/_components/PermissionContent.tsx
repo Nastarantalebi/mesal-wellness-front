@@ -1,21 +1,25 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import useGetData from "@/services/useGetData";
 import { queryKey, url } from "../_fixtures/data";
 import type { RootPermissions } from "../_types/type";
 import AccessSwitch from "@/components/Form/FormSwitch/ReactSwitch";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { usePermissions } from "./PermissionContext";
+import LoadingSpin from "@/components/Loading";
 
 type TProps = {
   label: string;
-  setActiveIds: React.Dispatch<React.SetStateAction<number[]>>;
-  activeIds: number[];
 };
-
-const PermissionContent = ({ label, setActiveIds, activeIds }: TProps) => {
-  const { data } = useGetData<RootPermissions>({
-    url: url,
-    queryKey: queryKey,
+const PermissionContent = ({ label }: TProps) => {
+  const { activeIds, setActiveIds } = usePermissions();
+  const { data, isLoading } = useGetData<RootPermissions>({
+    url,
+    queryKey,
   });
-  // گروه‌بندی پرمیشن‌ها بر اساس module_name
+
+  const [isAllOpen, setIsAllOpen] = useState(true);
+  const [openModules, setOpenModules] = useState<Record<string, boolean>>({});
+
   const groupedPermissions = useMemo(() => {
     const perms = data?.permissions[label] || [];
     return perms.reduce<Record<string, typeof perms>>((acc, item) => {
@@ -25,7 +29,6 @@ const PermissionContent = ({ label, setActiveIds, activeIds }: TProps) => {
     }, {});
   }, [data, label]);
 
-  // IDs مربوط به تب فعلی
   const currentTabIds = useMemo(
     () =>
       Object.values(groupedPermissions)
@@ -34,80 +37,114 @@ const PermissionContent = ({ label, setActiveIds, activeIds }: TProps) => {
     [groupedPermissions]
   );
 
-  // فعال/غیرفعال کردن همه پرمیشن‌ها در تب فعلی
-  const toggleAll = (isOn: boolean) => {
-    setActiveIds((prev) => {
-      if (isOn) {
-        // اضافه کردن آیتم‌های تب فعلی بدون حذف قبلی
-        return Array.from(new Set([...prev, ...currentTabIds]));
-      } else {
-        // حذف فقط آیتم‌های این تب
-        return prev.filter((id) => !currentTabIds.includes(id));
-      }
-    });
-  };
-
-  // فعال/غیرفعال کردن یک ماژول
-  const toggleModule = (moduleName: string, isOn: boolean) => {
-    const moduleIds = groupedPermissions[moduleName].map((p) => p.id);
-    setActiveIds((prev) => {
-      if (isOn) {
-        return Array.from(new Set([...prev, ...moduleIds]));
-      } else {
-        return prev.filter((id) => !moduleIds.includes(id));
-      }
-    });
-  };
-
-  // بررسی وضعیت ماژول و سراسری
-  const isModuleAllSelected = (moduleName: string) =>
-    groupedPermissions[moduleName].every((p) => activeIds.includes(p.id));
   const isAllSelected = currentTabIds.every((id) => activeIds.includes(id));
 
-  // بروزرسانی خودکار سوییچ‌ها وقتی کاربر یک پرمیشن تکی تغییر می‌دهد
-  const handleTogglePermission = (id: number, isOn: boolean) => {
+  const toggleAll = (isOn: boolean) => {
     setActiveIds((prev) =>
       isOn
-        ? Array.from(new Set([...prev, id]))
-        : prev.filter((item) => item !== id)
+        ? Array.from(new Set([...prev, ...currentTabIds]))
+        : prev.filter((id) => !currentTabIds.includes(id))
+    );
+
+    // UX: وقتی خاموش شد همه بسته شن
+    if (!isOn) {
+      setIsAllOpen(false);
+      setOpenModules({});
+    }
+  };
+
+  const toggleModule = (moduleName: string, isOn: boolean) => {
+    const moduleIds = groupedPermissions[moduleName].map((p) => p.id);
+    setActiveIds((prev) =>
+      isOn
+        ? Array.from(new Set([...prev, ...moduleIds]))
+        : prev.filter((id) => !moduleIds.includes(id))
     );
   };
 
-  return (
-    <div className="space-y-6">
-      {/* گزینه انتخاب همه سراسری */}
-      <div className="mb-4">
-        <AccessSwitch
-          label="انتخاب همه"
-          checked={isAllSelected}
-          onChange={toggleAll}
-        />
-      </div>
+  const toggleOpenAll = () => {
+    const next = !isAllOpen;
+    setIsAllOpen(next);
 
-      {Object.entries(groupedPermissions).map(([moduleName, perms]) => (
-        <div key={moduleName} className="border p-3 rounded-md space-y-2">
-          {/* گزینه انتخاب همه برای هر ماژول */}
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="font-semibold">{moduleName}</h3>
-            <AccessSwitch
-              label="انتخاب همه"
-              checked={isModuleAllSelected(moduleName)}
-              onChange={(isOn) => toggleModule(moduleName, isOn)}
-            />
+    const newState: Record<string, boolean> = {};
+    Object.keys(groupedPermissions).forEach((m) => (newState[m] = next));
+    setOpenModules(newState);
+  };
+
+  const toggleOpenModule = (moduleName: string) => {
+    setOpenModules((prev) => ({
+      ...prev,
+      [moduleName]: !prev[moduleName],
+    }));
+  };
+
+  if (isLoading) return <LoadingSpin />;
+
+  return (
+    <div className="space-y-4">
+      {/* 🔥 اکاردیون انتخاب همه */}
+      <div className="border rounded-md">
+        <div
+          className="flex justify-between items-center p-3 bg-gray-200 cursor-pointer"
+          onClick={toggleOpenAll}>
+          <div className="flex items-center gap-2">
+            {isAllOpen ? <ChevronUp /> : <ChevronDown />}
+            <span className="font-semibold">همه دسترسی‌ها</span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-            {perms.map((item) => (
-              <AccessSwitch
-                key={item.id}
-                label={item.label}
-                checked={activeIds.includes(item.id)}
-                onChange={(isOn) => handleTogglePermission(item.id, isOn)}
-              />
-            ))}
+          <div onClick={(e) => e.stopPropagation()}>
+            <AccessSwitch checked={isAllSelected} onChange={toggleAll} />
           </div>
         </div>
-      ))}
+
+        {/* محتوا */}
+        {isAllOpen && (
+          <div className="p-3 space-y-4">
+            {Object.entries(groupedPermissions).map(([moduleName, perms]) => {
+              const isOpen = openModules[moduleName];
+
+              return (
+                <div key={moduleName} className="border rounded-md">
+                  <div
+                    className="flex justify-between items-center p-3 bg-gray-100 cursor-pointer"
+                    onClick={() => toggleOpenModule(moduleName)}>
+                    <div className="flex items-center gap-2">
+                      {isOpen ? <ChevronUp /> : <ChevronDown />}
+                      <h3 className="font-semibold">{moduleName}</h3>
+                    </div>
+
+                    <div onClick={(e) => e.stopPropagation()}>
+                      <AccessSwitch
+                        checked={perms.every((p) => activeIds.includes(p.id))}
+                        onChange={(isOn) => toggleModule(moduleName, isOn)}
+                      />
+                    </div>
+                  </div>
+
+                  {isOpen && (
+                    <div className="p-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                      {perms.map((item) => (
+                        <AccessSwitch
+                          key={item.id}
+                          label={item.label}
+                          checked={activeIds.includes(item.id)}
+                          onChange={(isOn) =>
+                            setActiveIds((prev) =>
+                              isOn
+                                ? [...new Set([...prev, item.id])]
+                                : prev.filter((i) => i !== item.id)
+                            )
+                          }
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
