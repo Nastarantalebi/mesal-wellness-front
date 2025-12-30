@@ -15,11 +15,3 @@ export type TDataById = {
     permissions: any;
   };
 };
-export type TPermissions = {
-  id: number;
-  permissions: number[];
-};
-export type TWidget = {
-  id: number;
-  widgets: number[];
-};
