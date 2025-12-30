@@ -7,9 +7,10 @@ export const schema = z.object({
   title: z.string().min(1, " "),
   slug: z.string().min(1, " "),
   url: z.string().min(1, " "),
+  Permission_id: z.coerce.number().min(1, " "),
   description: z.string().nullable(),
-  parent_id: z.number().nullable(),
-  priority: z.number().nullable(),
+  parent_id: z.coerce.number().nullable(),
+  priority: z.coerce.number().nullable(),
 });
 
 export const initailValues: TRequest = {
@@ -17,6 +18,7 @@ export const initailValues: TRequest = {
   slug: "",
   url: "",
   description: "",
+  Permission_id: 0,
   parent_id: null,
   priority: null,
 };

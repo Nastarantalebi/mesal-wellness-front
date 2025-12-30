@@ -9,6 +9,7 @@ function useMe() {
     queryKey: ["meInfo"],
     queryFn: meInfo,
     retry: false,
+    refetchOnWindowFocus: false,
   });
 
   return { data, isLoading, refetch };

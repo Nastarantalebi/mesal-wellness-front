@@ -31,7 +31,7 @@ const MenusForm = ({ setOpenModal, id }: TProps) => {
     id,
   });
   const { fields } = useFormData();
-  const form = useForm<TRequest>({
+  const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initailValues,
   });

@@ -18,6 +18,7 @@ function useGetById<T>({ url, queryKey, id, enabled = !!id }: TGetData) {
     queryKey: [queryKey, id],
     queryFn: () => getdata<T>(url, id),
     enabled,
+    refetchOnWindowFocus: false,
   });
 }
 

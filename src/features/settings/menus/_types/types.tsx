@@ -4,6 +4,7 @@ export type TRequest = {
   title: string;
   slug: string;
   url: string;
+  Permission_id: number;
   priority: number | null;
   description: string | null;
   parent_id: number | null;
