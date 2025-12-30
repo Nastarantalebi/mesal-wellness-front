@@ -6,10 +6,9 @@ import Modal from "@/components/Headless/Dialog/Modal";
 import RolesForm from "./RolesForm";
 import useDeleteData from "@/services/useDeleteData";
 import { LayoutGridIcon, ShieldIcon } from "lucide-react";
+import WidgetsForm from "./WidgetsForm";
 import Permission from "./permissions/_components/Permission";
 import { PermissionProvider } from "./permissions/_components/PermissionContext";
-import { WidgetsProvider } from "./widgets/_components/WidgetsContext";
-import Widgets from "./widgets/_components/Widgets";
 export type TModal = {
   general: boolean;
   permission: boolean;
@@ -93,15 +92,13 @@ const Roles = () => {
       <Modal
         close={() => toggleModal("widget", false)}
         open={openModal.widget}
-        size="md"
+        size="lg"
         cancelBtn={false}
         title="ویجت‌ها">
-        <WidgetsProvider>
-          <Widgets
-            id={selectedRecord?.id}
-            setOpenModal={(value: boolean) => toggleModal("widget", value)}
-          />
-        </WidgetsProvider>
+        <WidgetsForm
+          id={selectedRecord?.id}
+          setOpenModal={(value: boolean) => toggleModal("widget", value)}
+        />
       </Modal>
       <Modal
         close={() => toggleModal("permission", false)}

@@ -6,7 +6,7 @@ export default function LoadingSpin({
   text = "مجموعه ماساژ آسمان",
 }: LoadingSpinProps) {
   return (
-    <div className="flex flex-col justify-center items-center w-full h-[80vh] gap-4">
+    <div className="flex flex-col justify-center items-center w-full h-auto gap-4">
       {/* حلقه آسمانی */}
       <div className="relative w-16 h-16">
         <div className="absolute inset-0 rounded-full border-4 border-primary border-t-transparent animate-spin"></div>

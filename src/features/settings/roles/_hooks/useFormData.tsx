@@ -1,12 +1,16 @@
 import type { TFormData } from "@/types";
-import type { TCreateData, TRequest } from "../_types/types";
+import type { TCreateData, TRequest, TWidget } from "../_types/types";
+import useGetData from "@/services/useGetData";
+import { queryKey, url } from "../_fixtures/data";
 type TProps = {
-  dataRoles?: TCreateData;
-  isLoadingRoles?: boolean;
   isEdit?: boolean;
 };
 
-const useFormData = ({ dataRoles, isLoadingRoles, isEdit }: TProps = {}) => {
+const useFormData = ({ isEdit }: TProps = {}) => {
+  const { data, isLoading } = useGetData<TCreateData>({
+    queryKey: queryKey + "createdata",
+    url: url + "create",
+  });
   const fields: (TFormData<TRequest> | undefined)[] = [
     {
       name: "name",
@@ -14,8 +18,8 @@ const useFormData = ({ dataRoles, isLoadingRoles, isEdit }: TProps = {}) => {
       required: true,
       placeholder: "نقش",
       type: "select",
-      option: dataRoles?.roles ?? [],
-      isLoading: isLoadingRoles,
+      option: data?.roles ?? [],
+      isLoading,
       className: `${isEdit ? "hidden" : "col-span-full"}`,
     },
     {
@@ -26,8 +30,19 @@ const useFormData = ({ dataRoles, isLoadingRoles, isEdit }: TProps = {}) => {
       className: `${isEdit ? "col-span-full" : "hidden"}`,
     },
   ];
-
-  return { fields };
+  const fieldsWidget: (TFormData<TWidget> | undefined)[] = [
+    {
+      name: "widgets",
+      label: "ویجت",
+      required: true,
+      placeholder: "ویجت",
+      type: "select",
+      option: data?.widgets ?? [],
+      mode: "multiple",
+      className: "col-span-full",
+    },
+  ];
+  return { fields, fieldsWidget };
 };
 
 export default useFormData;

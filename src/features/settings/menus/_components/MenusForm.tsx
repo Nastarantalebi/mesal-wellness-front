@@ -10,10 +10,10 @@ import useUpdateData from "@/services/useUpdateData";
 import { useEffect } from "react";
 
 type TProps = {
-  setOpenModal: (value: boolean) => void;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   id?: number;
 };
-const RolesForm = ({ setOpenModal, id }: TProps) => {
+const MenusForm = ({ setOpenModal, id }: TProps) => {
   const isEdit = !!id;
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url,
@@ -30,7 +30,7 @@ const RolesForm = ({ setOpenModal, id }: TProps) => {
     queryKey: [queryKey, String(id)],
     id,
   });
-  const { fields } = useFormData({ isEdit });
+  const { fields } = useFormData();
   const form = useForm<TRequest>({
     resolver: zodResolver(schema),
     defaultValues: initailValues,
@@ -55,4 +55,4 @@ const RolesForm = ({ setOpenModal, id }: TProps) => {
   );
 };
 
-export default RolesForm;
+export default MenusForm;
