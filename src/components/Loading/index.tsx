@@ -3,7 +3,7 @@ type LoadingSpinProps = {
 };
 
 export default function LoadingSpin({
-  text = "مجموعه ماساژ آسمان",
+  text = "مرکز ماساژ آسمان",
 }: LoadingSpinProps) {
   return (
     <div className="flex flex-col justify-center items-center w-full h-auto gap-4">

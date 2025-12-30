@@ -14,6 +14,7 @@ import type {
 import ImportData from "./ImportData";
 import ActionsColumns from "./ActionsColumns";
 import TableHeader from "./TableHeader";
+import LoadingSpin from "../Loading";
 export type TableAction = {
   title: string;
   icon: React.ReactNode;
@@ -66,6 +67,7 @@ function CustomTable({
   onVisit,
   onImport,
   customActions,
+  isLoading,
 }: CustomTableProps) {
   const tableRef = useRef<HTMLDivElement | null>(null);
   const tabulator = useRef<Tabulator | null>(null);
@@ -176,17 +178,22 @@ function CustomTable({
               refetch={refetch}
               printTable={printTable}
             />
-            <div className="p-1 xl:p-4 xl:pt-1">
-              <div className="overflow-x-auto custom-scrollbar">
-                <div
-                  id="tabulator"
-                  ref={tableRef}
-                  className="min-w-max w-full"></div>
+            {isLoading ? (
+              <LoadingSpin />
+            ) : (
+              <div className="p-1 xl:p-4 xl:pt-1">
+                <div className="overflow-x-auto custom-scrollbar">
+                  <div
+                    id="tabulator"
+                    ref={tableRef}
+                    className="min-w-max w-full"></div>
+                </div>
+
+                {dataPagination && dataPagination.total > 10 && (
+                  <Pagination dataPagination={dataPagination} />
+                )}
               </div>
-              {dataPagination && dataPagination.total > 10 && (
-                <Pagination dataPagination={dataPagination} />
-              )}
-            </div>
+            )}
           </div>
         </div>
       </div>
