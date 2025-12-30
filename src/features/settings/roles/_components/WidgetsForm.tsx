@@ -11,12 +11,20 @@ import {
 } from "../_fixtures/data";
 import useCreateData from "@/services/useCreateData";
 import { useEffect } from "react";
+import useGetData from "@/services/useGetData";
 
 type TProps = {
   setOpenModal: (value: boolean) => void;
   id: number;
 };
 const WidgetsForm = ({ setOpenModal, id }: TProps) => {
+  const { data } = useGetData({
+    queryKey: "res",
+    url: `/basics/acl/roles/${id}/widgets/`,
+    enabled: !!id,
+  });
+  console.log(data);
+  console.log(id);
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url: url + "widget",
     queryKey: queryKey + "widget",

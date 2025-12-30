@@ -20,3 +20,19 @@ type PermissionsGroup = {
 export type RootPermissions = {
   permissions: PermissionsGroup;
 };
+export type TGetById = {
+  data: {
+    action_class: string;
+    created_at: string;
+    group: number;
+    guard_name: string;
+    id: number;
+    is_global: number;
+    module_name: string;
+    name: string;
+    pivot: { role_id: number; permission_id: number };
+    title: string;
+    type: string;
+    updated_at: string;
+  }[];
+};

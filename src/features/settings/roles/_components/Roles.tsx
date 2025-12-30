@@ -67,8 +67,9 @@ const Roles = () => {
           {
             icon: <LayoutGridIcon className="w-4 h-4" />,
             title: "ویجت‌ها",
-            onClick: () => {
+            onClick: (record) => {
               toggleModal("widget", true);
+              setSelectedRecord(record);
             },
           },
         ]}

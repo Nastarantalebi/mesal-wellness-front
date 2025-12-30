@@ -4,17 +4,32 @@ import Button from "@/components/Button";
 import useCreateData from "@/services/useCreateData";
 import { queryKey } from "../_fixtures/data";
 import { usePermissions } from "./PermissionContext";
+import useGetById from "@/services/useGetById";
+import type { TGetById } from "../_types/type";
+import { useEffect } from "react";
+import LoadingSpin from "@/components/Loading";
 type TProps = {
   id: number;
   setOpenModal: (value: boolean) => void;
 };
 const Permission = ({ id, setOpenModal }: TProps) => {
+  const { data, isLoading } = useGetById<TGetById>({
+    queryKey: ["role-permissions", String(id)],
+    url: `/basics/acl/roles/${id}/permissions/`,
+    enabled: !!id,
+  });
+  const { activeIds, setActiveIds } = usePermissions();
+  useEffect(() => {
+    if (data?.data) {
+      const initialIds = data.data.map((item) => item.id);
+      setActiveIds(initialIds);
+    }
+  }, [data, setActiveIds]);
   const { mutate, isPending } = useCreateData({
     url: "basics/acl/roles/permissions",
     queryKey: queryKey + "permissions",
   });
   const tabItems = useTabItems();
-  const { activeIds } = usePermissions();
   const handleSubmit = () => {
     mutate(
       { id, permissions: activeIds },
@@ -23,7 +38,7 @@ const Permission = ({ id, setOpenModal }: TProps) => {
       }
     );
   };
-
+  if (isLoading) return <LoadingSpin />;
   return (
     <div>
       <CustomTabs items={tabItems} />
