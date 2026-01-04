@@ -20,7 +20,6 @@ const useFormData = () => {
       name: "Permission_id",
       label: "دسترسی",
       placeholder: "دسترسی",
-      required: true,
       type: "select",
       option: data?.permissions,
       isLoading,
@@ -30,14 +29,12 @@ const useFormData = () => {
       name: "slug",
       label: "slug",
       placeholder: "slug",
-      required: true,
       dir: "ltr",
     },
     {
       name: "url",
       label: "ادرس",
       placeholder: "ادرس",
-      required: true,
       dir: "ltr",
     },
     {

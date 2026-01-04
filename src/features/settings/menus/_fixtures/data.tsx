@@ -5,9 +5,9 @@ export const url = "/basics/menus/";
 export const queryKey = "menusQueryKeys";
 export const schema = z.object({
   title: z.string().min(1, " "),
-  slug: z.string().min(1, " "),
-  url: z.string().min(1, " "),
-  Permission_id: z.coerce.number().min(1, " "),
+  slug: z.string().nullable(),
+  url: z.string().nullable(),
+  Permission_id: z.coerce.number().nullable(),
   description: z.string().nullable(),
   parent_id: z.coerce.number().nullable(),
   priority: z.coerce.number().nullable(),
@@ -15,10 +15,10 @@ export const schema = z.object({
 
 export const initailValues: TRequest = {
   title: "",
-  slug: "",
-  url: "",
+  slug: null,
+  url: null,
   description: "",
-  Permission_id: 0,
+  Permission_id: null,
   parent_id: null,
   priority: null,
 };

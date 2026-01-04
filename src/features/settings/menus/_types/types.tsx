@@ -2,9 +2,9 @@ import type { TOption } from "@/types";
 
 export type TRequest = {
   title: string;
-  slug: string;
-  url: string;
-  Permission_id: number;
+  slug: string | null;
+  url: string | null;
+  Permission_id: number | null;
   priority: number | null;
   description: string | null;
   parent_id: number | null;
