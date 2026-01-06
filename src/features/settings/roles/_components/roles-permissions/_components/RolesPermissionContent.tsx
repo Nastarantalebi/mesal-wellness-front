@@ -4,14 +4,14 @@ import { queryKey, url } from "../_fixtures/data";
 import type { RootPermissions } from "../_types/type";
 import AccessSwitch from "@/components/Form/FormSwitch/ReactSwitch";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { usePermissions } from "./PermissionContext";
 import LoadingSpin from "@/components/Loading";
+import { useRolesPermissions } from "./RolesPermissionContext";
 
 type TProps = {
   label: string;
 };
-const PermissionContent = ({ label }: TProps) => {
-  const { activeIds, setActiveIds } = usePermissions();
+const RolesPermissionContent = ({ label }: TProps) => {
+  const { activeIds, setActiveIds } = useRolesPermissions();
   const { data, isLoading } = useGetData<RootPermissions>({
     url,
     queryKey,
@@ -149,4 +149,4 @@ const PermissionContent = ({ label }: TProps) => {
   );
 };
 
-export default PermissionContent;
+export default RolesPermissionContent;

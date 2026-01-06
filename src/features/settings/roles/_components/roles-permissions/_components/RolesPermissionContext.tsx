@@ -1,15 +1,17 @@
 import { createContext, useContext, useState } from "react";
 
-type PermissionContextType = {
+type RolesPermissionContextType = {
   activeIds: number[];
   setActiveIds: React.Dispatch<React.SetStateAction<number[]>>;
 };
 
-const PermissionContext = createContext<PermissionContextType | null>(null);
+const PermissionContext = createContext<RolesPermissionContextType | null>(
+  null
+);
 
-export const PermissionProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const RolesPermissionProvider: React.FC<{
+  children: React.ReactNode;
+}> = ({ children }) => {
   const [activeIds, setActiveIds] = useState<number[]>([]);
 
   return (
@@ -19,7 +21,7 @@ export const PermissionProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-export const usePermissions = () => {
+export const useRolesPermissions = () => {
   const ctx = useContext(PermissionContext);
   if (!ctx)
     throw new Error("usePermissions must be used inside PermissionProvider");

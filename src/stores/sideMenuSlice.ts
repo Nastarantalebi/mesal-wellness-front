@@ -103,6 +103,11 @@ const initialState: SideMenuState = {
           pathname: "/menus",
           title: "مدیریت منوها",
         },
+        {
+          icon: "PanelsRightBottom",
+          pathname: "/permissions",
+          title: "تعیین سطوح دسترسی",
+        },
       ],
     },
   ],

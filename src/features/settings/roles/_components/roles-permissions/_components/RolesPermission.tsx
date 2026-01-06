@@ -3,22 +3,22 @@ import { useTabItems } from "../_hooks/useTabItems";
 import Button from "@/components/Button";
 import useCreateData from "@/services/useCreateData";
 import { queryKey } from "../_fixtures/data";
-import { usePermissions } from "./PermissionContext";
 import useGetById from "@/services/useGetById";
 import type { TGetById } from "../_types/type";
 import { useEffect } from "react";
 import LoadingSpin from "@/components/Loading";
+import { useRolesPermissions } from "./RolesPermissionContext";
 type TProps = {
   id: number;
   setOpenModal: (value: boolean) => void;
 };
-const Permission = ({ id, setOpenModal }: TProps) => {
+const RolesPermission = ({ id, setOpenModal }: TProps) => {
   const { data, isLoading } = useGetById<TGetById>({
-    queryKey: ["role-permissions", String(id)],
+    queryKey: ["roles-permissions", String(id)],
     url: `/basics/acl/roles/${id}/permissions/`,
     enabled: !!id,
   });
-  const { activeIds, setActiveIds } = usePermissions();
+  const { activeIds, setActiveIds } = useRolesPermissions();
   useEffect(() => {
     if (data?.data) {
       const initialIds = data.data.map((item) => item.id);
@@ -57,4 +57,4 @@ const Permission = ({ id, setOpenModal }: TProps) => {
   );
 };
 
-export default Permission;
+export default RolesPermission;
