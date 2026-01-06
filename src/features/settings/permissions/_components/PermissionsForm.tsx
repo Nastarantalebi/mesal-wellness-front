@@ -1,20 +1,14 @@
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
 import useUpdateData from "@/services/useUpdateData";
-import { queryKey, url } from "../_fixtures/data";
+import { queryKey, schema, url } from "../_fixtures/data";
 import { useForm } from "react-hook-form";
-import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { TPermissionItem, TRequest } from "../_types/type";
 
 const PermissionsForm = ({ item }: { item: TPermissionItem }) => {
   const form = useForm<TRequest>({
-    resolver: zodResolver(
-      z.object({
-        title: z.string(),
-        is_global: z.number(),
-      })
-    ),
+    resolver: zodResolver(schema),
     defaultValues: {
       title: item.label,
       is_global: item.is_global,
@@ -23,25 +17,29 @@ const PermissionsForm = ({ item }: { item: TPermissionItem }) => {
 
   const { fields } = useFormData();
   const { mutate, isPending } = useUpdateData({
-    url: url,
-    queryKey: queryKey,
+    url,
+    queryKey,
     id: item.id,
   });
-  console.log(form.watch("is_global"));
+
   return (
-    <div className="flex justify-between items-center flex-col md:flex-row my-4 px-1 border border-x-0 border-black">
-      <p className="w-fit my-2 md:my-0">
-        <span>{item.label}</span>
-        <span>:</span>
-        <span>{item.name}</span>
-      </p>
-      <FormComponent<TRequest>
-        className="lg:flex"
-        formFields={fields}
-        form={form}
-        isSubmitting={isPending}
-        onSubmit={(values) => mutate(values)}
-      />
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_auto] items-center py-4 px-2 border-b border-gray-200">
+      <div className="flex flex-col gap-1 text-sm">
+        <div className="flex flex-wrap items-center gap-1">
+          <span className="font-semibold text-gray-800">{item.label}</span>
+          <span className="text-gray-400">:</span>
+          <span className="text-gray-600">{item.name}</span>
+        </div>
+      </div>
+      <div className="w-full md:w-auto">
+        <FormComponent<TRequest>
+          form={form}
+          formFields={fields}
+          isSubmitting={isPending}
+          onSubmit={(values) => mutate(values)}
+          className="flex flex-col gap-3 sm:flex-row sm:items-center"
+        />
+      </div>
     </div>
   );
 };
