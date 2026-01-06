@@ -1,4 +1,3 @@
-//
 export type TPermissionItem = {
   id: number;
   name: string;
@@ -14,6 +13,6 @@ export type TPermissions = {
   };
 };
 export type TRequest = {
-  is_global: number;
   title: string;
+  is_global: boolean;
 };

@@ -1,8 +1,8 @@
-import type {
-  ControllerRenderProps,
-  FieldErrors,
-  FieldValues,
-  Path,
+import {
+  type ControllerRenderProps,
+  type FieldErrors,
+  type FieldValues,
+  type Path,
 } from "react-hook-form";
 import type { TFormData } from "@/types";
 import FormInput from "./FormInput";
@@ -10,6 +10,7 @@ import DatePickerField from "./DatePicker";
 import TimePickerField from "./TimePicker";
 import TagsInput from "./TagsInput";
 import ReactSelect from "./FormSelect/ReactSelect";
+import SwitchBox from "./FormSwitch/SwitchBox";
 
 /**
  * @description
@@ -69,6 +70,15 @@ function useFormField<TFormValues extends FieldValues>() {
 
     // بر اساس نوع فیلد، کامپوننت مناسب را برمی‌گردانیم
     switch (type) {
+      case "switch":
+        return (
+          <SwitchBox
+            field={field}
+            label={props.label}
+            disabled={rest.disabled}
+          />
+        );
+
       case "select": {
         return (
           <ReactSelect
@@ -81,30 +91,30 @@ function useFormField<TFormValues extends FieldValues>() {
             mode={mode}
           />
         );
-        // const firstOption = option?.[0]?.value;
-
-        // useEffect(() => {
-        //   if (
-        //     firstOption !== undefined &&
-        //     (field.value === undefined ||
-        //       // field.value === null ||
-        //       field.value === "" ||
-        //       field.value === 0)
-        //   ) {
-        //     field.onChange(firstOption);
-        //   }
-        // }, [firstOption, field.value]);
-
-        // return (
-        //   <FormSelect {...field} id={name} {...rest}>
-        //     {option?.map(({ label, value }: any) => (
-        //       <option key={value} value={value}>
-        //         {label}
-        //       </option>
-        //     ))}
-        //   </FormSelect>
-        // );
       }
+      // const firstOption = option?.[0]?.value;
+
+      // useEffect(() => {
+      //   if (
+      //     firstOption !== undefined &&
+      //     (field.value === undefined ||
+      //       // field.value === null ||
+      //       field.value === "" ||
+      //       field.value === 0)
+      //   ) {
+      //     field.onChange(firstOption);
+      //   }
+      // }, [firstOption, field.value]);
+
+      // return (
+      //   <FormSelect {...field} id={name} {...rest}>
+      //     {option?.map(({ label, value }: any) => (
+      //       <option key={value} value={value}>
+      //         {label}
+      //       </option>
+      //     ))}
+      //   </FormSelect>
+      // );
 
       // case "treeSelect":
       //   return (
