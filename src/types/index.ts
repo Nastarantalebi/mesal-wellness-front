@@ -19,6 +19,7 @@ export type TPaginate = {
 export type TOption = {
   label: string;
   value: string | number | boolean;
+  children?: TOption[] | null;
 };
 
 export type TFormData<T extends FieldValues> = {

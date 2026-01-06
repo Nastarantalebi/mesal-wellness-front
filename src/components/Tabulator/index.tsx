@@ -112,6 +112,9 @@ function CustomTable({
           },
         },
       ],
+      dataTree: true, // ⭐ فعال‌سازی Tree
+      dataTreeChildField: "children", // ⭐ فیلد فرزندان
+      dataTreeStartExpanded: false,
       nestedFieldSeparator: false,
       layout: getLayout(),
       // paginationMode: "local",

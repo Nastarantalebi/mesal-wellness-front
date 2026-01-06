@@ -26,6 +26,15 @@ const useFormData = () => {
       className: "md:col-span-2",
     },
     {
+      name: "parent_id",
+      label: "والد",
+      placeholder: "والد",
+      type: "select",
+      option: data?.categories,
+      isLoading,
+      className: "md:col-span-2",
+    },
+    {
       name: "slug",
       label: "slug",
       placeholder: "slug",
@@ -42,11 +51,6 @@ const useFormData = () => {
       label: "اولویت",
       placeholder: "اولویت",
       inputType: "number",
-    },
-    {
-      name: "parent_id",
-      label: "والد",
-      placeholder: "والد",
     },
     {
       name: "description",
