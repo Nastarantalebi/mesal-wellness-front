@@ -1,3 +1,4 @@
+import { logout } from "@/features/auth/_services/authServices";
 import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -39,35 +40,43 @@ instance.interceptors.response.use(
     // جلوگیری از refresh در مسیر login
     const isLoginRoute = window.location.pathname.startsWith("/login");
     if (isLoginRoute) return Promise.reject(error);
-
-    if (error.response.status === 401 && !original._retry) {
-      original._retry = true;
-
-      if (isRefreshing) {
-        // اگر refresh در حال اجراست، صف بگذار
-        return new Promise((resolve, reject) => {
-          pendingQueue.push({ resolve, reject });
-        }).then(() => instance(original));
+    const status = error.response.status;
+    const data = error.response.data as { code?: string };
+    const code = data.code;
+    if (status === 401) {
+      if (code === "USER_NOT_FOUND") {
+        await logout().catch(() => {});
+        window.location.replace("/login");
+        return Promise.reject(error);
       }
-
-      isRefreshing = true;
-
-      try {
-        // refresh token با HttpOnly cookie
-        await axios.post(`${LOGIN_URL}/refresh/`, null, {
-          withCredentials: true,
-        });
-
-        processQueue(null); // ادامه pending requests
-        return instance(original); // اجرای دوباره request اصلی
-      } catch (refreshErr) {
-        processQueue(refreshErr);
-        if (!isLoginRoute) {
-          window.location.replace("/login"); // هدایت به login
+      if (!original._retry) {
+        original._retry = true;
+        if (isRefreshing) {
+          // اگر refresh در حال اجراست، صف بگذار
+          return new Promise((resolve, reject) => {
+            pendingQueue.push({ resolve, reject });
+          }).then(() => instance(original));
         }
-        return Promise.reject(refreshErr);
-      } finally {
-        isRefreshing = false;
+
+        isRefreshing = true;
+
+        try {
+          // refresh token با HttpOnly cookie
+          await axios.post(`${LOGIN_URL}/refresh/`, null, {
+            withCredentials: true,
+          });
+
+          processQueue(null); // ادامه pending requests
+          return instance(original); // اجرای دوباره request اصلی
+        } catch (refreshErr) {
+          processQueue(refreshErr);
+          if (!isLoginRoute) {
+            window.location.replace("/login"); // هدایت به login
+          }
+          return Promise.reject(refreshErr);
+        } finally {
+          isRefreshing = false;
+        }
       }
     }
 

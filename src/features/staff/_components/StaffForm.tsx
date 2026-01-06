@@ -38,10 +38,12 @@ function StaffForm({ setOpenModal, id }: TProps) {
       const praparedData: TRequest = {
         ...data.data.user,
         staff_type: data.data.staff_type,
+        role_ids: data.data.roles,
       };
       form.reset(praparedData);
     }
   }, [form, data]);
+  console.log(form.watch());
   return (
     <FormComponent
       form={form}

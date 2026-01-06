@@ -108,7 +108,7 @@ function Sidebar({
                     )}
                     {menu.subMenu && (
                       <Lucide
-                        icon="ChevronDown"
+                        icon={menu.activeDropdown ? "ChevronUp" : "ChevronDown"}
                         className="side-menu__link__chevron"
                       />
                     )}

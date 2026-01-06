@@ -5,7 +5,7 @@ type TProps = {
 };
 const TitlePage = ({ title, description }: TProps) => {
   useEffect(() => {
-    document.title = `مجموعه ماساژ آسمان | ${title}`;
+    document.title = `مرکز ماساژ آسمان | ${title}`;
     if (description) {
       const meta = document.querySelector('meta[name="description"]');
       if (meta) meta.setAttribute("content", description);

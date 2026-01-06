@@ -36,7 +36,7 @@ const useFormData = () => {
       type: "select",
       required: true,
       isLoading: isLoading,
-      option: data?.staff_types,
+      option: data?.data?.staff_types,
     },
     {
       name: "national_code",
@@ -45,6 +45,17 @@ const useFormData = () => {
       inputType: "number",
       maxLength: 10,
       required: true,
+    },
+    {
+      name: "role_ids",
+      label: "نقش‌ها",
+      placeholder: "نقش‌ها",
+      type: "select",
+      mode: "multiple",
+      required: true,
+      isLoading: isLoading,
+      option: data?.data?.roles,
+      className: "md:col-span-3",
     },
   ];
   return { fields };

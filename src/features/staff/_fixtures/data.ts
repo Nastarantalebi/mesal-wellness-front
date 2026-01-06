@@ -13,6 +13,7 @@ export const schema = z.object({
   last_name: z.string().min(1, " "),
   mobile: mobileRequireValidationSchema,
   staff_type: z.string().min(1, " "),
+  role_ids: z.array(z.number()).min(1, " "),
   national_code: nationalCodeRequireValidationSchema,
 });
 
@@ -22,4 +23,5 @@ export const initialValues: TRequest = {
   mobile: "",
   national_code: "",
   staff_type: "",
+  role_ids: [],
 };

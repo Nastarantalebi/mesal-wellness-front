@@ -77,7 +77,7 @@ const PersonalInfo = ({ selectedRecord }: TProps) => {
       {/* Header */}
       <div className="text-center mb-6">
         <h1 className="text-2xl font-bold mb-2">
-          مجموعه ماساژ آسمان (آموزش و اجرا)
+          مرکز ماساژ آسمان (آموزش و اجرا)
         </h1>
         <img src="/logo-192×192.png" alt="logo" className="mx-auto mb-2 w-32" />
       </div>
