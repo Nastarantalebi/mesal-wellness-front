@@ -29,6 +29,7 @@ import Roles from "@/features/settings/roles/_components/Roles";
 import Menus from "@/features/settings/menus/_components/Menus";
 import Widgets from "@/features/settings/widgets/_components/Widgets";
 import Permissions from "@/features/settings/permissions/_components/Permissions";
+import Staff from "@/features/staff/_components/Staff";
 
 function Router() {
   const routes = [
@@ -91,6 +92,10 @@ function Router() {
         {
           path: "/customers",
           element: <Customers />,
+        },
+        {
+          path: "/staff",
+          element: <Staff />,
         },
         {
           path: "/facilities",

@@ -75,6 +75,11 @@ const initialState: SideMenuState = {
       title: "مشتریان",
     },
     {
+      icon: "BriefcaseMedical",
+      pathname: "/staff",
+      title: "کارمندان",
+    },
+    {
       icon: "CalendarClock",
       pathname: "/booking",
       title: "لیست رزروها",
@@ -89,7 +94,7 @@ const initialState: SideMenuState = {
       title: "تنظیمات سامانه",
       subMenu: [
         {
-          icon: "ShieldCheck",
+          icon: "UserCog",
           pathname: "/roles",
           title: "مدیریت نقش‌ها",
         },
@@ -104,7 +109,7 @@ const initialState: SideMenuState = {
           title: "مدیریت منوها",
         },
         {
-          icon: "PanelsRightBottom",
+          icon: "ShieldCheck",
           pathname: "/permissions",
           title: "تعیین سطوح دسترسی",
         },

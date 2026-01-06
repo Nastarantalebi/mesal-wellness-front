@@ -79,7 +79,7 @@ export type TRecord = {
   actions?: string;
   full_name: string;
   gender: string;
-  id: 87;
+  id: number;
   joined_at: string | null;
   membership_type: string;
   national_code: string | null;
