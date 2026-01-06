@@ -12,12 +12,12 @@ const PermissionsForm = ({ item }: { item: TPermissionItem }) => {
     resolver: zodResolver(
       z.object({
         title: z.string(),
-        is_global: z.boolean(),
+        is_global: z.number(),
       })
     ),
     defaultValues: {
       title: item.label,
-      is_global: Boolean(item.is_global),
+      is_global: item.is_global,
     },
   });
 
@@ -29,24 +29,18 @@ const PermissionsForm = ({ item }: { item: TPermissionItem }) => {
   });
   console.log(form.watch("is_global"));
   return (
-    <div className="flex justify-between items-center flex-col md:flex-row my-4 mx-0 border border-x-0 border-black">
-      <p className="w-fit">
+    <div className="flex justify-between items-center flex-col md:flex-row my-4 px-1 border border-x-0 border-black">
+      <p className="w-fit my-2 md:my-0">
         <span>{item.label}</span>
         <span>:</span>
         <span>{item.name}</span>
       </p>
       <FormComponent<TRequest>
-        className="md:flex"
+        className="lg:flex"
         formFields={fields}
         form={form}
         isSubmitting={isPending}
-        onSubmit={(values) =>
-          mutate({
-            ...values,
-            //@ts-ignore
-            is_global: values.is_global ? 1 : 0,
-          } satisfies TRequest)
-        }
+        onSubmit={(values) => mutate(values)}
       />
     </div>
   );

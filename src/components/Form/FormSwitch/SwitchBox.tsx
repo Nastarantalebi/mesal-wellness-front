@@ -1,61 +1,68 @@
 import clsx from "clsx";
 import type { ControllerRenderProps } from "react-hook-form";
 
-type BaseProps = {
+/* ===================== Types ===================== */
+
+type SwitchValue = string | number | boolean;
+
+type BaseProps<T extends SwitchValue> = {
   label?: string;
   disabled?: boolean;
   className?: string;
+  onValue: T;
+  offValue: T;
 };
 
-type RHFProps = {
+type RHFProps<T extends SwitchValue> = {
   field: ControllerRenderProps<any, any>;
-  value?: never;
+  value?: T;
   onChange?: never;
 };
 
-type ControlledProps = {
+type ControlledProps<T extends SwitchValue> = {
   field?: never;
-  value: boolean;
-  onChange: (value: boolean) => void;
+  value: T;
+  onChange: (value: T) => void;
 };
 
-export type SwitchBoxProps = BaseProps & (RHFProps | ControlledProps);
+export type SwitchBoxProps<T extends SwitchValue> = BaseProps<T> &
+  (RHFProps<T> | ControlledProps<T>);
 
-export default function SwitchBox({
+export default function SwitchBox<T extends SwitchValue>({
   label,
   disabled = false,
   className,
+  onValue,
+  offValue,
   ...props
-}: SwitchBoxProps) {
-  const isChecked =
-    "field" in props ? Boolean(props.field?.value) : props.value;
+}: SwitchBoxProps<T>) {
+  const currentValue = "field" in props ? props.field?.value : props.value;
 
-  const handleToggle = () => {
+  const isChecked = currentValue === onValue;
+
+  const toggle = () => {
     if (disabled) return;
 
-    const newValue = !isChecked;
+    const nextValue = isChecked ? offValue : onValue;
 
     if ("field" in props) {
-      props.field?.onChange(newValue);
+      props.field?.onChange(nextValue);
     } else {
-      props.onChange(newValue);
+      props.onChange(nextValue);
     }
   };
 
   return (
     <div
+      dir="rtl"
       className={clsx(
         "flex items-center justify-between p-2 rounded-md",
-        className,
-        {
-          "opacity-50 cursor-not-allowed": disabled,
-        }
-      )}
-      dir="rtl">
-      {/* {label && <span className="text-sm font-medium">{label}</span>} */}
+        { "opacity-50 cursor-not-allowed": disabled },
+        className
+      )}>
       <button
         type="button"
-        onClick={handleToggle}
+        onClick={toggle}
         disabled={disabled}
         className={clsx(
           "relative w-14 h-7 flex items-center rounded-full p-1 transition-all",

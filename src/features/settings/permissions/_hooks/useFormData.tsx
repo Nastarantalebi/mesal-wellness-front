@@ -13,8 +13,9 @@ const useFormData = () => {
     {
       name: "is_global",
       label: "فعال برای همه",
-      required: true,
       type: "switch",
+      offValue: 0,
+      onValue: 1,
     },
   ];
   return { fields };

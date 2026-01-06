@@ -52,6 +52,8 @@ function useFormField<TFormValues extends FieldValues>() {
       maxLength,
       required,
       mode,
+      offValue,
+      onValue,
       // mode,
       // min,
       // max,
@@ -73,6 +75,8 @@ function useFormField<TFormValues extends FieldValues>() {
       case "switch":
         return (
           <SwitchBox
+            offValue={offValue as string | number | boolean}
+            onValue={onValue as string | number | boolean}
             field={field}
             label={props.label}
             disabled={rest.disabled}

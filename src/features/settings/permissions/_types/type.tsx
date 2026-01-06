@@ -14,5 +14,5 @@ export type TPermissions = {
 };
 export type TRequest = {
   title: string;
-  is_global: boolean;
+  is_global: number;
 };

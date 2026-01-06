@@ -49,6 +49,8 @@ export type TFormData<T extends FieldValues> = {
   className?: string;
   popupClassName?: string;
   isLoading?: boolean;
+  onValue?: number | boolean | string;
+  offValue?: number | boolean | string;
   dir?: "rtl" | "ltr";
   // value?: string | boolean | number;
   readOnly?: boolean;
