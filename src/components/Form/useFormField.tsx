@@ -11,6 +11,7 @@ import TimePickerField from "./TimePicker";
 import TagsInput from "./TagsInput";
 import ReactSelect from "./FormSelect/ReactSelect";
 import SwitchBox from "./FormSwitch/SwitchBox";
+import CustomTextArea from "./TextArea";
 
 /**
  * @description
@@ -167,6 +168,15 @@ function useFormField<TFormValues extends FieldValues>() {
             max={props.maxDate as any}
             placeholder={placeholder ?? "تاریخ"}
             {...rest}
+          />
+        );
+      case "textArea":
+        return (
+          <CustomTextArea
+            field={field}
+            hasError={!!errors[name]}
+            placeholder={placeholder}
+            rows={4}
           />
         );
       // case "date":
