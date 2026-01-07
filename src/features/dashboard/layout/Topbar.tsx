@@ -52,8 +52,8 @@ function Topbar({
         }}>
         <a
           href=""
-          className="hidden xl:flex items-center transition-[margin] group-[.side-menu--collapsed]:xl:ms-2 group-[.side-menu--collapsed.side-menu--on-hover]:xl:ms-0">
-          <div className="flex items-center justify-center w-[34px] rounded-lg h-[34px]">
+          className="hidden xl:flex items-center justify-center transition-[margin] group-[.side-menu--collapsed]:xl:ms-2 group-[.side-menu--collapsed.side-menu--on-hover]:xl:ms-0 w-full mx-auto">
+          <div className="flex items-center justify-center w-[42px] rounded-lg h-[42px]">
             <img src="/logo-192×192.png" alt="لوگو" />
           </div>
         </a>

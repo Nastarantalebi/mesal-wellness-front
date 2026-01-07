@@ -52,7 +52,7 @@ const TicketsSideBar = ({
       )}
 
       <aside
-        className={`fixed lg:static z-50 lg:z-10 top-0 bottom-0 left-0 w-72 md:w-1/3 mt-16  lg:my-0
+        className={`fixed lg:static z-50 lg:z-10 top-0 bottom-0 left-0 w-72 md:w-1/4 mt-16 lg:my-0
   bg-white dark:bg-neutral-900 border-r dark:border-gray-700 shadow-lg
   transform transition-transform duration-300 ease-in-out
   ${mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}>

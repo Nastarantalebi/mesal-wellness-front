@@ -1,7 +1,6 @@
-import type { TFormData } from "@/components/form/Form";
 import type { TReqList } from "../_types/type";
 import useGetData from "@/services/useGetData";
-import type { TOption } from "@/types";
+import type { TFormData, TOption } from "@/types";
 
 function useFormData() {
   const { data, isLoading } = useGetData<TOption[]>({
@@ -15,13 +14,13 @@ function useFormData() {
       name: "title",
       placeholder: "عنوان",
       required: true,
-      className: "col-span-4",
+      className: "col-span-full",
     },
     {
       label: "موضوع",
       name: "priorty",
       placeholder: "موضوع",
-      className: "col-span-4",
+      className: "col-span-full",
       type: "select",
       isLoading,
       option: data ?? [],
@@ -32,7 +31,7 @@ function useFormData() {
       placeholder: "توضیحات",
       required: true,
       type: "textArea",
-      className: "col-span-4",
+      className: "!col-span-full",
     },
   ];
 
