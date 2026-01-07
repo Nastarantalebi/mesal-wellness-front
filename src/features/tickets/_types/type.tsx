@@ -20,5 +20,5 @@ export type TResList = {
 export type TReqList = {
   title: string;
   description: string;
-  priorty: string | null;
+  priorty: string;
 };

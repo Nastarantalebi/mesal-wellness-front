@@ -12,11 +12,11 @@ export const chatvalidationSchema = z.object({
 export const ticketListInitialValues: TReqList = {
   title: "",
   description: "",
-  priorty: null,
+  priorty: "",
 };
 
 export const ticketListvalidationSchema = z.object({
-  title: z.string(),
-  description: z.string(),
-  priorty: z.string().nullable(),
+  title: z.string().min(1, " "),
+  description: z.string().min(1, " "),
+  priorty: z.string().min(1, " "),
 });

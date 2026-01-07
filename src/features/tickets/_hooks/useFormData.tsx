@@ -22,6 +22,7 @@ function useFormData() {
       placeholder: "موضوع",
       className: "col-span-full",
       type: "select",
+      required: true,
       isLoading,
       option: data ?? [],
     },
