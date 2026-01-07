@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import persian from "react-date-object/calendars/persian";
 import persian_en from "react-date-object/locales/persian_en";
 import persian_fa from "react-date-object/locales/persian_fa";
@@ -22,6 +22,7 @@ type TProps<TFormValues extends FieldValues> = {
   min?: DateObject | null;
   portal?: boolean;
   hasError?: boolean;
+  showWeekDayName?: boolean;
 };
 
 function DatePickerField<TFormValues extends FieldValues>({
@@ -30,6 +31,7 @@ function DatePickerField<TFormValues extends FieldValues>({
   placeholder = "یک تاریخ وارد کنید",
   showTimePicker = false,
   autoFocus = false,
+  showWeekDayName = false,
   hasError,
   max,
   min,
@@ -37,7 +39,7 @@ function DatePickerField<TFormValues extends FieldValues>({
 }: TProps<TFormValues>) {
   const { onChange, value: fieldValue } = field;
   const datePickerRef = useRef<DatePickerRef>(null);
-
+  const [weekDay, setWeekDay] = useState<string | null>(null);
   useEffect(() => {
     if (autoFocus && datePickerRef.current) {
       datePickerRef.current.focus();
@@ -58,10 +60,15 @@ function DatePickerField<TFormValues extends FieldValues>({
     }
   ) => {
     const { input, isTyping } = options;
-
     if (!isTyping) {
-      if (date) onChange(getFormattedValue(date));
-      else onChange("");
+      if (date) {
+        setWeekDay(date.weekDay.name);
+        onChange(getFormattedValue(date));
+      } else {
+        setWeekDay(null);
+        onChange("");
+      }
+
       return;
     }
 
@@ -83,12 +90,30 @@ function DatePickerField<TFormValues extends FieldValues>({
     if (date) onChange(getFormattedValue(date));
     else onChange((input as HTMLInputElement).value);
   };
+  useEffect(() => {
+    if (!fieldValue) {
+      setWeekDay(null);
+      return;
+    }
+    try {
+      const dateObject = new DateObject({
+        date: fieldValue,
+        format: showTimePicker ? "YYYY/MM/DD HH:mm:ss" : "YYYY/MM/DD",
+        calendar: persian,
+        locale: persian_fa,
+      });
+
+      setWeekDay(dateObject.weekDay.name); // شنبه، یکشنبه، ...
+    } catch {
+      setWeekDay(null);
+    }
+  }, [fieldValue, showTimePicker]);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   useOutsideClick(wrapperRef, datePickerRef);
 
   return (
-    <div ref={wrapperRef}>
+    <div ref={wrapperRef} className={`${showWeekDayName && "relative"}`}>
       <DatePicker
         portal={portal}
         ref={datePickerRef}
@@ -128,6 +153,13 @@ function DatePickerField<TFormValues extends FieldValues>({
             : [],
         ]}
       />
+      {weekDay && showWeekDayName && (
+        <span
+          className="absolute right-2 top-1/2 -translate-y-1/2 rounded bg-blue-100
+         px-2 py-0.5 text-xs text-blue-700 dark:bg-blue-900 dark:text-blue-200">
+          {weekDay}
+        </span>
+      )}
     </div>
   );
 }

@@ -18,7 +18,6 @@ const DailyBoard = () => {
   });
 
   const date = watch("date");
-
   const { data } = useGetData<TDailyBoard>({
     url: `wellness/bookings/daily-board?date=${date}`,
     queryKey: ["daily_board", date],
@@ -60,6 +59,7 @@ const DailyBoard = () => {
                 field={{
                   ...field,
                 }}
+                showWeekDayName
                 inputClassName="border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-400"
               />
             )}
