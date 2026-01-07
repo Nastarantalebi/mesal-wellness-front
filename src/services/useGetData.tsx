@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
-import { Request } from "../libs/httpService";
+import { Request, SupportRequest } from "../libs/httpService";
 
 type TGetData = {
   url: string;
@@ -9,17 +9,22 @@ type TGetData = {
   refetchOnWindowFocus?: boolean;
   staleTime?: number;
   retry?: boolean | number;
+  support?: boolean;
 };
 
 async function getdata<T>(url: string, qs?: string) {
-  const { data }: { data: T } = await Request.get(url + qs);
+  const { data }: { data: T } = await Request.get(qs ? url + qs : url);
   return data;
 }
-
+async function getdataSupport<T>(url: string) {
+  const { data }: { data: T } = await SupportRequest.get(url);
+  return data;
+}
 function useGetData<T>({
   url,
   queryKey,
   enabled = true,
+  support = false,
   retry,
   staleTime,
 }: TGetData) {
@@ -29,7 +34,7 @@ function useGetData<T>({
 
   return useQuery({
     queryKey: [queryKey, queryObject],
-    queryFn: () => getdata<T>(url, search),
+    queryFn: () => (support ? getdataSupport<T>(url) : getdata<T>(url)),
     enabled,
     staleTime,
     refetchOnWindowFocus: false,

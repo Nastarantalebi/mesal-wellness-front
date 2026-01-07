@@ -115,6 +115,11 @@ const initialState: SideMenuState = {
         },
       ],
     },
+    {
+      icon: "Headset",
+      pathname: "/tickets",
+      title: "تیکت",
+    },
   ],
 };
 

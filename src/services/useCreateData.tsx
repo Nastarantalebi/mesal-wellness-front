@@ -1,35 +1,33 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Request } from "../libs/httpService";
+import { Request, SupportRequest } from "../libs/httpService";
 import { showToastify } from "@/components/Headless/Toast";
 
 type TCreateData<TRes> = {
   url: string;
-  queryKey?: string;
+  queryKey?: string | string[];
   showToast?: boolean;
+  support?: boolean;
   onSuccess?: (data: TRes) => void;
   onError?: () => void;
+  timeout?: number;
 };
-
-async function createdata<TReq extends object, TRes>(
-  url: string,
-  values: TReq
-) {
-  const { data }: { data: TRes } = await Request.post(url, values);
-  return data;
-}
 
 function useCreateData<TReq extends object, TRes>({
   url,
   queryKey,
   showToast = true,
+  support = false,
   onSuccess,
   onError,
+  timeout,
 }: TCreateData<TRes>) {
   const queryClient = useQueryClient();
-
+  const apiClient = support ? SupportRequest : Request;
   return useMutation({
-    mutationFn: (values: TReq) => createdata<TReq, TRes>(url, values),
-
+    mutationFn: async (values: TReq) => {
+      const { data } = await apiClient.post(url, values, { timeout });
+      return data as TRes;
+    },
     onSuccess: (data: TRes) => {
       if (onSuccess) {
         onSuccess(data);

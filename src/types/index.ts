@@ -89,3 +89,9 @@ export type TFormData<T extends FieldValues> = {
   // onClick?: MouseEventHandler<HTMLButtonElement>;
   // prefix?: ReactNode;
 };
+export interface IResData<T> {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: T[];
+}

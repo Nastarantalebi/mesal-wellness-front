@@ -30,6 +30,7 @@ import Menus from "@/features/settings/menus/_components/Menus";
 import Widgets from "@/features/settings/widgets/_components/Widgets";
 import Permissions from "@/features/settings/permissions/_components/Permissions";
 import Staff from "@/features/staff/_components/Staff";
+import Tickets from "@/features/tickets/_components/Tickets";
 
 function Router() {
   const routes = [
@@ -148,6 +149,14 @@ function Router() {
         {
           path: "/menus",
           element: <Menus />,
+        },
+        {
+          path: "/tickets",
+          element: <Tickets />,
+        },
+        {
+          path: "/tickets/:id",
+          element: <Tickets />,
         },
       ],
     },
