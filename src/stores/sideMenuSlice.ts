@@ -14,23 +14,7 @@ export interface Menu {
 export interface SideMenuState {
   menu: Array<Menu | string>;
 }
-type TMenu = {
-  organization_id: number;
-  key: number;
-  slug: string;
-  label: string;
-  url: string | null;
-  icon: string | null;
-  children: TMenu[];
-};
-export type TSideBar = {
-  is_success: boolean;
-  message: string;
-  code: number;
-  data: {
-    menus: TMenu[];
-  };
-};
+
 const initialState: SideMenuState = {
   menu: [
     {
@@ -148,3 +132,24 @@ export const sideMenuSlice = createSlice({
 export const selectSideMenu = (state: RootState) => state.sideMenu.menu;
 
 export default sideMenuSlice.reducer;
+export const flattenMenu = (menu: Array<Menu | string>) => {
+  const map: Record<string, { title: string }> = {};
+
+  const walk = (items: Array<Menu | string>) => {
+    items.forEach((item) => {
+      if (typeof item === "string") return;
+
+      if (item.pathname) {
+        map[item.pathname] = {
+          title: item.title,
+        };
+      }
+
+      if (item.subMenu) walk(item.subMenu);
+    });
+  };
+
+  walk(menu);
+
+  return map;
+};

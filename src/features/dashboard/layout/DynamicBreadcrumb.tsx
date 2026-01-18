@@ -2,8 +2,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import * as LucideIcons from "lucide-react"; // برای ساخت آیکون داینامیک
-import { selectSideMenu } from "@/stores/sideMenuSlice";
-import { flattenMenu } from "@/stores/hooks";
+import { flattenMenu, selectSideMenu } from "@/stores/sideMenuSlice";
 
 const isId = (str: string) => /^[0-9]+$/.test(str);
 
