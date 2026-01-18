@@ -14,7 +14,27 @@ export interface Menu {
 export interface SideMenuState {
   menu: Array<Menu | string>;
 }
-
+type TMenu = {
+  organization_id: number;
+  key: number;
+  slug: string;
+  label: string;
+  url: string | null;
+  icon: string | null;
+  children: TMenu[];
+};
+export type TSideBar = {
+  is_success: boolean;
+  message: string;
+  code: number;
+  data: {
+    menus: TMenu[];
+    organizationId: number;
+    userId: number;
+    staffId: number;
+    permissions: any;
+  };
+};
 const initialState: SideMenuState = {
   menu: [
     {
