@@ -1,4 +1,3 @@
-import axios from "axios";
 import type {
   IForgotPassword,
   ISendMobile,
@@ -52,14 +51,10 @@ export async function logout() {
   });
   return data;
 }
-
-export const removeFcmToken = async (token: string) => {
-  await axios.post(
-    `${BASE_URL}/fcm/unregister/`,
-    { token },
-    { withCredentials: true }
-  );
-};
+export async function authenticate() {
+  const { data } = await Request.post(`${BASE_URL}basics/authenticate/`);
+  return data;
+}
 export async function refreshToken(values: { refresh: string }) {
   const { data } = await Request.post("/refresh/", values);
   return data;

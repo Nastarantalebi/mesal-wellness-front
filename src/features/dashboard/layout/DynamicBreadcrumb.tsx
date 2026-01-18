@@ -32,6 +32,9 @@ export default function DynamicBreadcrumb() {
     if (segment.toLowerCase() === "edit") {
       return { label: "ویرایش" };
     }
+    if (segment.toLowerCase() === "profile") {
+      return { label: "پروفایل" };
+    }
     const path = "/" + segment;
 
     // اگر در منو باشد
