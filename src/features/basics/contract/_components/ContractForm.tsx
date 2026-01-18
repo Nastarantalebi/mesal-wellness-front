@@ -37,8 +37,8 @@ function ContractForm() {
   useEffect(() => {
     if (dataById) {
       form.reset({
-        ...dataById.contract,
-        company_id: dataById.contract.company.id,
+        ...dataById.data,
+        company_id: dataById.data.company.id,
       });
     }
   }, [dataById, form]);

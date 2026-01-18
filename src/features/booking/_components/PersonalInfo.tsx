@@ -86,10 +86,10 @@ const PersonalInfo = ({ selectedRecord }: TProps) => {
       <section className="border border-gray-300 rounded-lg p-4 space-y-4">
         <h2 className="font-bold text-center text-lg">مشخصات فردی</h2>
         <div className="flex flex-wrap gap-2">
-          {dataById?.booking.customer_name ? (
+          {dataById?.data.customer_name ? (
             <div className="flex items-center">
               <span>نام و نام خانوادگی:</span>
-              <span>{dataById?.booking.customer_name}</span>
+              <span>{dataById?.data.customer_name}</span>
             </div>
           ) : (
             <InputComponents label="نام و نام‌خانوادگی" />
@@ -208,11 +208,11 @@ const PersonalInfo = ({ selectedRecord }: TProps) => {
       {/* Signature */}
       <section className="border border-gray-300 rounded-lg p-4 space-y-2">
         <p>
-          اینجانب {dataById?.booking.customer_name ?? <InputComponents />} با
-          رضایت خود و مشورت با پزشک این مرکز را برای خدمات انتخاب نموده‌ام و
-          متعهد می‌شوم که هیچگونه بیماری خاصی نداشته و از سلامت کامل برخوردارم.
-          در غیر این صورت، بروز هرگونه اتفاق در هنگام و پس از ماساژ به عهده
-          اینجانب می‌باشد.
+          اینجانب {dataById?.data.customer_name ?? <InputComponents />} با رضایت
+          خود و مشورت با پزشک این مرکز را برای خدمات انتخاب نموده‌ام و متعهد
+          می‌شوم که هیچگونه بیماری خاصی نداشته و از سلامت کامل برخوردارم. در غیر
+          این صورت، بروز هرگونه اتفاق در هنگام و پس از ماساژ به عهده اینجانب
+          می‌باشد.
         </p>
         <label className="block font-medium text-center">
           نام و امضاء مراجعه کننده:

@@ -17,18 +17,18 @@ const DashboardItem = () => {
         <LoadingSpin />
       ) : (
         <div className="grid grid-cols-12 gap-5">
-          {data?.widgets?.tiles && (
+          {data?.data?.widgets?.tiles && (
             <StatisticsCard
               titleText="آمار وب‌سایت"
-              items={data.widgets.tiles}
+              items={data.data.widgets.tiles}
             />
           )}
           <DailyBoard />
-          {data?.widgets?.lists["رزروهای اخیر"] && (
-            <CustomerTable listData={data.widgets.lists["رزروهای اخیر"]} />
+          {data?.data?.widgets?.lists["رزروهای اخیر"] && (
+            <CustomerTable listData={data.data.widgets.lists["رزروهای اخیر"]} />
           )}
-          {data?.widgets?.lists["مشتریان اخیر"] && (
-            <CustomerTable listData={data.widgets.lists["مشتریان اخیر"]} />
+          {data?.data?.widgets?.lists["مشتریان اخیر"] && (
+            <CustomerTable listData={data.data.widgets.lists["مشتریان اخیر"]} />
           )}
         </div>
       )}

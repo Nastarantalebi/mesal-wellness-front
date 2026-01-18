@@ -12,15 +12,6 @@ export const schema = z.object({
   status: z.string().nullable(),
   type_id: z.coerce.number().min(1, " "),
   facility_id: z.coerce.number().min(1, " "),
-  meta: z
-    .object({
-      notes: z.string(),
-      temperature_control: z.string(),
-      area_m2: z.number(),
-      floor: z.number(),
-      has_shower: z.boolean(),
-    })
-    .optional(),
 });
 
 export const initialValue: TReqResources = {
@@ -31,11 +22,4 @@ export const initialValue: TReqResources = {
   status: null,
   type_id: 0,
   facility_id: 0,
-  meta: {
-    floor: 1,
-    area_m2: 1,
-    notes: "",
-    temperature_control: "",
-    has_shower: true,
-  },
 };

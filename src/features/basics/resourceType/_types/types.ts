@@ -1,5 +1,5 @@
 export type TDataById = {
-  type: {
+  data: {
     id: number;
     code: string;
     name: string;
@@ -26,26 +26,5 @@ export type TReqResourceType = {
     floor: number;
     has_projector: boolean;
     area_m2: number;
-  };
-};
-
-export type TResResourceType = {
-  success: boolean;
-  message: string;
-  data: {
-    type: {
-      id: number;
-      code: string;
-      name: string;
-      icon: string;
-      description: string;
-      is_active: boolean;
-      meta: {
-        capacity: number;
-        floor: number;
-        has_projector: boolean;
-        area_m2: number;
-      };
-    };
   };
 };

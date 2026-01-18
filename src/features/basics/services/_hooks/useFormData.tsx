@@ -23,7 +23,7 @@ const useFormData = (isEdit: boolean) => {
       placeholder: "دسته‌بندی",
       type: "select",
       isLoading: isLoading,
-      option: dataCreate?.categories ?? [],
+      option: dataCreate?.data.categories ?? [],
     },
     {
       name: "duration_minutes",
@@ -47,7 +47,7 @@ const useFormData = (isEdit: boolean) => {
       required: true,
       type: "select",
       isLoading: isLoading,
-      option: dataCreate?.genderPolicies ?? [],
+      option: dataCreate?.data.genderPolicies ?? [],
     },
 
     isEdit

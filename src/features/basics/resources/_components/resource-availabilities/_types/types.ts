@@ -12,7 +12,7 @@ export type TReqResourceAvailabilities = {
   is_active: boolean | null | "false" | "true";
 };
 export type TDataById = {
-  availability: {
+  data: {
     id: number;
     resource_id: number;
     resource: string | null;
@@ -27,29 +27,8 @@ export type TDataById = {
     updated_at: string;
   };
 };
-export type TResResourceAvailabilities = {
-  success: boolean;
-  message: string;
-  data: {
-    availability: {
-      id: number;
-      resource_id: number;
-      weekday: string;
-      weekday_label: string;
-      start_time: string;
-      end_time: string;
-      breaks: Breaks[];
-      is_active: boolean;
-      is_active_label: string;
-      created_at: string;
-      updated_at: string;
-    };
-  };
-};
 
 export type TCreateData = {
-  success: boolean;
-  message: string;
   data: {
     weekdays: TOption[];
     statuses: TOption[];

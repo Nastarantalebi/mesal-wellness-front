@@ -5,8 +5,10 @@ export type TRequest = {
   display_name?: string;
 };
 export type TCreateData = {
-  roles: TOption[];
-  widgets: TOption[];
+  data: {
+    roles: TOption[];
+    widgets: TOption[] | [];
+  };
 };
 export type TDataById = {
   data: {

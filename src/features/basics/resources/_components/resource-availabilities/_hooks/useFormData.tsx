@@ -6,7 +6,7 @@ import { queryKey, url } from "../_fixtures/data";
 const useFormData = () => {
   const { data, isLoading } = useGetData<TCreateData>({
     url: `${url}create`,
-    queryKey: `${queryKey},"dataCreate"`,
+    queryKey: [queryKey, "dataCreate"],
   });
   const fields: (TFormData<TReqResourceAvailabilities> | undefined)[] = [
     {
@@ -17,7 +17,7 @@ const useFormData = () => {
       type: "select",
       disabled: true,
       isLoading: isLoading,
-      option: data?.data.resources ?? [],
+      option: data?.data?.resources ?? [],
     },
     {
       name: "weekday",
@@ -26,7 +26,7 @@ const useFormData = () => {
       placeholder: "روز هفته",
       type: "select",
       isLoading: isLoading,
-      option: data?.data.weekdays ?? [],
+      option: data?.data?.weekdays ?? [],
     },
     {
       name: "start_time",
@@ -49,7 +49,7 @@ const useFormData = () => {
       placeholder: "وضعیت",
       type: "select",
       isLoading: isLoading,
-      option: data?.data.statuses ?? [],
+      option: data?.data?.statuses ?? [],
     },
   ];
   return { fields };

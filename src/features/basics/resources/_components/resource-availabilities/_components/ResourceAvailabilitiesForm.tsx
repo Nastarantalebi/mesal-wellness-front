@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import useCreateData from "@/services/useCreateData";
 import { initialValues, queryKey, schema, url } from "../_fixtures/data";
-import type { TDataById, TReqResourceAvailabilities } from "../_types/types";
+import type { TDataById } from "../_types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useUpdateData from "@/services/useUpdateData";
 import useGetById from "@/services/useGetById";
@@ -52,15 +52,7 @@ function ResourceAvailabilitiesForm({
   }, [id, form, resourceId]);
   useEffect(() => {
     if (dataById) {
-      const praparedData: TReqResourceAvailabilities = {
-        start_time: dataById.availability.start_time,
-        end_time: dataById.availability.end_time,
-        resource_id: dataById.availability.resource_id,
-        weekday: dataById.availability.weekday,
-        is_active: dataById.availability.is_active,
-        breaks: dataById.availability.breaks,
-      };
-      form.reset(praparedData);
+      form.reset(dataById.data);
     }
   }, [form, dataById]);
   const { fields } = useFormData();

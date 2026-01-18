@@ -1,4 +1,4 @@
-export type TDashboard = {
+export type TWidget = {
   widgets: {
     tiles: {
       title: string;
@@ -32,47 +32,52 @@ export type TDashboard = {
     };
   };
 };
+export type TDashboard = {
+  data: TWidget;
+};
 
 export type TDailyBoard = {
-  date: string;
-  prev_url: string;
-  next_url: string;
-  slots: {
-    from: string;
-    to: string;
-    label: string;
-    rows: {
-      booking_item_id: number;
-      booking_id: number;
-      room: {
-        id: number;
-        name: string;
-      };
-      company: {
-        name: string | null;
-      };
-      therapist: {
-        id: number;
-        name: string;
-      };
-      customer: {
-        id: number;
-        name: string;
-        phone: string;
-      };
-      service: {
-        id: number;
-        title: string;
-      };
-      status: string;
-      start_time: string;
-      end_time: string;
-      price: number;
-      deposit: number;
+  data: {
+    date: string;
+    prev_url: string;
+    next_url: string;
+    slots: {
+      from: string;
+      to: string;
+      label: string;
+      rows: {
+        booking_item_id: number;
+        booking_id: number;
+        room: {
+          id: number;
+          name: string;
+        };
+        company: {
+          name: string | null;
+        };
+        therapist: {
+          id: number;
+          name: string;
+        };
+        customer: {
+          id: number;
+          name: string;
+          phone: string;
+        };
+        service: {
+          id: number;
+          title: string;
+        };
+        status: string;
+        start_time: string;
+        end_time: string;
+        price: number;
+        deposit: number;
+      }[];
     }[];
-  }[];
-  resources: {
-    id: number;
-    name: string;
-  }[];
+    resources: {
+      id: number;
+      name: string;
+    }[];
+  };
 };

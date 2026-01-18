@@ -8,7 +8,7 @@ import { useState } from "react";
 function ResourceAvailabilities({ id }: { id: number }) {
   const { data, isFetching, refetch } = useGetData<any>({
     queryKey: [queryKey, String(id)],
-    url: `${url}?resource_id=${id}`,
+    url: `/wellness/resource/availabilities?resource_id=${id}`,
     enabled: !!id,
   });
   const { mutate: Delete } = useDeleteData({

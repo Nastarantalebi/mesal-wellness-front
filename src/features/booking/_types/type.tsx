@@ -65,7 +65,7 @@ export type TResponse = {
 };
 
 export type TDataById = {
-  booking: {
+  data: {
     id: number;
     organization_id: number;
     customer_id: number;
@@ -103,8 +103,6 @@ export type TDataById = {
   };
 };
 export type TCreateData = {
-  success: boolean;
-  message: string;
   data: {
     statuses: {
       value: string;

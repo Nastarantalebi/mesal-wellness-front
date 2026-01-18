@@ -88,7 +88,7 @@ function Booking() {
         <ChangeStatus
           selectedRecord={selectedRecord}
           setOpenStatus={setOpenStatus}
-          status={dataById?.booking.status}
+          status={dataById?.data.status}
         />
       </Modal>
     </>

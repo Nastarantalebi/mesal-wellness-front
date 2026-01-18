@@ -1,24 +1,7 @@
-import type { TColumns, TOption, TPaginate } from "@/types";
+import type { TOption } from "@/types";
 
-export type TResources = {
-  columns: {
-    id: TColumns;
-    name: TColumns;
-    "type.name": TColumns;
-    capacity: TColumns;
-    status: TColumns;
-  };
-  data: {
-    id: number;
-    name: string;
-    "type.name": string | null;
-    capacity: number;
-    status: string;
-  }[];
-  paginate: TPaginate;
-};
 export type TDataById = {
-  resource: {
+  data: {
     id: number;
     facility: {
       id: number;
@@ -51,40 +34,12 @@ export type TReqResources = {
   capacity: string;
   status: string | null;
   description: string | null;
-  meta?: {
-    floor: number;
-    area_m2: number;
-    has_shower: boolean;
-    temperature_control: string;
-    notes: string;
-  };
-};
-export type TResResources = {
-  success: boolean;
-  message: string;
-  data: {
-    resource: {
-      id: number;
-      facility: string | null;
-      type: string | null;
-      code: string;
-      name: string;
-      capacity: number;
-      status: string;
-      description: string;
-      meta: {
-        floor: number;
-        area_m2: number;
-        has_shower: boolean;
-        temperature_control: string;
-        notes: string;
-      };
-    };
-  };
 };
 
 export type TCreateData = {
-  types: TOption[];
-  facilities: TOption[];
-  statuses: TOption[];
+  data: {
+    types: TOption[];
+    facilities: TOption[];
+    statuses: TOption[];
+  };
 };

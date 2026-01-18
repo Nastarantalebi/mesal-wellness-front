@@ -34,7 +34,7 @@ const CustomerFields = ({
   });
   const { data, refetch, isFetching } = useGetData<TCustomerSearch>({
     url: `/wellness/customers/search?q=${
-      isEdit && !search_item ? dataById?.booking.customer_name : search_item
+      isEdit && !search_item ? dataById?.data.customer_name : search_item
     }`,
     queryKey: ["customer_search", search_item],
     enabled: false,
@@ -42,9 +42,9 @@ const CustomerFields = ({
 
   const errorField = form.formState.errors;
   useEffect(() => {
-    if (isEdit && dataById?.booking?.customer_name) {
-      form.setValue("search_customer", dataById.booking.customer_name);
-      form.setValue("customer_id", dataById.booking.customer_id);
+    if (isEdit && dataById?.data?.customer_name) {
+      form.setValue("search_customer", dataById.data.customer_name);
+      form.setValue("customer_id", dataById.data.customer_id);
       refetch();
     }
   }, [isEdit, dataById, form, refetch]);

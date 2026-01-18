@@ -12,7 +12,7 @@ const CalendarMatrixList = ({ data }: TProps) => {
           تاریخ
         </div>
         {data &&
-          data.rows?.map((row: TRow) => (
+          data.data.rows?.map((row: TRow) => (
             <div
               key={row.id}
               className="p-3 font-bold text-gray-700 dark:text-gray-200 border-l border-gray-300 dark:border-gray-700 text-center">
@@ -23,16 +23,19 @@ const CalendarMatrixList = ({ data }: TProps) => {
 
       {/* موبایل: نمایش عمودی */}
       <div className="sm:hidden flex flex-col gap-4 p-2">
-        {data.dates.map((date, rowIndex) => (
+        {data.data.dates.map((date, rowIndex) => (
           <div
             key={date}
             className="border rounded-lg p-2 bg-white dark:bg-gray-800 shadow-sm">
             <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">
               {date} - تعداد:{" "}
-              {data.rows.reduce((acc, r) => acc + r.days[rowIndex]?.count, 0)}
+              {data.data.rows.reduce(
+                (acc, r) => acc + r.days[rowIndex]?.count,
+                0
+              )}
             </div>
             {data &&
-              data.rows?.map((row: TRow) => {
+              data.data.rows?.map((row: TRow) => {
                 const day = row.days[rowIndex];
                 return (
                   <div key={row.id} className="mb-2">
@@ -75,17 +78,20 @@ const CalendarMatrixList = ({ data }: TProps) => {
       </div>
 
       {/* دسکتاپ: نمایش شبکه اصلی */}
-      {data?.dates?.map((date, rowIndex) => (
+      {data?.data.dates?.map((date, rowIndex) => (
         <div
           key={date}
           className="hidden sm:grid grid-cols-[150px_repeat(auto-fit,minmax(100px,1fr))] border-b border-gray-200 dark:border-gray-700">
           <div className="p-2 border-x border-gray-300 dark:border-gray-700 flex flex-col justify-center text-sm text-gray-500 dark:text-gray-400">
             تعداد:{" "}
-            {data?.rows?.reduce((acc, r) => acc + r.days[rowIndex]?.count, 0)}
+            {data?.data.rows?.reduce(
+              (acc, r) => acc + r.days[rowIndex]?.count,
+              0
+            )}
             <div className="mt-1">{date}</div>
           </div>
 
-          {data?.rows?.map((row: TRow) => {
+          {data?.data.rows?.map((row: TRow) => {
             const day = row.days[rowIndex];
             return (
               <div

@@ -18,7 +18,9 @@ type PermissionsGroup = {
 };
 
 export type RootPermissions = {
-  permissions: PermissionsGroup;
+  data: {
+    permissions: PermissionsGroup;
+  };
 };
 export type TGetById = {
   data: {

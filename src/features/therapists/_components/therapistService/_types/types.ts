@@ -1,26 +1,7 @@
-import type { TColumns, TOption, TPaginate } from "@/types";
+import type { TOption } from "@/types";
 
-export type TTherapistService = {
-  columns: {
-    id: TColumns;
-    therapist: TColumns;
-    service: TColumns;
-    custom_price: TColumns;
-    commission_rate: TColumns;
-    is_active: TColumns;
-  };
-  data: {
-    id: 2;
-    therapist: string;
-    service: string;
-    custom_price: number;
-    commission_rate: number;
-    is_active: boolean;
-  }[];
-  paginate: TPaginate;
-};
 export type TDataById = {
-  therapist_service: {
+  data: {
     id: number;
     therapist: {
       id: number;
@@ -46,12 +27,9 @@ export type TReqTherapistService = {
   is_active: boolean | null | "false" | "true";
 };
 
-export type TResTherapistService = {
-  success: boolean;
-  message: string;
-  data: TDataById;
-};
 export type TCreateData = {
-  therapists: TOption[];
-  services: TOption[];
+  data: {
+    therapists: TOption[];
+    services: TOption[];
+  };
 };

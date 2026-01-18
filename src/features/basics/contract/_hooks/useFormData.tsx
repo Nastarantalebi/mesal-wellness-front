@@ -8,7 +8,7 @@ const useFormData = () => {
     queryKey: "createDataContractQuerykey",
     url: "basics/contracts/create",
   });
-  const company = data?.companies.map((item) => {
+  const company = data?.data.companies.map((item) => {
     return { label: item.name, value: item.id };
   });
   const fields: (TFormData<TReqContract> | undefined)[] = [

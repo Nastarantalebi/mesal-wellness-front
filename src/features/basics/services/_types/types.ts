@@ -1,85 +1,16 @@
-import type { TColumns, TOption, TPaginate } from "@/types";
-
-export type TServices = {
-  columns: {
-    id: TColumns;
-    title: TColumns;
-    "category.title": TColumns;
-    duration_minutes: TColumns;
-    base_price: TColumns;
-    is_active: TColumns;
-  };
-  data: {
-    id: number;
-    title: string;
-    "category.title": string;
-    duration_minutes: string;
-    base_price: string;
-    is_active: string;
-  }[];
-  paginate: TPaginate;
-};
+import type { TOption } from "@/types";
 
 export type TReqServices = {
-  branch_id: number | null;
   title: string;
-  code: string | null;
   category_id: number;
   duration_minutes: string;
   base_price: string;
-  currency: string | null;
   gender_policy: string;
   description: string | null;
   is_active: boolean | null;
-  meta?: {
-    room_type: string;
-    requires_shower: boolean;
-    discount_percent: number;
-  };
-};
-
-export type TResServices = {
-  success: boolean;
-  message: string;
-  data: {
-    service: {
-      id: number;
-      title: string;
-      category: {
-        id: number;
-        organization_id: number;
-        branch_id: number | null;
-        parent_id: number | null;
-        title: string;
-        slug: string;
-        icon: string;
-        description: string;
-        is_active: boolean;
-        meta: {
-          color: string;
-          order: number;
-          show_in_menu: boolean;
-        };
-        deleted_at: string | null;
-        created_at: string;
-        updated_at: string;
-      };
-      duration_minutes: number;
-      base_price: number;
-      currency: string;
-      gender_policy: { value: string; label: string };
-      description: string;
-      is_active: boolean;
-      meta: {
-        room_type: string;
-        requires_shower: boolean;
-        discount_percent: number;
-      };
-    };
-  };
 };
 export type TDataById = {
-  service: {
+  data: {
     id: number;
     title: string;
     code: string;
@@ -115,4 +46,6 @@ export type TDataById = {
     };
   };
 };
-export type TCreateData = { categories: TOption[]; genderPolicies: TOption[] };
+export type TCreateData = {
+  data: { categories: TOption[]; genderPolicies: TOption[] };
+};

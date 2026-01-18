@@ -35,18 +35,9 @@ function TherapistsForm() {
   useEffect(() => {
     if (dataById) {
       const praparedData: TReqTherapists = {
-        first_name: dataById.therapist.user.first_name,
-        last_name: dataById.therapist.user.last_name,
-        national_code: dataById.therapist.user.national_code,
-        bio: dataById.therapist.bio,
-        mobile: dataById.therapist.user.mobile,
-        gender: dataById.therapist.user.gender,
-        avatar_path: dataById.therapist.avatar_path ?? "",
-        status: dataById.therapist.status,
-        facility_id: dataById.therapist.facility.id,
-        license_number: dataById.therapist.license_number,
-        hire_date: dataById.therapist.hire_date,
-        specialties: dataById.therapist.specialties,
+        ...dataById.data,
+        ...dataById.data.user,
+        facility_id: dataById.data.facility.id,
       };
       form.reset(praparedData);
     }

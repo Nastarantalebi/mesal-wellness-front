@@ -5,13 +5,13 @@ type TProps = { data?: CalendarDayEvents };
 const CalenderList = ({ data }: TProps) => {
   return (
     <div className="my-2 md:my-1 md:p-5 space-y-4">
-      {data?.events?.length === 0 && (
+      {data?.data.events?.length === 0 && (
         <p className="text-center text-gray-500 dark:text-gray-400">
           برای این تاریخ نوبتی ثبت نشده است.
         </p>
       )}
 
-      {data?.events?.map((event) => (
+      {data?.data.events?.map((event) => (
         <div
           key={event.id}
           className="flex flex-col md:flex-row justify-between items-start md:items-center p-4 rounded-xl shadow-lg border-l-4 transition-all hover:shadow-xl hover:scale-[1.02] duration-200 bg-white dark:bg-gray-800"

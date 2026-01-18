@@ -5,8 +5,8 @@ import { queryKey, url } from "../_fixtures/data";
 
 const useFormData = () => {
   const { data, isLoading } = useGetData<TCreateData>({
-    queryKey: queryKey + "createdata",
-    url: url + "create",
+    queryKey: [queryKey, "createdata"],
+    url: `${url}create`,
   });
   const fields: (TFormData<TRequest> | undefined)[] = [
     {
@@ -22,7 +22,7 @@ const useFormData = () => {
       placeholder: "دسترسی",
       required: true,
       type: "select",
-      option: data?.permissions ?? [],
+      option: data?.data.permissions ?? [],
       isLoading,
       className: "md:col-span-2",
     },
@@ -32,7 +32,7 @@ const useFormData = () => {
       placeholder: "نوع",
       required: true,
       type: "select",
-      option: data?.types ?? [],
+      option: data?.data.types ?? [],
       isLoading,
     },
     {
@@ -41,7 +41,7 @@ const useFormData = () => {
       placeholder: "کلاس هندل کننده",
       required: true,
       type: "select",
-      option: data?.handlers ?? [],
+      option: data?.data.handlers ?? [],
       isLoading,
     },
   ];

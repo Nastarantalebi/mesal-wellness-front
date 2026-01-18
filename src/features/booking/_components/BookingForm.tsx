@@ -35,7 +35,7 @@ function BookingForm() {
   });
   useEffect(() => {
     if (dataById) {
-      const preparedDataItem = dataById.booking.items.map((item) => ({
+      const preparedDataItem = dataById.data.items.map((item) => ({
         service_id: item.service_id,
         therapist_id: item.therapist_id,
         resource_id: item.resource_id,
@@ -46,15 +46,14 @@ function BookingForm() {
         total_price: item.total_price,
       }));
       const praparedData: TRequest = {
-        customer_id: dataById.booking.customer_id,
-        notes: dataById.booking.notes,
-        total_amount: dataById.booking.total_amount,
-        deposit: dataById.booking.deposit ?? 0,
-        payable_amount: dataById.booking.payable_amount,
+        customer_id: dataById.data.customer_id,
+        notes: dataById.data.notes,
+        total_amount: dataById.data.total_amount,
+        deposit: dataById.data.deposit ?? 0,
+        payable_amount: dataById.data.payable_amount,
         items: preparedDataItem,
-        company_id:dataById.booking.customer_id,
-        discount_amount:dataById.booking.customer_id,
-
+        company_id: dataById.data.customer_id,
+        discount_amount: dataById.data.customer_id,
       };
       form.reset(praparedData);
     }

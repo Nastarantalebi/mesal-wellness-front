@@ -5,13 +5,13 @@ type TProps = { data?: TResponse };
 const CalendarRangeList = ({ data }: TProps) => {
   return (
     <div className="space-y-6">
-      {data?.days?.length === 0 && (
+      {data?.data.days?.length === 0 && (
         <p className="text-center text-gray-500 dark:text-gray-400">
           برای این تاریخ نوبتی ثبت نشده است.
         </p>
       )}
 
-      {data?.days?.map((day) => (
+      {data?.data.days?.map((day) => (
         <div key={day.date} className="space-y-2">
           {/* تاریخ روز */}
           <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300">

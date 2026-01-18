@@ -10,7 +10,7 @@ type TProps = {
 function TherapistsAvailabilities({ id }: TProps) {
   const { data, isFetching, refetch } = useGetData<any>({
     queryKey: [queryKey, String(id)],
-    url: `${url}?therapist_id=${id}`,
+    url: `/wellness/therapist/availabilities?therapist_id=${id}`,
     enabled: !!id,
   });
   const { mutate: Delete } = useDeleteData({

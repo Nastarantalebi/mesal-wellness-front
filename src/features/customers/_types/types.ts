@@ -1,34 +1,4 @@
-import type { TColumns, TOption } from "@/types";
-
-export type TCustomers = {
-  columns: {
-    id: TColumns;
-    full_name: TColumns;
-    phone: TColumns;
-    national_code: TColumns;
-    gender: TColumns;
-    membership_type: TColumns;
-    joined_at: TColumns;
-    status: TColumns;
-  };
-  data: {
-    id: number;
-    full_name: string;
-    phone: string;
-    national_code: string;
-    gender: string;
-    membership_type: string;
-    joined_at: string;
-    status: string;
-  }[];
-  paginate: {
-    current_page: number;
-    per_page: number;
-    total: number;
-    last_page: number;
-    has_more: boolean;
-  };
-};
+import type { TOption } from "@/types";
 
 export type TReqCustomers = {
   first_name: string;
@@ -57,23 +27,16 @@ type Customer = {
   notes: string;
   status: string;
 };
-
-export type TResCustomers = {
-  success: boolean;
-  message: string;
-  data: {
-    customer: Customer;
-  };
-};
-
 export type TDataById = {
-  customer: Customer;
+  data: Customer;
 };
 
 export type TCreateData = {
-  genders: TOption[];
-  membership_types: TOption[];
-  statuses: TOption[];
+  data: {
+    genders: TOption[];
+    membership_types: TOption[];
+    statuses: TOption[];
+  };
 };
 export type TRecord = {
   actions?: string;

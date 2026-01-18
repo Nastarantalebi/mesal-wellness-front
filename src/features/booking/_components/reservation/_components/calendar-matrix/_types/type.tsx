@@ -26,9 +26,11 @@ export type TRow = {
 };
 
 export type TResponse = {
-  from: string;
-  to: string;
-  type: string; 
-  dates: string[];
-  rows: TRow[];
+  data: {
+    from: string;
+    to: string;
+    type: string;
+    dates: string[];
+    rows: TRow[];
+  };
 };

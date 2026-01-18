@@ -43,7 +43,6 @@ function StaffForm({ setOpenModal, id }: TProps) {
       form.reset(praparedData);
     }
   }, [form, data]);
-  console.log(form.watch());
   return (
     <FormComponent
       form={form}

@@ -8,8 +8,8 @@ type TProps = {
 
 const useFormData = ({ isEdit }: TProps = {}) => {
   const { data, isLoading } = useGetData<TCreateData>({
-    queryKey: queryKey + "createdata",
-    url: url + "create",
+    queryKey: [queryKey, "createdata"],
+    url: `${url}create`,
   });
   const fields: (TFormData<TRequest> | undefined)[] = [
     {
@@ -18,7 +18,7 @@ const useFormData = ({ isEdit }: TProps = {}) => {
       required: true,
       placeholder: "نقش",
       type: "select",
-      option: data?.roles ?? [],
+      option: data?.data?.roles ?? [],
       isLoading,
       className: `${isEdit ? "hidden" : "col-span-full"}`,
     },
@@ -37,7 +37,7 @@ const useFormData = ({ isEdit }: TProps = {}) => {
       required: true,
       placeholder: "ویجت",
       type: "select",
-      option: data?.widgets ?? [],
+      option: data?.data?.widgets ?? [],
       mode: "multiple",
       className: "col-span-full",
     },

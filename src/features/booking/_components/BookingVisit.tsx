@@ -6,7 +6,7 @@ export default function BookingVisit({ isFetchingById, dataById }: TProps) {
   if (isFetchingById) return <div>در حال بارگذاری...</div>;
   if (!dataById) return <div>داده‌ای یافت نشد</div>;
 
-  const booking = dataById.booking;
+  const booking = dataById.data;
 
   return (
     <div className="p-4 md:p-6 space-y-6 max-w-6xl mx-auto">

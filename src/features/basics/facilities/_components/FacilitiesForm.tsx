@@ -37,14 +37,9 @@ function FacilitiesForm() {
   useEffect(() => {
     if (dataById) {
       const preparedData: TReqFacilities = {
-        address: dataById.facility.address ?? "",
-        city: dataById.facility.city ?? "",
-        code: dataById.facility.code ?? "",
-        description: dataById.facility.description ?? "",
-        manager_name: dataById.facility.manager_name ?? "",
-        name: dataById.facility.name ?? "",
-        phone: dataById.facility.phone ?? "",
-        is_active: dataById.facility.is_active,
+        ...dataById.data,
+        address: dataById.data.address ?? "",
+        code: dataById.data.code ?? "",
       };
       form.reset(preparedData);
     }

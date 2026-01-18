@@ -1,5 +1,5 @@
 export type TDataById = {
-  company: {
+  data: {
     id: number;
     name: string;
   };

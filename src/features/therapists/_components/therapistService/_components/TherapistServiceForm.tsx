@@ -54,14 +54,12 @@ function TherapistServiceForm({
   useEffect(() => {
     if (dataById) {
       const preparedData: TReqTherapistService = {
-        is_active: dataById.therapist_service.is_active,
-        commission_rate: String(dataById.therapist_service.commission_rate),
-        custom_price: String(dataById.therapist_service.custom_price),
-        estimated_duration: String(
-          dataById.therapist_service.estimated_duration
-        ),
-        service_id: dataById.therapist_service.service.id,
-        therapist_id: dataById.therapist_service.therapist.id,
+        is_active: dataById.data.is_active,
+        commission_rate: String(dataById.data.commission_rate),
+        custom_price: String(dataById.data.custom_price),
+        estimated_duration: String(dataById.data.estimated_duration),
+        service_id: dataById.data.service.id,
+        therapist_id: dataById.data.therapist.id,
       };
       form.reset(preparedData);
     }

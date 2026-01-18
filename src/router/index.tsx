@@ -32,6 +32,7 @@ import Permissions from "@/features/settings/permissions/_components/Permissions
 import Staff from "@/features/staff/_components/Staff";
 import Tickets from "@/features/tickets/_components/Tickets";
 import UserNotFound from "@/features/_components/UserNotFound";
+import UserOrganizations from "@/features/organization/_components/UserOrganizations";
 
 function Router() {
   const routes = [
@@ -168,6 +169,10 @@ function Router() {
     {
       path: "login",
       element: <Login />,
+    },
+    {
+      path: "user-organizations",
+      element: <UserOrganizations />,
     },
     { path: "*", element: <NotFound /> },
     {

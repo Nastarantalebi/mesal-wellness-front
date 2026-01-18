@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import type { TDataById, TReqServiceCategory } from "../_types/types";
+import type { TDataById } from "../_types/types";
 import { useLocation, useNavigate } from "react-router-dom";
 import { schema, queryKey, url, initialValue } from "../_fixtures/data";
 import useCreateData from "@/services/useCreateData";
@@ -36,15 +36,7 @@ function ServiceCategoryForm() {
   });
   useEffect(() => {
     if (dataById) {
-      const preparedData: TReqServiceCategory = {
-        description: String(dataById.category.description ?? ""),
-        is_active: dataById.category.is_active,
-        title: dataById.category.title,
-        branch_id: dataById.category.parent_id ?? null,
-        parent_id: dataById.category.parent_id ?? null,
-        icon: dataById.category.icon,
-      };
-      form.reset(preparedData);
+      form.reset(dataById.data);
     }
   }, [form, dataById]);
   return (

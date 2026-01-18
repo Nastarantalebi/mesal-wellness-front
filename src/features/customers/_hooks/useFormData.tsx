@@ -7,7 +7,7 @@ import { DateObject } from "react-multi-date-picker";
 const useFormData = () => {
   const { data: dataCreate, isLoading } = useGetData<TCreateData>({
     url: `${url}create`,
-    queryKey: `${queryKey},"dataCreate"`,
+    queryKey: [queryKey, "dataCreate"],
   });
   const fields: (TFormData<TReqCustomers> | undefined)[] = [
     {
@@ -37,7 +37,7 @@ const useFormData = () => {
       type: "select",
       required: true,
       isLoading: isLoading,
-      option: dataCreate?.genders,
+      option: dataCreate?.data?.genders,
     },
     {
       name: "national_code",
@@ -67,7 +67,7 @@ const useFormData = () => {
       placeholder: "نوع عضویت",
       type: "select",
       isLoading: isLoading,
-      option: dataCreate?.membership_types,
+      option: dataCreate?.data?.membership_types,
     },
 
     {
@@ -76,7 +76,7 @@ const useFormData = () => {
       placeholder: "وضعیت",
       type: "select",
       isLoading: isLoading,
-      option: dataCreate?.statuses,
+      option: dataCreate?.data?.statuses,
     },
     {
       name: "notes",

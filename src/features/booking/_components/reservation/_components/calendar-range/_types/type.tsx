@@ -5,22 +5,24 @@ export type TRequest = {
 };
 
 export type TResponse = {
-  from: string;
-  to: string;
-  type: string;
-  days: {
-    date: string;
-    events: {
-      id: number;
-      title: string;
-      service: string;
-      customer: string;
-      therapist: string;
-      resource: string;
-      start: string;
-      end: string;
-      status: string;
-      color: string;
+  data: {
+    from: string;
+    to: string;
+    type: string;
+    days: {
+      date: string;
+      events: {
+        id: number;
+        title: string;
+        service: string;
+        customer: string;
+        therapist: string;
+        resource: string;
+        start: string;
+        end: string;
+        status: string;
+        color: string;
+      }[];
     }[];
-  }[];
+  };
 };

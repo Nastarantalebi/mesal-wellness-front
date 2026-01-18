@@ -8,7 +8,7 @@ type TProps = {
 
 const DailyBoardTable: React.FC<TProps> = ({ data }) => {
   // لیست اتاق‌ها از resources
-  const rooms = data.resources;
+  const rooms = data.data.resources;
 
   return (
     <div className="overflow-auto border rounded-xl bg-white p-4">
@@ -52,7 +52,7 @@ const DailyBoardTable: React.FC<TProps> = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {data?.slots?.map((slot, i) => {
+          {data?.data?.slots?.map((slot, i) => {
             const slotRows = slot.rows;
 
             if (slotRows.length === 0) {

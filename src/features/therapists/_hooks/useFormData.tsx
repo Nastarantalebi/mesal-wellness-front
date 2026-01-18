@@ -7,7 +7,7 @@ import { DateObject } from "react-multi-date-picker";
 const useFormData = () => {
   const { data, isLoading } = useGetData<TCreateData>({
     url: `${url}create`,
-    queryKey: `${queryKey},"dataCreate"`,
+    queryKey: [queryKey, "dataCreate"],
   });
   const fields: (TFormData<TReqTherapists> | undefined)[] = [
     {
@@ -44,7 +44,7 @@ const useFormData = () => {
       required: true,
       type: "select",
       isLoading: isLoading,
-      option: data?.genders ?? [],
+      option: data?.data.genders ?? [],
     },
     {
       name: "hire_date",
@@ -65,7 +65,7 @@ const useFormData = () => {
       required: true,
       type: "select",
       isLoading: isLoading,
-      option: data?.facilities ?? [],
+      option: data?.data.facilities ?? [],
     },
 
     {
@@ -81,7 +81,7 @@ const useFormData = () => {
       placeholder: "وضعیت",
       type: "select",
       isLoading: isLoading,
-      option: data?.statuses ?? [],
+      option: data?.data.statuses ?? [],
     },
     {
       name: "specialties",

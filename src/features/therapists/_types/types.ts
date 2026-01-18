@@ -11,7 +11,6 @@ export type TReqTherapists = {
   license_number: string | null;
   hire_date: string | null;
   bio: string | null;
-  avatar_path: string;
 };
 type Therapist = {
   id: number;
@@ -36,7 +35,7 @@ type Therapist = {
   avatar_path: string | null;
 };
 export type TDataById = {
-  therapist: Therapist;
+  data: Therapist;
 };
 export type TResTherapists = {
   success: boolean;
@@ -45,7 +44,9 @@ export type TResTherapists = {
 };
 
 export type TCreateData = {
-  facilities: TOption[];
-  statuses: TOption[];
-  genders: TOption[];
+  data: {
+    facilities: TOption[];
+    statuses: TOption[];
+    genders: TOption[];
+  };
 };

@@ -30,24 +30,17 @@ function ResourceTypeForm() {
     url: url,
     id: selectedRecord,
   });
-  const form = useForm<any>({
+  const form = useForm<TReqResourceType>({
     resolver: zodResolver(schema),
     defaultValues: initialValue,
   });
   useEffect(() => {
     if (dataById) {
-      const preparedData: TReqResourceType = {
-        description: String(dataById.type.description ?? ""),
-        is_active: dataById.type.is_active,
-        name: dataById.type.name,
-        code: dataById.type.code,
-        icon: dataById.type.icon ?? null,
-      };
-      form.reset(preparedData);
+      form.reset(dataById.data);
     }
   }, [form, dataById]);
   return (
-    <FormComponent
+    <FormComponent<TReqResourceType>
       onSubmit={(values) => {
         const preparedData = {
           ...values,

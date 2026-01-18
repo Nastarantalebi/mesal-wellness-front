@@ -37,21 +37,12 @@ function CustomersForm({ setOpenModal, selectedRecord }: TProps) {
   useEffect(() => {
     if (dataById) {
       const praparedData: TReqCustomers = {
-        first_name: dataById.customer.first_name,
-        last_name: dataById.customer.last_name,
-        national_code: dataById.customer.national_code,
-        notes: dataById.customer.notes,
-        phone: dataById.customer.phone,
-        gender: dataById.customer.gender,
-        membership_type: dataById.customer.membership_type,
-        status: dataById.customer.status,
-        birth_date: dataById.customer.birth_date,
-        joined_at: dataById.customer.joined_at,
+        ...dataById.data,
         user_id: null,
       };
       form.reset(praparedData);
     }
-  }, [form.reset, dataById]);
+  }, [form, dataById]);
   return (
     <FormComponent
       form={form}

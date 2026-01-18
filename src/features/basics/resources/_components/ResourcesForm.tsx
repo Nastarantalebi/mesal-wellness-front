@@ -36,13 +36,10 @@ function ResourcesForm() {
   useEffect(() => {
     if (dataById) {
       const preparedData: TReqResources = {
-        description: dataById.resource.description,
-        capacity: String(dataById.resource.capacity),
-        code: dataById.resource.code,
-        name: dataById.resource.name ?? null,
-        status: dataById.resource.status,
-        type_id: dataById.resource.type?.id,
-        facility_id: dataById.resource.facility?.id,
+        ...dataById.data,
+        capacity: String(dataById.data.capacity),
+        type_id: dataById.data.type?.id,
+        facility_id: dataById.data.facility?.id,
       };
       form.reset(preparedData);
     }

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import Table from "@/components/Table";
-import type { TDashboard } from "../../_types/type";
+import type { TWidget } from "../../_types/type";
 
 interface TProps {
-  listData?: TDashboard["widgets"]["lists"][string];
+  listData?: TWidget["widgets"]["lists"][string];
 }
 
 const CustomerTable: React.FC<TProps> = ({ listData }) => {

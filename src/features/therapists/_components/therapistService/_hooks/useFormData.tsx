@@ -6,7 +6,7 @@ import type { TCreateData, TReqTherapistService } from "../_types/types";
 const useFormData = (isEdit: boolean) => {
   const { data, isLoading } = useGetData<TCreateData>({
     url: `${url}create`,
-    queryKey: `${queryKey},"dataCreate"`,
+    queryKey: [queryKey, "dataCreate"],
   });
   const fields: (TFormData<TReqTherapistService> | undefined)[] = [
     {
@@ -17,7 +17,7 @@ const useFormData = (isEdit: boolean) => {
       type: "select",
       disabled: true,
       isLoading: isLoading,
-      option: data?.therapists ?? [],
+      option: data?.data.therapists ?? [],
     },
     {
       name: "service_id",
@@ -26,7 +26,7 @@ const useFormData = (isEdit: boolean) => {
       placeholder: "خدمت",
       type: "select",
       isLoading: isLoading,
-      option: data?.services ?? [],
+      option: data?.data.services ?? [],
     },
     {
       name: "estimated_duration",

@@ -41,18 +41,12 @@ function SevicesForm() {
   useEffect(() => {
     if (dataById) {
       const preparedData: TReqServices = {
-        title: dataById.service.title,
-        category_id: dataById.service.category?.id,
-        code: dataById.service.code ?? null,
-        duration_minutes: String(dataById.service.duration_minutes ?? ""),
-        base_price: String(dataById.service.base_price ?? ""),
-        currency: dataById.service.currency ?? null,
-        gender_policy: dataById.service.gender_policy.value,
-        description: dataById.service.description,
-        is_active: dataById.service.is_active,
-        branch_id: dataById.service.category?.branch_id ?? null,
+        ...dataById.data,
+        category_id: dataById.data.category?.id,
+        duration_minutes: String(dataById.data.duration_minutes ?? ""),
+        base_price: String(dataById.data.base_price ?? ""),
+        gender_policy: dataById.data.gender_policy.value,
       };
-
       form.reset(preparedData);
     }
   }, [dataById, form]);

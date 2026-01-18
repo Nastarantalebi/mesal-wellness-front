@@ -21,7 +21,7 @@ const RolesPermissionContent = ({ label }: TProps) => {
   const [openModules, setOpenModules] = useState<Record<string, boolean>>({});
 
   const groupedPermissions = useMemo(() => {
-    const perms = data?.permissions[label] || [];
+    const perms = data?.data.permissions[label] || [];
     return perms.reduce<Record<string, typeof perms>>((acc, item) => {
       if (!acc[item.module_name]) acc[item.module_name] = [];
       acc[item.module_name].push(item);

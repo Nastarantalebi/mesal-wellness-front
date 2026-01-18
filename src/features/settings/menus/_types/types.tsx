@@ -10,8 +10,10 @@ export type TRequest = {
   parent_id: number | null;
 };
 export type TCreateData = {
-  categories: TOption[] | [];
-  permissions: TOption[];
+  data: {
+    categories: TOption[] | [];
+    permissions: TOption[];
+  };
 };
 export type TDataById = {
   data: {};

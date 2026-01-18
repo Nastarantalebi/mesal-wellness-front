@@ -11,7 +11,9 @@ export type CalendarEvent = {
 };
 
 export type CalendarDayEvents = {
-  date: string;
-  type: string;
-  events: CalendarEvent[];
+  data: {
+    date: string;
+    type: string;
+    events: CalendarEvent[];
+  };
 };

@@ -8,9 +8,11 @@ export type TRequest = {
   permission_id: number;
 };
 export type TCreateData = {
-  permissions: TOption[];
-  types: TOption[];
-  handlers: TOption[];
+  data: {
+    permissions: TOption[];
+    types: TOption[];
+    handlers: TOption[];
+  };
 };
 export type TDataById = {
   data: {

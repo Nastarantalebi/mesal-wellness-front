@@ -36,7 +36,7 @@ function CompanyForm() {
   });
   useEffect(() => {
     if (dataById) {
-      form.reset(dataById.company);
+      form.reset(dataById.data);
     }
   }, [dataById, form]);
   return (

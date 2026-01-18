@@ -1,5 +1,5 @@
 export type TDataById = {
-  contract: {
+  data: {
     company: {
       id: number;
       name: string;
@@ -17,8 +17,10 @@ export type TReqContract = {
   discount_percent: string;
 };
 export type TCreateData = {
-  companies: {
-    id: number;
-    name: string;
-  }[];
+  data: {
+    companies: {
+      id: number;
+      name: string;
+    }[];
+  };
 };

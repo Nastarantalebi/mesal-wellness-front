@@ -37,7 +37,7 @@ const useFormData = () => {
       placeholder: "محل ارائه خدمات",
       type: "select",
       isLoading: isLoading,
-      option: dataCreate?.facilities,
+      option: dataCreate?.data.facilities,
     },
     {
       name: "type_id",
@@ -46,7 +46,7 @@ const useFormData = () => {
       placeholder: "نوع مکان",
       type: "select",
       isLoading: isLoading,
-      option: dataCreate?.types,
+      option: dataCreate?.data.types,
     },
     {
       name: "status",
@@ -54,7 +54,7 @@ const useFormData = () => {
       placeholder: "وضعیت",
       type: "select",
       isLoading: isLoading,
-      option: dataCreate?.statuses,
+      option: dataCreate?.data.statuses,
     },
     {
       name: "description",

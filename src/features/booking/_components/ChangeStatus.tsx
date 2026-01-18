@@ -23,7 +23,7 @@ const ChangeStatus = ({
   });
   const { data, isLoading } = useGetData<TCreateData>({
     url: `${url}create`,
-    queryKey: `${queryKey},"dataCreate"`,
+    queryKey: [queryKey, "dataCreate"],
   });
   const form = useForm<{ status: string }>({
     resolver: zodResolver(
@@ -39,7 +39,7 @@ const ChangeStatus = ({
         status: status,
       });
     }
-  }, [form,status]);
+  }, [form, status]);
   return (
     <FormComponent
       form={form}
@@ -51,7 +51,7 @@ const ChangeStatus = ({
           required: true,
           className: "col-span-full",
           type: "select",
-          option: data?.data.statuses,
+          option: data?.data?.statuses ?? [],
           isLoading,
         },
       ]}

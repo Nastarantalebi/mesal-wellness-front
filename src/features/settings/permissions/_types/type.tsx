@@ -8,8 +8,10 @@ export type TPermissionItem = {
 };
 
 export type TPermissions = {
-  permissions: {
-    [key: string]: TPermissionItem[];
+  data: {
+    permissions: {
+      [key: string]: TPermissionItem[];
+    };
   };
 };
 export type TRequest = {
