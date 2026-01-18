@@ -8,8 +8,10 @@ import {
   setCompactMenu as setCompactMenuStore,
 } from "../../../stores/compactMenuSlice";
 import { useLocation } from "react-router-dom";
-import { selectSideMenu } from "@/stores/sideMenuSlice";
 import { nestedMenu, type FormattedMenu } from "./side-menu";
+import useGetData from "@/services/useGetData";
+import type { TBackendMenu, TSidebarMenu } from "../_types/types";
+import type { Menu } from "@/stores/sideMenuSlice";
 
 function SidebarWrapper() {
   const [compactMenuOnHover, setCompactMenuOnHover] = useState(false);
@@ -21,8 +23,15 @@ function SidebarWrapper() {
   const location = useLocation();
   const compactMenu = useAppSelector(selectCompactMenu);
   const dispatch = useAppDispatch();
-  const sideMenuStore = useAppSelector(selectSideMenu);
-
+  const { data } = useGetData<TSidebarMenu>({
+    url: "basics/menus/sidebar",
+    queryKey: "basics/menus/sidebar",
+    staleTime: 1000 * 60 * 60 * 24,
+    gcTime: 1000 * 60 * 60 * 24 * 7,
+    retry: 2,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+  });
   const setCompactMenu = useCallback(
     (val: boolean) => {
       localStorage.setItem("compactMenu", val.toString());
@@ -31,10 +40,28 @@ function SidebarWrapper() {
     [dispatch]
   );
 
-  const sideMenu = useCallback(
-    () => nestedMenu(sideMenuStore, location),
-    [sideMenuStore, location]
-  );
+  const mapBackendMenuToMenu = (menus: TBackendMenu[]): Menu[] => {
+    const menuItems = menus.map((item) => ({
+      label: item.label,
+      pathname: item.url ?? undefined,
+      icon: item.icon ?? "LayoutDashboard",
+      subMenu: item.children?.length
+        ? mapBackendMenuToMenu(item.children)
+        : undefined,
+    }));
+    return menuItems;
+  };
+  const backendMenus = data?.data?.menus;
+  const sideMenu = useCallback(() => {
+    if (!backendMenus) return [];
+    const menu = mapBackendMenuToMenu(backendMenus);
+    menu.unshift({
+      icon: "LayoutDashboard",
+      pathname: "/",
+      label: "داشبورد",
+    });
+    return nestedMenu(menu, location);
+  }, [backendMenus, location]);
 
   const compactLayout = useCallback(() => {
     if (window.innerWidth <= 1600) setCompactMenu(true);

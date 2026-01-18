@@ -10,6 +10,8 @@ type TGetData = {
   staleTime?: number;
   retry?: boolean | number;
   support?: boolean;
+  refetchOnMount?: boolean;
+  gcTime?: number;
 };
 
 async function getdata<T>(url: string, qs?: string) {
@@ -25,6 +27,8 @@ function useGetData<T>({
   queryKey,
   enabled = true,
   support = false,
+  gcTime,
+  refetchOnMount,
   retry,
   staleTime,
 }: TGetData) {
@@ -39,6 +43,8 @@ function useGetData<T>({
     staleTime,
     refetchOnWindowFocus: false,
     retry,
+    gcTime,
+    refetchOnMount,
   });
 }
 

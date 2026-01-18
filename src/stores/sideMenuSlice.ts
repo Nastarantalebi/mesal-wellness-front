@@ -4,7 +4,7 @@ import type { icons } from "../components/Lucide";
 
 export interface Menu {
   icon: keyof typeof icons;
-  title: string;
+  label: string;
   badge?: number;
   pathname?: string;
   subMenu?: Menu[];
@@ -14,52 +14,51 @@ export interface Menu {
 export interface SideMenuState {
   menu: Array<Menu | string>;
 }
-
 const initialState: SideMenuState = {
   menu: [
     {
       icon: "LayoutDashboard",
       pathname: "/",
-      title: "داشبورد",
+      label: "داشبورد",
     },
     {
       icon: "Baseline",
-      title: "اطلاعات پایه",
+      label: "اطلاعات پایه",
       subMenu: [
         {
           icon: "Shapes",
           pathname: "/service-category",
-          title: "دسته‌بندی خدمات",
+          label: "دسته‌بندی خدمات",
         },
         {
           icon: "Sparkles",
           pathname: "/services",
-          title: "خدمات",
+          label: "خدمات",
         },
         {
           icon: "Building2",
           pathname: "/facilities",
-          title: "محل ارائه خدمات",
+          label: "محل ارائه خدمات",
         },
         {
           icon: "MapPinHouse",
           pathname: "/resource-type",
-          title: "نوع مکان",
+          label: "نوع مکان",
         },
         {
           icon: "MapPin",
           pathname: "/resources",
-          title: "مکان‌های مجموعه",
+          label: "مکان‌های مجموعه",
         },
         {
           icon: "Building2",
           pathname: "/company",
-          title: "شرکت‌های طرف قرارداد",
+          label: "شرکت‌های طرف قرارداد",
         },
         {
           icon: "Handshake",
           pathname: "/contract",
-          title: "قراردادها",
+          label: "قراردادها",
         },
       ],
     },
@@ -67,58 +66,58 @@ const initialState: SideMenuState = {
     {
       icon: "HeartHandshake",
       pathname: "/therapists",
-      title: "ماساژیست",
+      label: "ماساژیست",
     },
     {
       icon: "UsersRound",
       pathname: "/customers",
-      title: "مشتریان",
+      label: "مشتریان",
     },
     {
       icon: "BriefcaseMedical",
       pathname: "/staff",
-      title: "کارمندان",
+      label: "کارمندان",
     },
     {
       icon: "CalendarClock",
       pathname: "/booking",
-      title: "لیست رزروها",
+      label: "لیست رزروها",
     },
     {
       icon: "CalendarCheck2",
       pathname: "/calendar",
-      title: "نوبت‌های رزرو شده",
+      label: "نوبت‌های رزرو شده",
     },
     {
       icon: "Settings",
-      title: "تنظیمات سامانه",
+      label: "تنظیمات سامانه",
       subMenu: [
         {
           icon: "UserCog",
           pathname: "/roles",
-          title: "مدیریت نقش‌ها",
+          label: "مدیریت نقش‌ها",
         },
         {
           icon: "LayoutList",
           pathname: "/widgets",
-          title: "مدیریت ویجت‌ها",
+          label: "مدیریت ویجت‌ها",
         },
         {
           icon: "SquareMenu",
           pathname: "/menus",
-          title: "مدیریت منوها",
+          label: "مدیریت منوها",
         },
         {
           icon: "ShieldCheck",
           pathname: "/permissions",
-          title: "تعیین سطوح دسترسی",
+          label: "تعیین سطوح دسترسی",
         },
       ],
     },
     {
       icon: "Headset",
       pathname: "/tickets",
-      title: "تیکت",
+      label: "تیکت",
     },
   ],
 };
@@ -133,7 +132,7 @@ export const selectSideMenu = (state: RootState) => state.sideMenu.menu;
 
 export default sideMenuSlice.reducer;
 export const flattenMenu = (menu: Array<Menu | string>) => {
-  const map: Record<string, { title: string }> = {};
+  const map: Record<string, { label: string }> = {};
 
   const walk = (items: Array<Menu | string>) => {
     items.forEach((item) => {
@@ -141,7 +140,7 @@ export const flattenMenu = (menu: Array<Menu | string>) => {
 
       if (item.pathname) {
         map[item.pathname] = {
-          title: item.title,
+          label: item.label,
         };
       }
 

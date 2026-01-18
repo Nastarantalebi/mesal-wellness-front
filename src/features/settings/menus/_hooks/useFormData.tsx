@@ -17,7 +17,7 @@ const useFormData = () => {
       className: "md:col-span-2",
     },
     {
-      name: "Permission_id",
+      name: "permission_id",
       label: "دسترسی",
       placeholder: "دسترسی",
       type: "select",
@@ -35,16 +35,20 @@ const useFormData = () => {
       className: "md:col-span-2",
     },
     {
-      name: "slug",
-      label: "slug",
-      placeholder: "slug",
-      dir: "ltr",
+      name: "icon",
+      label: "آیکون",
+      placeholder: "آیکون",
+      type: "select",
+      className: "md:col-span-2",
+      isLoading,
+      option: data?.data.icons,
     },
     {
       name: "url",
       label: "ادرس",
       placeholder: "ادرس",
       dir: "ltr",
+      className: "md:col-span-2",
     },
     {
       name: "priority",

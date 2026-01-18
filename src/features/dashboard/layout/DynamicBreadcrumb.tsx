@@ -40,7 +40,7 @@ export default function DynamicBreadcrumb() {
     // اگر در منو باشد
     if (menuMap[path]) {
       return {
-        label: menuMap[path].title,
+        label: menuMap[path].label,
       };
     }
 

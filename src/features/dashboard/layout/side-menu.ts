@@ -31,42 +31,28 @@ const findActiveMenu = (subMenu: Menu[], location: Location): boolean => {
   });
   return match;
 };
-
-const nestedMenu = (menu: Array<Menu | string>, location: Location) => {
+const nestedMenu = (menu: Menu[] | undefined, location: Location) => {
   const formattedMenu: Array<FormattedMenu | string> = [];
-  menu.forEach((item) => {
-    if (typeof item !== "string") {
-      const menuItem: FormattedMenu = {
-        icon: item.icon,
-        title: item.title,
-        badge: item.badge,
-        pathname: item.pathname,
-        subMenu: item.subMenu,
-        ignore: item.ignore,
-      };
-      menuItem.active =
-        ((location.forceActiveMenu !== undefined &&
-          menuItem.pathname === location.forceActiveMenu) ||
-          (location.forceActiveMenu === undefined &&
-            menuItem.pathname === location.pathname + location.search) ||
-          (menuItem.subMenu && findActiveMenu(menuItem.subMenu, location))) &&
-        !menuItem.ignore;
+  menu?.forEach((item) => {
+    const menuItem: FormattedMenu = {
+      ...item,
+      subMenu: undefined,
+    };
+    menuItem.active =
+      ((location.forceActiveMenu &&
+        item.pathname === location.forceActiveMenu) ||
+        (!location.forceActiveMenu &&
+          item.pathname === location.pathname + location.search) ||
+        (item.subMenu && findActiveMenu(item.subMenu, location))) &&
+      !item.ignore;
 
-      if (menuItem.subMenu) {
-        menuItem.activeDropdown = findActiveMenu(menuItem.subMenu, location);
-
-        // Nested menu
-        const subMenu: Array<FormattedMenu> = [];
-        nestedMenu(menuItem.subMenu, location).map(
-          (menu) => typeof menu !== "string" && subMenu.push(menu)
-        );
-        menuItem.subMenu = subMenu;
-      }
-
-      formattedMenu.push(menuItem);
-    } else {
-      formattedMenu.push(item);
+    if (item.subMenu) {
+      menuItem.activeDropdown = findActiveMenu(item.subMenu, location);
+      menuItem.subMenu = nestedMenu(item.subMenu, location).filter(
+        (i): i is FormattedMenu => typeof i !== "string"
+      );
     }
+    formattedMenu.push(menuItem);
   });
 
   return formattedMenu;

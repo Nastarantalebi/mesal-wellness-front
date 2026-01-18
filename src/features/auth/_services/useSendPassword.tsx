@@ -13,7 +13,6 @@ function useSendPassword() {
     },
     onSuccess: async (data) => {
       const auth = await authenticate();
-      console.log(auth);
       if (auth.code === 200) {
         showToastify({
           message: data?.message || "به پنل کاربری خود وارد شدید",

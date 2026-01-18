@@ -101,7 +101,7 @@ function Sidebar({
                       className="side-menu__link__icon"
                     />
                     <div className="side-menu__link__title !cursor-pointer">
-                      {menu.title}
+                      {menu.label}
                     </div>
                     {menu.badge && (
                       <div className="side-menu__link__badge">{menu.badge}</div>
@@ -152,7 +152,7 @@ function Sidebar({
                                 className="side-menu__link__icon"
                               />
                               <div className="side-menu__link__title">
-                                {subMenu.title}
+                                {subMenu.label}
                               </div>
                               {subMenu.badge && (
                                 <div className="side-menu__link__badge">
@@ -217,7 +217,7 @@ function Sidebar({
                                             className="side-menu__link__icon"
                                           />
                                           <div className="side-menu__link__title">
-                                            {lastSubMenu.title}
+                                            {lastSubMenu.label}
                                           </div>
                                           {lastSubMenu.badge && (
                                             <div className="side-menu__link__badge">
