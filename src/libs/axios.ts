@@ -1,4 +1,3 @@
-import { logout } from "@/features/auth/_services/authServices";
 import axios, {
   AxiosError,
   type InternalAxiosRequestConfig,
@@ -38,8 +37,8 @@ const attachRefreshInterceptor = (axiosInstance: AxiosInstance) => {
       const code = data.code;
       if (status === 401) {
         if (code === "USER_NOT_FOUND") {
-          await logout().catch(() => {});
-          window.location.replace("/login");
+          // await logout().catch(() => {});
+          window.location.replace("/not-found-user");
           return Promise.reject(error);
         }
       }

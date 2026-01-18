@@ -51,10 +51,7 @@ function Staff() {
               selectedRecord?.last_name
             : "افزودن کارمند جدید"
         }>
-        <StaffForm
-          setOpenModal={setOpenModal}
-          id={selectedRecord?.id}
-        />
+        <StaffForm setOpenModal={setOpenModal} id={selectedRecord?.id} />
       </Modal>
     </>
   );

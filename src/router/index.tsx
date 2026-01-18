@@ -31,6 +31,7 @@ import Widgets from "@/features/settings/widgets/_components/Widgets";
 import Permissions from "@/features/settings/permissions/_components/Permissions";
 import Staff from "@/features/staff/_components/Staff";
 import Tickets from "@/features/tickets/_components/Tickets";
+import UserNotFound from "@/features/_components/UserNotFound";
 
 function Router() {
   const routes = [
@@ -169,6 +170,10 @@ function Router() {
       element: <Login />,
     },
     { path: "*", element: <NotFound /> },
+    {
+      path: "/user-not-found",
+      element: <UserNotFound />,
+    },
     // {
     //   path: "register",
     //   element: <Register />,
