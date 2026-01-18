@@ -29,10 +29,6 @@ export type TSideBar = {
   code: number;
   data: {
     menus: TMenu[];
-    organizationId: number;
-    userId: number;
-    staffId: number;
-    permissions: any;
   };
 };
 const initialState: SideMenuState = {
