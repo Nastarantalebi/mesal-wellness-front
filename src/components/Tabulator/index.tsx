@@ -113,7 +113,11 @@ function CustomTable({
         },
       ],
       dataTree: true, // ⭐ فعال‌سازی Tree
-      dataTreeChildField: "children", // ⭐ فیلد فرزندان
+      dataTreeChildField: "children",
+      dataTreeExpandElement:
+        "<span class='text-xl font-bold mx-1 select-none'>+</span>",
+      dataTreeCollapseElement:
+        "<span class='text-xl font-bold mx-1 select-none'>−</span>",
       dataTreeStartExpanded: false,
       nestedFieldSeparator: false,
       layout: getLayout(),
