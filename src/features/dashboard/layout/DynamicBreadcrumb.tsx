@@ -1,18 +1,15 @@
 import Breadcrumb from "@/components/Breadcrumb";
 import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
 import * as LucideIcons from "lucide-react"; // برای ساخت آیکون داینامیک
-import { flattenMenu, selectSideMenu } from "@/stores/sideMenuSlice";
+import { flattenMenu } from "@/stores/menuMaper";
 
 const isId = (str: string) => /^[0-9]+$/.test(str);
 
-export default function DynamicBreadcrumb() {
+export default function DynamicBreadcrumb(menus: any | undefined) {
   const { pathname } = useLocation();
-  const menu = useSelector(selectSideMenu);
 
   // تبدیل منو به map قابل جستجو
-  const menuMap = flattenMenu(menu);
-
+  const menuMap = menus?.menus && flattenMenu(menus.menus);
   // /service-category/12/edit → ["service-category", "12", "edit"]
   const parts = pathname.split("/").filter(Boolean);
 
@@ -38,7 +35,7 @@ export default function DynamicBreadcrumb() {
     const path = "/" + segment;
 
     // اگر در منو باشد
-    if (menuMap[path]) {
+    if (menuMap && menuMap[path]) {
       return {
         label: menuMap[path].label,
       };

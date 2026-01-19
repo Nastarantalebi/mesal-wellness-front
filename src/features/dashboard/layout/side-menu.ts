@@ -1,5 +1,5 @@
 import type { NavigateFunction } from "react-router-dom";
-import type { Menu } from "../../../stores/sideMenuSlice";
+import type { TMenu } from "../items/_types/type";
 
 interface Location {
   pathname: string;
@@ -7,13 +7,13 @@ interface Location {
   forceActiveMenu?: string;
 }
 
-export interface FormattedMenu extends Menu {
+export interface FormattedMenu extends TMenu {
   active?: boolean;
   activeDropdown?: boolean;
   subMenu?: FormattedMenu[];
 }
 // Setup side menu
-const findActiveMenu = (subMenu: Menu[], location: Location): boolean => {
+const findActiveMenu = (subMenu: TMenu[], location: Location): boolean => {
   let match = false;
   subMenu.forEach((item) => {
     if (
@@ -30,7 +30,7 @@ const findActiveMenu = (subMenu: Menu[], location: Location): boolean => {
   });
   return match;
 };
-const nestedMenu = (menu: Menu[] | undefined, location: Location) => {
+const nestedMenu = (menu: TMenu[] | undefined, location: Location) => {
   const formattedMenu: Array<FormattedMenu | string> = [];
   menu?.forEach((item) => {
     const menuItem: FormattedMenu = {

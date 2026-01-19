@@ -1,11 +1,11 @@
 import clsx from "clsx";
 import { useState } from "react";
-import { Menu } from "../../../components/Headless";
-import QuickSearch from "../../../components/QuickSearch";
-import ActivitiesPanel from "../../../components/ActivitiesPanel";
-import NotificationsPanel from "../../../components/NotificationsPanel";
-import SwitchAccount from "../../../components/SwitchAccount";
-import Lucide from "../../../components/Lucide";
+import { Menu } from "@/components/Headless";
+import QuickSearch from "@/components/QuickSearch";
+import ActivitiesPanel from "@/components/ActivitiesPanel";
+import NotificationsPanel from "@/components/NotificationsPanel";
+import SwitchAccount from "@/components/SwitchAccount";
+import Lucide from "@/components/Lucide";
 import { useNavigate } from "react-router-dom";
 import { AlignJustify } from "lucide-react";
 import DynamicBreadcrumb from "./DynamicBreadcrumb";
@@ -17,10 +17,12 @@ function Topbar({
   setActiveMobileMenu,
   setCompactMenuOnHover,
   toggleCompactMenu,
+  menus,
 }: {
   setActiveMobileMenu: React.Dispatch<React.SetStateAction<boolean>>;
   setCompactMenuOnHover: React.Dispatch<React.SetStateAction<boolean>>;
   toggleCompactMenu: () => void;
+  menus: any;
 }) {
   const navigate = useNavigate();
   const { data } = useMe();
@@ -87,7 +89,7 @@ function Topbar({
         <div className="flex items-center w-full h-full px-1 md:px-5">
           {/* BEGIN: Breadcrumb */}
           <div className="hidden xl:block">
-            <DynamicBreadcrumb />
+            <DynamicBreadcrumb menus={menus} />
           </div>
 
           {/* END: Breadcrumb */}

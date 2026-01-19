@@ -9,9 +9,9 @@ import {
 } from "../../../stores/compactMenuSlice";
 import { useLocation } from "react-router-dom";
 import { nestedMenu, type FormattedMenu } from "./side-menu";
-import type { Menu } from "@/stores/sideMenuSlice";
-import { mapBackendMenuToMenu } from "@/utils/menuMaper";
+import { mapBackendMenuToMenu } from "@/stores/menuMaper";
 import type { TBackendMenu } from "../_types/types";
+import type { TMenu } from "../items/_types/type";
 
 function SidebarWrapper({ menus }: { menus: TBackendMenu[] | undefined }) {
   const [compactMenuOnHover, setCompactMenuOnHover] = useState(false);
@@ -33,7 +33,7 @@ function SidebarWrapper({ menus }: { menus: TBackendMenu[] | undefined }) {
 
   const sideMenu = useCallback(() => {
     if (!menus) return [];
-    const menu: Menu[] = [
+    const menu: TMenu[] = [
       {
         icon: "LayoutDashboard",
         pathname: "/",
@@ -88,6 +88,16 @@ function SidebarWrapper({ menus }: { menus: TBackendMenu[] | undefined }) {
         setActiveMobileMenu={setActiveMobileMenu}
         setCompactMenuOnHover={setCompactMenuOnHover}
         toggleCompactMenu={() => setCompactMenu(!compactMenu)}
+        menus={
+          menus && [
+            {
+              icon: "LayoutDashboard",
+              pathname: "/",
+              label: "داشبورد",
+            },
+            ...mapBackendMenuToMenu(menus),
+          ]
+        }
       />
       {/* Sidebar */}
       <Sidebar

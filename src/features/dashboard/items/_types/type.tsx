@@ -1,3 +1,5 @@
+import type { icons } from "lucide-react";
+
 export type TWidget = {
   widgets: {
     tiles: {
@@ -81,3 +83,12 @@ export type TDailyBoard = {
     }[];
   };
 };
+
+export interface TMenu {
+  icon: keyof typeof icons;
+  label: string;
+  badge?: number;
+  pathname?: string;
+  subMenu?: TMenu[];
+  ignore?: boolean;
+}
