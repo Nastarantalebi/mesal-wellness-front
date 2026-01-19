@@ -42,7 +42,7 @@ const DailyBoardTherapist = () => {
     <div className="py-5 space-y-3 col-span-full">
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-lg font-semibold">دفتر نوبت دهی تراپیست</h1>
+        <h1 className="text-lg font-semibold">نوبت‌های شما</h1>
 
         <div className="flex items-center gap-2 bg-white p-2 rounded-xl shadow-sm border ">
           <ChevronRightIcon

@@ -16,6 +16,19 @@ export type TCreateData = {
     icons: TOption[];
   };
 };
+type TData = {
+  description: string | null;
+  icon: string | null;
+  id: number;
+  name: string | null;
+  parent_id: number | null;
+  permission_id: number | null;
+  permission_name: string;
+  priority: number | null;
+  title: string;
+  url: string | null;
+  children: TData[];
+};
 export type TDataById = {
-  data: {};
+  data: TData;
 };

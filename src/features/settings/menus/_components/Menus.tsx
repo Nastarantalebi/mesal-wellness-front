@@ -59,7 +59,7 @@ const Menus = () => {
         cancelBtn={false}
         title={
           selectedRecord
-            ? "ویرایش" + " " + selectedRecord?.display_name
+            ? "ویرایش" + " " + selectedRecord?.title
             : "ایجاد منو جدید"
         }>
         <MenusForm setOpenModal={setOpenModal} id={selectedRecord?.id} />
