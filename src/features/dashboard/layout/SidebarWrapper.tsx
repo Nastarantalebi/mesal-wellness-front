@@ -16,7 +16,7 @@ import type { TSidebarMenu } from "../_types/types";
 
 function SidebarWrapper() {
   const sidebar: TSidebarMenu = useAuthStore((state) => state.sidebar);
-  const menus = sidebar.data.menus;
+  const menus = sidebar && sidebar.data?.menus;
   const [compactMenuOnHover, setCompactMenuOnHover] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState(false);
   const [formattedMenu, setFormattedMenu] = useState<
@@ -42,7 +42,7 @@ function SidebarWrapper() {
         pathname: "/",
         label: "داشبورد",
       },
-      ...mapBackendMenuToMenu(menus),
+      ...mapBackendMenuToMenu(menus ?? []),
     ];
 
     return nestedMenu(menu, location);

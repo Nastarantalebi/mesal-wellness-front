@@ -11,14 +11,14 @@ const isId = (str: string) => /^[0-9]+$/.test(str);
 export default function DynamicBreadcrumb() {
   const { pathname } = useLocation();
   const sidebar: TSidebarMenu = useAuthStore((state) => state.sidebar);
-  const menu = sidebar.data.menus;
+  const menu = sidebar && sidebar.data?.menus;
   const menus = [
     {
       icon: "LayoutDashboard",
       pathname: "/",
       label: "داشبورد",
     },
-    ...mapBackendMenuToMenu(menu),
+    ...mapBackendMenuToMenu(menu ?? []),
   ];
   // تبدیل منو به map قابل جستجو
   const menuMap = menus && flattenMenu(menus as Array<TMenu | string>);
