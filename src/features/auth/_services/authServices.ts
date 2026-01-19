@@ -55,6 +55,10 @@ export async function authenticate() {
   const { data } = await Request.post(`${BASE_URL}basics/authenticate/`);
   return data;
 }
+export async function authUser() {
+  const { data } = await Request.get(`${BASE_URL}basics/auth/user/`);
+  return data;
+}
 export async function refreshToken(values: { refresh: string }) {
   const { data } = await Request.post("/refresh/", values);
   return data;

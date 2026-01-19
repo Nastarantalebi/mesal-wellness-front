@@ -3,7 +3,7 @@ import { authenticate, sendPassword } from "./authServices";
 import { useNavigate } from "react-router-dom";
 import type { ISendMobile } from "../_types/types";
 import { showToastify } from "@/components/Headless/Toast";
-import { useAuthStore } from "./authStore";
+import { useAuthStore } from "../_hooks/authStore";
 function useSendPassword() {
   const navigate = useNavigate();
   const setAuth = useAuthStore((s) => s.setAuth);

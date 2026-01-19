@@ -9,10 +9,10 @@ import Lucide from "../../../components/Lucide";
 import { useNavigate } from "react-router-dom";
 import { AlignJustify } from "lucide-react";
 import DynamicBreadcrumb from "./DynamicBreadcrumb";
-import { useAuth } from "../items/_hooks/useAuth";
 import { useLogout } from "@/features/auth/_services/useLogout";
 import Modal from "@/components/Headless/Dialog/Modal";
 import useMe from "@/stores/useMe";
+import { useAuthStore } from "@/features/auth/_hooks/authStore";
 function Topbar({
   setActiveMobileMenu,
   setCompactMenuOnHover,
@@ -33,8 +33,8 @@ function Topbar({
     const el = document.documentElement;
     if (el.requestFullscreen) el.requestFullscreen();
   };
-  const { user } = useAuth();
   const [logout, setLogout] = useState<boolean>(false);
+  const userData = useAuthStore((s) => s.userData);
   return (
     <div className="fixed top-0 inset-x-0 z-10 h-[65px] box bg-slate-50 border-x-0 border-t-0 rounded-none flex shadow-none">
       <div
@@ -164,9 +164,10 @@ function Topbar({
                     navigate("profile");
                   }}>
                   <Lucide icon="User" className="w-4 h-4 me-2" />
-                  {user ? (
+                  {userData ? (
                     <span>
-                      {user.first_name} {user?.last_name}
+                      {userData?.data.user.first_name}{" "}
+                      {userData?.data.user.last_name}
                     </span>
                   ) : (
                     <span>پروفایل</span>

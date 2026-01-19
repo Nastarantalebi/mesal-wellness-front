@@ -32,7 +32,7 @@ import Permissions from "@/features/settings/permissions/_components/Permissions
 import Staff from "@/features/staff/_components/Staff";
 import Tickets from "@/features/tickets/_components/Tickets";
 import UserNotFound from "@/features/_components/UserNotFound";
-import UserOrganizations from "@/features/organization/_components/UserOrganizations";
+import UserOrganizations from "@/features/_components/UserOrganizations";
 
 function Router() {
   const routes = [
