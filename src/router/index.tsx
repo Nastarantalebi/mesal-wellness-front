@@ -174,11 +174,11 @@ function Router() {
       path: "user-organizations",
       element: <UserOrganizations />,
     },
-    { path: "*", element: <NotFound /> },
     {
-      path: "/user-not-found",
+      path: "user-not-found",
       element: <UserNotFound />,
     },
+    { path: "*", element: <NotFound /> },
     // {
     //   path: "register",
     //   element: <Register />,

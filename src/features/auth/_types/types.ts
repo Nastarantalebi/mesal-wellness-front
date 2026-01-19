@@ -37,3 +37,19 @@ export interface ILoginResponse {
   refresh: string;
   access: string;
 }
+
+export type TAuth = {
+  is_success: boolean;
+  message: string;
+  code: number;
+  data: {
+    is_superadmin: boolean;
+    needs_context: boolean;
+    organizations: {
+      id: number;
+      title: string;
+      thumb_logo: string | null;
+      medium_logo: string | null;
+    }[];
+  };
+};
