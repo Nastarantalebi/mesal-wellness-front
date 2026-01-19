@@ -4,6 +4,7 @@ import StatisticsCard from "./widget/StatisticsCard";
 import CustomerTable from "./widget/CustomerTable";
 import DailyBoard from "./widget/DailyBoard";
 import LoadingSpin from "@/components/Loading";
+import DailyBoardTherapist from "./widget/DailyBoardTherapist";
 
 const DashboardItem = () => {
   const { data, isFetching } = useGetData<TDashboard>({
@@ -24,6 +25,7 @@ const DashboardItem = () => {
             />
           )}
           <DailyBoard />
+          <DailyBoardTherapist />
           {data?.data?.widgets?.lists["رزروهای اخیر"] && (
             <CustomerTable listData={data.data.widgets.lists["رزروهای اخیر"]} />
           )}

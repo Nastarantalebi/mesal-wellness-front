@@ -22,6 +22,16 @@ const Menus = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
+  const normalizeData = (items: any[]): any[] => {
+    return items.map((item) => ({
+      ...item,
+      children:
+        item.children && item.children.length
+          ? normalizeData(item.children)
+          : undefined,
+    }));
+  };
+  const newData = data?.data ? normalizeData(data.data) : [];
   return (
     <>
       <CustomTable
@@ -30,7 +40,7 @@ const Menus = () => {
         title="مدیریت منوها"
         addText="افزودن منو جدید"
         columns={data?.columns}
-        data={data?.data}
+        data={newData}
         dataPagination={data?.paginate}
         onAdd={() => {
           setOpenModal(true);
