@@ -4,9 +4,12 @@ import clsx from "clsx";
 import { Loader2, LogOut } from "lucide-react";
 import { useState } from "react";
 import { logout } from "../auth/_services/authServices";
+import { useAuthStore } from "../auth/_hooks/authStore";
+import { Navigate } from "react-router-dom";
 
 function UserNotFound() {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+
   const handleLogout = async () => {
     try {
       setIsLoggingOut(true);
@@ -17,7 +20,8 @@ function UserNotFound() {
       setIsLoggingOut(false);
     }
   };
-
+  const userData = useAuthStore((s) => s.userData);
+  if (userData) return <Navigate to="/" replace />;
   return (
     <div>
       <div className="container grid lg:h-screen grid-cols-12 lg:max-w-[1550px] 2xl:max-w-[1750px] py-10 px-5 sm:py-14 sm:px-10 md:px-36 lg:py-0 lg:ps-14 lg:pe-12 xl:px-24">
