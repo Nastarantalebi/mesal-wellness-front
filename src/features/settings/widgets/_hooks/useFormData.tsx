@@ -37,8 +37,8 @@ const useFormData = () => {
     },
     {
       name: "handler_class",
-      label: "کلاس هندل کننده",
-      placeholder: "کلاس هندل کننده",
+      label: "کلاس کنترل کننده",
+      placeholder: "کلاس کنترل کننده",
       required: true,
       type: "select",
       option: data?.data.handlers ?? [],

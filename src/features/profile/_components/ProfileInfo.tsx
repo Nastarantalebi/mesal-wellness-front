@@ -1,4 +1,4 @@
-import useMe from "@/stores/useMe";
+import useMe from "@/features/auth/_services/useMe";
 import UserAvatar from "./UserAvatar";
 import LoadingSpin from "@/components/Loading";
 
