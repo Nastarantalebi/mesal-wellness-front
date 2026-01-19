@@ -12,7 +12,7 @@ import DynamicBreadcrumb from "./DynamicBreadcrumb";
 import { useLogout } from "@/features/auth/_services/useLogout";
 import Modal from "@/components/Headless/Dialog/Modal";
 import useMe from "@/features/auth/_services/useMe";
-import { useAuthStore } from "@/features/auth/_hooks/authStore";
+import { useAuthStore } from "@/features/auth/store/authStore";
 function Topbar({
   setActiveMobileMenu,
   setCompactMenuOnHover,

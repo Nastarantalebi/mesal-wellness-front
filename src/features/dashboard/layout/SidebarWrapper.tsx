@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 import { nestedMenu, type FormattedMenu } from "./side-menu";
 import { mapBackendMenuToMenu } from "@/stores/menuMaper";
 import type { TMenu } from "../items/_types/type";
-import { useAuthStore } from "@/features/auth/_hooks/authStore";
+import { useAuthStore } from "@/features/auth/store/authStore";
 import type { TSidebarMenu } from "../_types/types";
 
 function SidebarWrapper() {

@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { Loader2, LogOut } from "lucide-react";
 import { useState } from "react";
 import { logout } from "../auth/_services/authServices";
-import { useAuthStore } from "../auth/_hooks/authStore";
+import { useAuthStore } from "../auth/store/authStore";
 import { Navigate } from "react-router-dom";
 
 function UserNotFound() {

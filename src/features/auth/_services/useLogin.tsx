@@ -3,7 +3,7 @@ import { authenticate, login as loginApi } from "./authServices";
 import { useNavigate } from "react-router-dom";
 import type { ISendOTP } from "../_types/types";
 import { showToastify } from "@/components/Headless/Toast";
-import { useAuthStore } from "../_hooks/authStore";
+import { useAuthStore } from "../store/authStore";
 
 function useLogin() {
   const navigate = useNavigate();

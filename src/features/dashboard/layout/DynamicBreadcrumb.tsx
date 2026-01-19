@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import * as LucideIcons from "lucide-react"; // برای ساخت آیکون داینامیک
 import { flattenMenu, mapBackendMenuToMenu } from "@/stores/menuMaper";
 import type { TSidebarMenu } from "../_types/types";
-import { useAuthStore } from "@/features/auth/_hooks/authStore";
+import { useAuthStore } from "@/features/auth/store/authStore";
 import type { TMenu } from "../items/_types/type";
 
 const isId = (str: string) => /^[0-9]+$/.test(str);
