@@ -1,11 +1,17 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { authenticate, authUser } from "@/features/auth/_services/authServices";
+import {
+  authenticate,
+  authUser,
+  sidebarMenu,
+} from "@/features/auth/_services/authServices";
 import type { TAuth, TResponseUser } from "../_types/types";
+import type { TSidebarMenu } from "@/features/dashboard/_types/types";
 
 type AuthState = {
   auth: TAuth | null;
   userData: TResponseUser | null;
+  sidebar: TSidebarMenu | any;
   setAuth: (auth: TAuth) => void;
   setUserData: (data: TResponseUser) => void;
   clearAuth: () => void;
@@ -18,6 +24,7 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       auth: null,
       userData: null,
+      sidebar: null,
       setAuth: (auth) => set({ auth }),
       setUserData: (data) => set({ userData: data }),
       clearAuth: () => set({ auth: null, userData: null }),
@@ -38,11 +45,17 @@ export const useAuthStore = create<AuthState>()(
           const userData = await authUser();
           if (userData?.code === 200) {
             set({ userData });
+            const sidebar = await sidebarMenu();
+            if (sidebar?.code === 200) {
+              set({ sidebar });
+            } else {
+              set({ sidebar: null });
+            }
           } else {
-            set({ userData: null });
+            set({ userData: null, sidebar: null });
           }
         } catch {
-          set({ userData: null });
+          set({ userData: null, sidebar: null });
         }
       },
     }),

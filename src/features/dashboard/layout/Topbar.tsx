@@ -17,12 +17,10 @@ function Topbar({
   setActiveMobileMenu,
   setCompactMenuOnHover,
   toggleCompactMenu,
-  menus,
 }: {
   setActiveMobileMenu: React.Dispatch<React.SetStateAction<boolean>>;
   setCompactMenuOnHover: React.Dispatch<React.SetStateAction<boolean>>;
   toggleCompactMenu: () => void;
-  menus: any;
 }) {
   const navigate = useNavigate();
   const { data } = useMe();
@@ -89,7 +87,7 @@ function Topbar({
         <div className="flex items-center w-full h-full px-1 md:px-5">
           {/* BEGIN: Breadcrumb */}
           <div className="hidden xl:block">
-            <DynamicBreadcrumb menus={menus} />
+            <DynamicBreadcrumb />
           </div>
 
           {/* END: Breadcrumb */}
