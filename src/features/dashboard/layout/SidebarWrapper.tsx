@@ -9,11 +9,11 @@ import {
 } from "../../../stores/compactMenuSlice";
 import { useLocation } from "react-router-dom";
 import { nestedMenu, type FormattedMenu } from "./side-menu";
-import useGetData from "@/services/useGetData";
-import type { TBackendMenu, TSidebarMenu } from "../_types/types";
 import type { Menu } from "@/stores/sideMenuSlice";
+import { mapBackendMenuToMenu } from "@/utils/menuMaper";
+import type { TBackendMenu } from "../_types/types";
 
-function SidebarWrapper() {
+function SidebarWrapper({ menus }: { menus: TBackendMenu[] | undefined }) {
   const [compactMenuOnHover, setCompactMenuOnHover] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState(false);
   const [formattedMenu, setFormattedMenu] = useState<
@@ -23,15 +23,6 @@ function SidebarWrapper() {
   const location = useLocation();
   const compactMenu = useAppSelector(selectCompactMenu);
   const dispatch = useAppDispatch();
-  const { data } = useGetData<TSidebarMenu>({
-    url: "basics/menus/sidebar",
-    queryKey: "basics/menus/sidebar",
-    staleTime: 1000 * 60 * 60 * 24,
-    gcTime: 1000 * 60 * 60 * 24 * 7,
-    retry: 2,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
   const setCompactMenu = useCallback(
     (val: boolean) => {
       localStorage.setItem("compactMenu", val.toString());
@@ -40,28 +31,19 @@ function SidebarWrapper() {
     [dispatch]
   );
 
-  const mapBackendMenuToMenu = (menus: TBackendMenu[]): Menu[] => {
-    const menuItems = menus.map((item) => ({
-      label: item.label,
-      pathname: item.url ?? undefined,
-      icon: item.icon ?? "LayoutDashboard",
-      subMenu: item.children?.length
-        ? mapBackendMenuToMenu(item.children)
-        : undefined,
-    }));
-    return menuItems;
-  };
-  const backendMenus = data?.data?.menus;
   const sideMenu = useCallback(() => {
-    if (!backendMenus) return [];
-    const menu = mapBackendMenuToMenu(backendMenus);
-    menu.unshift({
-      icon: "LayoutDashboard",
-      pathname: "/",
-      label: "داشبورد",
-    });
+    if (!menus) return [];
+    const menu: Menu[] = [
+      {
+        icon: "LayoutDashboard",
+        pathname: "/",
+        label: "داشبورد",
+      },
+      ...mapBackendMenuToMenu(menus),
+    ];
+
     return nestedMenu(menu, location);
-  }, [backendMenus, location]);
+  }, [menus, location]);
 
   const compactLayout = useCallback(() => {
     if (window.innerWidth <= 1600) setCompactMenu(true);

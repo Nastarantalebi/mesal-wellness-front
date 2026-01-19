@@ -12,7 +12,6 @@ export interface FormattedMenu extends Menu {
   activeDropdown?: boolean;
   subMenu?: FormattedMenu[];
 }
-
 // Setup side menu
 const findActiveMenu = (subMenu: Menu[], location: Location): boolean => {
   let match = false;

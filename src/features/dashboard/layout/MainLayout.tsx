@@ -3,17 +3,27 @@ import { useAppSelector } from "../../../stores/hooks";
 import { selectCompactMenu } from "../../../stores/compactMenuSlice";
 import SidebarWrapper from "./SidebarWrapper";
 import { clsx } from "clsx";
+import type { TSidebarMenu } from "../_types/types";
+import useGetData from "@/services/useGetData";
 
 function MainLayout() {
   const compactMenu = useAppSelector(selectCompactMenu);
-
+  const { data } = useGetData<TSidebarMenu>({
+    url: "basics/menus/sidebar",
+    queryKey: "basics/menus/sidebar",
+    staleTime: Infinity,
+    gcTime: Infinity,
+    retry: 2,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+  });
   return (
     <div
       className={clsx([
         "viper",
         "before:content-[''] before:z-[-1] before:w-screen before:bg-slate-50 before:top-0 before:h-screen before:fixed",
       ])}>
-      <SidebarWrapper />
+      <SidebarWrapper menus={data?.data?.menus} />
 
       <div
         className={clsx([
