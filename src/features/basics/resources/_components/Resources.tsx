@@ -10,7 +10,7 @@ import ResourceAvailabilities from "./resource-availabilities/_components/Resour
 
 function Resources() {
   const navigate = useNavigate();
-  const { data ,isFetching,refetch} = useGetData<any>({
+  const { data, isFetching, refetch } = useGetData<any>({
     queryKey: queryKey,
     url: url,
   });
@@ -23,15 +23,17 @@ function Resources() {
   return (
     <>
       <CustomTable
-       isLoading={isFetching}
-       refetch={refetch}
+        isLoading={isFetching}
+        refetch={refetch}
         title="مکان‌های مجموعه"
         columns={data?.columns}
         data={data?.data}
         dataPagination={data?.paginate}
-        customActions={[
+        singleActionColumns={[
           {
-            title: "زمان‌های در دسترس",
+            field: "therapist-services",
+            tooltip: "زمان‌های در دسترس",
+            title: "زمانبندی",
             icon: <CalendarCheck className="w-4 h-4" />,
             onClick: (record) => {
               setShowModalRA(true);
@@ -51,9 +53,7 @@ function Resources() {
           setSelectedRecord(null);
           setShowModalRA(false);
         }}>
-        <ResourceAvailabilities
-          id={selectedRecord && selectedRecord.id}
-        />
+        <ResourceAvailabilities id={selectedRecord && selectedRecord.id} />
       </Modal>
     </>
   );

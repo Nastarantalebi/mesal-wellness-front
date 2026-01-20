@@ -3,7 +3,6 @@ import StatisticsCard from "./widget/StatisticsCard";
 import CustomerTable from "./widget/CustomerTable";
 import DailyBoard from "./widget/DailyBoard";
 import LoadingSpin from "@/components/Loading";
-import DailyBoardTherapist from "./widget/DailyBoardTherapist";
 import type { ApiResponseGetData } from "../_types/type";
 
 const DashboardItem = () => {
@@ -23,7 +22,7 @@ const DashboardItem = () => {
             <CustomerTable listData={item} key={index} />
           ))}
           <DailyBoard />
-          <DailyBoardTherapist />
+          {/* <DailyBoardTherapist /> */}
         </div>
       )}
     </>

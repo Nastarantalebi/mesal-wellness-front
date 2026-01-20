@@ -16,7 +16,7 @@ const StatisticsCard: React.FC<TProps> = ({ items }) => {
       </div> */}
 
       {/* گرید آیتم‌ها */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {items.map((item, idx) => (
           <div
             key={idx}
@@ -34,7 +34,7 @@ const StatisticsCard: React.FC<TProps> = ({ items }) => {
 
             {/* مقدار */}
             <div className="mt-1 text-lg font-semibold text-slate-800">
-              {item.data.count}
+              {item.data.label}
             </div>
           </div>
         ))}

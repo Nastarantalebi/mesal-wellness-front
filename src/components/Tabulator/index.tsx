@@ -15,6 +15,10 @@ import ImportData from "./ImportData";
 import ActionsColumns from "./ActionsColumns";
 import TableHeader from "./TableHeader";
 import LoadingSpin from "../Loading";
+import {
+  createSingleActionColumn,
+  type SingleActionColumn,
+} from "./createSingleActionColumn";
 export type TableAction = {
   title: string;
   icon: React.ReactNode;
@@ -45,6 +49,7 @@ type CustomTableProps = {
   onDelete?: (record: any) => void;
   onVisit?: (record: any) => void;
   onImport?: (file: File) => void;
+  singleActionColumns?: SingleActionColumn[];
   customActions?: TableAction[];
   refetch?: (
     options?: RefetchOptions | undefined
@@ -66,6 +71,7 @@ function CustomTable({
   onDelete,
   onVisit,
   onImport,
+  singleActionColumns,
   customActions,
   isLoading,
 }: CustomTableProps) {
@@ -75,7 +81,6 @@ function CustomTable({
     if (window.innerWidth < 460) return "fitDataFill";
     return "fitColumns";
   };
-
   const initTabulator = () => {
     if (!tableRef.current) return;
 
@@ -83,6 +88,7 @@ function CustomTable({
       data,
       columns: [
         ...mapFieldsToColumns(columns || {}),
+        ...((singleActionColumns?.map(createSingleActionColumn) || []) as any),
         {
           title: "عملیات",
           field: "actions",
@@ -92,7 +98,7 @@ function CustomTable({
           visible: !!data,
           hozAlign: "center",
           vertAlign: "middle",
-          minWidth: 150,
+          minWidth: 70,
           formatter: (cell) => {
             const rowData = cell.getRow().getData();
             const container = document.createElement("div");

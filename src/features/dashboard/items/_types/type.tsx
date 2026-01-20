@@ -89,7 +89,7 @@ export type WidgetNumberItem = {
   title: string;
   icon: keyof typeof icons | null;
   data: {
-    count: number;
+    label: number;
   };
 };
 

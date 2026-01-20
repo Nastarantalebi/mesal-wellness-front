@@ -49,9 +49,11 @@ function Booking() {
           setOpen(true);
           setSelectedRecord(record);
         }}
-        customActions={[
+        singleActionColumns={[
           {
+            field: "therapist-services",
             title: "تغییر وضعیت",
+            tooltip: "تغییر وضعیت",
             icon: <RefreshCcwIcon className="w-4 h-4" />,
             onClick: (record) => {
               setOpenStatus(true);
@@ -59,8 +61,10 @@ function Booking() {
             },
           },
           {
-            title: "فرم اطلاعات مشتری",
-            icon: <FileIcon className="w-4 h-4" />,
+            title: "فرم اطلاعات",
+            tooltip: "فرم اطلاعات مشتری",
+            field: "therapist-availabilties",
+            icon: <FileIcon />,
             onClick: (record) => {
               setOpenModalPersonal(true);
               setSelectedRecord(record);

@@ -34,18 +34,22 @@ function Therapists() {
         refetch={refetch}
         title="ماساژیست"
         columns={data?.columns}
-        customActions={[
+        singleActionColumns={[
           {
-            title: "خدمات ماساژیست",
-            icon: <HandHeartIcon className="w-4 h-4" />,
+            title: "خدمات",
+            tooltip: "خدمات ماساژیست",
+            field: "therapist-services",
+            icon: <HandHeartIcon />,
             onClick: (record) => {
               setShowModalTS(true);
               setSelectedRecord(record);
             },
           },
           {
-            title: "ماساژیست دردسترس",
-            icon: <AlarmClockCheckIcon className="w-4 h-4" />,
+            title: "دردسترس بودن",
+            tooltip: "ماساژیست دردسترس",
+            field: "therapist-availabilties",
+            icon: <AlarmClockCheckIcon />,
             onClick: (record) => {
               setShowModalTA(true);
               setSelectedRecord(record);

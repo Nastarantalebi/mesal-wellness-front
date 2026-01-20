@@ -55,18 +55,20 @@ const Roles = () => {
           setSelectedRecord(record);
         }}
         onDelete={(record) => Delete(record.id)}
-        customActions={[
+        singleActionColumns={[
           {
-            icon: <ShieldIcon className="w-4 h-4" />,
             title: "دسترسی‌ها",
+            field: "permission",
+            icon: <ShieldIcon />,
             onClick: (record) => {
               toggleModal("permission", true);
               setSelectedRecord(record);
             },
           },
           {
-            icon: <LayoutGridIcon className="w-4 h-4" />,
             title: "ویجت‌ها",
+            field: "widget",
+            icon: <LayoutGridIcon />,
             onClick: (record) => {
               toggleModal("widget", true);
               setSelectedRecord(record);
