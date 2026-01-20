@@ -14,30 +14,37 @@ function Login() {
   const organizationId = useAuthStore((s) => s.userData?.data.organization_id);
   const setAuth = useAuthStore((s) => s.setAuth);
   useEffect(() => {
+    let isMounted = true;
     const checkAuth = async () => {
       try {
-        const res = await plainInstance.post("/refresh/", null);
-        if (res.status === 200) {
-          if (organizationId) {
-            navigate("/", { replace: true });
-          } else {
-            const auth = await authenticate();
-            if (auth.code === 200) {
-              setAuth(auth);
-              navigate("/user-organizations");
-            } else {
-              navigate("/user-not-found");
-            }
-          }
+        const res = await plainInstance.post("/refresh/");
+        if (res.status !== 200) return;
+        // اگر سازمان داریم مستقیم برو
+        if (organizationId) {
+          navigate("/", { replace: true });
+          return;
+        }
+        // وگرنه احراز هویت کامل
+        const auth = await authenticate();
+
+        if (auth.code === 200) {
+          setAuth(auth);
+          navigate("/user-organizations", { replace: true });
         } else {
-          setCheckingAuth(false);
+          navigate("/user-not-found", { replace: true });
         }
       } catch (err) {
-        setCheckingAuth(false);
+      } finally {
+        if (isMounted) {
+          setCheckingAuth(false);
+        }
       }
     };
     checkAuth();
-  }, []);
+    return () => {
+      isMounted = false;
+    };
+  }, [organizationId, navigate, setAuth]);
 
   if (checkingAuth) {
     return (
