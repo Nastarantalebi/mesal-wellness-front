@@ -5,16 +5,30 @@ import { useEffect, useState } from "react";
 import { plainInstance } from "@/libs/axios";
 import LoadingSpin from "@/components/Loading";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/authStore";
+import { authenticate } from "../_services/authServices";
 function Login() {
   const { tabItems } = useTabItems();
   const [checkingAuth, setCheckingAuth] = useState(true);
   const navigate = useNavigate();
+  const organizationId = useAuthStore((s) => s.userData?.data.organization_id);
+  const setAuth = useAuthStore((s) => s.setAuth);
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const res = await plainInstance.post("/refresh/", null);
         if (res.status === 200) {
-          navigate("/", { replace: true });
+          if (organizationId) {
+            navigate("/", { replace: true });
+          } else {
+            const auth = await authenticate();
+            if (auth.code === 200) {
+              setAuth(auth);
+              navigate("/user-organizations");
+            } else {
+              navigate("/user-not-found");
+            }
+          }
         } else {
           setCheckingAuth(false);
         }
