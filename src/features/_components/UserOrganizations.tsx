@@ -8,14 +8,14 @@ import {
 import { useMemo, useState } from "react";
 import Button from "@/components/Button";
 import clsx from "clsx";
-import { logout } from "@/features/auth/_services/authServices";
 import { useAuthStore } from "@/features/auth/store/authStore";
 import useCreateData from "@/services/useCreateData";
 import { useNavigate } from "react-router-dom";
+import { useLogout } from "../auth/_services/useLogout";
 
 function UserOrganizations() {
   const auth = useAuthStore((s) => s.auth);
-
+  const { mutateAsync: logoutApi } = useLogout();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -32,7 +32,7 @@ function UserOrganizations() {
   const handleLogout = async () => {
     try {
       setIsLoggingOut(true);
-      await logout();
+      await logoutApi();
       window.location.replace("/login");
     } catch (error) {
       setIsLoggingOut(false);

@@ -1,7 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { logout } from "./authServices";
-import useAuthState from "../store/authState";
 import { showToastify } from "@/components/Headless/Toast";
 
 export function useLogout() {
@@ -11,8 +10,7 @@ export function useLogout() {
       const response = await logout();
       return response;
     },
-    onSuccess: (data) => {
-      useAuthState.getState().logout();
+    onSuccess: async (data) => {
       localStorage.clear();
       navigate("/login", { replace: true });
       showToastify({

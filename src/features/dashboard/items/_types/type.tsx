@@ -81,13 +81,13 @@ export type WidgetListData = {
 
 export type WidgetItem = {
   title: string;
-  icon: string | null;
+  icon: keyof typeof icons | null;
   data: WidgetListData;
 };
 
 export type WidgetNumberItem = {
   title: string;
-  icon: string | null;
+  icon: keyof typeof icons | null;
   data: {
     count: number;
   };

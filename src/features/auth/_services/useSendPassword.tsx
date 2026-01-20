@@ -15,7 +15,7 @@ function useSendPassword() {
     onSuccess: async (data) => {
       const auth = await authenticate();
       if (auth.code === 200) {
-        setAuth(auth); // 👈 اینجا ذخیره می‌کنیم
+        setAuth(auth);
         showToastify({
           message: data?.message || "به پنل کاربری خود وارد شدید",
           type: "success",

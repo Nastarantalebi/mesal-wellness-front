@@ -3,17 +3,17 @@ import searchImg from "/Search engines-bro.svg";
 import clsx from "clsx";
 import { Loader2, LogOut } from "lucide-react";
 import { useState } from "react";
-import { logout } from "../auth/_services/authServices";
 import { useAuthStore } from "../auth/store/authStore";
 import { Navigate } from "react-router-dom";
+import { useLogout } from "../auth/_services/useLogout";
 
 function UserNotFound() {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-
+  const { mutateAsync: logoutApi } = useLogout();
   const handleLogout = async () => {
     try {
       setIsLoggingOut(true);
-      await logout().then(() => {
+      await logoutApi().then(() => {
         window.location.replace("/login");
       });
     } catch (error) {

@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { authenticate, login as loginApi } from "./authServices";
+import { authenticate, login } from "./authServices";
 import { useNavigate } from "react-router-dom";
 import type { ISendOTP } from "../_types/types";
 import { showToastify } from "@/components/Headless/Toast";
@@ -10,7 +10,7 @@ function useLogin() {
   const setAuth = useAuthStore((s) => s.setAuth);
   const { isPending, mutateAsync } = useMutation({
     mutationFn: async (values: ISendOTP) => {
-      const response = await loginApi(values);
+      const response = await login(values);
       return response;
     },
     onSuccess: async (data) => {

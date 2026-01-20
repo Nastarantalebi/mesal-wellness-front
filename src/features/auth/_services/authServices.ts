@@ -63,8 +63,3 @@ export async function sidebarMenu() {
   const { data } = await Request.get(`${BASE_URL}basics/menus/sidebar/`);
   return data;
 }
-
-export async function refreshToken(values: { refresh: string }) {
-  const { data } = await Request.post("/refresh/", values);
-  return data;
-}
