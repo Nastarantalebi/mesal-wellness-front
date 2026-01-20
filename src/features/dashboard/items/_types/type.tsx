@@ -68,7 +68,7 @@ type WidgetRow =
       status: string;
     }
   | {
-      full_name: string;
+      customer_name: string;
       gender: string;
       id: number;
       phone: string;

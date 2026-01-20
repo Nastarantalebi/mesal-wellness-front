@@ -6,13 +6,14 @@ import { plainInstance } from "@/libs/axios";
 import LoadingSpin from "@/components/Loading";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
-import { authenticate } from "../_services/authServices";
+import { useAuthHelper } from "../_hooks/useAuthHelper";
 function Login() {
   const { tabItems } = useTabItems();
   const [checkingAuth, setCheckingAuth] = useState(true);
   const navigate = useNavigate();
   const organizationId = useAuthStore((s) => s.userData?.data.organization_id);
   const setAuth = useAuthStore((s) => s.setAuth);
+  const { authHelper } = useAuthHelper();
   useEffect(() => {
     let isMounted = true;
     const checkAuth = async () => {
@@ -25,14 +26,7 @@ function Login() {
           return;
         }
         // وگرنه احراز هویت کامل
-        const auth = await authenticate();
-
-        if (auth.code === 200) {
-          setAuth(auth);
-          navigate("/user-organizations", { replace: true });
-        } else {
-          navigate("/user-not-found", { replace: true });
-        }
+        authHelper({ showToast: false });
       } catch (err) {
       } finally {
         if (isMounted) {

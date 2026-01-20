@@ -18,10 +18,10 @@ const DashboardItem = () => {
         <LoadingSpin />
       ) : (
         <div className="grid grid-cols-12 gap-5">
+          <StatisticsCard items={widgetData?.number} />
           {widgetData?.list?.map((item, index) => (
             <CustomerTable listData={item} key={index} />
           ))}
-          <StatisticsCard titleText="آمار وب‌سایت" items={widgetData?.number} />
           <DailyBoard />
           <DailyBoardTherapist />
         </div>

@@ -3,18 +3,17 @@ import Lucide from "@/components/Lucide";
 import type { WidgetNumberItem } from "../../_types/type";
 
 interface TProps {
-  titleText: string;
   items?: WidgetNumberItem[];
 }
 
-const StatisticsCard: React.FC<TProps> = ({ titleText, items }) => {
+const StatisticsCard: React.FC<TProps> = ({ items }) => {
   if (!items) return;
   return (
-    <div className="col-span-12">
+    <div className="col-span-12 my-2">
       {/* عنوان کارت */}
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <h3 className="text-lg font-semibold text-slate-700">{titleText}</h3>
-      </div>
+      </div> */}
 
       {/* گرید آیتم‌ها */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
