@@ -1,43 +1,4 @@
 import type { icons } from "lucide-react";
-
-export type TWidget = {
-  widgets: {
-    tiles: {
-      title: string;
-      value: number;
-    }[];
-    lists: {
-      [key: string]: {
-        data: Array<
-          | {
-              id: number;
-              customer_name: string;
-              phone: string;
-              national_code: string | null;
-              start_at: string;
-              end_at: string;
-              status: string;
-            }
-          | {
-              id: number;
-              gender: string;
-              phone: string;
-              national_code: string | null;
-              membership_type: string;
-              joined_at: string | null;
-              first_name: string;
-              last_name: string;
-            }
-        >;
-        width: number;
-      };
-    };
-  };
-};
-export type TDashboard = {
-  data: TWidget;
-};
-
 export type TDailyBoard = {
   data: {
     date: string;
@@ -92,3 +53,56 @@ export interface TMenu {
   subMenu?: TMenu[];
   ignore?: boolean;
 }
+type WidgetHeader = {
+  key: string;
+  label: string;
+};
+
+type WidgetRow =
+  | {
+      id: number;
+      customer_name: string;
+      therapist_name: string;
+      start_at: string;
+      end_at: string;
+      status: string;
+    }
+  | {
+      full_name: string;
+      gender: string;
+      id: number;
+      phone: string;
+    };
+
+export type WidgetListData = {
+  headers: WidgetHeader[];
+  rows: WidgetRow[];
+};
+
+export type WidgetItem = {
+  title: string;
+  icon: string | null;
+  data: WidgetListData;
+};
+
+export type WidgetNumberItem = {
+  title: string;
+  icon: string | null;
+  data: {
+    count: number;
+  };
+};
+
+type Widgets = {
+  list: WidgetItem[];
+  number: WidgetNumberItem[];
+};
+
+export type ApiResponseGetData = {
+  is_success: boolean;
+  message: string;
+  code: number;
+  data: {
+    widgets: Widgets;
+  };
+};
