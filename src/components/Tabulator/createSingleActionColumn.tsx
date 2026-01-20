@@ -14,6 +14,7 @@ export const createSingleActionColumn = (action: SingleActionColumn) => ({
   headerSort: false,
   hozAlign: "center",
   vertAlign: "middle",
+  headerHozAlign: "center",
   print: false,
   resizable: false,
   minWidth: 40,
