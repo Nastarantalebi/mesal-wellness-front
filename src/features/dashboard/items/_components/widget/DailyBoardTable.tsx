@@ -8,8 +8,8 @@ type TProps = {
 
 const DailyBoardTable: React.FC<TProps> = ({ data }) => {
   // لیست اتاق‌ها از resources
-  const rooms = data.data.resources;
-
+  if (!data) return;
+  const rooms = data?.data?.resources;
   return (
     <div className="overflow-auto border rounded-xl bg-white p-4">
       <table className="w-full border-collapse text-center text-sm">
