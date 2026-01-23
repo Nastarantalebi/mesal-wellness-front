@@ -5,14 +5,22 @@ import {
   authUser,
   sidebarMenu,
 } from "@/features/auth/_services/authServices";
-import type { TAuth, TResponseUser } from "../_types/types";
-import type { TSidebarMenu } from "@/features/dashboard/_types/types";
+import type {
+  TAuth,
+  TDataAuthenticate,
+  TDataUserOrganization,
+  TResponseUser,
+} from "../_types/types";
+import type {
+  TDataSidebar,
+  TSidebarMenu,
+} from "@/features/dashboard/_types/types";
 
 type AuthState = {
-  auth: TAuth | null;
-  userData: TResponseUser | null;
-  sidebar: TSidebarMenu | any;
-  setAuth: (auth: TAuth) => void;
+  auth: TDataAuthenticate | null;
+  userData: TDataUserOrganization | null;
+  sidebar: TDataSidebar | any;
+  setAuth: (data: TAuth) => void;
   setUserData: (data: TResponseUser) => void;
   clearAuth: () => void;
   refreshAuth: () => Promise<void>;
@@ -25,14 +33,14 @@ export const useAuthStore = create<AuthState>()(
       auth: null,
       userData: null,
       sidebar: null,
-      setAuth: (auth) => set({ auth }),
-      setUserData: (data) => set({ userData: data }),
+      setAuth: (data) => set({ auth: data.data }),
+      setUserData: (data) => set({ userData: data.data }),
       clearAuth: () => set({ auth: null, userData: null }),
       refreshAuth: async () => {
         try {
-          const auth = await authenticate();
-          if (auth?.code === 200) {
-            set({ auth });
+          const data: TAuth = await authenticate();
+          if (data?.code === 200) {
+            set({ auth: data.data });
           } else {
             set({ auth: null });
           }
@@ -42,12 +50,12 @@ export const useAuthStore = create<AuthState>()(
       },
       fetchUserData: async () => {
         try {
-          const userData = await authUser();
-          if (userData?.code === 200) {
-            set({ userData });
-            const sidebar = await sidebarMenu();
-            if (sidebar?.code === 200) {
-              set({ sidebar });
+          const data: TResponseUser = await authUser();
+          if (data?.code === 200) {
+            set({ userData: data?.data });
+            const dataSidebar: TSidebarMenu = await sidebarMenu();
+            if (dataSidebar?.code === 200) {
+              set({ sidebar: dataSidebar.data });
             } else {
               set({ sidebar: null });
             }

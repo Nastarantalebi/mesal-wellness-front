@@ -6,9 +6,12 @@ export type TBackendMenu = {
   icon: keyof typeof icons | null;
   children: TBackendMenu[];
 };
+export type TDataSidebar = {
+  menu: TBackendMenu[];
+};
 export type TSidebarMenu = {
   code: number;
   is_success: boolean;
   message: string;
-  data: { menus: TBackendMenu[] };
+  data: TDataSidebar;
 };

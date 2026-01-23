@@ -20,7 +20,7 @@ function UserOrganizations() {
   const [search, setSearch] = useState("");
 
   const navigate = useNavigate();
-  const organizations = auth?.data?.organizations ?? [];
+  const organizations = auth?.organizations ?? [];
 
   const filteredOrganizations = useMemo(() => {
     if (!search.trim()) return organizations;

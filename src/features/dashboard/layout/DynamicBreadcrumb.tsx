@@ -2,7 +2,6 @@ import Breadcrumb from "@/components/Breadcrumb";
 import { useLocation } from "react-router-dom";
 import * as LucideIcons from "lucide-react"; // برای ساخت آیکون داینامیک
 import { flattenMenu, mapBackendMenuToMenu } from "@/stores/menuMaper";
-import type { TSidebarMenu } from "../_types/types";
 import { useAuthStore } from "@/features/auth/store/authStore";
 import type { TMenu } from "../items/_types/type";
 
@@ -10,8 +9,8 @@ const isId = (str: string) => /^[0-9]+$/.test(str);
 
 export default function DynamicBreadcrumb() {
   const { pathname } = useLocation();
-  const sidebar: TSidebarMenu = useAuthStore((state) => state.sidebar);
-  const menu = sidebar && sidebar.data?.menus;
+  const sidebar = useAuthStore((state) => state.sidebar.menus);
+  const menu = sidebar && sidebar;
   const menus = [
     {
       icon: "LayoutDashboard",

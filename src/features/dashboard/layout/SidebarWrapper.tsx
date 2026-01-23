@@ -12,11 +12,11 @@ import { nestedMenu, type FormattedMenu } from "./side-menu";
 import { mapBackendMenuToMenu } from "@/stores/menuMaper";
 import type { TMenu } from "../items/_types/type";
 import { useAuthStore } from "@/features/auth/store/authStore";
-import type { TSidebarMenu } from "../_types/types";
 
 function SidebarWrapper() {
-  const sidebar: TSidebarMenu = useAuthStore((state) => state.sidebar);
-  const menus = sidebar && sidebar.data?.menus;
+  const sidebar = useAuthStore((state) => state.sidebar.menus);
+  console.log(sidebar);
+  const menus = sidebar && sidebar;
   const [compactMenuOnHover, setCompactMenuOnHover] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState(false);
   const [formattedMenu, setFormattedMenu] = useState<

@@ -37,23 +37,23 @@ export interface ILoginResponse {
   refresh: string;
   access: string;
 }
-
+export type TDataAuthenticate = {
+  is_superadmin: boolean;
+  needs_context: boolean;
+  organizations: {
+    id: number;
+    title: string;
+    thumb_logo: string | null;
+    medium_logo: string | null;
+  }[];
+};
 export type TAuth = {
   is_success: boolean;
   message: string;
   code: number;
-  data: {
-    is_superadmin: boolean;
-    needs_context: boolean;
-    organizations: {
-      id: number;
-      title: string;
-      thumb_logo: string | null;
-      medium_logo: string | null;
-    }[];
-  };
+  data: TDataAuthenticate;
 };
-export type TData = {
+export type TDataUserOrganization = {
   user: {
     id: number;
     first_name: string;
@@ -79,8 +79,6 @@ export type TData = {
     };
     roles: string[];
   };
-  organization_id: number;
-  staff_id: number;
   roles: string[];
   has_context: boolean;
 };
@@ -88,5 +86,5 @@ export type TResponseUser = {
   is_success: boolean;
   message: string;
   code: number;
-  data: TData;
+  data: TDataUserOrganization;
 };

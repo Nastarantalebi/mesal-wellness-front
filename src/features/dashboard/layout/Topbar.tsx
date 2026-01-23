@@ -166,8 +166,7 @@ function Topbar({
                   <Lucide icon="User" className="w-4 h-4 me-2" />
                   {userData ? (
                     <span>
-                      {userData?.data.user.first_name}{" "}
-                      {userData?.data.user.last_name}
+                      {userData?.user.first_name} {userData?.user.last_name}
                     </span>
                   ) : (
                     <span>پروفایل</span>

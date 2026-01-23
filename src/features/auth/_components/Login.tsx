@@ -11,7 +11,7 @@ function Login() {
   const { tabItems } = useTabItems();
   const [checkingAuth, setCheckingAuth] = useState(true);
   const navigate = useNavigate();
-  const organizationId = useAuthStore((s) => s.userData?.data.organization_id);
+  const organizationId = useAuthStore((s) => s.userData?.organization.id);
   const setAuth = useAuthStore((s) => s.setAuth);
   const { authHelper } = useAuthHelper();
   useEffect(() => {
