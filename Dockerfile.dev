@@ -18,7 +18,7 @@ WORKDIR /app
 COPY --from=builder /app/dist ./dist
 
 # lightweight global install of the tiny Serve CLI
-RUN npm install --global serve
+RUN npm install --registry="https://mirror-npm.runflare.com" --global serve
 
 EXPOSE 3000
 CMD ["serve", "-s", "dist"]
