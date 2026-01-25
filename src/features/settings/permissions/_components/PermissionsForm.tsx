@@ -15,7 +15,7 @@ const PermissionsForm = ({ item }: { item: TPermissionItem }) => {
     },
   });
 
-  const { fields } = useFormData();
+  const { fields } = useFormData({});
   const { mutate, isPending } = useUpdateData({
     url,
     queryKey,

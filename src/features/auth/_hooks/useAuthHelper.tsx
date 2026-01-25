@@ -13,7 +13,7 @@ export const useAuthHelper = () => {
   const navigate = useNavigate();
   const authHelper = async ({ showToast, data }: TProps) => {
     const auth = await authenticate();
-    if (auth.code === 200) {
+    if (auth?.code === 200) {
       setAuth(auth);
 
       showToast &&

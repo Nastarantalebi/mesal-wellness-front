@@ -9,7 +9,7 @@ const isId = (str: string) => /^[0-9]+$/.test(str);
 
 export default function DynamicBreadcrumb() {
   const { pathname } = useLocation();
-  const sidebar = useAuthStore((state) => state.sidebar.menus);
+  const sidebar = useAuthStore((state) => state.sidebar?.menus);
   const menu = sidebar && sidebar;
   const menus = [
     {

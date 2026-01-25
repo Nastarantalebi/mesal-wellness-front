@@ -14,8 +14,7 @@ import type { TMenu } from "../items/_types/type";
 import { useAuthStore } from "@/features/auth/store/authStore";
 
 function SidebarWrapper() {
-  const sidebar = useAuthStore((state) => state.sidebar.menus);
-  console.log(sidebar);
+  const sidebar = useAuthStore((state) => state.sidebar?.menus);
   const menus = sidebar && sidebar;
   const [compactMenuOnHover, setCompactMenuOnHover] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState(false);

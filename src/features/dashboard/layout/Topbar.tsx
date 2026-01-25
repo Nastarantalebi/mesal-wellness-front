@@ -164,9 +164,9 @@ function Topbar({
                     navigate("profile");
                   }}>
                   <Lucide icon="User" className="w-4 h-4 me-2" />
-                  {userData ? (
+                  {userData?.user ? (
                     <span>
-                      {userData?.user.first_name} {userData?.user.last_name}
+                      {userData.user.first_name} {userData.user.last_name}
                     </span>
                   ) : (
                     <span>پروفایل</span>
@@ -229,8 +229,10 @@ function Topbar({
         close={() => setLogout(false)}
         title="خروج از حساب کاربری"
         cancelText="انصراف"
-        submitText={isPending ? "درحال خروج" : "خروج"}
-        onSubmit={() => logoutApi()}>
+        submitText={isPending ? "درحال خروج" : "خارج میشوم"}
+        onSubmit={() => logoutApi()}
+        variant_cancel="outline-success"
+        variant_submit="outline-danger">
         <div className="text-center py-2">
           <span>آیا از خروج از حساب کاربری خود اطمینان دارید؟</span>
         </div>
