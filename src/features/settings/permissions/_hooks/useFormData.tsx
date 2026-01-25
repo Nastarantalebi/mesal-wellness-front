@@ -9,7 +9,6 @@ type TProps = {
   isLoading?: boolean;
 };
 const useFormData = ({ data, isLoading }: TProps) => {
-  console.log(data);
   const fields: (TFormData<TRequest> | undefined)[] = [
     {
       name: "title",
@@ -35,6 +34,7 @@ const useFormData = ({ data, isLoading }: TProps) => {
       label: "نام مجوز",
       placeholder: "نام مجوز",
       required: true,
+      dir: "ltr",
     },
     {
       name: "title",
@@ -45,11 +45,13 @@ const useFormData = ({ data, isLoading }: TProps) => {
       name: "module_name",
       label: "نام ماژول",
       placeholder: "نام ماژول",
+      dir: "ltr",
     },
     {
       name: "type",
       label: "نوع مجوز",
       placeholder: "نوع مجوز",
+      dir: "ltr",
     },
     {
       name: "is_global",
@@ -80,6 +82,7 @@ const useFormData = ({ data, isLoading }: TProps) => {
       name: "action_class",
       label: "کلاس عملیات",
       placeholder: "کلاس عملیات",
+      dir: "ltr",
     },
   ];
   return { fields, permissionsFields };

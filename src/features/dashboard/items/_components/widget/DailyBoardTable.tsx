@@ -10,7 +10,6 @@ const DailyBoardTable: React.FC<TProps> = ({ data }) => {
   if (!data) return;
   const columns = data.data.columns;
   const rows = data.data.rows;
-  console.log(rows.length);
   return (
     <div className="overflow-auto border rounded-xl bg-white p-4">
       <table className="w-full border-collapse text-center text-sm">

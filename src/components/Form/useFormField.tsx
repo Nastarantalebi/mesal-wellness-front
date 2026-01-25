@@ -97,29 +97,6 @@ function useFormField<TFormValues extends FieldValues>() {
           />
         );
       }
-      // const firstOption = option?.[0]?.value;
-
-      // useEffect(() => {
-      //   if (
-      //     firstOption !== undefined &&
-      //     (field.value === undefined ||
-      //       // field.value === null ||
-      //       field.value === "" ||
-      //       field.value === 0)
-      //   ) {
-      //     field.onChange(firstOption);
-      //   }
-      // }, [firstOption, field.value]);
-
-      // return (
-      //   <FormSelect {...field} id={name} {...rest}>
-      //     {option?.map(({ label, value }: any) => (
-      //       <option key={value} value={value}>
-      //         {label}
-      //       </option>
-      //     ))}
-      //   </FormSelect>
-      // );
 
       // case "treeSelect":
       //   return (
