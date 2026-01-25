@@ -38,10 +38,6 @@ const DailyBoard = () => {
       .format("YYYY/MM/DD");
     setValue("date", nextDate);
   };
-  // const { data: test } = useGetData({
-  //   queryKey: "api/basics/menus/sidebar",
-  //   url: "/basics/menus/sidebar",
-  // });
   return (
     <div className="py-5 space-y-3 col-span-full">
       {/* Header */}

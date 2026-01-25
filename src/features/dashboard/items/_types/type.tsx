@@ -1,47 +1,14 @@
 import type { icons } from "lucide-react";
 export type TDailyBoard = {
+  is_success: boolean;
+  message: string;
+  code: number;
   data: {
     date: string;
     prev_url: string;
     next_url: string;
-    slots: {
-      from: string;
-      to: string;
-      label: string;
-      rows: {
-        booking_item_id: number;
-        booking_id: number;
-        room: {
-          id: number;
-          name: string;
-        };
-        company: {
-          name: string | null;
-        };
-        therapist: {
-          id: number;
-          name: string;
-        };
-        customer: {
-          id: number;
-          name: string;
-          phone: string;
-        };
-        service: {
-          id: number;
-          title: string;
-        };
-        status: string;
-        start_time: string;
-        end_time: string;
-        price: number;
-        deposit: number;
-      }[];
-    }[];
-    resources: {
-      id: number;
-      name: string;
-    }[];
+    columns: string[];
+    rows: string[][];
   };
 };
 
