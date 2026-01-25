@@ -52,6 +52,14 @@ export type WidgetItem = {
   data: WidgetListData;
 };
 
+export type WidgetTable = {
+  title: string;
+  icon: keyof typeof icons | null;
+  data: {
+    route: string;
+  };
+};
+
 export type WidgetNumberItem = {
   title: string;
   icon: keyof typeof icons | null;
@@ -63,6 +71,7 @@ export type WidgetNumberItem = {
 type Widgets = {
   list: WidgetItem[];
   number: WidgetNumberItem[];
+  table: WidgetTable[];
 };
 
 export type ApiResponseGetData = {

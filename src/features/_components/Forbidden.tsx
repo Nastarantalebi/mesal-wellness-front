@@ -20,13 +20,13 @@ const Forbidden = () => {
         <p className="text-slate-500 mb-8">
           شما مجوز دسترسی به این صفحه را ندارید.
           <br />
-          اگر فکر می‌کنید این یک اشتباه است، با مدیر سیستم تماس بگیرید.
+          اگر فکر می‌کنید خطایی رخ داده است، با مدیر سیستم تماس بگیرید.
         </p>
 
         <Link
           to="/"
           className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-800 text-white hover:bg-slate-700 transition">
-          بازگشت به داشبورد
+          بازگشت به خانه
         </Link>
       </div>
     </div>

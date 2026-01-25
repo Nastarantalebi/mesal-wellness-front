@@ -5,23 +5,25 @@ import DailyBoardTable from "./DailyBoardTable";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
-import type { TDailyBoard } from "../../_types/type";
+import type { TDailyBoard, WidgetTable } from "../../_types/type";
 
 type FormValues = {
   date: string;
 };
-
-const DailyBoard = () => {
+type TProps = {
+  data: WidgetTable;
+};
+const DailyBoard = ({ data: dataTable }: TProps) => {
+  const newUrl = dataTable.data.route;
   const today = new DateObject({ calendar: persian }).format("YYYY/MM/DD");
   const { control, watch, setValue } = useForm<FormValues>({
     defaultValues: { date: today },
   });
-
   const date = watch("date");
   const { data } = useGetData<TDailyBoard>({
-    url: `wellness/bookings/daily-board?date=${date}`,
+    url: `${newUrl}?date=${date}`,
     queryKey: ["daily_board", date],
-    enabled: !!date,
+    enabled: !!date && !!newUrl,
   });
 
   // فلش عقب (یک روز کم کن)
@@ -42,7 +44,7 @@ const DailyBoard = () => {
     <div className="py-5 space-y-3 col-span-full">
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-lg font-semibold">دفتر نوبت دهی روزانه</h1>
+        <h1 className="text-lg font-semibold">{dataTable.title}</h1>
 
         <div className="flex items-center gap-2 bg-white p-2 rounded-xl shadow-sm border ">
           <ChevronRightIcon

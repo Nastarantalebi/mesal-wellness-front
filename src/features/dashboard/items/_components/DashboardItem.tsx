@@ -21,8 +21,9 @@ const DashboardItem = () => {
           {widgetData?.list?.map((item, index) => (
             <CustomerTable listData={item} key={index} />
           ))}
-          <DailyBoard />
-          {/* <DailyBoardTherapist /> */}
+          {widgetData?.table?.map((item, index) => (
+            <DailyBoard data={item} key={index} />
+          ))}
         </div>
       )}
     </>
