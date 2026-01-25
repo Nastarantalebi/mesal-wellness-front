@@ -8,15 +8,18 @@ import type {
   TCreateDataPermissions,
   TRequestPermissionsCreate,
 } from "../_types/type";
-import { initialValuesCreate, schemaCreate } from "../_fixtures/data";
+import { initialValuesCreate, queryKey, schemaCreate } from "../_fixtures/data";
+import { queryClient } from "@/libs/queryClient";
 type TProps = {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const PermissionsFormCreate = ({ setOpenModal }: TProps) => {
   const { mutate, isPending } = useCreateData({
     url: "/basics/acl/permissions/",
-    queryKey: "/basics/acl/permissions/",
-    onSuccess: () => setOpenModal(false),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [queryKey] });
+      setOpenModal(false);
+    },
   });
   const form = useForm<TRequestPermissionsCreate>({
     resolver: zodResolver(schemaCreate),
