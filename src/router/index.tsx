@@ -162,10 +162,6 @@ function Router() {
         },
       ],
     },
-    // {
-    //   path: "/landing-page",
-    //   element: <LandingPage />,
-    // },
     {
       path: "login",
       element: <Login />,
@@ -179,14 +175,9 @@ function Router() {
       element: <UserNotFound />,
     },
     { path: "*", element: <NotFound /> },
-    // {
-    //   path: "register",
-    //   element: <Register />,
-    // },
   ];
 
   return useRoutes(routes);
 }
 
 export default Router;
- 
