@@ -38,10 +38,10 @@ const DailyBoardTable: React.FC<TProps> = ({ data }) => {
           ) : (
             <tr>
               <td colSpan={columns.length} className="p-6">
-                <div className="flex items-center justify-center gap-3 text-gray-500">
-                  <InboxIcon className="h-6 w-6" />
-                  <span className="text-sm font-medium">
-                    داده‌ای برای نمایش وجود ندارد
+                <div className="flex items-center justify-center opacity-60 flex-col gap-1">
+                  <InboxIcon className="h-10 w-10 text-gray-500" />
+                  <span className="text-gray-500 text-xs sm:text-sm text-center">
+                    هیچ داده‌ای یافت نشد
                   </span>
                 </div>
               </td>

@@ -33,6 +33,7 @@ function StaffForm({ setOpenModal, id }: TProps) {
     resolver: zodResolver(schema),
     defaultValues: initialValues,
   });
+  console.log(data?.data.staff_type);
   useEffect(() => {
     if (data) {
       const praparedData: TRequest = {

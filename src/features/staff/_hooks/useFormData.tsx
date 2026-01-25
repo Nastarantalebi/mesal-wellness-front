@@ -5,7 +5,7 @@ import { queryKey, url } from "../_fixtures/data";
 
 const useFormData = () => {
   const { data, isLoading } = useGetData<TCreateData>({
-    url: url + "create",
+    url: `${url}create`,
     queryKey: [queryKey, "dataCreate"],
   });
   const fields: (TFormData<TRequest> | undefined)[] = [
