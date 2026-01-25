@@ -34,7 +34,6 @@ import Tickets from "@/features/tickets/_components/Tickets";
 import UserNotFound from "@/features/_components/UserNotFound";
 import UserOrganizations from "@/features/_components/UserOrganizations";
 import RouteGuard from "./RouteGaurd";
-import Forbidden from "@/features/_components/Forbidden";
 
 function Router() {
   const routes = [
@@ -178,7 +177,6 @@ function Router() {
       path: "user-not-found",
       element: <UserNotFound />,
     },
-    { path: "403", element: <Forbidden /> },
     { path: "*", element: <NotFound /> },
   ];
 
