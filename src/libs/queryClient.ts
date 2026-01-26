@@ -10,7 +10,6 @@ const handleHttpError = (error: any) => {
     error?.response?.data?.detail ||
     error?.message ||
     "خطای ناشناخته‌ای رخ داده است";
-
   if (error.code === "ECONNABORTED" || error.message.includes("timeout")) {
     showToastify({
       message: "پاسخی از سرور دریافت نشد.لطفا دوباره تلاش کنید",
