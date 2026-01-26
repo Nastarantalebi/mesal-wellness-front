@@ -53,7 +53,7 @@ const Pagination = ({ dataPagination }: TProps) => {
   };
 
   return (
-    <div className="w-full flex items-center justify-between flex-wrap gap-4 m-1">
+    <div className="w-full flex items-center flex-col sm:flex-row justify-between flex-wrap gap-4 m-1">
       {/* Left: نمایش و تعداد کل */}
       <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
         <span>نمایش</span>

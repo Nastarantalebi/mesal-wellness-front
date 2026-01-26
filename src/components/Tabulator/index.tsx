@@ -78,7 +78,7 @@ function CustomTable({
   const tableRef = useRef<HTMLDivElement | null>(null);
   const tabulator = useRef<Tabulator | null>(null);
   const getLayout = () => {
-    if (window.innerWidth < 460) return "fitDataFill";
+    if (window.innerWidth < 520) return "fitDataFill";
     return "fitColumns";
   };
   const initTabulator = () => {
