@@ -38,7 +38,7 @@ const attachRefreshInterceptor = (axiosInstance: AxiosInstance) => {
       if (status === 401) {
         if (code === "USER_NOT_FOUND") {
           // await logout().catch(() => {});
-          window.location.replace("/user-not-found");
+          window.location.replace("/user-not-exist");
           return Promise.reject(error);
         }
       }

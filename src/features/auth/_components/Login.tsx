@@ -12,7 +12,6 @@ function Login() {
   const [checkingAuth, setCheckingAuth] = useState(true);
   const navigate = useNavigate();
   const organizationId = useAuthStore((s) => s.userData?.organization.id);
-  const setAuth = useAuthStore((s) => s.setAuth);
   const { authHelper } = useAuthHelper();
   useEffect(() => {
     let isMounted = true;
@@ -38,7 +37,7 @@ function Login() {
     return () => {
       isMounted = false;
     };
-  }, [organizationId, navigate, setAuth]);
+  }, [authHelper, navigate]);
 
   if (checkingAuth) {
     return (
@@ -87,7 +86,6 @@ function Login() {
           </div>
         </div>
       </div>
-      {/* <ThemeSwitcher /> */}
     </>
   );
 }

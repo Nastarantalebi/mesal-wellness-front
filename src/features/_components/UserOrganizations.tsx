@@ -47,7 +47,10 @@ function UserOrganizations() {
       navigate("/");
     },
   });
-
+  if (!auth) {
+    window.location.replace("/login");
+    return;
+  }
   return (
     <div className="my-10 flex w-full justify-center">
       <div className="w-full max-w-[50rem] space-y-6">

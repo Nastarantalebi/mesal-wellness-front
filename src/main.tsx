@@ -4,9 +4,9 @@ import App from "./App.tsx";
 import "toastify-js/src/toastify.css";
 import { BrowserRouter } from "react-router-dom";
 import { DirectionProvider } from "./utils/direction-context.tsx";
-import { registerSW } from 'virtual:pwa-register'
+import { registerSW } from "virtual:pwa-register";
 
-registerSW({ immediate: true })
+registerSW({ immediate: true });
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <DirectionProvider>
