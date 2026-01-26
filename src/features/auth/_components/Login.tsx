@@ -37,7 +37,7 @@ function Login() {
     return () => {
       isMounted = false;
     };
-  }, [authHelper, navigate]);
+  }, [organizationId, navigate]);
 
   if (checkingAuth) {
     return (
