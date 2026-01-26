@@ -12,6 +12,8 @@ const RouteGuard = ({ children }: TProps) => {
   const sidebar = useAuthStore((s) => s.sidebar?.menus);
   const auth = useAuthStore((s) => s.auth);
   if (!auth) return <Navigate to="/login" replace />;
+  if (auth && !auth.organizations.length)
+    return <Navigate to="/user-organizations" replace />;
   if (!sidebar) return null;
   const allowedPaths = getAllowedPaths(sidebar);
   const pathname = location.pathname;

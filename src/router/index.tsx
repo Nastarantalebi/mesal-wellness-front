@@ -174,7 +174,7 @@ function Router() {
       element: <UserOrganizations />,
     },
     {
-      path: "user-not-exist",
+      path: "user-not-found",
       element: <UserNotFound />,
     },
     { path: "*", element: <NotFound /> },

@@ -23,7 +23,7 @@ export const useAuthHelper = () => {
         });
       navigate("/user-organizations");
     } else {
-      navigate("/user-not-exist");
+      navigate("/user-not-found");
     }
   };
 
