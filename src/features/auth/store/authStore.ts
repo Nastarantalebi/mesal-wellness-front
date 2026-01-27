@@ -35,7 +35,7 @@ export const useAuthStore = create<AuthState>()(
       sidebar: null,
       setAuth: (data) => set({ auth: data.data }),
       setUserData: (data) => set({ userData: data.data }),
-      clearAuth: () => set({ auth: null, userData: null }),
+      clearAuth: () => set({ auth: null, userData: null, sidebar: null }),
       refreshAuth: async () => {
         try {
           const data: TAuth = await authenticate();
@@ -69,6 +69,6 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: "auth-store",
-    }
-  )
+    },
+  ),
 );
