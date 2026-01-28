@@ -18,17 +18,6 @@ export function useLogout() {
         type: "success",
       });
     },
-    // onError: (error: any) => {
-    //   const msg =
-    //     error?.message ||
-    //     error?.response?.data?.message ||
-    //     "مشکلی در خروج پیش آمد";
-    //   console.log(msg);
-    //   showToastify({
-    //     message: msg,
-    //     type: "error",
-    //   });
-    // },
   });
 
   return { isPending, mutateAsync };
