@@ -1,7 +1,7 @@
 import Breadcrumb from "@/components/Breadcrumb";
 import { useLocation } from "react-router-dom";
 import * as LucideIcons from "lucide-react"; // برای ساخت آیکون داینامیک
-import { flattenMenu, mapBackendMenuToMenu } from "@/stores/menuMaper";
+import { flattenMenu, menuContainer } from "@/stores/menuMaper";
 import { useAuthStore } from "@/features/auth/store/authStore";
 import type { TMenu } from "../items/_types/type";
 
@@ -10,15 +10,7 @@ const isId = (str: string) => /^[0-9]+$/.test(str);
 export default function DynamicBreadcrumb() {
   const { pathname } = useLocation();
   const sidebar = useAuthStore((state) => state.sidebar?.menus);
-  const menu = sidebar && sidebar;
-  const menus = [
-    {
-      icon: "LayoutDashboard",
-      pathname: "/",
-      label: "داشبورد",
-    },
-    ...mapBackendMenuToMenu(menu ?? []),
-  ];
+  const menus = menuContainer(sidebar);
   // تبدیل منو به map قابل جستجو
   const menuMap = menus && flattenMenu(menus as Array<TMenu | string>);
   // /service-category/12/edit → ["service-category", "12", "edit"]

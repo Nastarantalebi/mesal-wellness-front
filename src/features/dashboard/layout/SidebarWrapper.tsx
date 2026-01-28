@@ -9,13 +9,12 @@ import {
 } from "../../../stores/compactMenuSlice";
 import { useLocation } from "react-router-dom";
 import { nestedMenu, type FormattedMenu } from "./side-menu";
-import { mapBackendMenuToMenu } from "@/stores/menuMaper";
-import type { TMenu } from "../items/_types/type";
+import { menuContainer } from "@/stores/menuMaper";
 import { useAuthStore } from "@/features/auth/store/authStore";
 
 function SidebarWrapper() {
   const sidebar = useAuthStore((state) => state.sidebar?.menus);
-  const menus = sidebar && sidebar;
+  // const menus = sidebar && sidebar;
   const [compactMenuOnHover, setCompactMenuOnHover] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState(false);
   const [formattedMenu, setFormattedMenu] = useState<
@@ -30,22 +29,27 @@ function SidebarWrapper() {
       localStorage.setItem("compactMenu", val.toString());
       dispatch(setCompactMenuStore(val));
     },
-    [dispatch]
+    [dispatch],
   );
 
   const sideMenu = useCallback(() => {
-    if (!menus) return [];
-    const menu: TMenu[] = [
-      {
-        icon: "LayoutDashboard",
-        pathname: "/",
-        label: "داشبورد",
-      },
-      ...mapBackendMenuToMenu(menus ?? []),
-    ];
-
+    // if (!menus) return [];
+    // const menu: TMenu[] = [
+    //   {
+    //     icon: "LayoutDashboard",
+    //     pathname: "/",
+    //     label: "داشبورد",
+    //   },
+    //   ...mapBackendMenuToMenu(menus ?? []),
+    //   {
+    //     icon: "Headset",
+    //     pathname: "/tickets",
+    //     label: "تیکت",
+    //   },
+    // ];
+    const menu = menuContainer(sidebar);
     return nestedMenu(menu, location);
-  }, [menus, location]);
+  }, [sidebar, location]);
 
   const compactLayout = useCallback(() => {
     if (window.innerWidth <= 1600) setCompactMenu(true);

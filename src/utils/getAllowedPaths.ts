@@ -13,10 +13,17 @@ export function getAllowedPaths(menus: TBackendMenu[]) {
   walk(menus);
   return paths;
 }
+function removeTrailingSlash(path: string): string {
+  return path !== "/" && path.endsWith("/") ? path.slice(0, -1) : path;
+}
 
 export function isAllowedByException(pathname: string) {
-  if (pathname === "/profile") return true;
-  if (pathname === "/") return true;
-  if (pathname.endsWith("/create")) return true;
+  const cleanPath = removeTrailingSlash(pathname);
+  if (cleanPath === "/profile") return true;
+  if (cleanPath === "/") return true;
+  if (cleanPath === "/tickets") return true;
+  if (/^\/tickets\/\d+$/.test(cleanPath)) return true;
+  if (/^\/tickets\/[a-zA-Z0-9-]+$/.test(cleanPath)) return true;
+  if (cleanPath.endsWith("/create")) return true;
   return false;
 }

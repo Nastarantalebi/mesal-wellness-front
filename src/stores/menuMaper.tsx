@@ -1,17 +1,6 @@
 import type { TBackendMenu } from "@/features/dashboard/_types/types";
 import type { TMenu } from "@/features/dashboard/items/_types/type";
 
-export const mapBackendMenuToMenu = (menus: TBackendMenu[]): TMenu[] => {
-  return menus?.map((item) => ({
-    label: item.label,
-    pathname: item.url ?? undefined,
-    icon: (item.icon as TMenu["icon"]) ?? "Dot",
-    subMenu: item.children?.length
-      ? mapBackendMenuToMenu(item.children)
-      : undefined,
-  }));
-};
-
 export const flattenMenu = (menu: Array<TMenu | string>) => {
   const map: Record<string, { label: string }> = {};
 
@@ -32,4 +21,34 @@ export const flattenMenu = (menu: Array<TMenu | string>) => {
   walk(menu);
 
   return map;
+};
+
+const mapBackendMenuToMenu = (menus: TBackendMenu[]): TMenu[] => {
+  return menus?.map((item) => ({
+    label: item.label,
+    pathname: item.url ?? undefined,
+    icon: (item.icon as TMenu["icon"]) ?? "Dot",
+    subMenu: item.children?.length
+      ? mapBackendMenuToMenu(item.children)
+      : undefined,
+  }));
+};
+
+export const menuContainer = (menus: TBackendMenu[]) => {
+  if (!menus) return [];
+  const menu: TMenu[] = [
+    {
+      icon: "LayoutDashboard",
+      pathname: "/",
+      label: "داشبورد",
+    },
+    ...mapBackendMenuToMenu(menus ?? []),
+    {
+      icon: "Headset",
+      pathname: "/tickets",
+      label: "تیکت",
+    },
+  ];
+
+  return menu;
 };
