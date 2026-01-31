@@ -25,7 +25,7 @@ function UserOrganizations() {
   const filteredOrganizations = useMemo(() => {
     if (!search.trim()) return organizations;
     return organizations.filter((org) =>
-      org.title.toLowerCase().includes(search.trim().toLowerCase())
+      org.title.toLowerCase().includes(search.trim().toLowerCase()),
     );
   }, [organizations, search]);
 
@@ -55,7 +55,7 @@ function UserOrganizations() {
     <div className="my-10 flex w-full justify-center">
       <div className="w-full max-w-[50rem] space-y-6">
         {/* header */}
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="flex gap-4 flex-row items-center justify-between">
           <h1 className="m-0 text-uiSecondary">
             لیست سازمان‌ها ({filteredOrganizations.length})
           </h1>
@@ -103,7 +103,7 @@ function UserOrganizations() {
         <div>
           <div
             className={clsx(
-              "w-full rounded-md border border-primary/25 p-2 shadow shadow-primary/10 h-[calc(90vh-180px)] overflow-y-auto"
+              "w-full rounded-md border border-primary/25 p-2 shadow shadow-primary/10 h-[calc(90vh-180px)] overflow-y-auto",
             )}>
             {filteredOrganizations.length > 0 ? (
               <div className="w-full grid gap-3">
