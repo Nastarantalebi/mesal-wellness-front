@@ -49,7 +49,7 @@ function SendOTPStep({
 
   const form = useForm<any>({
     resolver: zodResolver(
-      hasPass ? OtpValidationSchema : OtpPassValidationSchema
+      hasPass ? OtpValidationSchema : OtpPassValidationSchema,
     ),
     defaultValues: hasPass ? OtpInitialValues : OtpPassInitialValues,
   });
@@ -90,7 +90,7 @@ function SendOTPStep({
           setErrorMessage("کد وارد شده اشتباه است.");
           form.reset();
         },
-      }
+      },
     );
   };
 
@@ -110,7 +110,7 @@ function SendOTPStep({
           setErrorMessage("");
           setTimeout(() => inputRefs.current[0]?.focus(), 50);
         },
-      }
+      },
     );
   };
 
@@ -190,7 +190,7 @@ function SendOTPStep({
                   "w-12 h-12 text-center rounded-lg border-slate-300/80",
                   {
                     "border-danger": fieldState.error,
-                  }
+                  },
                 )}
                 disabled={isPending}
               />
