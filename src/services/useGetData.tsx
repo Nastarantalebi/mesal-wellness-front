@@ -38,7 +38,7 @@ function useGetData<T>({
 
   return useQuery({
     queryKey: [queryKey, queryObject],
-    queryFn: () => (support ? getdataSupport<T>(url) : getdata<T>(url)),
+    queryFn: () => (support ? getdataSupport<T>(url) : getdata<T>(url, search)),
     enabled,
     staleTime,
     refetchOnWindowFocus: false,
