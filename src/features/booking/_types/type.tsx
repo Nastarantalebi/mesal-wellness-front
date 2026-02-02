@@ -144,27 +144,29 @@ export type TSelect = {
 };
 
 export type TAvailabilityData = {
-  date: string;
-  start_at: string;
-  end_at: string;
-  available_rooms: {
-    id: number;
-    name: string;
-  }[];
-  unavailable_rooms: {
-    id: number;
-    name: string;
-    reason?: string;
-  }[];
-  available_therapists: {
-    id: number;
-    name: string;
-  }[];
-  unavailable_therapists: {
-    id: number;
-    name: string;
-    reason?: string;
-  }[];
+  data: {
+    date: string;
+    start_at: string;
+    end_at: string;
+    available_rooms: {
+      id: number;
+      name: string;
+    }[];
+    unavailable_rooms: {
+      id: number;
+      name: string;
+      reason?: string;
+    }[];
+    available_therapists: {
+      id: number;
+      name: string;
+    }[];
+    unavailable_therapists: {
+      id: number;
+      name: string;
+      reason?: string;
+    }[];
+  };
 };
 
 export type TCustomerSearch = {

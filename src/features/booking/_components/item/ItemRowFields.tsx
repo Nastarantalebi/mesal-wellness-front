@@ -187,7 +187,7 @@ const ItemRowFields = ({
                     <ReactSelect
                       field={field}
                       options={
-                        data?.available_therapists?.map((item) => ({
+                        data?.data.available_therapists?.map((item) => ({
                           label: item.name,
                           value: item.id,
                         })) ?? []
@@ -214,7 +214,7 @@ const ItemRowFields = ({
                     <ReactSelect
                       field={field}
                       options={
-                        data?.available_rooms?.map((item) => ({
+                        data?.data.available_rooms?.map((item) => ({
                           label: item.name,
                           value: item.id,
                         })) ?? []
@@ -241,17 +241,17 @@ const ItemRowFields = ({
                 render={({ field }) => {
                   useEffect(() => {
                     const selectedService = services.find(
-                      (s) => s.value === field.value
+                      (s) => s.value === field.value,
                     );
 
                     if (selectedService) {
                       form.setValue(
                         `items.${index}.unit_price`,
-                        selectedService.custom_price
+                        selectedService.custom_price,
                       );
                       form.setValue(
                         `items.${index}.total_price`,
-                        selectedService.custom_price
+                        selectedService.custom_price,
                       );
                     } else {
                       form.setValue(`items.${index}.unit_price`, 0);
