@@ -80,12 +80,24 @@ export type TPieChart = {
     }[];
   };
 };
-
+export type TLineChart = {
+  title: string;
+  icon: keyof typeof icons | null;
+  data: {
+    type: string;
+    labels: string[];
+    datasets: {
+      label: string;
+      data: number[];
+    }[];
+  };
+};
 type Widgets = {
   list: WidgetItem[];
   number: WidgetNumberItem[];
   table: WidgetTable[];
   pie_chart: TPieChart[];
+  line_chart: TLineChart[];
 };
 
 export type ApiResponseGetData = {

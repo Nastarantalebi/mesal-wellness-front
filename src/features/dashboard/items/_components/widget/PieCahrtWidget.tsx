@@ -11,7 +11,7 @@ const PieCahrtWidget = ({ data }: Props) => {
   if (!data || data.length === 0) return null;
 
   return (
-    <div className="col-span-4">
+    <div className="col-span-12 xl:col-span-6">
       {data.map((chart, index) => (
         <div
           key={index}

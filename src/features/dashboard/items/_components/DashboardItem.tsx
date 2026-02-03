@@ -5,6 +5,7 @@ import DailyBoard from "./widget/DailyBoard";
 import LoadingSpin from "@/components/Loading";
 import type { ApiResponseGetData } from "../_types/type";
 import PieCahrtWidget from "./widget/PieCahrtWidget";
+import LineCahrtWidget from "./widget/LineCahrtWidget";
 
 const DashboardItem = () => {
   const { data, isFetching } = useGetData<ApiResponseGetData>({
@@ -20,6 +21,7 @@ const DashboardItem = () => {
         <div className="grid grid-cols-12 gap-5">
           <StatisticsCard items={widgetData?.number} />
           <PieCahrtWidget data={widgetData?.pie_chart} />
+          <LineCahrtWidget data={widgetData?.line_chart} />
           {widgetData?.list?.map((item, index) => (
             <CustomerTable listData={item} key={index} />
           ))}
