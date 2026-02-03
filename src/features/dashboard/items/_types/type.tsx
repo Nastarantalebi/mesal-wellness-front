@@ -67,11 +67,25 @@ export type WidgetNumberItem = {
     label: number;
   };
 };
+export type TPieChart = {
+  title: string;
+  icon: keyof typeof icons | null;
+  data: {
+    type: string;
+    values: {
+      label: string;
+      value: number;
+      percent: number;
+      color: string;
+    }[];
+  };
+};
 
 type Widgets = {
   list: WidgetItem[];
   number: WidgetNumberItem[];
   table: WidgetTable[];
+  pie_chart: TPieChart[];
 };
 
 export type ApiResponseGetData = {
