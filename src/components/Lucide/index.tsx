@@ -13,6 +13,7 @@ interface LucideProps extends React.ComponentPropsWithoutRef<"svg"> {
 
 function Lucide(props: LucideProps) {
   const { icon, ...computedProps } = props;
+  const customIcon = icon in icons ? icon : "ChartNoAxesCombined";
 
   // Get the direction context value
   const directionContext = useContext(DirectionContext);
@@ -20,7 +21,7 @@ function Lucide(props: LucideProps) {
   // Handle the case when the context is undefined
   if (!directionContext) {
     console.error(
-      "DirectionContext is undefined. Make sure your component is wrapped in DirectionProvider."
+      "DirectionContext is undefined. Make sure your component is wrapped in DirectionProvider.",
     );
     return null; // Or return a fallback component/UI
   }
@@ -41,20 +42,20 @@ function Lucide(props: LucideProps) {
   };
 
   // Transform the icon name if necessary
-  const transformedIconName = getTransformedIconName(icon as string);
+  const transformedIconName = getTransformedIconName(customIcon as string);
 
   // Check if the transformed icon exists in the icons object
   let Component = icons[transformedIconName as keyof typeof icons];
 
   if (!Component) {
     // console.error(`Icon "${transformedIconName}" does not exist.`);
-    Component = icons[icon as keyof typeof icons];
+    Component = icons[customIcon as keyof typeof icons];
   }
 
   return (
     <Component
       {...computedProps}
-      className={twMerge(["stroke-[1] w-5 h-5", props.className])}
+      className={twMerge(["stroke-1 w-5 h-5", props.className])}
     />
   );
 }

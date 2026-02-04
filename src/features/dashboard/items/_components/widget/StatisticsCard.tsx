@@ -24,7 +24,7 @@ const StatisticsCard: React.FC<TProps> = ({ items }) => {
             {/* آیکون */}
             <div className="w-12 h-12 mb-2 flex items-center justify-center rounded-full bg-primary/20 text-primary">
               <Lucide
-                icon={item.icon ? item.icon : "ChartNoAxesCombined"}
+                icon={item.icon ?? "ChartNoAxesCombined"}
                 className="w-6 h-6"
               />
             </div>
