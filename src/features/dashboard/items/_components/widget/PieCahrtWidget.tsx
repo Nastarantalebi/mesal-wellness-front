@@ -1,45 +1,101 @@
 "use client";
 
-import { PieChart, Pie, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { useState } from "react";
+import {
+  PieChart,
+  Pie,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  Cell,
+} from "recharts";
 import type { TPieChart } from "../../_types/type";
 
 type Props = {
   data?: TPieChart[];
 };
 
-const PieCahrtWidget = ({ data }: Props) => {
+const PieChartWidget = ({ data }: Props) => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
   if (!data || data.length === 0) return null;
 
   return (
-    <div className="col-span-12 xl:col-span-6">
-      {data.map((chart, index) => (
+    <div className="col-span-12 xl:col-span-6 grid grid-cols-12 gap-4">
+      {data.map((chart, chartIndex) => (
         <div
-          key={index}
-          className="col-span-12 md:col-span-6 lg:col-span-4 bg-white rounded-xl shadow">
-          <h3 className="mb-4 font-semibold text-gray-700 py-2 px-4">
+          key={chartIndex}
+          className="col-span-12 bg-white rounded-xl shadow">
+          <h3 className="px-4 py-2 font-semibold text-gray-700">
             {chart.title}
           </h3>
 
-          <div className="w-full h-[300px]">
+          <div className="w-full h-[320px]">
             <ResponsiveContainer>
               <PieChart>
                 <Pie
-                  stroke="none"
-                  data={chart.data.values.map((item) => ({
-                    ...item,
-                    fill: item.color,
-                  }))}
+                  data={chart.data.values}
                   dataKey="value"
                   nameKey="label"
                   cx="50%"
                   cy="50%"
-                  outerRadius="100%"
-                />
+                  outerRadius="95%"
+                  stroke="none"
+                  onMouseEnter={(_, index) => setActiveIndex(index)}
+                  onMouseLeave={() => setActiveIndex(null)}
+                  onClick={(_, index) =>
+                    setSelectedIndex(selectedIndex === index ? null : index)
+                  }
+                  label={(props: any) => {
+                    const {
+                      cx,
+                      cy,
+                      midAngle,
+                      innerRadius,
+                      outerRadius,
+                      payload,
+                    } = props;
+                    const RADIAN = Math.PI / 180;
+                    const radius =
+                      innerRadius + (outerRadius - innerRadius) * 0.5;
+                    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                    return (
+                      <text
+                        x={x}
+                        y={y}
+                        textAnchor="middle"
+                        dominantBaseline="central"
+                        className="text-xs font-semibold fill-white select-none pointer-events-none">
+                        {payload.percent}%
+                      </text>
+                    );
+                  }}
+                  labelLine={false}
+                  animationDuration={400}>
+                  {chart.data.values.map((item, index) => {
+                    const isActive =
+                      index === activeIndex || index === selectedIndex;
+
+                    return (
+                      <Cell
+                        key={index}
+                        fill={item.color}
+                        opacity={selectedIndex !== null && !isActive ? 0.4 : 1}
+                        style={{
+                          transform: isActive ? "scale(1.05)" : "scale(1)",
+                          transformOrigin: "center",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                        }}
+                      />
+                    );
+                  })}
+                </Pie>
 
                 <Tooltip
                   formatter={(value, _name, item) => {
-                    if (!item || value == null) return null;
-
                     const payload = item.payload as {
                       label: string;
                       percent: number;
@@ -53,23 +109,41 @@ const PieCahrtWidget = ({ data }: Props) => {
                   verticalAlign="middle"
                   align="right"
                   layout="vertical"
-                  className="text-right"
-                  content={({ payload }: any) => {
-                    console.log(payload);
-                    return (
-                      <ul className="flex flex-col gap-2 text-sm">
-                        {payload.map((entry: any, index: number) => (
-                          <li key={index} className="flex items-center gap-2">
+                  content={({ payload }: any) => (
+                    <ul className="flex flex-col gap-3 text-sm pr-4">
+                      {payload.map((entry: any, index: number) => {
+                        const isActive =
+                          index === activeIndex || index === selectedIndex;
+
+                        return (
+                          <li
+                            key={index}
+                            className={`flex items-center gap-2 cursor-pointer transition-all ${
+                              isActive
+                                ? "font-semibold text-gray-800"
+                                : "text-gray-500"
+                            }`}
+                            onMouseEnter={() => setActiveIndex(index)}
+                            onMouseLeave={() => setActiveIndex(null)}
+                            onClick={() =>
+                              setSelectedIndex(
+                                selectedIndex === index ? null : index,
+                              )
+                            }>
                             <span
                               className="w-3 h-3 rounded-full"
-                              style={{ backgroundColor: entry.color }}
+                              style={{
+                                backgroundColor: entry.color,
+                                opacity:
+                                  selectedIndex !== null && !isActive ? 0.4 : 1,
+                              }}
                             />
-                            <span className="text-gray-600">{entry.value}</span>
+                            <span>{entry.value}</span>
                           </li>
-                        ))}
-                      </ul>
-                    );
-                  }}
+                        );
+                      })}
+                    </ul>
+                  )}
                 />
               </PieChart>
             </ResponsiveContainer>
@@ -80,4 +154,4 @@ const PieCahrtWidget = ({ data }: Props) => {
   );
 };
 
-export default PieCahrtWidget;
+export default PieChartWidget;
