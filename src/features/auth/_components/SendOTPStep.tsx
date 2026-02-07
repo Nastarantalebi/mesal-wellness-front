@@ -88,7 +88,11 @@ function SendOTPStep({
         },
         onError: () => {
           setErrorMessage("کد وارد شده اشتباه است.");
-          form.reset();
+          form.setValue("otp", "");
+          form.clearErrors("otp");
+          setTimeout(() => {
+            inputRefs.current[0]?.focus();
+          }, 100);
         },
       },
     );
