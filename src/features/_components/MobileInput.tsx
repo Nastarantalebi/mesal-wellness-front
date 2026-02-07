@@ -31,6 +31,7 @@ export default function MobileInput({
         render={({ field, fieldState }) => (
           <div className="relative">
             <FormInput
+              autoFocus={true}
               {...field}
               type="tel"
               inputMode="numeric"
@@ -40,7 +41,7 @@ export default function MobileInput({
               className={clsx(
                 "block w-full px-4 py-3.5 rounded-[0.6rem] border-slate-300/80 pl-10 placeholder:!text-left",
                 className,
-                { "!border-danger": !!fieldState?.error?.message }
+                { "!border-danger": !!fieldState?.error?.message },
               )}
               disabled={disabled}
               onKeyDown={(e) => {
