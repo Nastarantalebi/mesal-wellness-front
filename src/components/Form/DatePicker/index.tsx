@@ -23,6 +23,7 @@ type TProps<TFormValues extends FieldValues> = {
   portal?: boolean;
   hasError?: boolean;
   showWeekDayName?: boolean;
+  disabled?: boolean;
 };
 
 function DatePickerField<TFormValues extends FieldValues>({
@@ -32,6 +33,7 @@ function DatePickerField<TFormValues extends FieldValues>({
   showTimePicker = false,
   autoFocus = false,
   showWeekDayName = false,
+  disabled = false,
   hasError,
   max,
   min,
@@ -57,7 +59,7 @@ function DatePickerField<TFormValues extends FieldValues>({
       input: HTMLElement;
       isTyping: boolean;
       validatedValue: string | string[];
-    }
+    },
   ) => {
     const { input, isTyping } = options;
     if (!isTyping) {
@@ -76,7 +78,7 @@ function DatePickerField<TFormValues extends FieldValues>({
     for (const digit of persian_fa.digits) {
       valueToValidate = valueToValidate.replace(
         new RegExp(digit, "g"),
-        persian_fa.digits.indexOf(digit).toString()
+        persian_fa.digits.indexOf(digit).toString(),
       );
     }
     if (/[^0-9/]/.test(valueToValidate)) return false;
@@ -127,7 +129,7 @@ function DatePickerField<TFormValues extends FieldValues>({
           inputClassName,
           {
             "!border !border-danger": hasError,
-          }
+          },
         )}
         containerStyle={{ width: "100%", direction: "ltr" }}
         minDate={min || undefined}
@@ -136,6 +138,7 @@ function DatePickerField<TFormValues extends FieldValues>({
         calendar={persian}
         locale={persian_fa}
         value={fieldValue || ""}
+        disabled={disabled}
         onChange={handleChange}
         format={showTimePicker ? "YYYY/MM/DD HH:mm" : "YYYY/MM/DD"}
         plugins={[

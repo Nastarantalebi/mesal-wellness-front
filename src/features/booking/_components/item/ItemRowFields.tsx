@@ -95,6 +95,7 @@ const ItemRowFields = ({
             name={`items.${index}.date`}
             render={({ field }) => (
               <DatePickerField
+                disabled={isFetching}
                 hasError={!!errorField?.[index]?.date}
                 field={field}
                 placeholder="تاریخ نوبت"
@@ -120,6 +121,7 @@ const ItemRowFields = ({
                   placeholder="زمان شروع"
                   isSearchable
                   isClearable={false}
+                  isDisabled={isFetching}
                 />
               </>
             )}
@@ -135,6 +137,7 @@ const ItemRowFields = ({
               <>
                 <ReactSelect
                   field={field}
+                  isDisabled={isFetching}
                   options={end_time?.map((item) => ({
                     label: item.label,
                     value: item.value,
@@ -161,7 +164,7 @@ const ItemRowFields = ({
               size="sm"
               disabled={isInvalidTime}
               onClick={() => refetch()}
-              className="whitespace-nowrap flex items-center gap-1 h-9 mx-auto cursor-pointer">
+              className="whitespace-nowrap flex items-center gap-1 h-9 mx-auto cursor-pointer w-full md:w-auto">
               <Lucide
                 icon={isFetching ? "Loader" : "Search"}
                 className={`w-4 h-4 ${isFetching ? "animate-spin" : ""}`}
