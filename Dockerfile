@@ -1,24 +1,35 @@
-# ---------- build stage ----------
-FROM node:22-slim AS builder
+ARG BUN_VERSION=1.3.0
+ARG NGINX_VERSION=stable-alpine3.23
+
+FROM artifacts.repo.mesal.ir/docker-proxy/oven/bun:${BUN_VERSION} AS deps
+
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm cache clean --force
-RUN rm -rf /root/.npm
-RUN npm ci --registry="https://mirror-npm.runflare.com" --verbose
+COPY package.json bun.lock bunfig.toml .env ./
+
+RUN bun ci
+
+
+FROM deps AS builder
 
 COPY . .
-RUN npm run build
+ENV NODE_ENV=production
+RUN bun run build
 
-# ---------- runtime stage ----------
-FROM node:22-slim AS runner
-WORKDIR /app
 
-# copy static assets only
-COPY --from=builder /app/dist ./dist
+FROM artifacts.repo.mesal.ir/docker-proxy/library/nginx:${NGINX_VERSION}
 
-# lightweight global install of the tiny Serve CLI
-RUN npm install --global --verbose serve --registry="https://mirror-npm.runflare.com"
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+
+COPY --chown=nginx:nginx --from=builder /app/dist /usr/share/nginx/html
+
+RUN mkdir -p /var/cache/nginx && chown -R nginx:nginx /var/cache/nginx
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:3000/health || exit 1
+
+
+USER nginx
 
 EXPOSE 3000
-CMD ["serve", "-s", "dist"]
+CMD ["nginx", "-g", "daemon off;"]
