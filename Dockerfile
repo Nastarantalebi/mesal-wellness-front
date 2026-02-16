@@ -5,7 +5,7 @@ FROM artifacts.repo.mesal.ir/docker-proxy/oven/bun:${BUN_VERSION} AS deps
 
 WORKDIR /app
 
-COPY package.json bun.lock bunfig.toml .env ./
+COPY package.json bun.lock bunfig.toml ./
 
 RUN bun ci
 
