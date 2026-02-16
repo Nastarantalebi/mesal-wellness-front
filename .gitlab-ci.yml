@@ -1,53 +1,44 @@
-
 workflow:
   rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: always
+    
     - if: '$CI_COMMIT_MESSAGE =~ /\[deploy\]/i'
+      when: always
+    
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      when: always
+    
+    - when: never
 
 stages:
-  - build-image
-  - security-scan
-  - deploy-image
+  - build
+  - deploy-prod    
+
 
 include:
-  - template: Jobs/Container-Scanning.gitlab-ci.yml
+  # Build stage
+  - project: 'devops/ci-templates'
+    file: '/docker/build-and-push.yml'
+    inputs:
+      namespace: "wellness"
+      image_name: "wn-front"
+      nexus_url: "artifacts.repo.mesal.ir"
+      nexus_repo: "docker-hosted"
+      image_tag: "latest"
+      stage_name: "build"
+      trigger_type: "manual"
+       
+  
+  # Deploy to Production
+  - project: 'devops/ci-templates'
+    file: '/deploy/ssh-deploy.yml'
+    inputs:
+      environment: "production"
+      ssh_port: 2223
+      deploy_command: "/home/production/server_deploy/repos/wellness/deploy-front.sh"
+      image_to_deploy: "artifacts.repo.mesal.ir/docker-hosted/wellness/wn-front:latest"
+      stage_name: "deploy-prod"
 
-variables:
-  NEXUS_URL: "artifacts.repo.mesal.ir"
-  NEXUS_REPO: "docker-hosted"
-  NAMESPACE: "wellness"
-  IMAGE_NAME: "wn-front"
-  # CRITICAL: Tells the scanner which image to check
-  CS_IMAGE: "$NEXUS_URL/$NEXUS_REPO/$NAMESPACE/$IMAGE_NAME:latest"
 
 
-build-image:
-  stage: build-image
-  image: docker:cli
-  before_script:
-    - docker login "$NEXUS_URL" -u "$NEXUS_USERNAME" -p "$NEXUS_PASSWORD"
-  script:
-    - docker build -t "$CS_IMAGE" .
-    - docker push "$CS_IMAGE"
-
-
-container_scanning:
-  stage: security-scan
-  variables:
-    SECURE_STAGE: security-scan
-
-deploy-image:
-  stage: deploy-image
-  image: kroniak/ssh-client:latest
-  before_script:
-    - eval $(ssh-agent -s)
-    - chmod 400 "$SSH_PRIVATE_KEY_ED25519"
-    - ssh-add "$SSH_PRIVATE_KEY_ED25519"
-
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-
-    - cp "$SSH_KNOWN_HOSTS" ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
-  script:
-    - ssh -p 2223 "${SSH_USER}@${SSH_HOST}" \
-        "export DEPLOY_IMAGE='$CS_IMAGE' && /home/production/server_deploy/repos/wellness/deploy-front.sh"
