@@ -26,7 +26,6 @@ include:
       nexus_repo: "docker-hosted"
       image_tag: "latest"
       stage_name: "build"
-      trigger_type: "manual"
        
   
   - project: 'devops/ci-templates'
