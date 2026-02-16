@@ -17,7 +17,6 @@ stages:
 
 
 include:
-  # Build stage
   - project: 'devops/ci-templates'
     file: '/docker/build-and-push.yml'
     inputs:
@@ -30,7 +29,6 @@ include:
       trigger_type: "manual"
        
   
-  # Deploy to Production
   - project: 'devops/ci-templates'
     file: '/deploy/ssh-deploy.yml'
     inputs:
