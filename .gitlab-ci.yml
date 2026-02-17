@@ -1,10 +1,3 @@
-variables:
-  NEXUS_URL: "artifacts.repo.mesal.ir"
-  NEXUS_REPO: "docker-hosted"
-  SSH_PORT: 2223
-  IMAGE_TAG: "latest"
-  BUILD_STAGE: "build"
-  DEPLOY_STAGE: "deploy"
 
 workflow:
   rules:
@@ -16,6 +9,14 @@ workflow:
       when: always
     - when: never
 
+variables:
+  NEXUS_URL: "artifacts.repo.mesal.ir"
+  NEXUS_REPO: "docker-hosted"
+  SSH_PORT: 2223  
+  IMAGE_TAG: "latest"
+  BUILD_STAGE: "build"
+  DEPLOY_STAGE: "deploy"
+  
 stages:
   - ${BUILD_STAGE}   
   - ${DEPLOY_STAGE}  
@@ -37,7 +38,7 @@ include:
     file: '/deploy/ssh-deploy.yml'
     inputs:
       environment: "production"
-      ssh_port: "${SSH_PORT}"
+      ssh_port: ${SSH_PORT}  
       deploy_command: "/home/production/server_deploy/repos/wellness/deploy-front.sh"
       image_to_deploy: "${NEXUS_URL}/${NEXUS_REPO}/wellness/wn-front:${IMAGE_TAG}"
       stage_name: "${DEPLOY_STAGE}"
@@ -62,7 +63,7 @@ include:
     file: '/deploy/ssh-deploy.yml'
     inputs:
       environment: "development"
-      ssh_port: "${SSH_PORT}"
+      ssh_port: ${SSH_PORT}  # REMOVED QUOTES
       deploy_command: "/home/production/server_deploy/repos/wellness-dev/deploy-front.sh"
       image_to_deploy: "${NEXUS_URL}/${NEXUS_REPO}/wellness/wn-dev-front:${IMAGE_TAG}"
       stage_name: "${DEPLOY_STAGE}"
