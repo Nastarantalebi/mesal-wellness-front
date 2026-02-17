@@ -1,7 +1,5 @@
 variables:
-  NEXUS_URL: "artifacts.repo.mesal.ir"
-  NEXUS_REPO: "docker-hosted"
-  NAMESPACE: "wellness"
+  IMAGE_BASE: "artifacts.repo.mesal.ir/docker-hosted/wellness"
 
 workflow:
   rules:
@@ -22,11 +20,8 @@ include:
   - project: 'devops/ci-templates'
     file: '/docker/build-and-push.yml'
     inputs:
-      namespace: "${NAMESPACE}"
-      image_name: "wn-front"
-      nexus_url: "${NEXUS_URL}"
-      nexus_repo: "${NEXUS_REPO}"
-      image_tag: "latest"
+      environment: "production"
+      target_image: "${IMAGE_BASE}/wn-front:latest"
       stage_name: "build"
 
   # Production Deploy
@@ -36,7 +31,7 @@ include:
       environment: "production"
       ssh_port: 2223
       deploy_command: "/home/production/server_deploy/repos/wellness/deploy-front.sh"
-      image_to_deploy: "${NEXUS_URL}/${NEXUS_REPO}/${NAMESPACE}/wn-front:latest"
+      image_to_deploy: "${IMAGE_BASE}/wn-front:latest"
       stage_name: "deploy"
       needs_job: "build-for-production"
 
@@ -45,11 +40,7 @@ include:
     file: '/docker/build-and-push.yml'
     inputs:
       environment: "development"
-      namespace: "${NAMESPACE}"
-      image_name: "wn-dev-front"
-      nexus_url: "${NEXUS_URL}"
-      nexus_repo: "${NEXUS_REPO}"
-      image_tag: "latest"
+      target_image: "${IMAGE_BASE}/wn-dev-front:latest"
       stage_name: "build"
       build_args: '--build-arg MODE=development'
       trigger_type: "manual"
@@ -61,7 +52,7 @@ include:
       environment: "development"
       ssh_port: 2223
       deploy_command: "/home/production/server_deploy/repos/wellness-dev/deploy-front.sh"
-      image_to_deploy: "${NEXUS_URL}/${NEXUS_REPO}/${NAMESPACE}/wn-dev-front:latest"
+      image_to_deploy: "${IMAGE_BASE}/wn-dev-front:latest"
       stage_name: "deploy"
       trigger_type: "auto"
       needs_job: "build-for-development"
