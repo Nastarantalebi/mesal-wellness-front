@@ -1,7 +1,7 @@
 variables:
   NEXUS_URL: "artifacts.repo.mesal.ir"
   NEXUS_REPO: "docker-hosted"
-  SSH_PORT: "2223"
+  SSH_PORT: 2223
   IMAGE_TAG: "latest"
   BUILD_STAGE: "build"
   DEPLOY_STAGE: "deploy"
