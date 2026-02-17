@@ -1,6 +1,22 @@
+# Define YAML anchors for all common values
+.common-build: &common-build
+  namespace: "wellness"
+  nexus_url: "artifacts.repo.mesal.ir"
+  nexus_repo: "docker-hosted"
+  image_tag: "latest"
+  stage_name: "build"
 
-.ssh-port: &ssh-port 2223 
-.nexus-settings: &nexus-settings
+.common-deploy: &common-deploy
+  ssh_port: 2223  # Number - preserved
+  stage_name: "deploy"
+
+.production: &production
+  environment: "production"
+
+.development: &development
+  environment: "development"
+
+.nexus-base: &nexus-base
   nexus_url: "artifacts.repo.mesal.ir"
   nexus_repo: "docker-hosted"
 
@@ -14,51 +30,34 @@ workflow:
       when: always
     - when: never
 
-variables:
-  NEXUS_URL: "artifacts.repo.mesal.ir"
-  NEXUS_REPO: "docker-hosted"
-  IMAGE_TAG: "latest"
-  BUILD_STAGE: "build"
-  DEPLOY_STAGE: "deploy"
-
-  
 stages:
-  - ${BUILD_STAGE}   
-  - ${DEPLOY_STAGE}  
+  - build   
+  - deploy  
 
 include:
   # Production Build
   - project: 'devops/ci-templates'
     file: '/docker/build-and-push.yml'
     inputs:
-      <<: *nexus-settings
-      namespace: "wellness"
+      <<: *common-build
       image_name: "wn-front"
-      image_tag: "${IMAGE_TAG}"
-      stage_name: "${BUILD_STAGE}"
 
   # Production Deploy
   - project: 'devops/ci-templates'
     file: '/deploy/ssh-deploy.yml'
     inputs:
-      <<: *nexus-settings
-      ssh_port: *ssh-port  # References YAML anchor directly - preserves number type
-      environment: "production"
+      <<: [*common-deploy, *production]
       deploy_command: "/home/production/server_deploy/repos/wellness/deploy-front.sh"
-      image_to_deploy: "${NEXUS_URL}/${NEXUS_REPO}/wellness/wn-front:${IMAGE_TAG}"
-      stage_name: "${DEPLOY_STAGE}"
+      image_to_deploy: "artifacts.repo.mesal.ir/docker-hosted/wellness/wn-front:latest"
       needs_job: "build-for-production"
 
   # Development Build
   - project: 'devops/ci-templates'
     file: '/docker/build-and-push.yml'
     inputs:
-      <<: *nexus-settings
+      <<: *common-build
       environment: "development"
-      namespace: "wellness"
       image_name: "wn-dev-front"
-      image_tag: "${IMAGE_TAG}"
-      stage_name: "${BUILD_STAGE}"
       build_args: '--build-arg MODE=development'
       trigger_type: "manual"
 
@@ -66,11 +65,8 @@ include:
   - project: 'devops/ci-templates'
     file: '/deploy/ssh-deploy.yml'
     inputs:
-      <<: *nexus-settings
-      ssh_port: *ssh-port  # References YAML anchor directly - preserves number type
-      environment: "development"
+      <<: [*common-deploy, *development]
       deploy_command: "/home/production/server_deploy/repos/wellness-dev/deploy-front.sh"
-      image_to_deploy: "${NEXUS_URL}/${NEXUS_REPO}/wellness/wn-dev-front:${IMAGE_TAG}"
-      stage_name: "${DEPLOY_STAGE}"
+      image_to_deploy: "artifacts.repo.mesal.ir/docker-hosted/wellness/wn-dev-front:latest"
       trigger_type: "auto"
       needs_job: "build-for-development"
