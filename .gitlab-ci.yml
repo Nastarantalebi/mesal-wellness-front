@@ -1,41 +1,70 @@
+variables:
+  NEXUS_URL: "artifacts.repo.mesal.ir"
+  NEXUS_REPO: "docker-hosted"
+  SSH_PORT: "2223"
+  IMAGE_TAG: "latest"
+  BUILD_STAGE: "build"
+  DEPLOY_STAGE: "deploy"
+
 workflow:
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
       when: always
-    
     - if: '$CI_COMMIT_MESSAGE =~ /\[deploy\]/i'
       when: always
-    
     - if: '$CI_PIPELINE_SOURCE == "web"'
       when: always
-    
     - when: never
 
 stages:
-  - build
-  - deploy-prod    
-
+  - ${BUILD_STAGE}   
+  - ${DEPLOY_STAGE}  
 
 include:
+  # Production Build
   - project: 'devops/ci-templates'
     file: '/docker/build-and-push.yml'
     inputs:
       namespace: "wellness"
       image_name: "wn-front"
-      nexus_url: "artifacts.repo.mesal.ir"
-      nexus_repo: "docker-hosted"
-      image_tag: "latest"
-      stage_name: "build"
-       
-  
+      nexus_url: "${NEXUS_URL}"
+      nexus_repo: "${NEXUS_REPO}"
+      image_tag: "${IMAGE_TAG}"
+      stage_name: "${BUILD_STAGE}"
+
+  # Production Deploy
   - project: 'devops/ci-templates'
     file: '/deploy/ssh-deploy.yml'
     inputs:
       environment: "production"
-      ssh_port: 2223
+      ssh_port: "${SSH_PORT}"
       deploy_command: "/home/production/server_deploy/repos/wellness/deploy-front.sh"
-      image_to_deploy: "artifacts.repo.mesal.ir/docker-hosted/wellness/wn-front:latest"
-      stage_name: "deploy-prod"
+      image_to_deploy: "${NEXUS_URL}/${NEXUS_REPO}/wellness/wn-front:${IMAGE_TAG}"
+      stage_name: "${DEPLOY_STAGE}"
+      needs_job: "build-for-production"
 
+  # Development Build
+  - project: 'devops/ci-templates'
+    file: '/docker/build-and-push.yml'
+    inputs:
+      environment: "development"
+      namespace: "wellness"
+      image_name: "wn-dev-front"
+      nexus_url: "${NEXUS_URL}"
+      nexus_repo: "${NEXUS_REPO}"
+      image_tag: "${IMAGE_TAG}"
+      stage_name: "${BUILD_STAGE}"
+      build_args: '--build-arg MODE=development'
+      trigger_type: "manual"
 
-
+  # Development Deploy
+  - project: 'devops/ci-templates'
+    file: '/deploy/ssh-deploy.yml'
+    inputs:
+      environment: "development"
+      ssh_port: "${SSH_PORT}"
+      deploy_command: "/home/production/server_deploy/repos/wellness-dev/deploy-front.sh"
+      image_to_deploy: "${NEXUS_URL}/${NEXUS_REPO}/wellness/wn-dev-front:${IMAGE_TAG}"
+      stage_name: "${DEPLOY_STAGE}"
+      trigger_type: "auto"
+      needs_job: "build-for-development"
