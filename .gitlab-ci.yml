@@ -24,16 +24,15 @@ include:
       target_image: "${IMAGE_BASE}/wn-front:latest"
       stage_name: "build"
 
-  # Production Deploy
+  # Production Deploy 
   - project: 'devops/ci-templates'
     file: '/deploy/ssh-deploy.yml'
     inputs:
       environment: "production"
-      ssh_port: 2223
-      deploy_command: "/home/production/server_deploy/repos/wellness/deploy-front.sh"
-      image_to_deploy: "${IMAGE_BASE}/wn-front:latest"
+      deploy_script: "deploy/production.sh"  
+      image_to_deploy: "$IMAGE_BASE/wn-front:latest"
       stage_name: "deploy"
-      needs_job: "build-for-production"
+      needs_jobs: ["build-for-production"]
 
   # Development Build
   - project: 'devops/ci-templates'
@@ -45,14 +44,13 @@ include:
       build_args: '--build-arg MODE=development'
       trigger_type: "manual"
 
-  # Development Deploy
+  # Development Deploy 
   - project: 'devops/ci-templates'
     file: '/deploy/ssh-deploy.yml'
     inputs:
       environment: "development"
-      ssh_port: 2223
-      deploy_command: "/home/production/server_deploy/repos/wellness-dev/deploy-front.sh"
-      image_to_deploy: "${IMAGE_BASE}/wn-dev-front:latest"
+      deploy_script: "deploy/development.sh"  
+      image_to_deploy: "$IMAGE_BASE/wn-dev-front:latest"
       stage_name: "deploy"
       trigger_type: "auto"
-      needs_job: "build-for-development"
+      needs_jobs: ["build-for-development"]
