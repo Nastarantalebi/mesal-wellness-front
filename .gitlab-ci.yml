@@ -1,44 +1,56 @@
+variables:
+  IMAGE_BASE: "artifacts.repo.mesal.ir/docker-hosted/wellness"
+
 workflow:
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
       when: always
-    
     - if: '$CI_COMMIT_MESSAGE =~ /\[deploy\]/i'
       when: always
-    
     - if: '$CI_PIPELINE_SOURCE == "web"'
       when: always
-    
     - when: never
 
 stages:
-  - build
-  - deploy-prod    
-
+  - build   
+  - deploy  
 
 include:
-  # Build stage
+  # Production Build
   - project: 'devops/ci-templates'
     file: '/docker/build-and-push.yml'
     inputs:
-      namespace: "wellness"
-      image_name: "wn-front"
-      nexus_url: "artifacts.repo.mesal.ir"
-      nexus_repo: "docker-hosted"
-      image_tag: "latest"
+      environment: "production"
+      target_image: "${IMAGE_BASE}/wn-front:latest"
       stage_name: "build"
-      trigger_type: "manual"
-       
-  
-  # Deploy to Production
+
+  # Production Deploy 
   - project: 'devops/ci-templates'
     file: '/deploy/ssh-deploy.yml'
     inputs:
       environment: "production"
-      ssh_port: 2223
-      deploy_command: "/home/production/server_deploy/repos/wellness/deploy-front.sh"
-      image_to_deploy: "artifacts.repo.mesal.ir/docker-hosted/wellness/wn-front:latest"
-      stage_name: "deploy-prod"
+      deploy_script: "deploy/production.sh"  
+      image_to_deploy: "$IMAGE_BASE/wn-front:latest"
+      stage_name: "deploy"
+      needs_jobs: ["build-for-production"]
 
+  # Development Build
+  - project: 'devops/ci-templates'
+    file: '/docker/build-and-push.yml'
+    inputs:
+      environment: "development"
+      target_image: "${IMAGE_BASE}/wn-dev-front:latest"
+      stage_name: "build"
+      build_args: '--build-arg MODE=development'
+      trigger_type: "manual"
 
-
+  # Development Deploy 
+  - project: 'devops/ci-templates'
+    file: '/deploy/ssh-deploy.yml'
+    inputs:
+      environment: "development"
+      deploy_script: "deploy/development.sh"  
+      image_to_deploy: "$IMAGE_BASE/wn-dev-front:latest"
+      stage_name: "deploy"
+      trigger_type: "auto"
+      needs_jobs: ["build-for-development"]
