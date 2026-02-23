@@ -16,5 +16,5 @@ function generateHalfHourTimes(start: string, end: string): TOption[] {
 
   return times;
 }
-export const start_time: TOption[] = generateHalfHourTimes("08:00", "21:30");
-export const end_time: TOption[] = generateHalfHourTimes("08:30", "22:00");
+export const start_time: TOption[] = generateHalfHourTimes("08:00", "22:00");
+export const end_time: TOption[] = generateHalfHourTimes("08:30", "22:30");
