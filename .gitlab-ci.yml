@@ -12,7 +12,8 @@ workflow:
     - when: never
 
 stages:
-  - build   
+  - build
+  - security-scan   
   - deploy  
 
 include:
@@ -24,6 +25,16 @@ include:
       target_image: "${IMAGE_BASE}/wn-front:latest"
       stage_name: "build"
 
+
+  # Production Security Scan
+  - project: 'devops/ci-templates'
+    file: '/security/security-scan.yml'
+    inputs:
+      target_image: "${IMAGE_BASE}/wn-front:latest"
+      stage_name: "security-scan"
+      db_repository: "artifacts.repo.mesal.ir/docker-proxy/aquasec/trivy-db:latest"
+
+
   # Production Deploy 
   - project: 'devops/ci-templates'
     file: '/deploy/ssh-deploy.yml'
@@ -34,6 +45,10 @@ include:
       stage_name: "deploy"
       needs_jobs: ["build-for-production"]
 
+
+
+
+
   # Development Build
   - project: 'devops/ci-templates'
     file: '/docker/build-and-push.yml'
@@ -43,6 +58,17 @@ include:
       stage_name: "build"
       build_args: '--build-arg MODE=development'
       trigger_type: "manual"
+
+
+  # Development Security Scan
+  - project: 'devops/ci-templates'
+    file: '/security/security-scan.yml'
+    inputs:
+      environment: "development"
+      target_image: "${IMAGE_BASE}/wn-dev-front:latest"
+      stage_name: "security-scan"
+      db_repository: "artifacts.repo.mesal.ir/docker-proxy/aquasec/trivy-db:latest"
+
 
   # Development Deploy 
   - project: 'devops/ci-templates'
