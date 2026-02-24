@@ -32,10 +32,10 @@ const handleHttpError = (error: any) => {
           type: "error",
         });
       } else {
-        showToastify({
-          message: message || "لطفاً ابتدا وارد شوید.",
-          type: "error",
-        });
+        // showToastify({
+        //   message: message || "لطفاً ابتدا وارد شوید.",
+        //   type: "error",
+        // });
       }
       break;
     case 404:

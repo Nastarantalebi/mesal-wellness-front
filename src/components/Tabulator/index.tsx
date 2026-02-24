@@ -40,6 +40,7 @@ type CustomTableProps = {
   enableExport?: boolean;
   /** فعال‌سازی فیلتر */
   enableFilter?: boolean;
+  showActions?: boolean;
   isLoading?: boolean;
   customAddText?: string;
   addText?: string;
@@ -52,7 +53,7 @@ type CustomTableProps = {
   singleActionColumns?: SingleActionColumn[];
   customActions?: TableAction[];
   refetch?: (
-    options?: RefetchOptions | undefined
+    options?: RefetchOptions | undefined,
   ) => Promise<QueryObserverResult<any, Error>>;
 };
 
@@ -60,6 +61,7 @@ function CustomTable({
   title = "جدول اطلاعات",
   columns,
   refetch,
+  showActions = true,
   data,
   paginationSize = 10,
   addText = "افزودن جدید",
@@ -95,7 +97,7 @@ function CustomTable({
           headerSort: false,
           print: false,
           resizable: false,
-          visible: !!data,
+          visible: !!data && showActions,
           hozAlign: "center",
           vertAlign: "middle",
           headerHozAlign: "center",
@@ -113,7 +115,7 @@ function CustomTable({
                 onEdit={onEdit}
                 onVisit={onVisit}
                 rowData={rowData}
-              />
+              />,
             );
             return container;
           },

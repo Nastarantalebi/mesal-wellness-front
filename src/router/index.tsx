@@ -34,6 +34,7 @@ import Tickets from "@/features/tickets/_components/Tickets";
 import UserNotFound from "@/features/_components/UserNotFound";
 import UserOrganizations from "@/features/_components/UserOrganizations";
 import RouteGuard from "./RouteGaurd";
+import SmsLogs from "@/features/sms-logs/_components/SmsLogs";
 
 function Router() {
   const routes = [
@@ -154,6 +155,10 @@ function Router() {
         {
           path: "/menus",
           element: <Menus />,
+        },
+        {
+          path: "/sms-logs",
+          element: <SmsLogs />,
         },
         {
           path: "/tickets",

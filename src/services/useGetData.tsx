@@ -29,7 +29,7 @@ function useGetData<T>({
   support = false,
   gcTime,
   refetchOnMount,
-  retry,
+  retry = false,
   staleTime,
 }: TGetData) {
   const { search } = useLocation();
