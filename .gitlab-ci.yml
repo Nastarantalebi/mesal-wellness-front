@@ -80,3 +80,6 @@ include:
       stage_name: "deploy"
       trigger_type: "auto"
       needs_jobs: ["build-for-development"]
+
+trivy-scan-for-development:
+  needs: ["build-for-development"]
