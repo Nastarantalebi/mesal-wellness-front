@@ -4,14 +4,21 @@ import CustomTable from "@/components/Tabulator";
 import { useState } from "react";
 import Modal from "@/components/Headless/Dialog/Modal";
 import SmsDetails from "./SmsDetails";
+import useGetById from "@/services/useGetById";
+import type { TDataSmsLogs } from "../_types/types";
 
 const SmsLogs = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState<number | null>(null);
   const { data, refetch, isFetching } = useGetData<any>({
     queryKey: queryKey,
     url: url,
   });
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedRecord, setSelectedRecord] = useState<number | null>(null);
+  const { data: dataById } = useGetById<TDataSmsLogs>({
+    queryKey,
+    url,
+    id: selectedRecord,
+  });
 
   return (
     <div>
@@ -33,7 +40,7 @@ const SmsLogs = () => {
         size="lg"
         cancelBtn={false}
         title="جزییات پیامک ارسال شده">
-        <SmsDetails id={selectedRecord} />
+        {dataById && <SmsDetails data={dataById?.data} />}
       </Modal>
     </div>
   );
