@@ -44,7 +44,7 @@ function UserOrganizations() {
     url: "basics/auth/user/",
     onSuccess: async () => {
       await fetchUserData();
-      navigate("/");
+      navigate("/dashboard");
     },
   });
   if (!auth) {

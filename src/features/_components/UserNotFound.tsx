@@ -21,7 +21,7 @@ function UserNotFound() {
     }
   };
   const userData = useAuthStore((s) => s.userData);
-  if (userData) return <Navigate to="/" replace />;
+  if (userData) return <Navigate to="/dashboard" replace />;
   return (
     <div>
       <div className="container grid lg:h-screen grid-cols-12 lg:max-w-[1550px] 2xl:max-w-[1750px] py-10 px-5 sm:py-14 sm:px-10 md:px-36 lg:py-0 lg:ps-14 lg:pe-12 xl:px-24">

@@ -21,7 +21,7 @@ function Login() {
         if (res.status !== 200) return;
         // اگر سازمان داریم مستقیم برو
         if (organizationId) {
-          navigate("/", { replace: true });
+          navigate("/dashboard", { replace: true });
           return;
         }
         // وگرنه احراز هویت کامل

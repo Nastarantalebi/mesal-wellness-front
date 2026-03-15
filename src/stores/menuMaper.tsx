@@ -39,7 +39,7 @@ export const menuContainer = (menus: TBackendMenu[]) => {
   const menu: TMenu[] = [
     {
       icon: "LayoutDashboard",
-      pathname: "/",
+      pathname: "/dashboard",
       label: "داشبورد",
     },
     ...mapBackendMenuToMenu(menus ?? []),

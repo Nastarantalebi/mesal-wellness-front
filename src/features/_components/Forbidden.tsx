@@ -24,7 +24,7 @@ const Forbidden = () => {
         </p>
 
         <Link
-          to="/"
+          to="/dashboard"
           className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-800 text-white hover:bg-slate-700 transition">
           بازگشت به خانه
         </Link>

@@ -35,11 +35,11 @@ import UserNotFound from "@/features/_components/UserNotFound";
 import UserOrganizations from "@/features/_components/UserOrganizations";
 import RouteGuard from "./RouteGaurd";
 import SmsLogs from "@/features/sms-logs/_components/SmsLogs";
+import LandingPage from "@/components/landing/_components/LandingPage";
 
 function Router() {
   const routes = [
     {
-      path: "/",
       element: (
         <ProtectedRoutes>
           <RouteGuard>
@@ -49,7 +49,7 @@ function Router() {
       ),
       children: [
         {
-          path: "/",
+          path: "/dashboard",
           element: <Dashboard />,
         },
         {
@@ -169,6 +169,10 @@ function Router() {
           element: <Tickets />,
         },
       ],
+    },
+    {
+      path: "/",
+      element: <LandingPage />,
     },
     {
       path: "login",

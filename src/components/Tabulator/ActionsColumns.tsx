@@ -23,7 +23,7 @@ const ActionsColumns = ({
 
   return (
     <>
-      <div className="flex justify-center items-center gap-1 mehran">
+      <div className="flex justify-center items-center gap-1">
         {customActions?.map((action, i) => (
           <Button
             key={i}

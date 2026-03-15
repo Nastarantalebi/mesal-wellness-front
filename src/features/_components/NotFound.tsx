@@ -15,7 +15,7 @@ const NotFound = () => {
         شده است.
       </p>
       <button
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/dashboard")}
         className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition-colors">
         بازگشت به صفحه اصلی
       </button>
