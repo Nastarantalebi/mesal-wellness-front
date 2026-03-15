@@ -1,12 +1,12 @@
+import Button from "@/components/Button";
+import { Link } from "react-router-dom";
+
 const LandingPage = () => {
   return (
-    <div>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor vitae
-      doloribus, nam, repellat at ullam dolorum animi hic inventore incidunt
-      placeat! Totam assumenda pariatur dignissimos obcaecati, velit veritatis
-      incidunt labore blanditiis repudiandae culpa. Maxime, magni? Eos mollitia
-      nemo, dolores fugiat voluptates modi ipsa saepe esse laboriosam cum
-      obcaecati iusto harum!
+    <div className="flex items-center justify-center">
+      <Button variant="instagram">
+        <Link to="/dashboard">ورود</Link>
+      </Button>
     </div>
   );
 };
