@@ -20,7 +20,6 @@ function removeTrailingSlash(path: string): string {
 export function isAllowedByException(pathname: string) {
   const cleanPath = removeTrailingSlash(pathname);
   if (cleanPath === "/profile") return true;
-  if (cleanPath === "/") return true;
   if (cleanPath === "/dashboard") return true;
   if (cleanPath === "/tickets") return true;
   if (/^\/tickets\/\d+$/.test(cleanPath)) return true;
