@@ -5,42 +5,42 @@ export const dataLanding: TLandingData = {
     name: "قابلیت‌ها",
     data: [
       {
-        src:"../public/Landing/schedule.svg",
+        src:"/public/Landing/schedule.svg",
         title: "نوبت دهی هوشمند",
-        description: "رزرو بدون تداخل براساس تقویم آزاد <<متخصص>> ، <<مکان>>",
+        description: "رزرو بدون تداخل براساس تقویم آزاد <متخصص> ، <مکان>",
       },
       {
-        src: "../public/Landing/meeting_room.svg",
+        src: "/public/Landing/meeting_room.svg",
         title: "مدیریت تیم",
         description: "پنل اختصاصی برای هرمتخصص و تعیین سطوح دسترسی اپراتور و کاربران ",
       },
       {
-        src: "../public/Landing/connected_people.svg",
+        src: "/public/Landing/connected_people.svg",
         title: "باشگاه مشتریان هوشمند",
         description: "ثبت مشخصات مشتریان ، جستجوی سریع و پروفایل اختصاصی مشتری ",
       },
       {
-        src: "../public/Landing/accounting.svg",
+        src: "/public/Landing/accounting.svg",
         title: "حسابداری و فاکتور",
         description: "صدور آنی فاکتور و گزارش های دقیق مالی ( روزانه و دوره ای) ",
       },
       {
-        src: "../public/Landing/messaging.svg",
+        src: "/public/Landing/messaging.svg",
         title: "سامانه پیامکی",
         description: "اطلاع رسانی لحظه ای  به مشتری و متخصص جهت تایید نوبت هماهنگی و یادآوری، با قابلیت پیگیری وضعیت ارسال",
       },
       {
-        src: "../public/Landing/time_to_pay.svg",
+        src: "/public/Landing/time_to_pay.svg",
         title: "مدیریت قرارداد ها و تخفیف ها",
         description: "ثبت شرکت های طرف قرارداد، درصدهای تخفیف و شرایط قراردادی",
       },
       {
-        src: "../public/Landing/business_report.svg",
+        src: "/public/Landing/business_report.svg",
         title: "داشبورد گزارش گیری پویا ",
         description: "دفتر نوبت روزانه گزارش های تحلیلی ( روزانه ، بازه ای ، متخصص ، اتاق) و ماژول های مدیریتی و نظارتی",
       },
       {
-        src: "../public/Landing/omnichannel.svg",
+        src: "/public/Landing/omnichannel.svg",
         title: "مدیریت شعب",
         description: "امکان معرفی شعبات مختلف و منتصب کردن متخصصان ومکان ها به آنها",
       },

@@ -11,7 +11,7 @@ const LandingPage = () => {
         <header className="flex items-center justify-between w-full">
           <div className="flex items-center justify-center flex-col">
             <img
-              src="../public/Landing/trust.svg"
+              src="/public/Landing/trust.svg"
               alt="scales"
               className="w-12.5 h-12.5"
             />
@@ -42,7 +42,7 @@ const LandingPage = () => {
         <div className="flex flex-row items-center gap-5 mt-5">
           <div className="flex flex-col items-center justify-center">
             <img
-              src="../public/landing/trust.svg"
+              src="/public/landing/trust.svg"
               alt="scales"
               className="w-12.5 h-12.5"
             />
