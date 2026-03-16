@@ -99,7 +99,7 @@ const ItemRowFields = ({
                 hasError={!!errorField?.[index]?.date}
                 field={field}
                 placeholder="تاریخ نوبت"
-                min={new DateObject().subtract(10, "days")}
+                min={new DateObject().subtract(20, "days")}
               />
             )}
           />
