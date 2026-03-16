@@ -7,7 +7,7 @@ const LandingHero = () => {
       <figure className="flex items-center justify-center w-full">
         <img
           className="rounded-4xl xl:max-w-[500px] lg:max-w-[450px] md:max-w-[400px] xl:min-w-[500px] lg:min-w-[450px] md:min-w-[400px] w-full"
-          src="/public/women in hair salon-pana.svg"
+          src="/women in hair salon-pana.svg"
           alt="image of wellness website dashboard"
         />
       </figure>
