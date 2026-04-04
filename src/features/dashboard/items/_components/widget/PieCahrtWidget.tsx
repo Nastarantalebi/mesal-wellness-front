@@ -32,9 +32,10 @@ const PieChartWidget = ({ data }: Props) => {
           </h3>
 
           <div className="w-full h-[320px]">
-            <ResponsiveContainer>
-              <PieChart>
+            <ResponsiveContainer key={chartIndex}>
+              <PieChart key={chartIndex}>
                 <Pie
+                  key={chartIndex}
                   data={chart.data.values}
                   dataKey="value"
                   nameKey="label"
@@ -95,6 +96,7 @@ const PieChartWidget = ({ data }: Props) => {
                 </Pie>
 
                 <Tooltip
+                  key={chartIndex}
                   formatter={(value, _name, item) => {
                     const payload = item.payload as {
                       label: string;
@@ -106,6 +108,7 @@ const PieChartWidget = ({ data }: Props) => {
                 />
 
                 <Legend
+                  key={chartIndex}
                   verticalAlign="middle"
                   align="right"
                   layout="vertical"
