@@ -12,6 +12,7 @@ import { useAuthStore } from "@/features/auth/store/authStore";
 import useCreateData from "@/services/useCreateData";
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "../auth/_services/useLogout";
+import TitlePage from "./TitlePage";
 
 function UserOrganizations() {
   const auth = useAuthStore((s) => s.auth);
@@ -53,6 +54,7 @@ function UserOrganizations() {
   }
   return (
     <div className="my-10 flex w-full justify-center">
+      <TitlePage title="سازمان‌ها" />
       <div className="w-full max-w-[50rem] space-y-6">
         {/* header */}
         <div className="flex gap-4 flex-row items-center justify-between">

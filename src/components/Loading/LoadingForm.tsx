@@ -1,11 +1,13 @@
+import { useAuthStore } from "@/features/auth/store/authStore";
+
 type Props = {
   text?: string;
 };
 
-export default function LoadingForm({ text = "مرکز ماساژ آسمان" }: Props) {
+export default function LoadingForm({ text }: Props) {
+  const organization = useAuthStore((s) => s.userData?.organization);
   return (
     <div className="absolute inset-0 flex flex-col justify-center items-center w-full h-auto gap-4">
-      {/* حلقه آسمانی */}
       <div className="relative w-16 h-16">
         <div className="absolute inset-0 rounded-full border-4 border-primary border-t-transparent animate-spin"></div>
 
@@ -25,7 +27,7 @@ export default function LoadingForm({ text = "مرکز ماساژ آسمان" }:
 
       {/* نام برند */}
       <div className="text-primary font-semibold tracking-wide text-lg">
-        {text}
+        {organization?.title ?? text}
       </div>
     </div>
   );
