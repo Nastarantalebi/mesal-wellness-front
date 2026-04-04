@@ -172,6 +172,13 @@ function Topbar({
                     <span>پروفایل</span>
                   )}
                 </Menu.Item>
+                <Menu.Item
+                  onClick={() => {
+                    navigate("user-organizations");
+                  }}>
+                  <Lucide icon="Building" className="w-4 h-4 me-2" />
+                  سازمان‌های من
+                </Menu.Item>
                 {/* <Menu.Divider /> */}
                 {/* <Menu.Item
                   onClick={() => {
@@ -202,7 +209,9 @@ function Topbar({
                   <Lucide icon="ToggleLeft" className="w-4 h-4 me-2" />
                   تغییر حساب
                 </Menu.Item> */}
-                <Menu.Item onClick={() => setLogout(true)}>
+                <Menu.Item
+                  onClick={() => setLogout(true)}
+                  className="hover:text-red-600 transition">
                   <Lucide icon="Power" className="w-4 h-4 me-2" />
                   خروج
                 </Menu.Item>
