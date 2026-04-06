@@ -82,7 +82,7 @@ const TicketsMessages = ({
     <div
       onScroll={handleScroll}
       ref={containerRef}
-      className="flex-1 overflow-y-auto p-3 md:p-6 space-y-3 bg-gray-50 dark:bg-neutral-900 relative">
+      className="flex-1 overflow-y-auto p-1.5 md:p-3 space-y-3 bg-gray-50 dark:bg-neutral-900 relative">
       {isFetchingOldMessages && (
         <div className="flex justify-center items-center py-2 mt-4">
           <span className="animate-spin w-6 h-6 border-2 border-blue-500 rounded-full" />

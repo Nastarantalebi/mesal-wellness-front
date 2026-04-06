@@ -66,11 +66,13 @@ const DownloadImageTickets = ({ image, thumbnail, captions }: TProps) => {
             className="w-full m-auto flex items-center flex-col justify-center"
             onClick={(e) => e.stopPropagation()}>
             <img src={image} alt="image" className="w-fit h-fit object-cover" />
-            <p
-              className="w-fit px-2 py-1 rounded-md mt-1 bg-gray-700 overflow-y-auto max-h-28 text-white 
+            {captions && (
+              <p
+                className="w-fit px-2 py-1 rounded-md mt-1 bg-gray-700 overflow-y-auto max-h-28 text-white 
             [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              {captions}
-            </p>
+                {captions}
+              </p>
+            )}
           </div>
         </div>
       </Modal>

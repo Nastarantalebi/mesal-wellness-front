@@ -48,13 +48,13 @@ const TicketsInput = ({
   return (
     <div className="shrink-0 mb-11 lg:mb-1 dark:bg-neutral-900">
       {isOpen ? (
-        <div className="flex items-end bg-black/30 dark:bg-neutral-800 rounded-xl ">
+        <div className="flex items-end bg-black/30 dark:bg-neutral-800 rounded-xl md:ml-1.5">
           <button
             type="button"
             onClick={handleSend}
             disabled={isDisabled}
             className="bg-transparent mx-1 mb-3 active:scale-95 transition-transform border-none hover:bg-transparent hover:scale-105 my-1">
-            <SendHorizontalIcon className="text-blue-700 h-7 w-7 " />
+            <SendHorizontalIcon className="text-blue-700 h-6 w-6" />
           </button>
           <textarea
             dir="rtl"
@@ -65,7 +65,7 @@ const TicketsInput = ({
             }
             onKeyDown={handleKeyDown}
             placeholder="چیزی بنویسید..."
-            className="flex-1 resize-none max-h-32 overflow-y-auto pt-1 pr-1 bg-transparent transition-all placeholder-gray-700
+            className="!ring-0 max-h-12 flex-1 resize-none  overflow-y-auto pt-1 pr-1 bg-transparent transition-all placeholder-gray-700
            dark:placeholder-gray-400 outline-none dark:text-gray-100 rounded-xl scrollbar-none border-none"
             style={{ scrollbarWidth: "none" }}
           />

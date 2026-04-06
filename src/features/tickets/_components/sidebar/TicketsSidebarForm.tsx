@@ -25,6 +25,7 @@ const TicketsSidebarForm = ({ setNewList }: { setNewList: any }) => {
     <FormComponent<TReqList>
       size="small"
       form={form}
+      btnSubmitText="ایجاد تیکت"
       isSubmitting={isPending}
       formFields={fields}
       onSubmit={(values) => {

@@ -49,7 +49,7 @@ export default function UploadImageTickets({
   };
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   return (
-    <div className="space-y-3 p-4">
+    <div className="space-y-3 p-1.5">
       {/* پیش‌نمایش عکس */}
       {preview && (
         <Modal
@@ -59,7 +59,7 @@ export default function UploadImageTickets({
           size="lg"
           cancelBtn={false}>
           <div className="flex flex-col">
-            <div className="relative w-full mx-auto bg-gray-50 p-0.5 rounded-lg border">
+            <div className="relative w-full mx-auto bg-gray-50 p-1 rounded-lg border">
               <img
                 src={preview}
                 alt="پیش‌نمایش"
@@ -71,7 +71,7 @@ export default function UploadImageTickets({
                   type="button"
                   onClick={handleSend}
                   className="bg-transparent mx-1 mb-3 active:scale-95 transition-transform border-none hover:bg-transparent hover:scale-105 my-1">
-                  <SendHorizontalIcon className="text-white h-7 w-7 " />
+                  <SendHorizontalIcon className="text-white h-6 w-6" />
                 </button>
                 <textarea
                   ref={textareaRef}
@@ -85,7 +85,7 @@ export default function UploadImageTickets({
                   }
                   onKeyDown={handleKeyDown}
                   placeholder="چیزی بنویسید..."
-                  className="flex-1 resize-none max-h-32 text-white overflow-y-auto pt-1 pr-1 bg-transparent transition-all outline-none
+                  className="flex-1 !ring-0 resize-none max-h-10 text-white overflow-y-auto pt-1 pr-1 bg-transparent transition-all outline-none
                    dark:text-gray-100 rounded-xl scrollbar-none placeholder-gray-300 scrollbar-none border-none"
                   style={{ scrollbarWidth: "none" }} // Firefox
                 />
@@ -103,7 +103,7 @@ export default function UploadImageTickets({
            hover:scale:105 my-1 active:border-none active:outline-none"
           //@ts-ignore
           onClick={() => fileInputRef.current?.click()}>
-          <PaperclipIcon className=" text-gray-700 dark:text-white" />
+          <PaperclipIcon className=" text-gray-700 dark:text-white h-5 w-5" />
         </button>
 
         {/* Hidden File Input */}

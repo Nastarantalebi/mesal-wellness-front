@@ -170,7 +170,7 @@ const TicketsSidebar = ({
         <div className="flex flex-col gap-1 p-3 border-b dark:border-gray-700">
           <Button
             variant="outline-primary"
-            className="bg-transparent text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
+            className="bg-transparent !ring-0 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
             onClick={() => setNewList(!newList)}>
             <MessageCircle className="w-5 h-5" />
             <span className="mx-1">{newList ? "بستن" : "تیکت جدید"}</span>
