@@ -20,18 +20,22 @@ const DashboardItem = () => {
       ) : (
         <div className="grid grid-cols-12 gap-5">
           <StatisticsCard items={widgetData?.number} />
-          {widgetData?.pie_chart.map((data, index) => (
-            <PieCahrtWidget data={data} key={index} />
-          ))}
-          {widgetData?.line_chart.map((data, index) => (
-            <LineCahrtWidget data={data} key={index} />
-          ))}
-          {widgetData?.list?.map((item, index) => (
-            <CustomerTable listData={item} key={index} />
-          ))}
-          {widgetData?.table?.map((item, index) => (
-            <DailyBoard data={item} key={index} />
-          ))}
+          {widgetData?.pie_chart &&
+            widgetData?.pie_chart.map((data, index) => (
+              <PieCahrtWidget data={data} key={index} />
+            ))}
+          {widgetData?.line_chart &&
+            widgetData?.line_chart.map((data, index) => (
+              <LineCahrtWidget data={data} key={index} />
+            ))}
+          {widgetData?.list &&
+            widgetData?.list?.map((item, index) => (
+              <CustomerTable listData={item} key={index} />
+            ))}
+          {widgetData?.table &&
+            widgetData?.table?.map((item, index) => (
+              <DailyBoard data={item} key={index} />
+            ))}
         </div>
       )}
     </>
