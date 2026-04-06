@@ -13,6 +13,8 @@ type TInfiniteData = {
   enabled?: boolean;
   support?: boolean;
   staleTime?: number;
+  refetchIntervalInBackground?: boolean;
+  refetchInterval?: number;
 };
 
 async function fetchPages<T>(url: string): Promise<PagedResponse<T>> {
@@ -29,6 +31,8 @@ function useInfiniteData<T>({
   enabled = true,
   support = false,
   staleTime = 60000,
+  refetchIntervalInBackground,
+  refetchInterval,
 }: TInfiniteData) {
   return useInfiniteQuery<PagedResponse<T>>({
     queryKey: [queryKey, initialUrl],
@@ -41,6 +45,8 @@ function useInfiniteData<T>({
     initialPageParam: initialUrl,
     enabled,
     staleTime,
+    refetchInterval,
+    refetchIntervalInBackground,
   });
 }
 

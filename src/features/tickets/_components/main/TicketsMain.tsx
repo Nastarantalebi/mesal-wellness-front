@@ -1,15 +1,16 @@
 import { useState } from "react";
-import type { TChat, TResTicket } from "../_types/type";
+import type { TChat, TResTicket } from "../../_types/type";
 import useCreateData from "@/services/useCreateData";
-import { TICKETS_QUERY_KEY } from "../_fixtures/data";
-import type { TResList } from "../_types/type";
+import useInfiniteData from "@/services/useInfiniteData";
+import { TICKETS_QUERY_KEY } from "../../_fixtures/data";
+import type { TResList } from "../../_types/type";
 import TicketsInput from "./TicketsInput";
 import TicketsMessages from "./TicketsMessages";
-import useInfiniteData from "@/services/useInfiniteData";
+import { showToastify } from "@/components/Headless/Toast";
 
 type TProps = {
   selectedList: string | null;
-  selectedTicket?: TResList;
+  selectedTicket: TResList | null;
 };
 
 const TicketsMain = ({ selectedList, selectedTicket }: TProps) => {
@@ -24,15 +25,24 @@ const TicketsMain = ({ selectedList, selectedTicket }: TProps) => {
   const [localMessagesMap, setLocalMessagesMap] = useState<
     Record<string, TResTicket[]>
   >({});
-  const [message, setMessage] = useState("");
+  const [inputValue, setInputValue] = useState<TChat>({
+    message: "",
+    image: null,
+  });
+  const [preview, setPreview] = useState<string | null>(null);
   const [isWaitingResponse, setIsWaitingResponse] = useState(false);
 
+  const imageUrl = inputValue.image
+    ? URL.createObjectURL(inputValue.image)
+    : "";
   /** 🔹 دریافت پیام‌ها (pagination) */
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteData<TResTicket>({
       queryKey: [TICKETS_QUERY_KEY, selectedList],
-      initialUrl: `/tickets/${selectedList}/comments/?page=1`,
+      initialUrl: `/tickets/${selectedList}/comments/`,
       support: true,
+      refetchInterval: 15000,
+      refetchIntervalInBackground: true,
     });
 
   const serverMessages = data?.pages
@@ -46,16 +56,17 @@ const TicketsMain = ({ selectedList, selectedTicket }: TProps) => {
     showToast: false,
     support: true,
   });
-
   const handleSend = () => {
-    if (!message.trim()) return;
-
+    setPreview(null);
+    if (!inputValue.message.trim() && !inputValue.image) return;
     const tempId = Date.now().toString();
 
     const tempMessage: TResTicket = {
       id: Number(tempId),
-      message,
-      author_type: "admin",
+      message: inputValue.message,
+      image: imageUrl,
+      thumbnail: imageUrl,
+      author_type: "user",
       created_at: new Date().toISOString(),
     };
 
@@ -65,34 +76,69 @@ const TicketsMain = ({ selectedList, selectedTicket }: TProps) => {
       [selectedList]: [...(prev[selectedList] || []), tempMessage],
     }));
 
-    setMessage("");
+    setInputValue({ image: null, message: "" });
     setIsWaitingResponse(true);
-
-    mutate(
-      { message },
-      {
+    const hasFile = inputValue.image instanceof File;
+    if (hasFile) {
+      const currentInput = { ...inputValue };
+      const formData = new FormData();
+      Object.entries(inputValue).forEach(([key, value]) => {
+        if (value === undefined || value === null) return;
+        if (value instanceof File) {
+          formData.append(key, value);
+        } else {
+          formData.append(key, String(value));
+        }
+      });
+      mutate(formData as any, {
         onSuccess: (res) => {
           setLocalMessagesMap((prev) => ({
             ...prev,
             [selectedList]: (prev[selectedList] || []).map((m) =>
-              m.id === Number(tempId) ? res : m
+              m.id === Number(tempId) ? res : m,
             ),
           }));
           setIsWaitingResponse(false);
         },
         onError: () => {
+          showToastify({ message: "خطا در ارسال پیام", type: "error" });
+          setInputValue(currentInput);
           setLocalMessagesMap((prev) => ({
             ...prev,
-            [selectedList]: (prev[selectedList] || []).map((m) =>
-              m.id === Number(tempId)
-                ? { ...m, message: "❌ خطا در ارسال پیام" }
-                : m
+            [selectedList]: (prev[selectedList] || []).filter(
+              (m) => m.id !== Number(tempId),
             ),
           }));
           setIsWaitingResponse(false);
         },
-      }
-    );
+      });
+    } else {
+      mutate(
+        { message: inputValue.message, image: inputValue.image },
+        {
+          onSuccess: (res) => {
+            setLocalMessagesMap((prev) => ({
+              ...prev,
+              [selectedList]: (prev[selectedList] || []).map((m) =>
+                m.id === Number(tempId) ? res : m,
+              ),
+            }));
+            setIsWaitingResponse(false);
+          },
+          onError: (_err, req) => {
+            showToastify({ message: "خطا در ارسال پیام", type: "error" });
+            setInputValue(req);
+            setLocalMessagesMap((prev) => ({
+              ...prev,
+              [selectedList]: (prev[selectedList] || []).filter(
+                (m) => m.id !== Number(tempId),
+              ),
+            }));
+            setIsWaitingResponse(false);
+          },
+        },
+      );
+    }
   };
 
   /** 🔹 merge پیام‌های لوکال + سرور */
@@ -101,11 +147,10 @@ const TicketsMain = ({ selectedList, selectedTicket }: TProps) => {
     ...serverMessages.filter(
       (sMsg) =>
         !(localMessagesMap[selectedList] || []).some(
-          (lMsg) => lMsg.id === sMsg.id
-        )
+          (lMsg) => lMsg.id === sMsg.id,
+        ),
     ),
   ].sort((a, b) => a.created_at.localeCompare(b.created_at));
-
   const isOpen = selectedTicket?.status === "OPEN";
   const description = selectedTicket?.description;
 
@@ -119,11 +164,12 @@ const TicketsMain = ({ selectedList, selectedTicket }: TProps) => {
         isFetchingOldMessages={isFetchingNextPage}
         key={selectedList}
       />
-
       <TicketsInput
         isOpen={isOpen}
-        message={message}
-        setMessage={setMessage}
+        setPreview={setPreview}
+        preview={preview}
+        inputValue={inputValue}
+        setInputValue={setInputValue}
         handleSend={handleSend}
         isWaitingResponse={isWaitingResponse}
         isPending={isPending}

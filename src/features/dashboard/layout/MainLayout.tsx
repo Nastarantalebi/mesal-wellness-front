@@ -20,7 +20,7 @@ function MainLayout() {
           { "xl:ms-[275px]": !compactMenu },
           { "xl:ms-[91px]": compactMenu },
         ])}>
-        <div className="h-[81vh] p-1">
+        <div className="h-[85dvh]  bg-red-500">
           <Outlet />
         </div>
       </div>
