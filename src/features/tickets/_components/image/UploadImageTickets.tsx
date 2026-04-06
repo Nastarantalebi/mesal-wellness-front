@@ -56,9 +56,9 @@ export default function UploadImageTickets({
           open={!!preview}
           close={removePreview}
           title=""
-          size="xxl"
+          size="lg"
           cancelBtn={false}>
-          <div className="flex flex-col ">
+          <div className="flex flex-col">
             <div className="relative w-full mx-auto bg-gray-50 p-0.5 rounded-lg border">
               <img
                 src={preview}

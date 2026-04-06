@@ -14,6 +14,7 @@ type TProps = {
   variant_cancel?: Variant;
   variant_submit?: Variant;
   cancelBtn?: boolean;
+  showCloseIcon?: boolean;
 };
 export default function Modal({
   open,
@@ -23,6 +24,7 @@ export default function Modal({
   children,
   size = "md",
   cancelBtn = true,
+  showCloseIcon = true,
   onSubmit,
   submitText = "تایید",
   variant_submit = "outline-success",
@@ -34,9 +36,11 @@ export default function Modal({
         <Dialog.Panel>
           <div className="flex flex-row items-center justify-between px-1">
             <Dialog.Title>{title}</Dialog.Title>
-            <span onClick={close} className="p-2 cursor-pointer">
-              <XIcon size={16} />
-            </span>
+            {showCloseIcon && (
+              <span onClick={close} className="p-2 cursor-pointer">
+                <XIcon size={16} />
+              </span>
+            )}
           </div>
 
           <Dialog.Description>{children}</Dialog.Description>

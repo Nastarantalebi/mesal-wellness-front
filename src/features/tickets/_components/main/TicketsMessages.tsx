@@ -132,7 +132,7 @@ const TicketsMessages = ({
                           animation: `fadeInUp 0.25s ease ${index * 0.05}s both`,
                         }}>
                         <div
-                          className={`relative max-w-[85%] md:max-w-[50%]  rounded-2xl shadow-sm text-sm md:text-[15px]
+                          className={`relative max-w-[60%] md:max-w-[40%]  rounded-2xl shadow-sm text-sm md:text-[15px]
                    whitespace-pre-wrap break-words leading-relaxed ${
                      isUser
                        ? "bg-blue-600 text-white rounded-br-none"
@@ -146,7 +146,7 @@ const TicketsMessages = ({
                             />
                           )}
                           <div className="p-2">
-                            <span className="m-1">{message}</span>
+                            <span className="mt-1.5">{message}</span>
                             <div className="flex items-center justify-end gap-2 text-[11px] opacity-70">
                               {time && (
                                 <div
