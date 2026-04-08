@@ -15,12 +15,13 @@ export interface FormattedMenu extends TMenu {
 // Setup side menu
 const findActiveMenu = (subMenu: TMenu[], location: Location): boolean => {
   let match = false;
+  const customUrl = location.pathname.replace(/\/create$/, "");
   subMenu.forEach((item) => {
     if (
       ((location.forceActiveMenu !== undefined &&
         item.pathname === location.forceActiveMenu) ||
         (location.forceActiveMenu === undefined &&
-          item.pathname === location.pathname + location.search)) &&
+          item.pathname === customUrl + location.search)) &&
       !item.ignore
     ) {
       match = true;
@@ -32,6 +33,7 @@ const findActiveMenu = (subMenu: TMenu[], location: Location): boolean => {
 };
 const nestedMenu = (menu: TMenu[] | undefined, location: Location) => {
   const formattedMenu: Array<FormattedMenu | string> = [];
+  const customUrl = location.pathname.replace(/\/create$/, "");
   menu?.forEach((item) => {
     const menuItem: FormattedMenu = {
       ...item,
@@ -41,14 +43,14 @@ const nestedMenu = (menu: TMenu[] | undefined, location: Location) => {
       ((location.forceActiveMenu &&
         item.pathname === location.forceActiveMenu) ||
         (!location.forceActiveMenu &&
-          item.pathname === location.pathname + location.search) ||
+          item.pathname === customUrl + location.search) ||
         (item.subMenu && findActiveMenu(item.subMenu, location))) &&
       !item.ignore;
 
     if (item.subMenu) {
       menuItem.activeDropdown = findActiveMenu(item.subMenu, location);
       menuItem.subMenu = nestedMenu(item.subMenu, location).filter(
-        (i): i is FormattedMenu => typeof i !== "string"
+        (i): i is FormattedMenu => typeof i !== "string",
       );
     }
     formattedMenu.push(menuItem);
