@@ -7,9 +7,7 @@ import FacilitiesForm from "@/features/basics/facilities/_components/FacilitiesF
 import Resources from "@/features/basics/resources/_components/Resources";
 import ResourcesForm from "@/features/basics/resources/_components/ResourcesForm";
 import ResourceType from "@/features/basics/resourceType/_components/ResourcesType";
-import ResourceTypeForm from "@/features/basics/resourceType/_components/ResourcesTypeForm";
 import ServiceCategory from "@/features/basics/serviceCategory/_components/ServiceCategory";
-import ServiceCategoryForm from "@/features/basics/serviceCategory/_components/ServiceCategoryForm";
 import Services from "@/features/basics/services/_components/Services";
 import SevicesForm from "@/features/basics/services/_components/SevicesForm";
 import Therapists from "@/features/therapists/_components/Therapists";
@@ -22,9 +20,7 @@ import NotFound from "@/features/_components/NotFound";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Profile from "@/features/profile/_components/Profile";
 import Company from "@/features/basics/company/_components/Company";
-import CompanyForm from "@/features/basics/company/_components/CompanyForm";
 import Contract from "@/features/basics/contract/_components/Contract";
-import ContractForm from "@/features/basics/contract/_components/ContractForm";
 import Roles from "@/features/settings/roles/_components/Roles";
 import Menus from "@/features/settings/menus/_components/Menus";
 import Widgets from "@/features/settings/widgets/_components/Widgets";
@@ -61,10 +57,6 @@ function Router() {
           element: <ServiceCategory />,
         },
         {
-          path: "/service-category/create",
-          element: <ServiceCategoryForm />,
-        },
-        {
           path: "/services",
           element: <Services />,
         },
@@ -83,10 +75,6 @@ function Router() {
         {
           path: "/resource-type",
           element: <ResourceType />,
-        },
-        {
-          path: "/resource-type/create",
-          element: <ResourceTypeForm />,
         },
         {
           path: "/therapists",
@@ -117,17 +105,10 @@ function Router() {
           element: <Company />,
         },
         {
-          path: "/company/create",
-          element: <CompanyForm />,
-        },
-        {
           path: "/contract",
           element: <Contract />,
         },
-        {
-          path: "/contract/create",
-          element: <ContractForm />,
-        },
+
         {
           path: "/booking",
           element: <Booking />,

@@ -7,12 +7,12 @@ export const queryKey = "serviceCategoryQuerykey";
 
 export const schema = z.object({
   title: z.string().min(1, " "),
-  description: z.string(),
+  description: z.string().nullable(),
   is_active: booleanNullableSchema,
 });
 
 export const initialValue: TReqServiceCategory = {
   title: "",
   is_active: true,
-  description: "",
+  description: null,
 };
