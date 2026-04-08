@@ -33,6 +33,7 @@ function CustomersForm({ setOpenModal, selectedRecord }: TProps) {
   const form = useForm<TReqCustomers>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
+    mode: "onChange",
   });
   useEffect(() => {
     if (dataById) {

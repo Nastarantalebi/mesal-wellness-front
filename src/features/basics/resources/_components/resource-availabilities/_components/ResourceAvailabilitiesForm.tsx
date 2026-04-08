@@ -42,6 +42,7 @@ function ResourceAvailabilitiesForm({
   const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
+    mode: "onChange",
   });
   useEffect(() => {
     if (!id) {
@@ -74,7 +75,7 @@ function ResourceAvailabilitiesForm({
             onClick={() => {
               setShowForm(false);
             }}>
-          لغو
+            لغو
           </Button>
           <Button
             variant="primary"

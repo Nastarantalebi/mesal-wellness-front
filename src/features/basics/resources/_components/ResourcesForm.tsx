@@ -32,6 +32,7 @@ function ResourcesForm() {
   const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initialValue,
+    mode: "onChange",
   });
   useEffect(() => {
     if (dataById) {

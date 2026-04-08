@@ -33,6 +33,7 @@ function ResourceTypeForm() {
   const form = useForm<TReqResourceType>({
     resolver: zodResolver(schema),
     defaultValues: initialValue,
+    mode: "onChange",
   });
   useEffect(() => {
     if (dataById) {

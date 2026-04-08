@@ -48,6 +48,7 @@ function TherapistServiceForm({
   const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initialValue,
+    mode: "onChange",
   });
   const { fields } = useFormData(isEdit);
   useEffect(() => {
@@ -92,7 +93,7 @@ function TherapistServiceForm({
             onClick={() => {
               setShowForm(false);
             }}>
-           لغو
+            لغو
           </Button>
           <Button
             variant="primary"

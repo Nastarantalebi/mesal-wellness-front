@@ -33,6 +33,7 @@ function BookingForm() {
   const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
+    mode: "onChange",
   });
   useEffect(() => {
     if (dataById) {

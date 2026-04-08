@@ -14,6 +14,7 @@ function CalendarRange() {
   const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
+    mode: "onChange",
   });
   const [filters, setFilters] = useState<TRequest>(initialValues);
 

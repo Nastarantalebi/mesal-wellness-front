@@ -13,6 +13,7 @@ const PermissionsForm = ({ item }: { item: TPermissionItem }) => {
       title: item.label,
       is_global: item.is_global,
     },
+    mode: "onChange",
   });
 
   const { fields } = useFormData({});

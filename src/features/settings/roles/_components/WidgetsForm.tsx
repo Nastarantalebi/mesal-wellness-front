@@ -36,6 +36,7 @@ const WidgetsForm = ({ setOpenModal, id }: TProps) => {
       ...widgetInitailValues,
       id: id,
     },
+    mode: "onChange",
   });
   useEffect(() => {
     if (data?.data && Array.isArray(data.data)) {

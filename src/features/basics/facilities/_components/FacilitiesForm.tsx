@@ -33,6 +33,7 @@ function FacilitiesForm() {
   const form = useForm<TReqFacilities>({
     resolver: zodResolver(schema),
     defaultValues: initialValue,
+    mode: "onChange",
   });
   useEffect(() => {
     if (dataById) {

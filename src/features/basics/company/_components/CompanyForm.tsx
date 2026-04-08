@@ -33,6 +33,7 @@ function CompanyForm() {
   const form = useForm<TReqCompany>({
     resolver: zodResolver(schema),
     defaultValues: initialValue,
+    mode: "onChange",
   });
   useEffect(() => {
     if (dataById) {

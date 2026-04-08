@@ -29,9 +29,10 @@ const ChangeStatus = ({
     resolver: zodResolver(
       z.object({
         status: z.string(),
-      })
+      }),
     ),
     defaultValues: { status: "" },
+    mode: "onChange",
   });
   useEffect(() => {
     if (status) {

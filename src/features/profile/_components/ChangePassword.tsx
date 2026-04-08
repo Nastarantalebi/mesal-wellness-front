@@ -16,6 +16,7 @@ const ChangePasswordForm = () => {
   const form = useForm<TChangePass>({
     resolver: zodResolver(changePassValidationSchema),
     defaultValues: changePassInitialValue,
+    mode: "onChange",
   });
 
   const handleSubmitForm = (values: TChangePass) => {

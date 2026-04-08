@@ -34,6 +34,7 @@ const MenusForm = ({ setOpenModal, id }: TProps) => {
   const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initailValues,
+    mode: "onChange",
   });
   useEffect(() => {
     if (dataById) {

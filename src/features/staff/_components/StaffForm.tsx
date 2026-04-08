@@ -32,6 +32,7 @@ function StaffForm({ setOpenModal, id }: TProps) {
   const form = useForm<TRequest>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
+    mode: "onChange",
   });
   useEffect(() => {
     if (data) {

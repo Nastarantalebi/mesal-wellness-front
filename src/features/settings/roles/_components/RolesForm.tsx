@@ -34,6 +34,7 @@ const RolesForm = ({ setOpenModal, id }: TProps) => {
   const form = useForm<TRequest>({
     resolver: zodResolver(schema),
     defaultValues: initailValues,
+    mode: "onChange",
   });
   useEffect(() => {
     if (dataById) {

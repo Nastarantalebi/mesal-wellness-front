@@ -19,6 +19,7 @@ const TicketsSidebarForm = ({ setNewList }: { setNewList: any }) => {
   const form = useForm<TReqList>({
     resolver: zodResolver(ticketListvalidationSchema),
     defaultValues: ticketListInitialValues,
+    mode: "onChange",
   });
   const { fields } = useFormData();
   return (
