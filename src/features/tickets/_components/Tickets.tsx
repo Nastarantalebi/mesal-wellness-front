@@ -13,7 +13,7 @@ const Tickets = () => {
       {/* Header فقط در موبایل */}
       <header className="lg:hidden w-full h-12 bg-gray-100 dark:bg-neutral-800 flex items-center justify-between px-3 shadow-sm z-30">
         <span className="text-gray-800 dark:text-gray-100 font-medium">
-          تیکت
+          پشتیبانی
         </span>
         <button
           onClick={() => setMobileOpen(true)}

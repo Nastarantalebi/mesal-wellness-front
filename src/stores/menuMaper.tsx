@@ -46,7 +46,7 @@ export const menuContainer = (menus: TBackendMenu[]) => {
     {
       icon: "Headset",
       pathname: "/tickets",
-      label: "تیکت",
+      label: "پشتیبانی",
     },
   ];
 
