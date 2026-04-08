@@ -1,5 +1,6 @@
 import { Request, SupportRequest } from "@/libs/httpService";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useLocation } from "react-router-dom";
 interface PagedResponse<T> {
   count: number;
   next: string | null;
@@ -11,6 +12,7 @@ type TInfiniteData = {
   initialUrl: string;
   queryKey: string | string[];
   enabled?: boolean;
+  appendSearch?: boolean;
   support?: boolean;
   staleTime?: number;
   refetchIntervalInBackground?: boolean;
@@ -29,20 +31,30 @@ function useInfiniteData<T>({
   initialUrl,
   queryKey,
   enabled = true,
+  appendSearch = true,
   support = false,
   staleTime = 60000,
   refetchIntervalInBackground,
   refetchInterval,
 }: TInfiniteData) {
+  const { search } = useLocation();
+  const normalizedSearch = appendSearch
+    ? new URLSearchParams(search).toString() // ✅ normalize
+    : "";
+  const fullUrl = normalizedSearch
+    ? initialUrl.includes("?")
+      ? `${initialUrl}&${normalizedSearch}`
+      : `${initialUrl}?${normalizedSearch}`
+    : initialUrl;
   return useInfiniteQuery<PagedResponse<T>>({
-    queryKey: [queryKey, initialUrl],
+    queryKey: [queryKey, fullUrl],
     queryFn: ({ pageParam }) =>
       support
         ? getdataSupport<T>(pageParam as any)
         : fetchPages<T>(pageParam as any),
     getNextPageParam: (lastPage) => lastPage.next,
     getPreviousPageParam: (firstPage) => firstPage.previous,
-    initialPageParam: initialUrl,
+    initialPageParam: fullUrl,
     enabled,
     staleTime,
     refetchInterval,
