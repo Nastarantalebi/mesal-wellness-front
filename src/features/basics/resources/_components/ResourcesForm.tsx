@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import type { TDataById, TReqResources } from "../_types/types";
-import { useLocation, useNavigate } from "react-router-dom";
 import { schema, queryKey, url, initialValue } from "../_fixtures/data";
 import useCreateData from "@/services/useCreateData";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,11 +8,16 @@ import useGetById from "@/services/useGetById";
 import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
-
-function ResourcesForm() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const selectedRecord = location.state?.record.id;
+type TProps = {
+  setOpen: React.Dispatch<
+    React.SetStateAction<{
+      form: boolean;
+      availabilities: boolean;
+    }>
+  >;
+  id: number;
+};
+function ResourcesForm({ id, setOpen }: TProps) {
   const { fields } = useFormData();
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url: url,
@@ -22,12 +26,12 @@ function ResourcesForm() {
   const { mutate: update, isPending: isPendingUpdate } = useUpdateData({
     url: url,
     queryKey: queryKey,
-    id: selectedRecord,
+    id: id,
   });
   const { data: dataById } = useGetById<TDataById>({
-    queryKey: [queryKey, selectedRecord],
+    queryKey: [queryKey, String(id)],
     url: url,
-    id: selectedRecord,
+    id: id,
   });
   const form = useForm<any>({
     resolver: zodResolver(schema),
@@ -51,8 +55,10 @@ function ResourcesForm() {
       formFields={fields}
       isSubmitting={isPendingUpdate || isPendingCreate}
       onSubmit={(values) => {
-        const action = !!selectedRecord ? update : create;
-        action(values, { onSuccess: () => navigate("/resources") });
+        const action = !!id ? update : create;
+        action(values, {
+          onSuccess: () => setOpen({ availabilities: false, form: false }),
+        });
       }}
     />
   );

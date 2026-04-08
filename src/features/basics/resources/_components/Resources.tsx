@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import useGetData from "@/services/useGetData";
 import CustomTable from "@/components/Tabulator";
 import { queryKey, url } from "../_fixtures/data";
@@ -7,9 +6,9 @@ import { CalendarCheck } from "lucide-react";
 import { useState } from "react";
 import Modal from "@/components/Headless/Dialog/Modal";
 import ResourceAvailabilities from "./resource-availabilities/_components/ResourceAvailabilities";
+import ResourcesForm from "./ResourcesForm";
 
 function Resources() {
-  const navigate = useNavigate();
   const { data, isFetching, refetch } = useGetData<any>({
     queryKey: queryKey,
     url: url,
@@ -18,8 +17,17 @@ function Resources() {
     queryKey: queryKey,
     url: url,
   });
-  const [showModalRA, setShowModalRA] = useState<boolean>(false);
-  const [selectedRecord, setSelectedRecord] = useState<any>(null);
+  const [selectedRecord, setSelectedRecord] = useState<{
+    form: any;
+    availabilities: any;
+  }>({
+    availabilities: null,
+    form: null,
+  });
+  const [open, setOpen] = useState<{ form: boolean; availabilities: boolean }>({
+    availabilities: false,
+    form: false,
+  });
   return (
     <>
       <CustomTable
@@ -36,25 +44,45 @@ function Resources() {
             title: "زمانبندی",
             icon: <CalendarCheck className="w-4 h-4" />,
             onClick: (record) => {
-              setShowModalRA(true);
-              setSelectedRecord(record);
+              setOpen({ availabilities: true, form: false });
+              setSelectedRecord({ availabilities: record, form: null });
             },
           },
         ]}
-        onAdd={() => navigate("create")}
+        onAdd={() => {
+          setSelectedRecord({ availabilities: null, form: null });
+          setOpen({ availabilities: false, form: true });
+        }}
         onDelete={(record) => Delete(record.id)}
-        onEdit={(record) => navigate("create", { state: { record } })}
+        onEdit={(record) => {
+          setSelectedRecord({ availabilities: null, form: record });
+          setOpen({ availabilities: false, form: true });
+        }}
       />
       <Modal
-        title={`در دسترس بودن ${selectedRecord?.name}`}
-        open={showModalRA}
+        title={`در دسترس بودن ${selectedRecord.availabilities?.name}`}
+        open={open.availabilities}
         size="xxl"
         cancelBtn={false}
         close={() => {
-          setSelectedRecord(null);
-          setShowModalRA(false);
+          setSelectedRecord({ availabilities: null, form: null });
+          setOpen({ availabilities: false, form: false });
         }}>
-        <ResourceAvailabilities id={selectedRecord && selectedRecord.id} />
+        <ResourceAvailabilities
+          id={selectedRecord.availabilities && selectedRecord.availabilities.id}
+        />
+      </Modal>
+      <Modal
+        size="xxl"
+        cancelBtn={false}
+        close={() => setOpen({ availabilities: false, form: false })}
+        open={open.form}
+        title={
+          selectedRecord
+            ? `ویرایش ${selectedRecord.form?.name}`
+            : "افزودن مکان جدید"
+        }>
+        <ResourcesForm setOpen={setOpen} id={selectedRecord.form?.id} />
       </Modal>
     </>
   );

@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
 import { schema, queryKey, url, initialValue } from "../_fixtures/data";
 import useCreateData from "@/services/useCreateData";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,12 +8,12 @@ import { useEffect } from "react";
 import useGetById from "@/services/useGetById";
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
-
-function FacilitiesForm() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const selectedRecord = location.state?.record.id;
-  const isEdit = !!selectedRecord;
+type TProps = {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  id: number;
+};
+function FacilitiesForm({ id, setOpen }: TProps) {
+  const isEdit = !!id;
   const { fields } = useFormData(isEdit);
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url: url,
@@ -23,12 +22,12 @@ function FacilitiesForm() {
   const { mutate: update, isPending: isPendingUpdate } = useUpdateData({
     url: url,
     queryKey: queryKey,
-    id: selectedRecord,
+    id: id,
   });
   const { data: dataById } = useGetById<TDataById>({
-    id: selectedRecord,
+    id: id,
     url: url,
-    queryKey: [queryKey, selectedRecord],
+    queryKey: [queryKey, String(id)],
   });
   const form = useForm<TReqFacilities>({
     resolver: zodResolver(schema),
@@ -52,8 +51,8 @@ function FacilitiesForm() {
           ...values,
           is_active: values.is_active !== false,
         };
-        const action = !!selectedRecord ? update : create;
-        action(preparedData, { onSuccess: () => navigate("/facilities") });
+        const action = !!id ? update : create;
+        action(preparedData, { onSuccess: () => setOpen(false) });
       }}
       form={form}
       isSubmitting={isPendingUpdate || isPendingCreate}

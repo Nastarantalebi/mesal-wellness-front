@@ -3,13 +3,10 @@ import Customers from "@/features/customers/_components/Customers";
 import Dashboard from "@/features/dashboard/Dashboard";
 import Layout from "@/features/dashboard/layout";
 import Facilities from "@/features/basics/facilities/_components/Facilities";
-import FacilitiesForm from "@/features/basics/facilities/_components/FacilitiesForm";
 import Resources from "@/features/basics/resources/_components/Resources";
-import ResourcesForm from "@/features/basics/resources/_components/ResourcesForm";
 import ResourceType from "@/features/basics/resourceType/_components/ResourcesType";
 import ServiceCategory from "@/features/basics/serviceCategory/_components/ServiceCategory";
 import Services from "@/features/basics/services/_components/Services";
-import SevicesForm from "@/features/basics/services/_components/SevicesForm";
 import Therapists from "@/features/therapists/_components/Therapists";
 import TherapistsForm from "@/features/therapists/_components/TherapistsForm";
 import { useRoutes } from "react-router-dom";
@@ -61,16 +58,8 @@ function Router() {
           element: <Services />,
         },
         {
-          path: "/services/create",
-          element: <SevicesForm />,
-        },
-        {
           path: "/resources",
           element: <Resources />,
-        },
-        {
-          path: "/resources/create",
-          element: <ResourcesForm />,
         },
         {
           path: "/resource-type",
@@ -96,10 +85,7 @@ function Router() {
           path: "/facilities",
           element: <Facilities />,
         },
-        {
-          path: "/facilities/create",
-          element: <FacilitiesForm />,
-        },
+
         {
           path: "/company",
           element: <Company />,
