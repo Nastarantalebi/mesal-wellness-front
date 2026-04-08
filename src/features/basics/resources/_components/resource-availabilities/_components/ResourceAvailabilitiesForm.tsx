@@ -74,7 +74,7 @@ function ResourceAvailabilitiesForm({
             onClick={() => {
               setShowForm(false);
             }}>
-            بستن
+          لغو
           </Button>
           <Button
             variant="primary"

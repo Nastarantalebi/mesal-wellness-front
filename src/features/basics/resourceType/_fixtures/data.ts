@@ -8,7 +8,7 @@ export const queryKey = "resourceTypesQuerykey";
 export const schema = z.object({
   name: z.string().min(1, " "),
   code: z.string().nullable(),
-  description: z.string(),
+  description: z.string().nullable(),
   is_active: booleanNullableSchema,
   icon: z.string().nullable(),
   meta: z
@@ -24,7 +24,7 @@ export const schema = z.object({
 export const initialValue: TReqResourceType = {
   name: "",
   code: null,
-  description: "",
+  description: null,
   is_active: true,
   icon: null,
   meta: {

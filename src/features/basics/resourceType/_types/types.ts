@@ -4,7 +4,7 @@ export type TDataById = {
     code: string;
     name: string;
     icon: string;
-    description: string;
+    description: string | null;
     is_active: boolean;
     meta: {
       floor: number;
@@ -19,7 +19,7 @@ export type TReqResourceType = {
   code: string | null;
   name: string;
   icon: string | null;
-  description: string;
+  description: string | null;
   is_active: boolean | null | "true" | "false";
   meta?: {
     capacity: number;

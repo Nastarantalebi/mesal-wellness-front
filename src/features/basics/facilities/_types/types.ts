@@ -7,7 +7,7 @@ export type TDataById = {
     address: string;
     phone: string;
     manager_name: string;
-    description: string;
+    description: string | null;
     is_active: boolean;
     meta: {
       has_parking: boolean;
@@ -23,6 +23,6 @@ export type TReqFacilities = {
   address: string;
   phone: string;
   manager_name: string;
-  description: string;
+  description: string | null;
   is_active: boolean | null | "true" | "false";
 };

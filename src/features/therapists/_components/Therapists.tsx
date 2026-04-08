@@ -65,6 +65,7 @@ function Therapists() {
       <Modal
         title={`در دسترس بودن ${full_name}`}
         open={showModalTA}
+        cancelBtn={false}
         size="xxl"
         close={() => {
           setSelectedRecord(null);
@@ -75,6 +76,7 @@ function Therapists() {
       <Modal
         title={`  خدمات ماساژیست ${full_name}`}
         open={showModalTS}
+        cancelBtn={false}
         size="xxl"
         close={() => {
           setSelectedRecord(null);

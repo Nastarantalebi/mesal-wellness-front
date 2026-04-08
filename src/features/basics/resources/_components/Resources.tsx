@@ -49,6 +49,7 @@ function Resources() {
         title={`در دسترس بودن ${selectedRecord?.name}`}
         open={showModalRA}
         size="xxl"
+        cancelBtn={false}
         close={() => {
           setSelectedRecord(null);
           setShowModalRA(false);

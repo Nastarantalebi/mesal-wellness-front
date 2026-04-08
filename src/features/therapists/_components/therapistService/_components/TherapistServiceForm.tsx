@@ -9,11 +9,17 @@ import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
 import Button from "@/components/Button";
+import type {
+  QueryObserverResult,
+  RefetchOptions,
+} from "@tanstack/react-query";
 type TProps = {
   selectedRecord: any;
-  setShowForm: any;
-  therapistId: any;
-  refetch: any;
+  setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
+  therapistId: number;
+  refetch: (
+    options?: RefetchOptions | undefined,
+  ) => Promise<QueryObserverResult<any, Error>>;
 };
 function TherapistServiceForm({
   selectedRecord,
@@ -86,7 +92,7 @@ function TherapistServiceForm({
             onClick={() => {
               setShowForm(false);
             }}>
-            بستن
+           لغو
           </Button>
           <Button
             variant="primary"

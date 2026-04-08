@@ -91,7 +91,7 @@
 
 .tabulator .tabulator-row .tabulator-cell {
   border-inline-end: 0;
-  padding: theme("spacing.4") theme("spacing.5");
+  padding: theme("spacing.3") theme("spacing.4");
 }
 
 .tabulator .tabulator-row .tabulator-cell.tabulator-row-handle {
@@ -230,9 +230,9 @@
   justify-content: center;
   border-color: transparent;
   color: theme("colors.slate.700");
-  transition-property: color, background-color, border-color,
-    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
-    backdrop-filter;
+  transition-property:
+    color, background-color, border-color, text-decoration-color, fill, stroke,
+    opacity, box-shadow, transform, filter, backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 200ms;
   border-width: 1px;
