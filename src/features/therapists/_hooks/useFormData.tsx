@@ -53,11 +53,7 @@ const useFormData = () => {
       placeholder: "تاریخ استخدام",
       maxDate: new DateObject(),
     },
-    {
-      name: "bio",
-      label: "درباره",
-      placeholder: "درباره",
-    },
+
     {
       name: "facility_id",
       label: "محل ارائه خدمات",
@@ -74,7 +70,19 @@ const useFormData = () => {
       placeholder: "شماره مجوز",
       dir: "ltr",
     },
-
+    {
+      name: "commission_rate",
+      label: "درصد کمیسیون",
+      placeholder: "درصد کمیسیون",
+      inputType: "number",
+      min: 0,
+      max: 100,
+    },
+    {
+      name: "bio",
+      label: "درباره",
+      placeholder: "درباره",
+    },
     {
       name: "status",
       label: "وضعیت",

@@ -11,6 +11,7 @@ export type TReqTherapists = {
   license_number: string | null;
   hire_date: string | null;
   bio: string | null;
+  commission_rate: string | null;
 };
 type Therapist = {
   id: number;

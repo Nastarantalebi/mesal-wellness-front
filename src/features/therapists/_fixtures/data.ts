@@ -19,6 +19,7 @@ export const schema = z.object({
   license_number: z.string().nullable(),
   status: z.string().nullable(),
   specialties: z.array(z.string()),
+  commission_rate: z.string().nullable(),
   facility_id: z.coerce.number().min(1, " "),
 });
 
@@ -27,6 +28,7 @@ export const initialValues: TReqTherapists = {
   last_name: "",
   mobile: "",
   bio: null,
+  commission_rate: "0",
   gender: "",
   hire_date: null,
   national_code: null,
