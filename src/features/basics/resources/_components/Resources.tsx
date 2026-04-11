@@ -28,6 +28,7 @@ function Resources() {
     availabilities: false,
     form: false,
   });
+  console.log(selectedRecord);
   return (
     <>
       <CustomTable
@@ -78,7 +79,7 @@ function Resources() {
         close={() => setOpen({ availabilities: false, form: false })}
         open={open.form}
         title={
-          selectedRecord
+          selectedRecord.form
             ? `ویرایش ${selectedRecord.form?.name}`
             : "افزودن مکان جدید"
         }>
