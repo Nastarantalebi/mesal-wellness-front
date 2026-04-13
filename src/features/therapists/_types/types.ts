@@ -28,6 +28,7 @@ type Therapist = {
     national_code: string;
     gender: string;
   };
+  commission_rate: string | null;
   status: string;
   specialties: string[];
   license_number: string;

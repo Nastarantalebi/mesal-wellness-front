@@ -24,14 +24,13 @@ function Customers() {
     onSuccess: () => refetch(),
   });
   const [open, setOpen] = useState<{
-    form: boolean;
     view: boolean;
     booking: boolean;
   }>({
-    form: false,
     view: false,
     booking: false,
   });
+  const [openForm, setOpenForm] = useState<boolean>(false);
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
   const full_name = [
     selectedRecord?.first_name,
@@ -52,16 +51,16 @@ function Customers() {
         data={data?.data}
         dataPagination={data?.paginate}
         onAdd={() => {
-          setOpen({ form: true, view: false, booking: false });
+          setOpenForm(true);
           setSelectedRecord(null);
         }}
         onEdit={(record) => {
           setSelectedRecord(record);
-          setOpen({ form: true, view: false, booking: false });
+          setOpenForm(true);
         }}
         onVisit={(record) => {
           setSelectedRecord(record);
-          setOpen({ form: false, view: true, booking: false });
+          setOpen({ view: true, booking: false });
         }}
         singleActionColumns={[
           {
@@ -69,7 +68,7 @@ function Customers() {
             icon: <BookImageIcon className="w-4 h-4" />,
             title: "رزروها",
             onClick: (record) => {
-              setOpen({ form: false, view: false, booking: true });
+              setOpen({ view: false, booking: true });
               setSelectedRecord(record);
             },
           },
@@ -77,14 +76,14 @@ function Customers() {
         onDelete={(record) => Delete(record.id)}
       />
       <Modal
-        close={() => setOpen({ form: false, view: false, booking: false })}
-        open={open.form}
+        close={() => setOpenForm(false)}
+        open={openForm}
         size="xxl"
         cancelBtn={false}
         title={
           selectedRecord ? `ویرایش مشتری ${full_name}` : "افزودن مشتری جدید"
         }>
-        <CustomersForm setOpen={setOpen} selectedRecord={selectedRecord} />
+        <CustomersForm setOpen={setOpenForm} selectedRecord={selectedRecord} />
       </Modal>
       <Modal
         title={`آمار و جزییات ${full_name}`}
@@ -93,7 +92,7 @@ function Customers() {
         size="xxl"
         close={() => {
           setSelectedRecord(null);
-          setOpen({ form: false, view: false, booking: false });
+          setOpen({ view: false, booking: false });
         }}>
         <CustomersInfo id={selectedRecord && selectedRecord.id} />
       </Modal>
@@ -104,7 +103,7 @@ function Customers() {
         size="xxl"
         close={() => {
           setSelectedRecord(null);
-          setOpen({ form: false, view: false, booking: false });
+          setOpen({ view: false, booking: false });
         }}>
         <CustomerBooking id={selectedRecord && selectedRecord.id} />
       </Modal>

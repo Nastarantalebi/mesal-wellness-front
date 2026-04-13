@@ -9,13 +9,7 @@ import { useEffect } from "react";
 import useFormData from "../_hooks/useFormData";
 import FormComponent from "@/components/Form/Form";
 type TProps = {
-  setOpen: React.Dispatch<
-    React.SetStateAction<{
-      form: boolean;
-      view: boolean;
-      booking: boolean;
-    }>
-  >;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   selectedRecord?: TRecord | null;
 };
 function CustomersForm({ setOpen, selectedRecord }: TProps) {
@@ -59,7 +53,7 @@ function CustomersForm({ setOpen, selectedRecord }: TProps) {
         const action = id ? update : create;
         action(values, {
           onSuccess: () => {
-            setOpen({ form: false, view: false, booking: false });
+            setOpen(false);
           },
         });
       }}

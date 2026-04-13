@@ -195,7 +195,7 @@ const CustomerFields = ({
         title="افزودن شخص جدید"
         cancelBtn={false}
         size="xxl">
-        <CustomersForm setOpenModal={setOpenModal} />
+        <CustomersForm setOpen={setOpenModal} />
       </Modal>
     </>
   );
