@@ -9,10 +9,16 @@ import { useEffect } from "react";
 import useFormData from "../_hooks/useFormData";
 import FormComponent from "@/components/Form/Form";
 type TProps = {
-  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: React.Dispatch<
+    React.SetStateAction<{
+      form: boolean;
+      view: boolean;
+      booking: boolean;
+    }>
+  >;
   selectedRecord?: TRecord | null;
 };
-function CustomersForm({ setOpenModal, selectedRecord }: TProps) {
+function CustomersForm({ setOpen, selectedRecord }: TProps) {
   const id = selectedRecord?.id;
   const { fields } = useFormData();
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
@@ -53,7 +59,7 @@ function CustomersForm({ setOpenModal, selectedRecord }: TProps) {
         const action = id ? update : create;
         action(values, {
           onSuccess: () => {
-            setOpenModal(false);
+            setOpen({ form: false, view: false, booking: false });
           },
         });
       }}

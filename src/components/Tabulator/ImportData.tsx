@@ -116,40 +116,46 @@ const ImportData = ({ data, onImport, printTable, refetch, title }: TProps) => {
                         <option value="!=">!=</option>
                       </FormSelect>
                     </FormInline> */}
-        <FormInline className="flex-col items-start xl:flex-row xl:items-center gap-y-2 w-full">
-          <div className="relative w-full xl:w-auto flex-1">
-            <FormInput
-              id="tabulator-htms-filter-value"
-              value={filter.value}
-              onChange={(e) => setFilter({ ...filter, value: e.target.value })}
-              type="text"
-              className="pl-10 pr-3 w-full"
-              placeholder="جست‌وجو..."
-            />
-            {/* ایکون داخل input */}
-            <Button
-              type="button"
-              onClick={onFilter}
-              variant={`${
-                !filter.value ? "outline-secondary" : "outline-primary"
-              }`}
-              disabled={!filter.value}
-              className="absolute left-0 top-1/2 -translate-y-1/2 h-full px-2  flex items-center justify-center">
-              <SearchIcon className="w-5 h-5" />
-            </Button>
-          </div>
-        </FormInline>
+        {refetch && (
+          <FormInline className="flex-col items-start xl:flex-row xl:items-center gap-y-2 w-full">
+            <div className="relative w-full xl:w-auto flex-1">
+              <FormInput
+                id="tabulator-htms-filter-value"
+                value={filter.value}
+                onChange={(e) =>
+                  setFilter({ ...filter, value: e.target.value })
+                }
+                type="text"
+                className="pl-10 pr-3 w-full"
+                placeholder="جست‌وجو..."
+              />
+              {/* ایکون داخل input */}
+              <Button
+                type="button"
+                onClick={onFilter}
+                variant={`${
+                  !filter.value ? "outline-secondary" : "outline-primary"
+                }`}
+                disabled={!filter.value}
+                className="absolute left-0 top-1/2 -translate-y-1/2 h-full px-2  flex items-center justify-center">
+                <SearchIcon className="w-5 h-5" />
+              </Button>
+            </div>
+          </FormInline>
+        )}
       </form>
       <div className="flex items-center justify-end mt-3 flex-row gap-x-3 gap-y-2 xl:ms-auto xl:mt-0">
-        <Button
-          id="tabulator-htms-filter-reset"
-          variant="outline-secondary"
-          type="button"
-          className="w-fit md:w-auto bg-slate-50/50 flex items-center gap-1"
-          onClick={onResetFilter}>
-          <RotateCcwIcon className="w-5 h-5" />
-          <span className="hidden md:inline-block">تنظیم مجدد</span>
-        </Button>
+        {refetch && (
+          <Button
+            id="tabulator-htms-filter-reset"
+            variant="outline-secondary"
+            type="button"
+            className="w-fit md:w-auto bg-slate-50/50 flex items-center gap-1"
+            onClick={onResetFilter}>
+            <RotateCcwIcon className="w-5 h-5" />
+            <span className="hidden md:inline-block">تنظیم مجدد</span>
+          </Button>
+        )}
         <Button
           variant="outline-secondary"
           onClick={printTable}

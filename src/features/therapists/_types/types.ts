@@ -51,3 +51,13 @@ export type TCreateData = {
     genders: TOption[];
   };
 };
+export type TTherapistInfo = {
+  data: {
+    canceled_sessions: number;
+    completed_sessions: number;
+    total_minutes: number;
+    total_revenue: number;
+    total_sessions: number;
+    unique_customers: number;
+  };
+};

@@ -85,7 +85,7 @@ export default function ForgotPassword({ setForgotPass }: TProp) {
 
   const handleOtpKeyDown = (
     index: number,
-    e: React.KeyboardEvent<HTMLInputElement>
+    e: React.KeyboardEvent<HTMLInputElement>,
   ) => {
     if (e.key === "Backspace") {
       e.preventDefault();
@@ -115,7 +115,7 @@ export default function ForgotPassword({ setForgotPass }: TProp) {
           setForgotPass(false);
         },
         onError: () => setErrorMessage("کد وارد شده اشتباه است."),
-      }
+      },
     );
   };
   return (
@@ -139,8 +139,8 @@ export default function ForgotPassword({ setForgotPass }: TProp) {
       {sendCode && (
         <>
           {/* OTP Inputs */}
-          <FormLabel className="mt-4">کد تأیید</FormLabel>
-          <div className="flex gap-2 mt-2 justify-center flex-row-reverse">
+          <FormLabel className="mt-1">کد تأیید</FormLabel>
+          <div className="flex gap-2 mt-1 justify-center flex-row-reverse">
             {Array.from({ length: 6 }).map((_, idx) => (
               <FormInput
                 key={idx}
@@ -151,7 +151,7 @@ export default function ForgotPassword({ setForgotPass }: TProp) {
                 dir="ltr"
                 className={clsx(
                   "w-12 h-12 text-center rounded-lg border-slate-300/80 placeholder:!text-left",
-                  { "border-danger": !!form.formState.errors.otp }
+                  { "border-danger": !!form.formState.errors.otp },
                 )}
                 ref={(el) => {
                   inputRefs.current[idx] = el;
@@ -162,7 +162,7 @@ export default function ForgotPassword({ setForgotPass }: TProp) {
             ))}
           </div>
 
-          <div className="flex justify-center mt-2">
+          <div className="flex justify-center mt-1">
             {isExpired ? (
               <span
                 onClick={handleResendCode}

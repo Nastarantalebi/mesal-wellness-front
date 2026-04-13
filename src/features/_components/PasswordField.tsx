@@ -28,7 +28,7 @@ export default function PasswordField({
       control={control}
       name={name}
       render={({ field, fieldState }) => (
-        <div className="relative mb-2 mt-4">
+        <div className="relative">
           <FormLabel>{label}</FormLabel>
           <FormInput
             {...field}
@@ -37,9 +37,9 @@ export default function PasswordField({
             placeholder={placeholder}
             disabled={disabled}
             className={clsx(
-              "block w-full px-4 py-3.5 pr-10 rounded-[0.6rem] border-slate-300/80 placeholder:!text-left",
+              "block w-full px-4 py-3 pr-10 rounded-[0.6rem] border-slate-300/80 placeholder:!text-left",
               { "!border !border-danger": !!fieldState?.error?.message },
-              className
+              className,
             )}
           />
           <span
@@ -47,7 +47,7 @@ export default function PasswordField({
             className="absolute inset-y-0 right-3 flex items-center text-gray-500 cursor-pointer select-none">
             {show ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
           </span>
-          <div className="min-h-[20px] mt-2 text-danger text-sm">
+          <div className="min-h-[20px] mt-0.5 text-danger text-sm">
             {fieldState.error?.message}
           </div>
         </div>

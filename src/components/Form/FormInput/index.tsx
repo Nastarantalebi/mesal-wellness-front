@@ -109,7 +109,6 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
     money && value && !isNaN(Number(value))
       ? safeNumberToWords(Number(value))
       : "";
-
   return (
     <div
       className={clsx("flex flex-col w-full", {
@@ -138,7 +137,7 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
           className,
           {
             "!border !border-danger": hasError,
-          }
+          },
         )}
       />
 

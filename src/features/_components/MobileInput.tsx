@@ -33,39 +33,24 @@ export default function MobileInput({
             <FormInput
               autoFocus={true}
               {...field}
-              type="tel"
+              type="number"
               inputMode="numeric"
               dir="ltr"
               maxLength={maxLength}
               placeholder={placeholder}
               className={clsx(
-                "block w-full px-4 py-3.5 rounded-[0.6rem] border-slate-300/80 pl-10 placeholder:!text-left",
+                "block w-full px-4 py-3 rounded-[0.6rem] border-slate-300/80 pl-10 placeholder:!text-left",
                 className,
                 { "!border-danger": !!fieldState?.error?.message },
               )}
               disabled={disabled}
-              onKeyDown={(e) => {
-                if (
-                  !/[0-9]/.test(e.key) &&
-                  e.key !== "Enter" &&
-                  e.key !== "Backspace"
-                ) {
-                  e.preventDefault();
-                }
-
-                // Enter → submit فرم
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  e.currentTarget.form?.requestSubmit();
-                }
-              }}
             />
             <PhoneIcon
               width={20}
               height={20}
               className="absolute inset-y-0 left-3 top-1/3 -translate-y-1/2 flex items-center text-gray-500 opacity-70  select-none"
             />
-            <div className="min-h-[20px] mt-2 text-danger text-sm">
+            <div className="min-h-[20px] mt-0.5 text-danger text-sm">
               {fieldState.error?.message}
             </div>
           </div>
