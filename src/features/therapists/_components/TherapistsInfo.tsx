@@ -2,10 +2,10 @@ import useGetData from "@/services/useGetData";
 import type { TTherapistInfo } from "../_types/types";
 import {
   CheckIcon,
+  ClockAlert,
   ClockIcon,
   DollarSignIcon,
   UsersIcon,
-  XCircleIcon,
 } from "lucide-react";
 import { formatMoney } from "@/utils/formValues";
 
@@ -37,9 +37,9 @@ const TherapistsInfo = ({ id }: TProps) => {
           value={data.data.completed_sessions}
         />
         <TherapistsInfoComponents
-          icon={<XCircleIcon className="h-6 w-6" />}
-          label="جلسات لغوشده"
-          value={data.data.canceled_sessions}
+          icon={<ClockAlert className="h-6 w-6" />}
+          label="جلسات معلق"
+          value={data.data.pending_sessions}
         />
         <TherapistsInfoComponents
           icon={<UsersIcon className="h-6 w-6" />}
@@ -54,7 +54,7 @@ const TherapistsInfo = ({ id }: TProps) => {
         <TherapistsInfoComponents
           icon={<DollarSignIcon className="h-6 w-6" />}
           label="درآمد کل(تومان)"
-          value={formatMoney(String(data.data.total_revenue) || "0")}
+          value={formatMoney(data.data.total_revenue || "0")}
         />
       </div>
     </div>

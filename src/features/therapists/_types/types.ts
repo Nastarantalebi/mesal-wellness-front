@@ -54,10 +54,10 @@ export type TCreateData = {
 };
 export type TTherapistInfo = {
   data: {
-    canceled_sessions: number;
+    pending_sessions: number;
     completed_sessions: number;
-    total_minutes: number;
-    total_revenue: number;
+    total_minutes: string;
+    total_revenue: string;
     total_sessions: number;
     unique_customers: number;
   };
