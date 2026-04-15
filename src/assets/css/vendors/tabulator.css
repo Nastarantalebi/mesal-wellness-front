@@ -82,7 +82,7 @@
 
 .tabulator .tabulator-row:hover,
 .tabulator .tabulator-row.tabulator-row-even:hover {
-  background-color: theme("colors.slate.100" / 80%);
+  background-color: theme("colors.slate.300" / 80%);
 }
 
 .tabulator .tabulator-row.tabulator-row-even {

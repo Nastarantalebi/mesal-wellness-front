@@ -96,7 +96,7 @@ export type TServicesInfo = {
     total_customers: number;
     total_discount: string | null;
     total_sessions: number;
-    total_revenue: number | null;
+    total_revenue: string | null;
     total_paid: number;
     total_minutes: number | null;
   };

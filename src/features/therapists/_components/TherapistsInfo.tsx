@@ -7,6 +7,7 @@ import {
   UsersIcon,
   XCircleIcon,
 } from "lucide-react";
+import { formatMoney } from "@/utils/formValues";
 
 type TProps = {
   id: number;
@@ -53,7 +54,7 @@ const TherapistsInfo = ({ id }: TProps) => {
         <TherapistsInfoComponents
           icon={<DollarSignIcon className="h-6 w-6" />}
           label="درآمد کل(تومان)"
-          value={data.data.total_revenue}
+          value={formatMoney(String(data.data.total_revenue) || "0")}
         />
       </div>
     </div>
@@ -64,7 +65,7 @@ export default TherapistsInfo;
 type TPropsC = {
   icon: React.ReactNode;
   label: string;
-  value: number;
+  value: number | string;
 };
 const TherapistsInfoComponents = ({ icon, label, value }: TPropsC) => {
   return (

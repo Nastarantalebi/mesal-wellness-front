@@ -4,6 +4,7 @@ import type { TServicesInfo } from "../_types/types";
 import type { TOption } from "@/types";
 import { Navigate, useLocation } from "react-router-dom";
 import TitlePage from "@/features/_components/TitlePage";
+import { formatMoney } from "@/utils/formValues";
 
 const ServicesInfo = () => {
   const location = useLocation();
@@ -72,11 +73,11 @@ const ServicesInfo = () => {
             value={data.data.canceled_bookings}
           />
           <ServicesInfoComponent
-            label="مشتریان غیرتکراری"
+            label="مشتریان جدید"
             value={data.data.new_customers_count}
           />
           <ServicesInfoComponent
-            label="ماساژیست‌های تکراری"
+            label="مشتریان تکراری"
             value={data.data.repeat_customers_count}
           />
         </div>
@@ -93,27 +94,31 @@ const ServicesInfo = () => {
           />
           <ServicesInfoComponent
             label="میانگین زمان هرجلسه(دقیقه)"
-            value={Number(data.data.average_session_minutes).toFixed(2) ?? "0"}
+            value={Number(data.data.average_session_minutes).toFixed(0) || "0"}
           />
           <ServicesInfoComponent
             label=" درآمد کل(تومان)"
-            value={data.data.total_revenue ?? 0}
+            value={formatMoney(String(data.data.total_revenue) || "0")}
           />
           <ServicesInfoComponent
             label=" پرداختی(تومان)"
-            value={data.data.total_paid}
+            value={formatMoney(String(data.data.total_paid.toFixed(0)) || "0")}
           />
           <ServicesInfoComponent
             label=" درآمد متوسط هرجلسه(تومان)"
-            value={data.data.average_revenue_per_session}
+            value={formatMoney(
+              String(data.data.average_revenue_per_session.toFixed(0)) || "0",
+            )}
           />
           <ServicesInfoComponent
             label=" تخفیف(تومان)"
-            value={data.data.total_discount ?? "0"}
+            value={formatMoney(data.data.total_discount || "0")}
           />
           <ServicesInfoComponent
             label="میانگین قیمت(تومان)"
-            value={data.data.average_price}
+            value={formatMoney(
+              String(data.data.average_price.toFixed(0)) || "0",
+            )}
           />
         </div>
       </div>
@@ -121,7 +126,7 @@ const ServicesInfo = () => {
       {data.data.therapist_distribution.length > 0 && (
         <div className="my-2 bg-gradient-to-br from-blue-500 to-purple-800 flex flex-col items-center justify-center p-6 rounded-2xl shadow-2xl border border-white/20 backdrop-blur-sm">
           <p className="text-white font-bold text-lg mb-4 drop-shadow-lg">
-            ماساژیست‌های این خدمت
+            ماساژیست‌های این خدمت (براساس رزرو)
           </p>
           <div className="flex items-center justify-center flex-wrap w-full gap-3">
             {data.data.therapist_distribution.map((item, index) => (
@@ -143,7 +148,7 @@ const ServicesInfo = () => {
       {data.data.company_distribution.length > 0 && (
         <div className="my-2 bg-gradient-to-br from-blue-500 to-purple-800 flex flex-col items-center justify-center p-6 rounded-2xl shadow-2xl border border-white/20 backdrop-blur-sm">
           <p className="text-white font-bold text-lg mb-4 drop-shadow-lg">
-            شرکت‌های این خدمت
+            شرکت‌های این خدمت (براساس رزرو)
           </p>
           <div className="flex items-center justify-center flex-wrap w-full gap-3">
             {data.data.company_distribution.map((item, index) => (
@@ -165,7 +170,7 @@ const ServicesInfo = () => {
       {data.data.peak_days.length > 0 && (
         <div className="my-2 bg-gradient-to-br from-blue-500 to-purple-800 flex flex-col items-center justify-center p-6 rounded-2xl shadow-2xl border border-white/20 backdrop-blur-sm">
           <p className="text-white font-bold text-lg mb-4 drop-shadow-lg">
-            پیک روز کاری
+            پیک روز کاری (براساس رزرو)
           </p>
           <div className="flex items-center justify-center flex-wrap w-full gap-3">
             {data.data.peak_days.map((item, index) => (
@@ -187,7 +192,7 @@ const ServicesInfo = () => {
       {data.data.peak_hours.length > 0 && (
         <div className="my-2 bg-gradient-to-br from-blue-500 to-purple-800 flex flex-col items-center justify-center p-6 rounded-2xl shadow-2xl border border-white/20 backdrop-blur-sm">
           <p className="text-white font-bold text-lg mb-4 drop-shadow-lg">
-            پیک ساعت کاری
+            پیک ساعت کاری (براساس رزرو)
           </p>
           <div className="flex items-center justify-center flex-wrap w-full gap-3">
             {data.data.peak_hours.map((item, index) => (
@@ -212,12 +217,12 @@ const ServicesInfo = () => {
       {(data.data.top_company || data.data.top_therapist) && (
         <div className="my-2 bg-gradient-to-br from-blue-500 to-purple-800 flex flex-col items-center justify-center p-6 rounded-2xl shadow-2xl border border-white/20 backdrop-blur-sm">
           <p className="text-white font-bold text-lg mb-4 drop-shadow-lg">
-            برترین‌های خدمت
+            برترین‌های خدمت (براساس رزرو)
           </p>
           <div className="flex items-center justify-center flex-wrap w-full gap-3">
             <div className="flex flex-col items-center p-3 bg-white/20 rounded-xl backdrop-blur-sm shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-white/30 min-w-[80px]">
-              <span className="text-white font-semibold text-sm drop-shadow-md">
-                برترین شرکت
+              <span className="text-yellow-300 font-semibold text-sm drop-shadow-md my-1">
+                شرکت برتر
               </span>
               <span className="text-white font-semibold text-sm drop-shadow-md">
                 {data.data.top_company.company_id}
@@ -227,11 +232,8 @@ const ServicesInfo = () => {
               </span>
             </div>
             <div className="flex flex-col items-center p-3 bg-white/20 rounded-xl backdrop-blur-sm shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-white/30 min-w-[80px]">
-              <span className="text-white font-semibold text-sm drop-shadow-md">
-                برترین ماساژیست
-              </span>
-              <span className="text-white font-semibold text-sm drop-shadow-md">
-                {data.data.top_therapist.therapist_id}
+              <span className="text-yellow-300 font-semibold text-sm drop-shadow-md my-1">
+                ماساژیست برتر
               </span>
               <span className="text-white font-semibold text-sm drop-shadow-md">
                 {data.data.top_therapist.concat}

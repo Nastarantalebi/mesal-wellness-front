@@ -3,6 +3,7 @@ import { formInlineContext } from "../FormInline";
 import { inputGroupContext } from "../InputGroup";
 import { numberToWords } from "@persian-tools/persian-tools"; // اضافه شد
 import clsx from "clsx";
+import { formatMoney } from "@/utils/formValues";
 
 interface FormInputProps extends React.ComponentPropsWithoutRef<"input"> {
   formInputSize?: "sm" | "lg";
@@ -33,10 +34,7 @@ const FormInput = forwardRef((props: FormInputProps, ref: FormInputRef) => {
   const formInline = useContext(formInlineContext);
   const inputGroup = useContext(inputGroupContext);
 
-  const formatMoney = (val: string) => {
-    const numbers = val.replace(/[^\d]/g, "");
-    return numbers.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  };
+  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let val = e.target.value;

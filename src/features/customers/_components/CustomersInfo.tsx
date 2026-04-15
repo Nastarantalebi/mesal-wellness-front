@@ -8,6 +8,7 @@ import {
   XCircleIcon,
 } from "lucide-react";
 import type { TCustomersInfo } from "../_types/types";
+import { formatMoney } from "@/utils/formValues";
 
 type TProps = {
   id: number;
@@ -78,17 +79,17 @@ const CustomersInfo = ({ id }: TProps) => {
         <CustomersInfoComponents
           icon={<DollarSignIcon className="h-6 w-6" />}
           label=" مجموع هزینه‌ها(تومان)"
-          value={data.data.total_amount}
+          value={formatMoney(String(data.data.total_amount) || "0")}
         />
         <CustomersInfoComponents
           icon={<DollarSignIcon className="h-6 w-6" />}
           label=" تخفیف(تومان)"
-          value={data.data.total_discount}
+          value={formatMoney(String(data.data.total_discount) || "0")}
         />
         <CustomersInfoComponents
           icon={<DollarSignIcon className="h-6 w-6" />}
           label=" پرداختی(تومان)"
-          value={data.data.total_paid}
+          value={formatMoney(String(data.data.total_paid) || "0")}
         />
       </div>
     </div>
@@ -99,7 +100,7 @@ export default CustomersInfo;
 type TPropsC = {
   icon: React.ReactNode;
   label: string;
-  value: number;
+  value: number | string;
 };
 const CustomersInfoComponents = ({ icon, label, value }: TPropsC) => {
   return (
