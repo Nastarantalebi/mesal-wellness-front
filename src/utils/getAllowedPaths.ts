@@ -25,5 +25,6 @@ export function isAllowedByException(pathname: string) {
   if (/^\/tickets\/\d+$/.test(cleanPath)) return true;
   if (/^\/tickets\/[a-zA-Z0-9-]+$/.test(cleanPath)) return true;
   if (cleanPath.endsWith("/create")) return true;
+  if (cleanPath.endsWith("/view")) return true;
   return false;
 }

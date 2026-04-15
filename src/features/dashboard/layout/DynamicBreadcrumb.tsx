@@ -32,6 +32,9 @@ export default function DynamicBreadcrumb() {
     if (segment.toLowerCase() === "edit") {
       return { label: "ویرایش" };
     }
+    if (segment.toLowerCase() === "view") {
+      return { label: "جزییات" };
+    }
     if (segment.toLowerCase() === "profile") {
       return { label: "پروفایل" };
     }

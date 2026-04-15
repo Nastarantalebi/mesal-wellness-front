@@ -84,13 +84,13 @@ export type TServicesInfo = {
       company_id: number;
       cnt: number;
       booking: string | null;
-    } | null;
+    };
     top_therapist: {
       therapist_id: number;
       concat: string | null;
       cnt: number;
       booking: string | null;
-    } | null;
+    };
     total_bookings: number;
     total_corporate_sessions: number;
     total_customers: number;

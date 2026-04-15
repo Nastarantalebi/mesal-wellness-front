@@ -5,7 +5,7 @@ import useDeleteData from "@/services/useDeleteData";
 import SevicesForm from "./SevicesForm";
 import { useState } from "react";
 import Modal from "@/components/Headless/Dialog/Modal";
-import ServiceInfo from "./ServiceInfo";
+import { useNavigate } from "react-router-dom";
 function Services() {
   const { data, isFetching, refetch } = useGetData<any>({
     queryKey: servicesQuerykey,
@@ -15,11 +15,9 @@ function Services() {
     queryKey: servicesQuerykey,
     url: servicesUrl,
   });
-  const [open, setOpen] = useState<{ form: boolean; view: boolean }>({
-    form: false,
-    view: false,
-  });
+  const [open, setOpen] = useState<boolean>(false);
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
+  const navigate = useNavigate();
   return (
     <>
       <CustomTable
@@ -31,30 +29,29 @@ function Services() {
         dataPagination={data?.paginate && data?.paginate}
         onAdd={() => {
           setSelectedRecord(null);
-          setOpen({ form: true, view: false });
+          setOpen(true);
         }}
         onDelete={(record) => Delete(record.id)}
         onEdit={(record) => {
           setSelectedRecord(record);
-          setOpen({ form: true, view: false });
+          setOpen(true);
         }}
         onVisit={(record) => {
-          setSelectedRecord(record);
-          setOpen({ form: false, view: true });
+          navigate("view", { state: { record } });
         }}
       />
       <Modal
         size="xxl"
         cancelBtn={false}
-        close={() => setOpen({ form: false, view: false })}
-        open={open.form}
+        close={() => setOpen(false)}
+        open={open}
         title={
           selectedRecord ? `ویرایش ${selectedRecord.title}` : "افزودن خدمت جدید"
         }>
         <SevicesForm setOpen={setOpen} id={selectedRecord?.id} />
       </Modal>
 
-      <Modal
+      {/* <Modal
         title={selectedRecord && `آمار و جزییات ${selectedRecord?.title}`}
         open={open.view}
         cancelBtn={false}
@@ -64,7 +61,7 @@ function Services() {
           setSelectedRecord(null);
         }}>
         <ServiceInfo id={selectedRecord && selectedRecord.id} />
-      </Modal>
+      </Modal> */}
     </>
   );
 }

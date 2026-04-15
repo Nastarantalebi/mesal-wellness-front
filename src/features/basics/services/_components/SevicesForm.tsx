@@ -14,12 +14,7 @@ import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
 type TProps = {
-  setOpen: React.Dispatch<
-    React.SetStateAction<{
-      form: boolean;
-      view: boolean;
-    }>
-  >;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   id: number;
 };
 function SevicesForm({ id, setOpen }: TProps) {
@@ -65,7 +60,7 @@ function SevicesForm({ id, setOpen }: TProps) {
         };
         const action = !!id ? update : create;
         action(preparedData, {
-          onSuccess: () => setOpen({ form: false, view: false }),
+          onSuccess: () => setOpen(false),
         });
       }}
       form={form}

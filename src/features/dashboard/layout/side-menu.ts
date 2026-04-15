@@ -15,7 +15,7 @@ export interface FormattedMenu extends TMenu {
 // Setup side menu
 const findActiveMenu = (subMenu: TMenu[], location: Location): boolean => {
   let match = false;
-  const customUrl = location.pathname.replace(/\/create$/, "");
+  const customUrl = location.pathname.replace(/\/(create|edit|view)$/, "");
   subMenu.forEach((item) => {
     if (
       ((location.forceActiveMenu !== undefined &&
@@ -33,7 +33,7 @@ const findActiveMenu = (subMenu: TMenu[], location: Location): boolean => {
 };
 const nestedMenu = (menu: TMenu[] | undefined, location: Location) => {
   const formattedMenu: Array<FormattedMenu | string> = [];
-  const customUrl = location.pathname.replace(/\/create$/, "");
+  const customUrl = location.pathname.replace(/\/(create|edit|view)$/, "");
   menu?.forEach((item) => {
     const menuItem: FormattedMenu = {
       ...item,

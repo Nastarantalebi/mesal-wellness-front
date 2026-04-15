@@ -29,6 +29,7 @@ import UserOrganizations from "@/features/_components/UserOrganizations";
 import RouteGuard from "./RouteGaurd";
 import SmsLogs from "@/features/sms-logs/_components/SmsLogs";
 import LandingPage from "@/components/landing/_components/LandingPage";
+import ServicesInfo from "@/features/basics/services/_components/ServiceInfo";
 
 function Router() {
   const routes = [
@@ -56,6 +57,10 @@ function Router() {
         {
           path: "/services",
           element: <Services />,
+        },
+        {
+          path: "/services/view",
+          element: <ServicesInfo />,
         },
         {
           path: "/resources",
