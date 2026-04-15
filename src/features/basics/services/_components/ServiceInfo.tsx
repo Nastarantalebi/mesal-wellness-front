@@ -156,7 +156,7 @@ const ServicesInfo = () => {
                 key={index}
                 className="flex flex-col items-center p-3 bg-white/20 rounded-xl backdrop-blur-sm shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-white/30 min-w-[80px]">
                 <span className="text-white font-semibold text-sm drop-shadow-md">
-                  {item.company_id}
+                  {item.company_name}
                 </span>
                 <span className="text-2xl font-bold text-yellow-400 drop-shadow-lg">
                   {item.cnt}
@@ -170,7 +170,7 @@ const ServicesInfo = () => {
       {data.data.peak_days.length > 0 && (
         <div className="my-2 bg-gradient-to-br from-blue-500 to-purple-800 flex flex-col items-center justify-center p-6 rounded-2xl shadow-2xl border border-white/20 backdrop-blur-sm">
           <p className="text-white font-bold text-lg mb-4 drop-shadow-lg">
-            پیک روز کاری (براساس رزرو)
+            پیک روزکاری (براساس رزرو)
           </p>
           <div className="flex items-center justify-center flex-wrap w-full gap-3">
             {data.data.peak_days.map((item, index) => (
@@ -192,7 +192,7 @@ const ServicesInfo = () => {
       {data.data.peak_hours.length > 0 && (
         <div className="my-2 bg-gradient-to-br from-blue-500 to-purple-800 flex flex-col items-center justify-center p-6 rounded-2xl shadow-2xl border border-white/20 backdrop-blur-sm">
           <p className="text-white font-bold text-lg mb-4 drop-shadow-lg">
-            پیک ساعت کاری (براساس رزرو)
+            پیک ساعت‌کاری (براساس رزرو)
           </p>
           <div className="flex items-center justify-center flex-wrap w-full gap-3">
             {data.data.peak_hours.map((item, index) => (
@@ -225,7 +225,7 @@ const ServicesInfo = () => {
                 شرکت برتر
               </span>
               <span className="text-white font-semibold text-sm drop-shadow-md">
-                {data.data.top_company.company_id}
+                {data.data.top_company.company_name}
               </span>
               <span className="text-2xl font-bold text-yellow-400 drop-shadow-lg">
                 {data.data.top_company.cnt}

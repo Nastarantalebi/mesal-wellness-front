@@ -59,6 +59,7 @@ export type TServicesInfo = {
       company_id: number;
       cnt: number;
       booking: string | null;
+      company_name: string;
     }[];
     confirmed_bookings: number;
     first_used_at: string | null;
@@ -84,6 +85,7 @@ export type TServicesInfo = {
       company_id: number;
       cnt: number;
       booking: string | null;
+      company_name: string;
     };
     top_therapist: {
       therapist_id: number;
