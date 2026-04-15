@@ -56,7 +56,7 @@ export default function DynamicBreadcrumb() {
   return (
     <Breadcrumb className=" p-3">
       {/* داشبورد همیشه هست */}
-      <Breadcrumb.Link to="/" index={0}>
+      <Breadcrumb.Link to="/dashboard" index={0}>
         <span className="flex items-center gap-1">
           <LucideIcons.LayoutDashboard className="w-4 h-4" />
           داشبورد
