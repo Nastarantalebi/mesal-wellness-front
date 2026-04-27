@@ -11,6 +11,7 @@ export type TReqTherapists = {
   license_number: string | null;
   hire_date: string | null;
   bio: string | null;
+  commission_rate: string | null;
 };
 type Therapist = {
   id: number;
@@ -27,6 +28,7 @@ type Therapist = {
     national_code: string;
     gender: string;
   };
+  commission_rate: string | null;
   status: string;
   specialties: string[];
   license_number: string;
@@ -48,5 +50,15 @@ export type TCreateData = {
     facilities: TOption[];
     statuses: TOption[];
     genders: TOption[];
+  };
+};
+export type TTherapistInfo = {
+  data: {
+    pending_sessions: number;
+    completed_sessions: number;
+    total_minutes: string;
+    total_revenue: string;
+    total_sessions: number;
+    unique_customers: number;
   };
 };

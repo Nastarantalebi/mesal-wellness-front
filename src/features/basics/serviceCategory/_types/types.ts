@@ -10,6 +10,6 @@ export type TDataById = {
 
 export type TReqServiceCategory = {
   title: string;
-  description: string;
+  description: string | null;
   is_active: boolean | null;
 };

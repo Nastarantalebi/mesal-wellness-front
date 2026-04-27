@@ -36,7 +36,7 @@ function Topbar({
   const [logout, setLogout] = useState<boolean>(false);
   const userData = useAuthStore((s) => s.userData);
   return (
-    <div className="fixed top-0 inset-x-0 z-10 h-[65px] box bg-slate-50 border-x-0 border-t-0 rounded-none flex shadow-none">
+    <div className="fixed top-0 inset-x-0 z-10 h-16 box bg-slate-50 border-x-0 border-t-0 rounded-none flex shadow-none">
       <div
         className={clsx([
           "xl:bg-slate-100 flex-none flex items-center z-10 px-1 h-full xl:w-[275px] overflow-hidden relative duration-300 group-[.side-menu--collapsed]:xl:w-[91px] group-[.side-menu--collapsed.side-menu--on-hover]:xl:w-[275px] group-[.side-menu--collapsed.side-menu--on-hover]:xl:shadow-[6px_0_12px_-4px_#0000001f]",
@@ -172,6 +172,13 @@ function Topbar({
                     <span>پروفایل</span>
                   )}
                 </Menu.Item>
+                <Menu.Item
+                  onClick={() => {
+                    navigate("user-organizations");
+                  }}>
+                  <Lucide icon="Building" className="w-4 h-4 me-2" />
+                  سازمان‌های من
+                </Menu.Item>
                 {/* <Menu.Divider /> */}
                 {/* <Menu.Item
                   onClick={() => {
@@ -202,7 +209,9 @@ function Topbar({
                   <Lucide icon="ToggleLeft" className="w-4 h-4 me-2" />
                   تغییر حساب
                 </Menu.Item> */}
-                <Menu.Item onClick={() => setLogout(true)}>
+                <Menu.Item
+                  onClick={() => setLogout(true)}
+                  className="hover:text-red-600 transition">
                   <Lucide icon="Power" className="w-4 h-4 me-2" />
                   خروج
                 </Menu.Item>

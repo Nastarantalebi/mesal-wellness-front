@@ -18,8 +18,8 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 3.6 * 1024 * 1024,
       },
       manifest: {
-        name: "مرکز ماساژ آسمان",
-        short_name: "ماساژ آسمان",
+        name: "اپلیکیشن ماساژ",
+        short_name: "ماساژ",
         description: "یک اپلیکشن برای ماساژ",
         theme_color: "#ffffff",
         icons: [

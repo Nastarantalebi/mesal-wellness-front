@@ -15,7 +15,7 @@ const TableHeader = ({
   customAddText,
 }: TProps) => {
   return (
-    <div className="flex flex-row items-center justify-between gap-y-2">
+    <div className="flex flex-row items-center justify-between gap-y-2 mt-1">
       <div className="text-base font-medium group-[.mode--light]:text-white">
         {title}
       </div>

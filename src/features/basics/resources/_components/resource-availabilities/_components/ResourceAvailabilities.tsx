@@ -20,31 +20,32 @@ function ResourceAvailabilities({ id }: { id: number }) {
   const [showForm, setShowForm] = useState<any>(null);
   return (
     <>
-      {showForm && (
+      {showForm ? (
         <ResourceAvailabilitiesForm
           selectedRecord={selectedRecord}
           setShowForm={setShowForm}
           resourceId={id}
           refetch={refetch}
         />
+      ) : (
+        <CustomTable
+          isLoading={isFetching}
+          refetch={refetch}
+          title="مکان‌های دردسترس"
+          onAdd={() => {
+            setShowForm(true);
+            setSelectedRecord(null);
+          }}
+          columns={data?.columns}
+          data={data?.data}
+          dataPagination={data?.paginate}
+          onEdit={(record) => {
+            setSelectedRecord(record);
+            setShowForm(true);
+          }}
+          onDelete={(record) => Delete(record.id)}
+        />
       )}
-      <CustomTable
-        isLoading={isFetching}
-        refetch={refetch}
-        title="مکان‌های دردسترس"
-        onAdd={() => {
-          setShowForm(true);
-          setSelectedRecord(null);
-        }}
-        columns={data?.columns}
-        data={data?.data}
-        dataPagination={data?.paginate}
-        onEdit={(record) => {
-          setSelectedRecord(record);
-          setShowForm(true);
-        }}
-        onDelete={(record) => Delete(record.id)}
-      />
     </>
   );
 }

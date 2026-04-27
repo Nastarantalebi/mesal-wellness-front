@@ -20,6 +20,7 @@ const useFormData = () => {
       type: "select",
       option: company,
       isLoading,
+      className: "md:col-span-2",
     },
     {
       name: "discount_percent",

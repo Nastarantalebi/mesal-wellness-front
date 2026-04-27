@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { createContext, useContext, cloneElement, isValidElement } from "react";
 
 interface BreadcrumbProps
-  extends React.PropsWithChildren,
-    React.ComponentPropsWithoutRef<"nav"> {
+  extends React.PropsWithChildren, React.ComponentPropsWithoutRef<"nav"> {
   light?: boolean;
   children: React.ReactElement | React.ReactElement[] | React.ReactNode;
 }
@@ -22,11 +21,11 @@ function Breadcrumb({ className, light, children }: BreadcrumbProps) {
             "flex items-center text-theme-1 dark:text-slate-300",
             {
               "text-white/90": light,
-            }
+            },
           )}>
           {Array.isArray(children)
             ? children.map((item, key) =>
-                isValidElement(item) ? cloneElement(item, { key }) : item
+                isValidElement(item) ? cloneElement(item, { key }) : item,
               )
             : children}
         </ol>
@@ -36,8 +35,7 @@ function Breadcrumb({ className, light, children }: BreadcrumbProps) {
 }
 
 interface BreadcrumbLinkProps
-  extends React.PropsWithChildren,
-    React.ComponentPropsWithoutRef<"li"> {
+  extends React.PropsWithChildren, React.ComponentPropsWithoutRef<"li"> {
   to?: string;
   active?: boolean;
   index?: number; // instead of using `key` as a prop
@@ -45,7 +43,7 @@ interface BreadcrumbLinkProps
 
 function BreadcrumbLink({
   className,
-  to = "",
+  to = "/dashboard",
   active = false,
   index = 0,
   children,
@@ -68,7 +66,7 @@ function BreadcrumbLink({
         !breadcrumb.light &&
           active &&
           "text-slate-600 cursor-text dark:text-slate-400",
-        breadcrumb.light && active && "text-white/70"
+        breadcrumb.light && active && "text-white/70",
       )}
       {...attr}>
       <Link to={to}>{children}</Link>

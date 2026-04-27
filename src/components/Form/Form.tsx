@@ -89,7 +89,7 @@ TProps<TFormValues>) {
       <div
         className={clsx(
           "relative space-y-4 p-2 md:m-2 border border-primary-20 rounded-xl shadow bg-transparent",
-          className
+          className,
         )}>
         {onClose && (
           <Button
@@ -129,7 +129,7 @@ TProps<TFormValues>) {
                   isPending={isSubmitting || form.formState.isSubmitting}
                   variant="primary"
                   type="submit"
-                  className="mt-5">
+                  className="mt-2.5">
                   {btnSubmitText}
                 </Button>
               </div>

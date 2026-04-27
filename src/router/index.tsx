@@ -3,15 +3,10 @@ import Customers from "@/features/customers/_components/Customers";
 import Dashboard from "@/features/dashboard/Dashboard";
 import Layout from "@/features/dashboard/layout";
 import Facilities from "@/features/basics/facilities/_components/Facilities";
-import FacilitiesForm from "@/features/basics/facilities/_components/FacilitiesForm";
 import Resources from "@/features/basics/resources/_components/Resources";
-import ResourcesForm from "@/features/basics/resources/_components/ResourcesForm";
 import ResourceType from "@/features/basics/resourceType/_components/ResourcesType";
-import ResourceTypeForm from "@/features/basics/resourceType/_components/ResourcesTypeForm";
 import ServiceCategory from "@/features/basics/serviceCategory/_components/ServiceCategory";
-import ServiceCategoryForm from "@/features/basics/serviceCategory/_components/ServiceCategoryForm";
 import Services from "@/features/basics/services/_components/Services";
-import SevicesForm from "@/features/basics/services/_components/SevicesForm";
 import Therapists from "@/features/therapists/_components/Therapists";
 import TherapistsForm from "@/features/therapists/_components/TherapistsForm";
 import { useRoutes } from "react-router-dom";
@@ -22,9 +17,7 @@ import NotFound from "@/features/_components/NotFound";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Profile from "@/features/profile/_components/Profile";
 import Company from "@/features/basics/company/_components/Company";
-import CompanyForm from "@/features/basics/company/_components/CompanyForm";
 import Contract from "@/features/basics/contract/_components/Contract";
-import ContractForm from "@/features/basics/contract/_components/ContractForm";
 import Roles from "@/features/settings/roles/_components/Roles";
 import Menus from "@/features/settings/menus/_components/Menus";
 import Widgets from "@/features/settings/widgets/_components/Widgets";
@@ -36,6 +29,7 @@ import UserOrganizations from "@/features/_components/UserOrganizations";
 import RouteGuard from "./RouteGaurd";
 import SmsLogs from "@/features/sms-logs/_components/SmsLogs";
 import LandingPage from "@/components/landing/_components/LandingPage";
+import ServicesInfo from "@/features/basics/services/_components/ServiceInfo";
 
 function Router() {
   const routes = [
@@ -61,32 +55,20 @@ function Router() {
           element: <ServiceCategory />,
         },
         {
-          path: "/service-category/create",
-          element: <ServiceCategoryForm />,
-        },
-        {
           path: "/services",
           element: <Services />,
         },
         {
-          path: "/services/create",
-          element: <SevicesForm />,
+          path: "/services/view",
+          element: <ServicesInfo />,
         },
         {
           path: "/resources",
           element: <Resources />,
         },
         {
-          path: "/resources/create",
-          element: <ResourcesForm />,
-        },
-        {
           path: "/resource-type",
           element: <ResourceType />,
-        },
-        {
-          path: "/resource-type/create",
-          element: <ResourceTypeForm />,
         },
         {
           path: "/therapists",
@@ -108,26 +90,16 @@ function Router() {
           path: "/facilities",
           element: <Facilities />,
         },
-        {
-          path: "/facilities/create",
-          element: <FacilitiesForm />,
-        },
+
         {
           path: "/company",
           element: <Company />,
         },
         {
-          path: "/company/create",
-          element: <CompanyForm />,
-        },
-        {
           path: "/contract",
           element: <Contract />,
         },
-        {
-          path: "/contract/create",
-          element: <ContractForm />,
-        },
+
         {
           path: "/booking",
           element: <Booking />,

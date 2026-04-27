@@ -21,6 +21,7 @@ function UserAvatar({ data, refetch }: any) {
   const form = useForm<TAvatar>({
     resolver: zodResolver(avatarValidationSchema),
     defaultValues: avatarInitialValue,
+    mode: "onChange",
   });
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);

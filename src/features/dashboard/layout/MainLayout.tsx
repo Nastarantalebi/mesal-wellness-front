@@ -16,11 +16,11 @@ function MainLayout() {
 
       <div
         className={clsx([
-          "transition-[margin,width] duration-100 md:px-5 px-0.5 mt-[65px]  pb-16 relative z-10",
+          "transition-[margin,width] duration-100 md:px-3 px-0.5 mt-16 relative z-10",
           { "xl:ms-[275px]": !compactMenu },
           { "xl:ms-[91px]": compactMenu },
         ])}>
-        <div className="h-[81vh] p-1">
+        <div className="h-[90vh]">
           <Outlet />
         </div>
       </div>

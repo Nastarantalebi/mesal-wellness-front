@@ -69,7 +69,7 @@ export function toGregorianDateTimeISO(dateTimeString: string): string | null {
   const pad = (num: number) => num.toString().padStart(2, "0");
 
   return `${dateObj.format("YYYY-MM-DD")}T${pad(dateObj.hour)}:${pad(
-    dateObj.minute
+    dateObj.minute,
   )}:${pad(dateObj.second)}${sign}${offsetH}:${offsetM}`;
 }
 
@@ -88,9 +88,9 @@ export function toPersianDateTimeISO(isoString: string): string | null {
 
   const pad = (num: number) => num.toString().padStart(2, "0");
 
-  return `${dateObj.format("YYYY/MM/DD")} ${pad(dateObj.hour)}:${pad(
-    dateObj.minute
-  )}`;
+  return `${pad(dateObj.hour)}:${pad(
+    dateObj.minute,
+  )} ${dateObj.format("YYYY/MM/DD")}`;
 }
 //تبدیل از ساعت لوکال
 export function toUTCFromLocal(timeString: string): string | null {

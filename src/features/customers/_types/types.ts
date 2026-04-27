@@ -47,3 +47,18 @@ export type TRecord = {
   membership_type: string;
   national_code: string | null;
 };
+export type TCustomersInfo = {
+  data: {
+    total_bookings: number;
+    completed_bookings: number;
+    canceled_bookings: number;
+    total_sessions: number;
+    total_minutes: number;
+    total_amount: number;
+    total_discount: number;
+    total_paid: number;
+    first_visit: string | null;
+    last_visit: string | null;
+    favorite_service: string | null;
+  };
+};

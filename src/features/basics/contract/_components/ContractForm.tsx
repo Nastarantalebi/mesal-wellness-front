@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
 import { schema, queryKey, url, initialValue } from "../_fixtures/data";
 import useCreateData from "@/services/useCreateData";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,12 +8,12 @@ import { useEffect } from "react";
 import useGetById from "@/services/useGetById";
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
-
-function ContractForm() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const selectedRecord = location.state?.record.id;
-  const isEdit = !!selectedRecord;
+type TProps = {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  id: number;
+};
+function ContractForm({ id, setOpen }: TProps) {
+  const isEdit = !!id;
   const { fields } = useFormData();
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url: url,
@@ -23,16 +22,17 @@ function ContractForm() {
   const { mutate: update, isPending: isPendingUpdate } = useUpdateData({
     url: url,
     queryKey: queryKey,
-    id: selectedRecord,
+    id: id,
   });
   const { data: dataById } = useGetById<TDataById>({
-    id: selectedRecord,
+    id: id,
     url: url,
-    queryKey: [queryKey, selectedRecord],
+    queryKey: [queryKey, String(id)],
   });
   const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initialValue,
+    mode: "onChange",
   });
   useEffect(() => {
     if (dataById) {
@@ -46,7 +46,7 @@ function ContractForm() {
     <FormComponent<TReqContract>
       onSubmit={(values) => {
         const action = isEdit ? update : create;
-        action(values, { onSuccess: () => navigate("/contract") });
+        action(values, { onSuccess: () => setOpen(false) });
       }}
       form={form}
       isSubmitting={isPendingUpdate || isPendingCreate}

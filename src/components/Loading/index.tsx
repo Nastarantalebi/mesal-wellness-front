@@ -1,13 +1,13 @@
+import { useAuthStore } from "@/features/auth/store/authStore";
+
 type LoadingSpinProps = {
   text?: string;
 };
 
-export default function LoadingSpin({
-  text = "مرکز ماساژ آسمان",
-}: LoadingSpinProps) {
+export default function LoadingSpin({ text }: LoadingSpinProps) {
+  const organization = useAuthStore((s) => s.userData?.organization);
   return (
     <div className="flex flex-col justify-center items-center w-full h-auto gap-4">
-      {/* حلقه آسمانی */}
       <div className="relative w-16 h-16">
         <div className="absolute inset-0 rounded-full border-4 border-primary border-t-transparent animate-spin"></div>
 
@@ -27,7 +27,7 @@ export default function LoadingSpin({
 
       {/* نام برند */}
       <div className="text-primary font-semibold tracking-wide text-lg">
-        {text}
+        {organization?.title ?? text}
       </div>
     </div>
   );

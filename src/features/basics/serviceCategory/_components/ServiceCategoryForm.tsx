@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import type { TDataById } from "../_types/types";
-import { useLocation, useNavigate } from "react-router-dom";
 import { schema, queryKey, url, initialValue } from "../_fixtures/data";
 import useCreateData from "@/services/useCreateData";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,12 +8,12 @@ import useGetById from "@/services/useGetById";
 import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
-
-function ServiceCategoryForm() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const selectedRecord = location.state?.record.id;
-  const isEdit = !!selectedRecord;
+type TProps = {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  id: number;
+};
+function ServiceCategoryForm({ id, setOpen }: TProps) {
+  const isEdit = !!id;
   const { fields } = useFormData(isEdit);
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url: url,
@@ -23,16 +22,17 @@ function ServiceCategoryForm() {
   const { mutate: update, isPending: isPendingUpdate } = useUpdateData({
     url: url,
     queryKey: queryKey,
-    id: selectedRecord,
+    id: id,
   });
   const { data: dataById } = useGetById<TDataById>({
-    queryKey: [queryKey, selectedRecord],
+    queryKey: [queryKey, String(id)],
     url: url,
-    id: selectedRecord,
+    id: id,
   });
   const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initialValue,
+    mode: "onChange",
   });
   useEffect(() => {
     if (dataById) {
@@ -41,14 +41,15 @@ function ServiceCategoryForm() {
   }, [form, dataById]);
   return (
     <FormComponent
+      size="small"
       onSubmit={(values) => {
         const preparedData = {
           ...values,
           is_active: values.is_active !== false,
         };
-        const action = !!selectedRecord ? update : create;
+        const action = !!id ? update : create;
         action(preparedData, {
-          onSuccess: () => navigate("/service-category"),
+          onSuccess: () => setOpen(false),
         });
       }}
       form={form}

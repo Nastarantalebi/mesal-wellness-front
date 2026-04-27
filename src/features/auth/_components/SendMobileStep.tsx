@@ -13,6 +13,7 @@ function SendMobileStep({ isPending, mutateAsync, startOtp }: any) {
   const form = useForm<ISendMobile>({
     resolver: zodResolver(sendMobilevalidationSchema),
     defaultValues: sendMobileInitialValues,
+    mode: "onChange",
   });
 
   const handleSubmitForm = (values: ISendMobile) => {

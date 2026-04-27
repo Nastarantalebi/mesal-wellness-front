@@ -4,7 +4,7 @@ type TProps = { data?: TResponse };
 
 const CalendarRangeList = ({ data }: TProps) => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full">
       {data?.data.days?.length === 0 && (
         <p className="text-center text-gray-500 dark:text-gray-400">
           برای این تاریخ نوبتی ثبت نشده است.
@@ -22,7 +22,8 @@ const CalendarRangeList = ({ data }: TProps) => {
           {day.events.map((event) => (
             <div
               key={event.id}
-              className="flex flex-col md:flex-row justify-between items-start md:items-center p-4 rounded-xl shadow-lg border-l-4 transition-all hover:shadow-xl hover:scale-[1.02] duration-200 bg-white dark:bg-gray-800"
+              className="flex flex-col md:flex-row justify-between items-start md:items-center p-4 rounded-xl shadow-lg border-l-4
+               transition-all hover:shadow-xl hover:scale-[1.01] duration-200 bg-white dark:bg-gray-800"
               style={{ borderColor: event.color }}>
               <div className="space-y-2">
                 <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">

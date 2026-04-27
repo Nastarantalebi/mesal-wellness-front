@@ -8,10 +8,11 @@ import { useState } from "react";
 import TherapistsAvailabilities from "./therapist-availabilities/_components/TherapistsAvailabilities";
 import Modal from "@/components/Headless/Dialog/Modal";
 import TherapistService from "./therapistService/_components/TherapistService";
+import TherapistsInfo from "./TherapistsInfo";
 
 function Therapists() {
   const navigate = useNavigate();
-  const { data, isFetching, refetch } = useGetData<any>({
+  const { data, isFetching } = useGetData<any>({
     queryKey: queryKey,
     url: url,
   });
@@ -21,6 +22,7 @@ function Therapists() {
   });
   const [showModalTA, setShowModalTA] = useState<boolean>(false);
   const [showModalTS, setShowModalTS] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
   const full_name = [
     selectedRecord?.first_name,
@@ -31,7 +33,6 @@ function Therapists() {
     <>
       <CustomTable
         isLoading={isFetching}
-        refetch={refetch}
         title="ماساژیست"
         columns={data?.columns}
         singleActionColumns={[
@@ -56,6 +57,10 @@ function Therapists() {
             },
           },
         ]}
+        onVisit={(record) => {
+          setSelectedRecord(record);
+          setOpen(true);
+        }}
         data={data?.data}
         dataPagination={data?.paginate}
         onAdd={() => navigate("create")}
@@ -65,6 +70,7 @@ function Therapists() {
       <Modal
         title={`در دسترس بودن ${full_name}`}
         open={showModalTA}
+        cancelBtn={false}
         size="xxl"
         close={() => {
           setSelectedRecord(null);
@@ -73,8 +79,20 @@ function Therapists() {
         <TherapistsAvailabilities id={selectedRecord && selectedRecord.id} />
       </Modal>
       <Modal
+        title={`آمار و جزییات ${full_name}`}
+        open={open}
+        cancelBtn={false}
+        size="xxl"
+        close={() => {
+          setSelectedRecord(null);
+          setOpen(false);
+        }}>
+        <TherapistsInfo id={selectedRecord && selectedRecord.id} />
+      </Modal>
+      <Modal
         title={`  خدمات ماساژیست ${full_name}`}
         open={showModalTS}
+        cancelBtn={false}
         size="xxl"
         close={() => {
           setSelectedRecord(null);

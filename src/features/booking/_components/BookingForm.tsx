@@ -10,6 +10,7 @@ import FormComponent from "@/components/Form/Form";
 import type { TDataById, TRequest } from "../_types/type";
 import FormFeilds from "./item/FormFeilds";
 import BokkingDescription from "./BokkingDescription";
+import LoadingForm from "@/components/Loading/LoadingForm";
 
 function BookingForm() {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ function BookingForm() {
   const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
+    mode: "onChange",
   });
   useEffect(() => {
     if (dataById) {
@@ -58,24 +60,32 @@ function BookingForm() {
       form.reset(praparedData);
     }
   }, [form.reset, dataById]);
+  const isDisabled = isPendingUpdate || isPendingCreate;
+
   return (
     <>
-      <BokkingDescription />
-      <FormComponent
-        btnSubmitText="ثبت نوبت"
-        form={form}
-        isSubmitting={isPendingUpdate || isPendingCreate}
-        onSubmit={(values) => {
-          const action = selectedRecord ? update : create;
-          action(values, { onSuccess: () => navigate("/booking") });
-        }}>
-        <FormFeilds
-          form={form}
-          selectedRecord={selectedRecord}
-          dataById={dataById}
-          isFetchingById={isFetchingById}
-        />
-      </FormComponent>
+      {isDisabled ? (
+        <LoadingForm />
+      ) : (
+        <>
+          <BokkingDescription />
+          <FormComponent
+            btnSubmitText="ثبت نوبت"
+            form={form}
+            isSubmitting={isPendingUpdate || isPendingCreate}
+            onSubmit={(values) => {
+              const action = selectedRecord ? update : create;
+              action(values, { onSuccess: () => navigate("/booking") });
+            }}>
+            <FormFeilds
+              form={form}
+              selectedRecord={selectedRecord}
+              dataById={dataById}
+              isFetchingById={isFetchingById}
+            />
+          </FormComponent>
+        </>
+      )}
     </>
   );
 }

@@ -1,5 +1,6 @@
 export type TChat = {
   message: string;
+  image: File | null;
 };
 
 export type TResTicket = {
@@ -7,6 +8,8 @@ export type TResTicket = {
   author_type: "admin" | "user";
   created_at: string;
   message: string;
+  image: string;
+  thumbnail: string;
 };
 
 export type TResList = {

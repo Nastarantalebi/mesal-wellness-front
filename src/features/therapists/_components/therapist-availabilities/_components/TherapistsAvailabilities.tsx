@@ -19,34 +19,35 @@ function TherapistsAvailabilities({ id }: TProps) {
     onSuccess: () => refetch(),
   });
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
-  const [showForm, setShowForm] = useState<any>(null);
+  const [showForm, setShowForm] = useState<boolean>(false);
   return (
     <>
-      {showForm && (
+      {showForm ? (
         <TherapistsAvailabilitiesForm
           selectedRecord={selectedRecord}
           setShowForm={setShowForm}
           therapistId={id}
           refetch={refetch}
         />
+      ) : (
+        <CustomTable
+          isLoading={isFetching}
+          refetch={refetch}
+          title="ماساژیست در دسترس"
+          columns={data?.columns}
+          data={data?.data}
+          dataPagination={data?.paginate}
+          onDelete={(record) => Delete(record.id)}
+          onAdd={() => {
+            setShowForm(true);
+            setSelectedRecord(null);
+          }}
+          onEdit={(record) => {
+            setSelectedRecord(record);
+            setShowForm(true);
+          }}
+        />
       )}
-      <CustomTable
-        isLoading={isFetching}
-        refetch={refetch}
-        title="ماساژیست در دسترس"
-        columns={data?.columns}
-        data={data?.data}
-        dataPagination={data?.paginate}
-        onDelete={(record) => Delete(record.id)}
-        onAdd={() => {
-          setShowForm(true);
-          setSelectedRecord(null);
-        }}
-        onEdit={(record) => {
-          setSelectedRecord(record);
-          setShowForm(true);
-        }}
-      />
     </>
   );
 }

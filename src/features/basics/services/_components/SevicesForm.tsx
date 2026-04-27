@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import type { TDataById, TReqServices } from "../_types/types";
-import { useLocation, useNavigate } from "react-router-dom";
 import {
   initialValues,
   schema,
@@ -14,11 +13,12 @@ import useGetById from "@/services/useGetById";
 import { useEffect } from "react";
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
-function SevicesForm() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const selectedRecord = location.state?.record.id;
-  const isEdit = !!selectedRecord;
+type TProps = {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  id: number;
+};
+function SevicesForm({ id, setOpen }: TProps) {
+  const isEdit = !!id;
   const { fields } = useFormData(isEdit);
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url: servicesUrl,
@@ -27,16 +27,17 @@ function SevicesForm() {
   const { mutate: update, isPending: isPendingUpdate } = useUpdateData({
     queryKey: servicesQuerykey,
     url: servicesUrl,
-    id: selectedRecord,
+    id: id,
   });
   const { data: dataById } = useGetById<TDataById>({
-    queryKey: [servicesQuerykey, selectedRecord],
+    queryKey: [servicesQuerykey, String(id)],
     url: servicesUrl,
-    id: selectedRecord,
+    id: id,
   });
   const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
+    mode: "onChange",
   });
   useEffect(() => {
     if (dataById) {
@@ -57,8 +58,10 @@ function SevicesForm() {
           ...values,
           is_active: values.is_active !== false,
         };
-        const action = !!selectedRecord ? update : create;
-        action(preparedData, { onSuccess: () => navigate("/services") });
+        const action = !!id ? update : create;
+        action(preparedData, {
+          onSuccess: () => setOpen(false),
+        });
       }}
       form={form}
       formFields={fields}

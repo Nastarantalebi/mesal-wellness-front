@@ -2,6 +2,7 @@ import useGetById from "@/services/useGetById";
 import { queryKey, url } from "../_fixtures/data";
 import type { TDataById } from "../_types/type";
 import clsx from "clsx";
+import { useAuthStore } from "@/features/auth/store/authStore";
 type TProps = {
   selectedRecord?: any;
 };
@@ -59,7 +60,7 @@ const PersonalInfo = ({ selectedRecord }: TProps) => {
             <input
               placeholder={placeholder}
               className={clsx(
-                "!border-none !outline-none !ring-0 w-fit m-0 p-0 px-0.5"
+                "!border-none !outline-none !ring-0 w-fit m-0 p-0 px-0.5",
               )}
             />
           </label>
@@ -72,12 +73,13 @@ const PersonalInfo = ({ selectedRecord }: TProps) => {
       </>
     );
   };
+  const organization = useAuthStore((s) => s.userData?.organization);
   return (
     <form className="mx-auto p-6 space-y-6 border border-gray-300 rounded-lg shadow-md overflow-y-scroll h-[75vh]">
       {/* Header */}
       <div className="text-center mb-6">
         <h1 className="text-2xl font-bold mb-2">
-          مرکز ماساژ آسمان (آموزش و اجرا)
+          {organization?.title} (آموزش و اجرا)
         </h1>
         <img src="/logo-192×192.png" alt="logo" className="mx-auto mb-2 w-32" />
       </div>

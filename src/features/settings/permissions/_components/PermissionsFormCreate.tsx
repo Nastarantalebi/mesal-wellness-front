@@ -24,6 +24,7 @@ const PermissionsFormCreate = ({ setOpenModal }: TProps) => {
   const form = useForm<TRequestPermissionsCreate>({
     resolver: zodResolver(schemaCreate),
     defaultValues: initialValuesCreate,
+    mode: "onChange",
   });
   const { data, isLoading } = useGetData<TCreateDataPermissions>({
     url: "/basics/acl/permissions/create",

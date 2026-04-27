@@ -1,6 +1,6 @@
 export function convertNullToEmptyString<T extends object>(
   obj: T,
-  initialValues: T
+  initialValues: T,
 ): T {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const newObject: any = {};
@@ -19,7 +19,7 @@ export function convertNullToEmptyString<T extends object>(
 
 export function whitelistObjectUsingInitialValues<T extends object>(
   initialValues: T,
-  values?: object
+  values?: object,
 ): T {
   if (!values) return initialValues;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -34,10 +34,14 @@ export function whitelistObjectUsingInitialValues<T extends object>(
 
 export function prepareFormValues<T extends object>(
   initialValues: T,
-  values?: object
+  values?: object,
 ) {
   return convertNullToEmptyString(
     whitelistObjectUsingInitialValues(initialValues, values),
-    initialValues
+    initialValues,
   );
 }
+export const formatMoney = (val: string) => {
+  const numbers = val.replace(/[^\d]/g, "");
+  return numbers.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};

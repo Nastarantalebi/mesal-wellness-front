@@ -30,7 +30,7 @@ function Sidebar({
   }>({});
 
   const getSubMenuRef = (
-    key: string
+    key: string,
   ): React.RefObject<HTMLUListElement | null> => {
     if (!subMenuRefs.current[key]) {
       subMenuRefs.current[key] = React.createRef<HTMLUListElement>();
@@ -170,7 +170,7 @@ function Sidebar({
                             {subMenu.subMenu && (
                               <Transition
                                 nodeRef={getSubMenuRef(
-                                  `sub-menu-2-${menuKey}-${subMenuKey}`
+                                  `sub-menu-2-${menuKey}-${subMenuKey}`,
                                 )}
                                 in={subMenu.activeDropdown}
                                 onEnter={enter}
@@ -178,7 +178,7 @@ function Sidebar({
                                 timeout={300}>
                                 <ul
                                   ref={getSubMenuRef(
-                                    `sub-menu-2-${menuKey}-${subMenuKey}`
+                                    `sub-menu-2-${menuKey}-${subMenuKey}`,
                                   )}
                                   className={clsx([
                                     "",
@@ -204,7 +204,7 @@ function Sidebar({
                                             },
                                           ])}
                                           onClick={(
-                                            event: React.MouseEvent
+                                            event: React.MouseEvent,
                                           ) => {
                                             event.preventDefault();
                                             linkTo(lastSubMenu, navigate);
@@ -226,7 +226,7 @@ function Sidebar({
                                           )}
                                         </a>
                                       </li>
-                                    )
+                                    ),
                                   )}
                                 </ul>
                               </Transition>
@@ -239,7 +239,7 @@ function Sidebar({
                   )}
                   {/* END: Second Child */}
                 </li>
-              )
+              ),
             )}
             {/* END: First Child */}
           </ul>

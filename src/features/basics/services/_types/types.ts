@@ -49,3 +49,57 @@ export type TDataById = {
 export type TCreateData = {
   data: { categories: TOption[]; genderPolicies: TOption[] };
 };
+export type TServicesInfo = {
+  data: {
+    average_price: number;
+    average_revenue_per_session: number;
+    average_session_minutes: string | null;
+    canceled_bookings: number;
+    company_distribution: {
+      company_id: number;
+      cnt: number;
+      booking: string | null;
+      company_name: string;
+    }[];
+    confirmed_bookings: number;
+    first_used_at: string | null;
+    last_used_at: string | null;
+    new_customers_count: number;
+    peak_hours: {
+      hour: string;
+      cnt: number;
+      booking: string | null;
+    }[];
+    peak_days: {
+      day: string;
+      cnt: number;
+    }[];
+    repeat_customers_count: number;
+    therapist_distribution: {
+      therapist_id: number;
+      full_name: string | null;
+      cnt: number;
+      booking: null;
+    }[];
+    top_company: {
+      company_id: number;
+      cnt: number;
+      booking: string | null;
+      company_name: string;
+    };
+    top_therapist: {
+      therapist_id: number;
+      concat: string | null;
+      cnt: number;
+      booking: string | null;
+    };
+    total_bookings: number;
+    total_corporate_sessions: number;
+    total_customers: number;
+    total_discount: string | null;
+    total_sessions: number;
+    total_revenue: string | null;
+    total_paid: number;
+    total_minutes: number | null;
+  };
+};
