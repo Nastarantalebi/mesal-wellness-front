@@ -19,7 +19,7 @@ function useCreateData<TReq extends object, TRes>({
   support = false,
   onSuccess,
   onError,
-  timeout,
+  timeout = 60 * 1000,
 }: TCreateData<TRes>) {
   const queryClient = useQueryClient();
   const apiClient = support ? SupportRequest : Request;

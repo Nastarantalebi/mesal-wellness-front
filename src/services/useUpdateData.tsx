@@ -9,15 +9,19 @@ type TUpdateData = {
   showToast?: boolean;
   onSuccess?: () => void;
   onError?: () => void;
+  timeout?: number;
 };
 
 export async function updateCase<TReq extends object, TRes>(
   url: string,
   values: TReq,
-  id?: number | string | null
+  id?: number | string | null,
+  timeout?: number,
 ) {
   const finalUrl = id != null ? `${url}${id}/` : url;
-  const { data }: { data: TRes } = await Request.put(finalUrl, values);
+  const { data }: { data: TRes } = await Request.put(finalUrl, values, {
+    timeout,
+  });
   return data;
 }
 
@@ -28,11 +32,13 @@ function useUpdateData<TReq extends object, TRes>({
   showToast = true,
   onSuccess,
   onError,
+  timeout,
 }: TUpdateData) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (values: TReq) => updateCase<TReq, TRes>(url, values, id),
+    mutationFn: (values: TReq) =>
+      updateCase<TReq, TRes>(url, values, id, timeout),
     onSuccess: () => {
       if (onSuccess) {
         onSuccess();
