@@ -4,7 +4,7 @@ ARG NGINX_VERSION=stable-alpine3.23
 FROM artifacts.repo.mesal.ir/docker-proxy/oven/bun:${BUN_VERSION} AS deps
 WORKDIR /app
 COPY package.json bun.lock  ./
-RUN bun ci
+RUN bun ci --verbose
 
 FROM deps AS builder
 WORKDIR /app
