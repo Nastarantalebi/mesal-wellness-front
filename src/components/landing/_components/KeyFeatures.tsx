@@ -10,7 +10,7 @@ const KeyFeatures = () => {
           <div className="flex flex-row justify-between items-center relative">
             <div className="h-[600px]">
               <img
-                src="/Landing/tkeyFeatures.png"
+                src="/Landing/messageDetails.jpg"
                 alt="رزرو و مدیریت"
                 className="w-full h-full object-cover rounded-3xl shadow-2xl shadow-gray-100"
               />
