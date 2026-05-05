@@ -1,19 +1,17 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Clock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
 
 const HeroSection = () => {
+const navigate = useNavigate();
   return (
     <div>
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-br from-green-900/20 via-green-600/10 to-transparent" />
-          <img
-            src="./hero-spa.jpg"
-            alt="مرکز ماساژ و تندرستی"
-            className="w-full h-full object-cover opacity-20"
-          />
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -46,17 +44,12 @@ const HeroSection = () => {
 
               <div className="flex flex-wrap gap-4">
                 <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-8 shadow-xl shadow-green-200 text-lg"
-                >
-                  شروع رایگان
-                </Button>
-                <Button
+                onClick={() => navigate("/login")}
                   size="lg"
                   variant="outline"
                   className="border-2 border-green-200 text-green-700 hover:bg-green-50 px-8 text-lg"
                 >
-                  مشاهده دمو
+                  ورود
                 </Button>
               </div>
 
@@ -79,15 +72,15 @@ const HeroSection = () => {
             </div>
 
             <div className="relative hidden lg:block">
-              <div className="relative">
+              <div className="relative scale-150 ">
                 <img
-                  src="/Landing/massage.webp"
+                  src="/Landing/hero.webp"
                   alt="خدمات ماساژ درمانی"
-                  className="rounded-3xl shadow-2xl shadow-green-200/50 transform hover:scale-105 transition-transform duration-500"
+                  className="rounded-3xl shadow-2xl shadow-green-200/50 transform hover:scale-105 transition-transform duration-500 w-full h-auto"
                 />
-                <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-xl p-6 border border-green-100">
+                <div className="absolute bottom-5  bg-white rounded-2xl shadow-xl p-4 border border-green-100">
                   <div className="flex items-center gap-3">
-                    <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
+                    <div className="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center">
                       <Clock className="h-6 w-6 text-green-700" />
                     </div>
                     <div>
