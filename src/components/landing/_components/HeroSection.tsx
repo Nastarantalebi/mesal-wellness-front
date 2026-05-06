@@ -72,7 +72,7 @@ const navigate = useNavigate();
             </div>
 
             <div className="relative hidden lg:block">
-              <div className="relative scale-150 ">
+              <div className="relative  ">
                 <img
                   src="/Landing/hero.webp"
                   alt="خدمات ماساژ درمانی"

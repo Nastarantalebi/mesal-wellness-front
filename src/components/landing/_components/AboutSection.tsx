@@ -50,12 +50,12 @@ const AboutSection = () => {
                 className="rounded-2xl shadow-lg transform hover:scale-105 transition-transform duration-300"
               />
               <img
-                src="Landing/hero-spa.jpg"
+                src="Landing/images.jpg"
                 alt="داخلی spa"
                 className="rounded-2xl mt-20 shadow-lg transform hover:scale-105 transition-transform duration-300"
               />
               <img
-                src="Landing/images (1).jpg"
+                src="Landing/team-work.jpg"
                 alt="داخلی spa"
                 className="rounded-2xl mr-20 shadow-lg transform hover:scale-105 transition-transform duration-300"
               />
