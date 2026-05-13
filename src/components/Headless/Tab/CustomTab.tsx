@@ -46,16 +46,7 @@ export default function CustomTabs({ items, title }: CustomTabsProps) {
         <div className="flex flex-col p-5 box box--stacked">
           <Tab.Panels>
             {items.map(({ key, content }) => (
-              <Tab.Panel
-                key={key}
-                className="
-                  transition-all duration-300
-                  data-[headlessui-state='selected']:opacity-100 
-                  data-[headlessui-state='selected']:translate-y-0
-                  opacity-0 translate-y-3
-                ">
-                {content}
-              </Tab.Panel>
+              <Tab.Panel key={key}>{content}</Tab.Panel>
             ))}
           </Tab.Panels>
         </div>

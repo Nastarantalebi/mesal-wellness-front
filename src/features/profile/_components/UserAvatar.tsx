@@ -82,7 +82,7 @@ function UserAvatar({ data, refetch }: any) {
         }>
         <FormLabel
           className={`"dark:text-white mb-2 text-lg font-medium ${
-            avatarError && "text-danger"
+            avatarError ? "text-danger" : ""
           }`}>
           پروفایل
         </FormLabel>

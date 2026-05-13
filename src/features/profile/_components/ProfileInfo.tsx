@@ -5,11 +5,7 @@ import LoadingSpin from "@/components/Loading";
 const ProfileInfo = () => {
   const { data: dataMe, isLoading, refetch } = useMe();
   if (isLoading) return <LoadingSpin />;
-  return (
-    <div>
-      <UserAvatar data={dataMe} refetch={refetch} />
-    </div>
-  );
+  return <UserAvatar data={dataMe} refetch={refetch} />;
 };
 
 export default ProfileInfo;
