@@ -9,16 +9,15 @@ type TProps = {
 };
 const TableHeader = ({
   addText,
-  title,
   customAdd,
   onAdd,
   customAddText,
 }: TProps) => {
   return (
     <div className="flex flex-row items-center justify-between gap-y-2 mt-1">
-      <div className="text-base font-medium group-[.mode--light]:text-white">
+      {/* <div className="text-base font-medium group-[.mode--light]:text-white">
         {title}
-      </div>
+      </div> */}
       <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ms-auto">
         {customAdd && (
           <Button

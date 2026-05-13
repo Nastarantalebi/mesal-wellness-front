@@ -1,37 +1,37 @@
 import z from "zod";
-import {
-  mobileRequireValidationSchema,
-  nationalCodeValidationSchema,
-} from "@/fixtures/zodValidations";
+
+import type { TFilterData } from "../_types/types";
 
 export const url = "/wellness/services/report/";
 
 export const schema = z.object({
-  first_name: z.string().min(1, " "),
-  last_name: z.string().min(1, " "),
-  mobile: mobileRequireValidationSchema,
-  bio: z.string().nullable(),
-  gender: z.string().min(1, " "),
-  hire_date: z.string().nullable(),
-  national_code: nationalCodeValidationSchema,
-  license_number: z.string().nullable(),
+  booking_status: z.string().nullable(),
+  has_bookings: z.boolean().nullable(),
+  sort_by: z.string().nullable(),
+  sort_direction: z.string().nullable().optional(),
+  category_id: z.coerce.number().nullable(),
+  company_id: z.coerce.number().nullable(),
+  gender_policy: z.string().nullable(),
+  end_date: z.string().nullable(),
   status: z.string().nullable(),
-  specialties: z.array(z.string()),
-  commission_rate: z.string().nullable(),
-  facility_id: z.coerce.number().min(1, " "),
+  max_price: z.string().nullable(),
+  min_price: z.string().nullable(),
+  search: z.string().nullable().optional(),
+  start_date: z.string().nullable(),
 });
 
-export const initialValues: any = {
-  first_name: "",
-  last_name: "",
-  mobile: "",
-  bio: null,
-  commission_rate: "0",
-  gender: "",
-  hire_date: null,
-  national_code: null,
-  license_number: null,
+export const initialValues: TFilterData = {
+  booking_status: null,
+  has_bookings: null,
+  sort_by: null,
+  sort_direction: null,
+  category_id: null,
+  company_id: null,
+  gender_policy: null,
+  end_date: null,
   status: null,
-  facility_id: 0,
-  specialties: [],
+  max_price: null,
+  min_price: null,
+  search: null,
+  start_date: null,
 };

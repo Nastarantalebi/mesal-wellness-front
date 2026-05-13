@@ -38,6 +38,9 @@ export default function DynamicBreadcrumb() {
     if (segment.toLowerCase() === "profile") {
       return { label: "پروفایل" };
     }
+    if (segment.toLowerCase() === "report") {
+      return { label: "گزارش" };
+    }
     const path = "/" + segment;
 
     // اگر در منو باشد

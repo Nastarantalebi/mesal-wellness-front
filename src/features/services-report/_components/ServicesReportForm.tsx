@@ -1,51 +1,63 @@
 import { useForm } from "react-hook-form";
-import useCreateData from "@/services/useCreateData";
 import { zodResolver } from "@hookform/resolvers/zod";
-import useUpdateData from "@/services/useUpdateData";
-import useGetById from "@/services/useGetById";
-import { useEffect } from "react";
+import { useEffect, type Dispatch, type SetStateAction } from "react";
 import FormComponent from "@/components/Form/Form";
 import useFormData from "../_hooks/useFormData";
-import { initialValues, schema, url } from "../_fixtures/data";
-
-function ServicesReportForm() {
-  const { mutate: create, isPending: isPendingCreate } = useCreateData({
-    url: url,
-    queryKey: url,
-  });
-  const { mutate: update, isPending: isPendingUpdate } = useUpdateData({
-    url: url,
-    queryKey: url,
-  });
-  const { data: dataById } = useGetById<any>({
-    url: url,
-    queryKey: [url],
-  });
+import { initialValues, schema } from "../_fixtures/data";
+import Button from "@/components/Button";
+type TProps = {
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  setFormValues: Dispatch<any>;
+  formValues: any;
+};
+function ServicesReportForm({ setOpen, setFormValues, formValues }: TProps) {
   const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
     mode: "onChange",
   });
+  const sortWatch = form.watch("sort_by");
+  const { fields } = useFormData(sortWatch);
   useEffect(() => {
-    if (dataById) {
-      const praparedData: any = {
-        ...dataById.data,
-        ...dataById.data.user,
-        facility_id: dataById.data.facility.id,
-      };
-      form.reset(praparedData);
+    if (formValues) {
+      form.reset(formValues);
     }
-  }, [form, dataById]);
-  const { fields } = useFormData();
+  }, [formValues]);
   return (
     <FormComponent
       form={form}
-      onSubmit={(values) => {
-        const action = true ? update : create;
-        action(values);
+      size="small"
+      onSubmit={(data: any) => {
+        const payload = {
+          ...data,
+          sort_dir: data.sort_by ? data.sort_dir : null,
+        };
+        const filledFields = Object.fromEntries(
+          Object.entries(payload).filter(([_, value]) => {
+            return value !== undefined && value !== "" && value !== null;
+          }),
+        );
+        setOpen(false);
+        setFormValues(filledFields);
       }}
-      isSubmitting={isPendingUpdate || isPendingCreate}
+      isSubmitting={false}
       formFields={fields}
+      button={
+        <div className="flex flex-col sm:flex-row sm:justify-end sm:items-center gap-2 mt-3">
+          <Button
+            type="reset"
+            onClick={() => {
+              setFormValues(null);
+              setOpen(false);
+            }}
+            variant="danger">
+            حذف فیلتر
+          </Button>
+          <Button type="submit" variant="primary">
+            اعمال فیلتر
+          </Button>
+        </div>
+      }
     />
   );
 }

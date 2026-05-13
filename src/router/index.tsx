@@ -77,11 +77,11 @@ function Router() {
           element: <Therapists />,
         },
         {
-          path: "/therapists-report",
+          path: "/therapists/report",
           element: <TherapistsReport />,
         },
         {
-          path: "/services-report",
+          path: "/services/report",
           element: <ServicesReport />,
         },
         {

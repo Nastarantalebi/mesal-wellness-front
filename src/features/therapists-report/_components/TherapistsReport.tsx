@@ -21,7 +21,7 @@ function TherapistsReport() {
     <>
       <div className="flex items-center pt-2 gap-3 mb-3">
         <div className="h-8 w-1 rounded-full bg-blue-600" />
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+        <h1 className="text-xl font-bold tracking-tight text-gray-900">
           گزارش جامع درمانگران
         </h1>
       </div>
@@ -32,7 +32,7 @@ function TherapistsReport() {
         refetch={refetch}
         showActions={false}
         isLoading={isFetching}
-        title=" "
+        title="گزارش جامع درمانگران"
         columns={data?.columns}
         data={data?.data}
         dataPagination={data?.paginate}
@@ -40,7 +40,7 @@ function TherapistsReport() {
       <Modal
         close={() => setOpen(false)}
         open={open}
-        title=""
+        title="فیلتر داده‌ها"
         size="xxl"
         cancelBtn={false}>
         <TherapistsReportForm
