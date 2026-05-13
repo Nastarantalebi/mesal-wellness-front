@@ -44,6 +44,7 @@ type CustomTableProps = {
   isLoading?: boolean;
   customAddText?: string;
   addText?: string;
+  filter?: () => void;
   onAdd?: () => void;
   customAdd?: () => void;
   onEdit?: (record: any) => void;
@@ -76,6 +77,7 @@ function CustomTable({
   singleActionColumns,
   customActions,
   isLoading,
+  filter,
 }: CustomTableProps) {
   const tableRef = useRef<HTMLDivElement | null>(null);
   const tabulator = useRef<Tabulator | null>(null);
@@ -192,6 +194,7 @@ function CustomTable({
               title={title}
               onImport={onImport}
               refetch={refetch}
+              filterProps={filter}
               printTable={printTable}
             />
             {isLoading ? (

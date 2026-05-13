@@ -34,11 +34,12 @@ function useGetData<T>({
 }: TGetData) {
   const { search } = useLocation();
 
-  const queryObject = Object.fromEntries(new URLSearchParams(search));
-
+  const customSearch = url.includes("?") ? search.replaceAll("?", "&") : search;
+  const queryObject = Object.fromEntries(new URLSearchParams(customSearch));
   return useQuery({
     queryKey: [queryKey, queryObject],
-    queryFn: () => (support ? getdataSupport<T>(url) : getdata<T>(url, search)),
+    queryFn: () =>
+      support ? getdataSupport<T>(url) : getdata<T>(url, customSearch),
     enabled,
     staleTime,
     refetchOnWindowFocus: false,

@@ -1,4 +1,4 @@
-import { RotateCcwIcon, SearchIcon } from "lucide-react";
+import { FunnelX, RotateCcwIcon, SearchIcon } from "lucide-react";
 import Button from "../Button";
 import { FormInline, FormInput } from "../Form";
 import { Menu } from "../Headless";
@@ -12,8 +12,16 @@ type TProps = {
   printTable: any;
   refetch: any;
   title: string;
+  filterProps?: () => void;
 };
-const ImportData = ({ data, onImport, printTable, refetch, title }: TProps) => {
+const ImportData = ({
+  data,
+  onImport,
+  printTable,
+  refetch,
+  title,
+  filterProps,
+}: TProps) => {
   const tabulator = useRef<Tabulator | null>(null);
   // توابع خروجی
   const exportTable = (type: "csv" | "json" | "xlsx" | "html") => {
@@ -116,6 +124,18 @@ const ImportData = ({ data, onImport, printTable, refetch, title }: TProps) => {
                         <option value="!=">!=</option>
                       </FormSelect>
                     </FormInline> */}
+        {filterProps && (
+          <Button
+            variant={"outline-primary"}
+            size="sm"
+            className="gap-2"
+            title="فیلتر"
+            type="button"
+            onClick={filterProps}>
+              فیلتر
+            <FunnelX size={16} />
+          </Button>
+        )}
         {refetch && (
           <FormInline className="flex-col items-start xl:flex-row xl:items-center gap-y-2 w-full">
             <div className="relative w-full xl:w-auto flex-1">

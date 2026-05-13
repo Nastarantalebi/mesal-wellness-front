@@ -30,6 +30,8 @@ import RouteGuard from "./RouteGaurd";
 import SmsLogs from "@/features/sms-logs/_components/SmsLogs";
 import LandingPage from "@/components/landing/_components/LandingPage";
 import ServicesInfo from "@/features/basics/services/_components/ServiceInfo";
+import TherapistsReport from "@/features/therapists-report/_components/TherapistsReport";
+import ServicesReport from "@/features/services-report/_components/ServicesReport";
 
 function Router() {
   const routes = [
@@ -73,6 +75,14 @@ function Router() {
         {
           path: "/therapists",
           element: <Therapists />,
+        },
+        {
+          path: "/therapists-report",
+          element: <TherapistsReport />,
+        },
+        {
+          path: "/services-report",
+          element: <ServicesReport />,
         },
         {
           path: "/therapists/create",

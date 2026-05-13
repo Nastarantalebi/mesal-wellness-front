@@ -16,7 +16,6 @@ const Pagination = ({ dataPagination }: TProps) => {
     total = 0,
     per_page = 20, // مقدار اولیه از سرور
   } = dataPagination || {};
-
   const paginationSizeSelector = [10, 20, 30, 50, 100, 200];
 
   // مقدار per_page کنترل شده
@@ -104,7 +103,7 @@ const Pagination = ({ dataPagination }: TProps) => {
               }`}>
               {p}
             </button>
-          )
+          ),
         )}
 
         {/* Next */}

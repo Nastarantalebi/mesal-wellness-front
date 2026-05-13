@@ -49,7 +49,7 @@ const handleHttpError = (error: any) => {
       break;
     case 500:
       showToastify({
-        message: message || "خطای سرور رخ داده است.",
+        message: "خطای سرور رخ داده است.",
         type: "error",
       });
       break;

@@ -3,7 +3,6 @@ import useFormField from "./useFormField";
 import type { Control, FieldErrors, FieldValues } from "react-hook-form";
 import type { TFormData } from "@/types";
 import FormLabel from "./FormLabel";
-import { SeparatorHorizontal } from "lucide-react";
 import FormField from "./FormField";
 import clsx from "clsx";
 
@@ -59,7 +58,7 @@ function FormBody<TFormValues extends FieldValues>({
 
   const handleEnterKey = (
     e: React.KeyboardEvent<HTMLElement>,
-    index: number
+    index: number,
   ) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -97,11 +96,11 @@ function FormBody<TFormValues extends FieldValues>({
               {fieldConfig.label && (
                 <FormLabel
                   htmlFor={fieldConfig.name}
-                  className="flex flex-col w-full sm:flex-row">
+                  className="flex flex-col w-full sm:flex-row text-blue-500 font-bold text-lg">
                   {fieldConfig.label}
                 </FormLabel>
               )}
-              <SeparatorHorizontal className="my-4" />
+              <div className="my-2 bg-gray-300 w-full h-1"></div>
             </div>
           );
 
@@ -117,12 +116,12 @@ function FormBody<TFormValues extends FieldValues>({
             className={clsx(
               largeField.includes(fieldConfig.name) &&
                 "col-span-full md:col-span-3",
-              fieldConfig.className
+              fieldConfig.className,
             )}>
             {fieldConfig.label && (
               <FormLabel
                 htmlFor={fieldConfig.name}
-                className="flex w-full flex-row">
+                className="flex w-full flex-row ">
                 {fieldConfig.label}
                 {fieldConfig.required && <span className="text-danger">*</span>}
               </FormLabel>
