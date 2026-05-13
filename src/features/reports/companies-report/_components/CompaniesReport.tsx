@@ -1,13 +1,11 @@
-import CustomTable from "../../../components/Tabulator";
-import useGetData from "../../../services/useGetData";
 import { url } from "../_fixtures/data";
-import TherapistsReportForm from "./TherapistsReportForm";
-import type { TSummary } from "../_types/types";
-import TherapistsReportSummary from "./TherapistsReportSummary";
 import { useState } from "react";
 import Modal from "@/components/Headless/Dialog/Modal";
+import useGetData from "@/services/useGetData";
+import CustomTable from "@/components/Tabulator";
+import CompaniesReportForm from "./CompaniesReportForm";
 
-function TherapistsReport() {
+function CompaniesReport() {
   const [formValues, setFormValues] = useState<any>(null);
   const [open, setOpen] = useState(false);
   const query = formValues && new URLSearchParams(formValues).toString();
@@ -16,23 +14,21 @@ function TherapistsReport() {
     url: baseUrl,
     queryKey: baseUrl,
   });
-  const summary: TSummary = data?.summary;
   return (
     <>
       <div className="flex items-center pt-2 gap-3 mb-3">
         <div className="h-8 w-1 rounded-full bg-blue-600" />
         <h1 className="text-xl font-bold tracking-tight text-gray-900">
-          گزارش جامع درمانگران
+          گزارش جامع شرکت‌ها
         </h1>
       </div>
 
-      {summary && <TherapistsReportSummary summary={summary} />}
       <CustomTable
         filter={() => setOpen(true)}
         refetch={refetch}
         showActions={false}
         isLoading={isFetching}
-        title="گزارش جامع درمانگران"
+        title="گزارش جامع شرکت‌ها"
         columns={data?.columns}
         data={data?.data}
         dataPagination={data?.paginate}
@@ -43,7 +39,7 @@ function TherapistsReport() {
         title="فیلتر داده‌ها"
         size="xxl"
         cancelBtn={false}>
-        <TherapistsReportForm
+        <CompaniesReportForm
           setOpen={setOpen}
           setFormValues={setFormValues}
           formValues={formValues}
@@ -53,4 +49,4 @@ function TherapistsReport() {
   );
 }
 
-export default TherapistsReport;
+export default CompaniesReport;

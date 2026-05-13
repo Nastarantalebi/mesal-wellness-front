@@ -10,7 +10,7 @@ type TProps = {
   setFormValues: Dispatch<any>;
   formValues: any;
 };
-function ServicesReportForm({ setOpen, setFormValues, formValues }: TProps) {
+function CompaniesReportForm({ setOpen, setFormValues, formValues }: TProps) {
   const form = useForm<any>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
@@ -30,7 +30,7 @@ function ServicesReportForm({ setOpen, setFormValues, formValues }: TProps) {
       onSubmit={(data: any) => {
         const payload = {
           ...data,
-          sort_dir: data.sort_by ? data.sort_dir : null,
+          sort_direction: data.sort_by ? data.sort_direction : null,
         };
         const filledFields = Object.fromEntries(
           Object.entries(payload).filter(([_, value]) => {
@@ -62,4 +62,4 @@ function ServicesReportForm({ setOpen, setFormValues, formValues }: TProps) {
   );
 }
 
-export default ServicesReportForm;
+export default CompaniesReportForm;

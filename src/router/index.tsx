@@ -30,8 +30,10 @@ import RouteGuard from "./RouteGaurd";
 import SmsLogs from "@/features/sms-logs/_components/SmsLogs";
 import LandingPage from "@/components/landing/_components/LandingPage";
 import ServicesInfo from "@/features/basics/services/_components/ServiceInfo";
-import TherapistsReport from "@/features/therapists-report/_components/TherapistsReport";
-import ServicesReport from "@/features/services-report/_components/ServicesReport";
+import TherapistsReport from "@/features/reports/therapists-report/_components/TherapistsReport";
+import ServicesReport from "@/features/reports/services-report/_components/ServicesReport";
+import CustomersReport from "@/features/reports/customers-report/_components/CustomersReport";
+import CompaniesReport from "@/features/reports/companies-report/_components/CompaniesReport";
 
 function Router() {
   const routes = [
@@ -65,6 +67,10 @@ function Router() {
           element: <ServicesInfo />,
         },
         {
+          path: "/services/report",
+          element: <ServicesReport />,
+        },
+        {
           path: "/resources",
           element: <Resources />,
         },
@@ -77,20 +83,20 @@ function Router() {
           element: <Therapists />,
         },
         {
-          path: "/therapists/report",
-          element: <TherapistsReport />,
-        },
-        {
-          path: "/services/report",
-          element: <ServicesReport />,
-        },
-        {
           path: "/therapists/create",
           element: <TherapistsForm />,
         },
         {
+          path: "/therapists/report",
+          element: <TherapistsReport />,
+        },
+        {
           path: "/customers",
           element: <Customers />,
+        },
+        {
+          path: "/customers/report",
+          element: <CustomersReport />,
         },
         {
           path: "/staff",
@@ -104,6 +110,10 @@ function Router() {
         {
           path: "/company",
           element: <Company />,
+        },
+        {
+          path: "/companies/report",
+          element: <CompaniesReport />,
         },
         {
           path: "/contract",

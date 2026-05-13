@@ -16,7 +16,6 @@ const useFormData = (sortWatch: any) => {
     {
       name: "sort_by",
       label: "مرتب سازی بر اساس",
-      placeholder: "مرتب سازی بر اساس",
       type: "select",
       option: data?.data.sortOptions,
       isLoading,
@@ -25,7 +24,6 @@ const useFormData = (sortWatch: any) => {
       ? {
           name: "sort_direction",
           label: "روش مرتب سازی",
-          placeholder: "روش مرتب سازی",
           type: "select",
           option: data?.data.sortDirections,
           isLoading,
@@ -34,11 +32,6 @@ const useFormData = (sortWatch: any) => {
     {
       name: "separator",
       label: "فیلترکردن",
-    },
-    {
-      name: "search",
-      label: "جستجو",
-      placeholder: "جستجو",
     },
     {
       name: "min_price",
@@ -67,8 +60,7 @@ const useFormData = (sortWatch: any) => {
     },
     {
       name: "has_bookings",
-      label: "فقط تراپیست‌های دارای رزرو",
-      placeholder: "فقط تراپیست‌های دارای رزرو",
+      label: "فقط سرویس‌های دارای رزرو",
       type: "select",
       option: [
         {
@@ -84,7 +76,6 @@ const useFormData = (sortWatch: any) => {
     {
       name: "booking_status",
       label: "وضعیت رزرو",
-      placeholder: "وضعیت رزرو",
       type: "select",
       isLoading,
       option: data?.data.bookingStatuses ?? [],
@@ -93,7 +84,6 @@ const useFormData = (sortWatch: any) => {
     {
       name: "category_id",
       label: "دسته‌بندی",
-      placeholder: "دسته‌بندی",
       type: "select",
       isLoading,
       option: data?.data.categories ?? [],
@@ -101,7 +91,6 @@ const useFormData = (sortWatch: any) => {
     {
       name: "company_id",
       label: "شرکت",
-      placeholder: "شرکت",
       type: "select",
       isLoading,
       option: data?.data.companies ?? [],
@@ -109,7 +98,6 @@ const useFormData = (sortWatch: any) => {
     {
       name: "gender_policy",
       label: "جنسیت",
-      placeholder: "جنسیت",
       type: "select",
       isLoading,
       option: data?.data.genderPolicies ?? [],
@@ -117,7 +105,6 @@ const useFormData = (sortWatch: any) => {
     {
       name: "status",
       label: "وضعیت",
-      placeholder: "وضعیت",
       type: "select",
       isLoading,
       option: [

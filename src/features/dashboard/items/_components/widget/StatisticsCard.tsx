@@ -10,11 +10,6 @@ const StatisticsCard: React.FC<TProps> = ({ items }) => {
   if (!items) return;
   return (
     <div className="col-span-12 my-2">
-      {/* عنوان کارت */}
-      {/* <div className="mb-4">
-        <h3 className="text-lg font-semibold text-slate-700">{titleText}</h3>
-      </div> */}
-
       {/* گرید آیتم‌ها */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {items.map((item, idx) => (

@@ -3,7 +3,7 @@ import { showToastify } from "@/components/Headless/Toast";
 
 const handleHttpError = (error: any) => {
   const status = error?.response?.status;
-  const message = error?.response?.data?.message ?? error.message;
+  // const message = error?.response?.data?.message ?? error.message;
   let errorMessage =
     error?.response?.data?.message ||
     error?.response?.data?.error ||

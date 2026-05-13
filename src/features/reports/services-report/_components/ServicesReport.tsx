@@ -1,9 +1,9 @@
-import CustomTable from "../../../components/Tabulator";
-import useGetData from "../../../services/useGetData";
 import { url } from "../_fixtures/data";
 import ServicesReportForm from "./ServicesReportForm";
 import { useState } from "react";
 import Modal from "@/components/Headless/Dialog/Modal";
+import useGetData from "@/services/useGetData";
+import CustomTable from "@/components/Tabulator";
 
 function ServicesReport() {
   const [formValues, setFormValues] = useState<any>(null);

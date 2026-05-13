@@ -17,7 +17,6 @@ const useFormData = (sortWatch: any) => {
     {
       name: "sort_by",
       label: "مرتب سازی بر اساس",
-      placeholder: "مرتب سازی بر اساس",
       type: "select",
       option: [
         {
@@ -42,7 +41,6 @@ const useFormData = (sortWatch: any) => {
       ? {
           name: "sort_dir",
           label: "روش مرتب سازی",
-          placeholder: "روش مرتب سازی",
           type: "select",
           option: [
             {
@@ -131,7 +129,6 @@ const useFormData = (sortWatch: any) => {
     {
       name: "has_bookings",
       label: "فقط تراپیست‌های دارای رزرو",
-      placeholder: "فقط تراپیست‌های دارای رزرو",
       type: "select",
       option: [
         {
@@ -147,7 +144,6 @@ const useFormData = (sortWatch: any) => {
     {
       name: "with_stats",
       label: "شامل امار رزروها",
-      placeholder: "شامل امار رزروها",
       type: "select",
       option: [
         {
@@ -163,7 +159,6 @@ const useFormData = (sortWatch: any) => {
     {
       name: "booking_status",
       label: "وضعیت رزرو",
-      placeholder: "وضعیت رزرو",
       type: "select",
       isLoading: isLoading,
       option: data?.data.bookingStatuses ?? [],
@@ -171,7 +166,6 @@ const useFormData = (sortWatch: any) => {
     {
       name: "facility_id",
       label: "شعبه",
-      placeholder: "شعبه",
       type: "select",
       isLoading: isLoading,
       option: data?.data.facilities ?? [],
@@ -179,7 +173,6 @@ const useFormData = (sortWatch: any) => {
     {
       name: "gender",
       label: "جنسیت",
-      placeholder: "جنسیت",
       type: "select",
       isLoading: isLoading,
       option: data?.data.genders ?? [],
@@ -187,7 +180,6 @@ const useFormData = (sortWatch: any) => {
     {
       name: "specialty",
       label: "تخصص‌ها",
-      placeholder: "تخصص‌ها",
       type: "select",
       isLoading: isLoading,
       option: data?.data.specialties ?? [],
@@ -195,7 +187,6 @@ const useFormData = (sortWatch: any) => {
     {
       name: "status",
       label: "وضعیت",
-      placeholder: "وضعیت",
       type: "select",
       isLoading: isLoading,
       option: data?.data.statuses ?? [],
