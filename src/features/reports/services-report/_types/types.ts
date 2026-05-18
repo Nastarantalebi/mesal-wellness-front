@@ -17,7 +17,6 @@ export type TFilterData = {
   has_bookings: boolean | null;
   category_id: number | null;
   gender_policy: string | null;
-  status: string | null;
   company_id: number | null;
   start_date: string | null;
   end_date: string | null;

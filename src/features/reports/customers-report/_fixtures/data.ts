@@ -11,13 +11,12 @@ export const schema = z.object({
   gender: z.string().nullable(),
   has_bookings: z.string().nullable(),
   joined_from: z.string().nullable(),
-  status: z.string().nullable(),
   joined_to: z.string().nullable(),
   max_revenue: z.string().nullable(),
   membership_type: z.string().nullable(),
   min_revenue: z.string().nullable(),
   sort_by: z.string().nullable(),
-  sort_direction: z.string().nullable(),
+  sort_direction: z.string().nullable().optional(),
 });
 
 export const initialValues: TFilterData = {
@@ -27,7 +26,6 @@ export const initialValues: TFilterData = {
   gender: null,
   has_bookings: null,
   joined_from: null,
-  status: null,
   joined_to: null,
   max_revenue: null,
   membership_type: null,

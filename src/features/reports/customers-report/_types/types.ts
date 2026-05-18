@@ -12,7 +12,6 @@ export type TCreateData = {
   };
 };
 export type TFilterData = {
-  status: string | null;
   membership_type: string | null;
   gender: string | null;
   booking_status: string | null;

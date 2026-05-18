@@ -2,6 +2,7 @@ import type { TFormData } from "@/types";
 import useGetData from "@/services/useGetData";
 import { url } from "../_fixtures/data";
 import type { TCreateData, TFilterData } from "../_types/types";
+import { DateObject } from "react-multi-date-picker";
 
 const useFormData = (sortWatch: any) => {
   const { data, isLoading } = useGetData<TCreateData>({
@@ -51,27 +52,20 @@ const useFormData = (sortWatch: any) => {
       label: "تاریخ شروع",
       placeholder: "تاریخ شروع",
       type: "date",
+      maxDate: new DateObject(),
     },
     {
       name: "end_date",
       label: "تاریخ پایان",
       placeholder: "تاریخ پایان",
       type: "date",
+      maxDate: new DateObject(),
     },
     {
       name: "has_bookings",
       label: "فقط سرویس‌های دارای رزرو",
       type: "select",
-      option: [
-        {
-          label: "بله",
-          value: true,
-        },
-        {
-          label: "خیر",
-          value: false,
-        },
-      ],
+      option: data?.data.booleanOptions ?? [],
     },
     {
       name: "booking_status",
@@ -102,23 +96,6 @@ const useFormData = (sortWatch: any) => {
       isLoading,
       option: data?.data.genderPolicies ?? [],
     },
-    {
-      name: "status",
-      label: "وضعیت",
-      type: "select",
-      isLoading,
-      option: [
-        {
-          label: "فعال",
-          value: "active",
-        },
-        {
-          label: "غیرفعال",
-          value: "inactive",
-        },
-      ],
-    },
-
     {
       name: "separator",
     },
