@@ -244,6 +244,7 @@ const ItemRowFields = ({
         )}
 
         {services &&
+          data?.data.available_therapists?.length! > 0 &&
           (services.length > 0 ? (
             <>
               <div className="flex flex-col">
