@@ -56,7 +56,7 @@ const handleHttpError = (error: any) => {
     case 503:
     case 521:
       showToastify({
-        message: "سرویس در دسترس نیست",
+        message: "سرویس در دسترس نیست لطفا بعدا تلاش کنید",
         type: "error",
       });
       break;
