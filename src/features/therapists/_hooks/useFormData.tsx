@@ -56,8 +56,8 @@ const useFormData = () => {
 
     {
       name: "facility_id",
-      label: "محل ارائه خدمات",
-      placeholder: "محل ارائه خدمات",
+      label: "شعبه",
+      placeholder: "شعبه",
       required: true,
       type: "select",
       isLoading: isLoading,

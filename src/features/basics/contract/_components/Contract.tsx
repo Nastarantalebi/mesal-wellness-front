@@ -22,7 +22,7 @@ function Contract() {
       <CustomTable
         isLoading={isFetching}
         refetch={refetch}
-        title="محل ارائه خدمات"
+        title="شعبه‌ها"
         columns={data?.columns}
         data={data?.data}
         dataPagination={data?.paginate}

@@ -71,7 +71,7 @@ const ItemRowFields = ({
     return start >= end;
   })();
 
-  const services = dataServices?.data || [];
+  const services = dataServices?.data;
   const errorField = form.formState.errors.items;
   return (
     <div className="flex flex-col items-end justify-end gap-2 my-2 border border-gray-400 rounded-md p-2 md:p-3">
@@ -178,138 +178,152 @@ const ItemRowFields = ({
       <div className="w-full grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-3">
         {(data || isEdit) && (
           <>
-            <div className="flex flex-col">
-              <FormLabel>ماساژیست</FormLabel>
-              <Controller
-                control={form.control}
-                name={`items.${index}.therapist_id`}
-                render={({ field }) => {
-                  return isEdit ? (
-                    <FormInput {...field} readOnly />
-                  ) : (
-                    <ReactSelect
-                      field={field}
-                      options={
-                        data?.data.available_therapists?.map((item) => ({
-                          label: item.name,
-                          value: item.id,
-                        })) ?? []
-                      }
-                      placeholder="ماساژیست"
-                      isSearchable
-                      isClearable={false}
-                      hasError={!!errorField?.[index]?.therapist_id}
-                    />
-                  );
-                }}
-              />
-            </div>
-
-            <div className="flex flex-col">
-              <FormLabel>مکان</FormLabel>
-              <Controller
-                control={form.control}
-                name={`items.${index}.resource_id`}
-                render={({ field }) => {
-                  return isEdit ? (
-                    <FormInput {...field} readOnly />
-                  ) : (
-                    <ReactSelect
-                      field={field}
-                      options={
-                        data?.data.available_rooms?.map((item) => ({
-                          label: item.name,
-                          value: item.id,
-                        })) ?? []
-                      }
-                      placeholder="مکان"
-                      isSearchable
-                      isClearable={false}
-                      hasError={!!errorField?.[index]?.resource_id}
-                    />
-                  );
-                }}
-              />
-            </div>
-          </>
-        )}
-
-        {services && !!services.length && (
-          <>
-            <div className="flex flex-col">
-              <FormLabel>خدمت</FormLabel>
-              <Controller
-                control={form.control}
-                name={`items.${index}.service_id`}
-                render={({ field }) => {
-                  useEffect(() => {
-                    const selectedService = services.find(
-                      (s) => s.value === field.value,
-                    );
-
-                    if (selectedService) {
-                      form.setValue(
-                        `items.${index}.unit_price`,
-                        selectedService.custom_price,
+            {data?.data.available_therapists?.length! > 0 ? (
+              <>
+                <div className="flex flex-col">
+                  <FormLabel>ماساژیست</FormLabel>
+                  <Controller
+                    control={form.control}
+                    name={`items.${index}.therapist_id`}
+                    render={({ field }) => {
+                      return isEdit ? (
+                        <FormInput {...field} readOnly />
+                      ) : (
+                        <ReactSelect
+                          field={field}
+                          options={
+                            data?.data.available_therapists?.map((item) => ({
+                              label: item.name,
+                              value: item.id,
+                            })) ?? []
+                          }
+                          placeholder="ماساژیست"
+                          isSearchable
+                          isClearable={false}
+                          hasError={!!errorField?.[index]?.therapist_id}
+                        />
                       );
-                      form.setValue(
-                        `items.${index}.total_price`,
-                        selectedService.custom_price,
-                      );
-                    } else {
-                      form.setValue(`items.${index}.unit_price`, 0);
-                      form.setValue(`items.${index}.total_price`, 0);
-                    }
-                  }, [field.value]);
-
-                  return isEdit ? (
-                    <FormInput {...field} readOnly />
-                  ) : (
-                    <ReactSelect
-                      field={field}
-                      options={services.map((item) => ({
-                        label: item.label,
-                        value: item.value,
-                      }))}
-                      placeholder="خدمات"
-                      isSearchable
-                      isClearable={false}
-                      hasError={!!errorField?.[index]?.service_id}
-                    />
-                  );
-                }}
-              />
-            </div>
-
-            <div className="flex flex-col">
-              <FormLabel>مبلغ کل(تومان)</FormLabel>
-              <Controller
-                control={form.control}
-                name={`items.${index}.unit_price`}
-                render={({ field }) => (
-                  <FormInput
-                    {...field}
-                    type="number"
-                    dir="ltr"
-                    readOnly
-                    money
+                    }}
                   />
-                )}
-              />
-            </div>
+                </div>
 
-            <div className="flex flex-col">
-              <FormLabel>مبلغ قابل پرداخت (تومان)</FormLabel>
-              <Controller
-                control={form.control}
-                name={`items.${index}.total_price`}
-                render={({ field }) => (
-                  <FormInput {...field} type="number" dir="ltr" money />
-                )}
-              />
-            </div>
+                <div className="flex flex-col">
+                  <FormLabel>مکان</FormLabel>
+                  <Controller
+                    control={form.control}
+                    name={`items.${index}.resource_id`}
+                    render={({ field }) => {
+                      return isEdit ? (
+                        <FormInput {...field} readOnly />
+                      ) : (
+                        <ReactSelect
+                          field={field}
+                          options={
+                            data?.data.available_rooms?.map((item) => ({
+                              label: item.name,
+                              value: item.id,
+                            })) ?? []
+                          }
+                          placeholder="مکان"
+                          isSearchable
+                          isClearable={false}
+                          hasError={!!errorField?.[index]?.resource_id}
+                        />
+                      );
+                    }}
+                  />
+                </div>
+              </>
+            ) : (
+              <div className="w-full col-span-full p-2 text-red-600 text-center">
+                متأسفانه در تاریخ انتخابی، ماساژور فعالی وجود ندارد لطفا یک زمان
+                دیگر را انتخاب کنید.
+              </div>
+            )}
           </>
         )}
+
+        {services &&
+          (services.length > 0 ? (
+            <>
+              <div className="flex flex-col">
+                <FormLabel>خدمت</FormLabel>
+                <Controller
+                  control={form.control}
+                  name={`items.${index}.service_id`}
+                  render={({ field }) => {
+                    useEffect(() => {
+                      const selectedService = services.find(
+                        (s) => s.value === field.value,
+                      );
+
+                      if (selectedService) {
+                        form.setValue(
+                          `items.${index}.unit_price`,
+                          selectedService.custom_price,
+                        );
+                        form.setValue(
+                          `items.${index}.total_price`,
+                          selectedService.custom_price,
+                        );
+                      } else {
+                        form.setValue(`items.${index}.unit_price`, 0);
+                        form.setValue(`items.${index}.total_price`, 0);
+                      }
+                    }, [field.value]);
+
+                    return isEdit ? (
+                      <FormInput {...field} readOnly />
+                    ) : (
+                      <ReactSelect
+                        field={field}
+                        options={services.map((item) => ({
+                          label: item.label,
+                          value: item.value,
+                        }))}
+                        placeholder="خدمات"
+                        isSearchable
+                        isClearable={false}
+                        hasError={!!errorField?.[index]?.service_id}
+                      />
+                    );
+                  }}
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <FormLabel>مبلغ کل(تومان)</FormLabel>
+                <Controller
+                  control={form.control}
+                  name={`items.${index}.unit_price`}
+                  render={({ field }) => (
+                    <FormInput
+                      {...field}
+                      type="number"
+                      dir="ltr"
+                      readOnly
+                      money
+                    />
+                  )}
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <FormLabel>مبلغ قابل پرداخت (تومان)</FormLabel>
+                <Controller
+                  control={form.control}
+                  name={`items.${index}.total_price`}
+                  render={({ field }) => (
+                    <FormInput {...field} type="number" dir="ltr" money />
+                  )}
+                />
+              </div>
+            </>
+          ) : (
+            <div className="w-full col-span-full p-2 text-red-600 text-center">
+              متأسفانه در تاریخ انتخابی، ماساژور مورد نظر خدماتی ارائه نمی‌دهد.
+            </div>
+          ))}
       </div>
     </div>
   );
