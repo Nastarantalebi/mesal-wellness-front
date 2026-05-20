@@ -7,7 +7,10 @@ import LoadingSpin from "@/components/Loading";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
 import { useAuthHelper } from "../_hooks/useAuthHelper";
+import LoginDemo from "./LoginDemo";
+import { ArrowLeftIcon } from "lucide-react";
 function Login() {
+  const [open, setOpen] = useState(false);
   const { tabItems } = useTabItems();
   const [checkingAuth, setCheckingAuth] = useState(true);
   const navigate = useNavigate();
@@ -48,6 +51,8 @@ function Login() {
   }
   return (
     <>
+      {open && <LoginDemo setOpen={setOpen} />}
+
       <div className="container grid lg:h-full grid-cols-12 lg:max-w-[1550px] 2xl:max-w-[1750px] py-10 px-1.5 sm:py-14 sm:px-4 md:px-36 lg:py-0 lg:ps-14 lg:pe-12 xl:px-24">
         <div
           className={clsx([
@@ -56,8 +61,17 @@ function Login() {
           ])}>
           <div className="relative z-10 flex flex-col justify-center w-full h-full py-2 lg:py-32">
             <div className="mt-10">
-              <div className="text-2xl font-medium text-center my-3">
-                ورود به حساب کاربری
+              <div className="flex items-center justify-center flex-col gap-2 mb-1">
+                <p className="text-2xl font-medium text-center">
+                  {" "}
+                  ورود به حساب کاربری
+                </p>
+                <button
+                  onClick={() => setOpen(true)}
+                  className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-all duration-200 group">
+                  <span>راهنمای ورود به دمو</span>
+                  <ArrowLeftIcon className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
+                </button>
               </div>
               <CustomTabs items={tabItems} title="ورود" />
             </div>

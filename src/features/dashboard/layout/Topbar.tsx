@@ -6,7 +6,7 @@ import ActivitiesPanel from "@/components/ActivitiesPanel";
 import NotificationsPanel from "@/components/NotificationsPanel";
 import SwitchAccount from "@/components/SwitchAccount";
 import Lucide from "@/components/Lucide";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AlignJustify } from "lucide-react";
 import DynamicBreadcrumb from "./DynamicBreadcrumb";
 import { useLogout } from "@/features/auth/_services/useLogout";
@@ -50,13 +50,13 @@ function Topbar({
           event.preventDefault();
           setCompactMenuOnHover(false);
         }}>
-        <a
-          href=""
+        <Link
+          to="/dashboard"
           className="hidden xl:flex items-center justify-center transition-[margin] group-[.side-menu--collapsed]:xl:ms-2 group-[.side-menu--collapsed.side-menu--on-hover]:xl:ms-0 w-full mx-auto">
-          <div className="flex items-center justify-center w-[42px] rounded-lg h-[42px]">
-            <img src="/logo-192×192.png" alt="لوگو" />
+          <div className="flex items-center justify-center w-fit rounded-lg break-words">
+            <span>{userData?.organization.title}</span>
           </div>
-        </a>
+        </Link>
         <button
           onClick={toggleCompactMenu}
           className="group-[.side-menu--collapsed.side-menu--on-hover]:xl:opacity-100 group-[.side-menu--collapsed]:xl:rotate-180 group-[.side-menu--collapsed]:xl:opacity-0 transition-[opacity,transform] hidden 3xl:flex items-center justify-center w-[20px] h-[20px] ms-auto border rounded-full border-slate-600/40 hover:bg-slate-600/5">

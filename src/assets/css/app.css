@@ -454,3 +454,9 @@ input::placeholder {
   /* رنگ مسیر (Track) */
   background-color: theme("colors.amber.100");
 }
+/* فایل tabulator سفارشی یا همون imports */
+.tabulator .tabulator-cell {
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
