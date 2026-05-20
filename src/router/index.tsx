@@ -112,7 +112,7 @@ function Router() {
           element: <Company />,
         },
         {
-          path: "/companies/report",
+          path: "/company/report",
           element: <CompaniesReport />,
         },
         {
