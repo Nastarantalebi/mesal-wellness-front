@@ -107,29 +107,32 @@ const PieChartWidget = ({ data }: Props) => {
                 content={({ payload }: any) => (
                   <ul className="flex flex-col gap-3 text-sm pr-4">
                     {payload.map((entry: any, index: number) => {
-                      const isActive =
-                        index === activeIndex || index === selectedIndex;
+                      // const isActive =
+                      //   index === activeIndex || index === selectedIndex;
                       return (
                         <li
                           key={index}
-                          className={`flex items-center gap-2 cursor-pointer transition-all ${
-                            isActive
-                              ? "font-semibold text-gray-800"
-                              : "text-gray-500"
-                          }`}
-                          onMouseEnter={() => setActiveIndex(index)}
-                          onMouseLeave={() => setActiveIndex(null)}
-                          onClick={() =>
-                            setSelectedIndex(
-                              selectedIndex === index ? null : index,
-                            )
-                          }>
+                          className={`flex items-center gap-2 cursor-pointer transition-all text-gray-500`}
+                          //   ${
+                          //   isActive
+                          //     ? "font-semibold text-gray-800"
+                          //     : "text-gray-500"
+                          // }
+
+                          // onMouseEnter={() => setActiveIndex(index)}
+                          // onMouseLeave={() => setActiveIndex(null)}
+                          // onClick={() =>
+                          //   setSelectedIndex(
+                          //     selectedIndex === index ? null : index,
+                          //   )
+                          // }
+                        >
                           <span
                             className="w-3 h-3 rounded-full"
                             style={{
                               backgroundColor: entry.color,
-                              opacity:
-                                selectedIndex !== null && !isActive ? 0.4 : 1,
+                              // opacity:
+                              //   selectedIndex !== null && !isActive ? 0.4 : 1,
                             }}
                           />
                           <span>{`${entry.value} (${entry.payload.percent}%)`}</span>
