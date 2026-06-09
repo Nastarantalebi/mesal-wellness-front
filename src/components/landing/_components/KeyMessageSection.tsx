@@ -12,7 +12,7 @@ const KeyMessageSection = () => {
             id="key-message-heading"
             className="text-3xl lg:text-4xl font-bold"
           >
-            سلامتی واقعی، مدیریتی هوشمند و قابل اتکا است
+            مدیریت هوشمند مراکز سلامتی، قابل اتکا و پایدار
           </h2>
 
           {/* ❸ <p> with keyword-rich content — crawlers index this as section summary */}

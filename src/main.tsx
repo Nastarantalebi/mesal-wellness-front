@@ -5,14 +5,17 @@ import "toastify-js/src/toastify.css";
 import { BrowserRouter } from "react-router-dom";
 import { DirectionProvider } from "./utils/direction-context.tsx";
 import { registerSW } from "virtual:pwa-register";
+import { HelmetProvider } from "react-helmet-async";
 
 registerSW({ immediate: true });
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <DirectionProvider>
       <BrowserRouter>
-        <App />
+        <HelmetProvider>
+          <App />
+        </HelmetProvider>
       </BrowserRouter>
     </DirectionProvider>
-  </StrictMode>
+  </StrictMode>,
 );

@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { getAllowedPaths, isAllowedByException } from "@/utils/getAllowedPaths";
-import { useAuthStore } from "@/features/auth/store/authStore";
 import { useEffect, type JSX } from "react";
 import Forbidden from "@/features/_components/Forbidden";
 import useSideBar from "@/features/_sideBar/useSideBar";
@@ -15,7 +14,7 @@ const RouteGuard = ({ children }: TProps) => {
   // const sidebar = useAuthStore((s) => s.sidebar?.menus);
   // const auth = useAuthStore((s) => s.auth);
   // const mobile = useAuthStore((s) => s.userData?.user.mobile);
-  const clearAuth = useAuthStore((s) => s.clearAuth);
+  // const clearAuth = useAuthStore((s) => s.clearAuth);
   // if (!auth) return <Navigate to="/login" replace />;
   // if (auth && !auth.organizations.length)
   //   return <Navigate to="/user-organizations" replace />;
@@ -28,7 +27,7 @@ const RouteGuard = ({ children }: TProps) => {
     const refreshAuth = async () => {
       // const res = await plainInstance.post("/refresh/");
       // if (mobile === res.data.user) return;
-      clearAuth();
+      // clearAuth();
       navigate("/login");
     };
     refreshAuth();

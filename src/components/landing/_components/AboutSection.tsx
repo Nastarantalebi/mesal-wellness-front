@@ -54,9 +54,11 @@ const AboutSection = () => {
           <div className="space-y-6">
             {/* ❷ <h2> with id for aria-labelledby */}
             <h2 id="about-heading" className="text-4xl font-bold text-gray-900">
-              ما کیستیم؟
+              پالیز کیست؟{" "}
             </h2>
-
+            <h3 className="text-xl text-gray-900">
+              متخصص مدیریت مراکز سلامتی و تندرستی
+            </h3>
             {/* ❸ Cards are a definition-like list — <dl> is the most accurate
                 semantic element for term/description pairs               */}
             <dl className="space-y-4">
