@@ -22,6 +22,8 @@ function Topbar({
   toggleCompactMenu: () => void;
 }) {
   const navigate = useNavigate();
+  const redirectUrl = import.meta.env.VITE_REDIRECT_ORG_URL;
+  const redirect = `${redirectUrl}?redirect=${window.location.href}`;
   const { data } = useMe();
   const [quickSearch, setQuickSearch] = useState(false);
   const [switchAccount, setSwitchAccount] = useState(false);
@@ -184,7 +186,8 @@ function Topbar({
                 </Menu.Item>
                 <Menu.Item
                   onClick={() => {
-                    navigate("user-organizations");
+                    // localStorage.clear();
+                    window.location.replace(redirect);
                   }}
                 >
                   <Lucide icon="Building" className="w-4 h-4 me-2" />

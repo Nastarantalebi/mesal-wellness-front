@@ -5,8 +5,8 @@ let isRedirecting = false;
 const handleHttpError = (error: any) => {
   if (isRedirecting) return;
   const redirectUrl = import.meta.env.VITE_REDIRECT_ORG_URL;
-  // const redirect = `${redirectUrl}?redirect=${window.location.href}`;
-  const redirect = `${redirectUrl}?redirect=${encodeURIComponent(window.location.href)}`;
+  const redirect = `${redirectUrl}?redirect=${window.location.href}`;
+  // const redirect = `${redirectUrl}?redirect=${encodeURIComponent(window.location.href)}`;
 
   const status = error?.response?.status;
   const code = error?.response?.data?.code;
