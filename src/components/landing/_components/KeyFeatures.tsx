@@ -5,8 +5,8 @@ const KeyFeatures = () => {
   return (
     <div>
       {/* Key Features */}
-      <section id="features" className=" bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section id="advantages" className=" bg-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-10">
           <div className="flex flex-col lg:flex-row justify-between items-center md:gap-12 relative">
             <div className="w-full lg:w-1/2 h-[400px] lg:h-[600px]">
               <img
@@ -20,7 +20,7 @@ const KeyFeatures = () => {
               <div className="absolute inset-0 bg-linear-to-b from-white via-transparent to-white"></div>
             </div>
 
-            <div className="w-full lg:w-1/2 space-y-8">
+            <div className="w-full lg:w-1/2 space-y-8 mt-10">
               <div className="text-center lg:text-right">
                 <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
                   برتری‌های کلیدی

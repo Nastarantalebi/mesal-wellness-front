@@ -16,12 +16,11 @@ const Index = () => {
       <NavigationBar />
       <HeroSection />
       <KeyMessageSection />
-      <AboutSection />
       <KeyFeatures />
+      <AboutSection />
       <WhyPalize />
       <CTASection />
       <Footer />
-      
     </div>
   );
 };
