@@ -28,7 +28,6 @@ function Resources() {
     availabilities: false,
     form: false,
   });
-  console.log(selectedRecord);
   return (
     <>
       <CustomTable
@@ -68,7 +67,8 @@ function Resources() {
         close={() => {
           setSelectedRecord({ availabilities: null, form: null });
           setOpen({ availabilities: false, form: false });
-        }}>
+        }}
+      >
         <ResourceAvailabilities
           id={selectedRecord.availabilities && selectedRecord.availabilities.id}
         />
@@ -82,7 +82,8 @@ function Resources() {
           selectedRecord.form
             ? `ویرایش ${selectedRecord.form?.name}`
             : "افزودن مکان جدید"
-        }>
+        }
+      >
         <ResourcesForm setOpen={setOpen} id={selectedRecord.form?.id} />
       </Modal>
     </>

@@ -37,6 +37,7 @@ function Sidebar({
     }
     return subMenuRefs.current[key]!;
   };
+
   useEffect(() => {
     activeMobileMenu
       ? document.body.classList.add("overflow-hidden")
@@ -45,47 +46,56 @@ function Sidebar({
       document.body.classList.remove("overflow-hidden");
     };
   }, [activeMobileMenu]);
+
   return (
     <div
       className="absolute inset-y-0 xl:top-[65px] z-10 xl:z-0 select-none"
       onMouseOver={() => setCompactMenuOnHover(true)}
-      onMouseLeave={() => setCompactMenuOnHover(false)}>
+      onMouseLeave={() => setCompactMenuOnHover(false)}
+    >
       <div
         className={clsx([
           "xl:ms-0 bg-slate-100 border-e border-slate-300/50 rounded-none w-[275px] duration-300 transition-[width,margin] group-[.side-menu--collapsed]:xl:w-[91px] group-[.side-menu--collapsed.side-menu--on-hover]:xl:shadow-[6px_0_12px_-4px_#0000000f] group-[.side-menu--collapsed.side-menu--on-hover]:xl:w-[275px] group-[.side-menu--collapsed.side-menu--on-hover]:xl:border-solid relative overflow-hidden h-full flex flex-col",
           "after:content-[''] after:fixed after:inset-0 after:bg-black/80 after:z-[-1] after:xl:hidden",
           { "ms-0 after:block": activeMobileMenu },
           { "-ms-[275px] after:hidden": !activeMobileMenu },
-        ])}>
+        ])}
+      >
+        {/* Mobile close button */}
         <div
           className={clsx([
             "fixed ms-[275px] w-10 h-10 items-center justify-center xl:hidden",
             { flex: activeMobileMenu },
             { hidden: !activeMobileMenu },
-          ])}>
+          ])}
+        >
           <span role="button" onClick={() => setActiveMobileMenu(false)}>
             <Lucide icon="CircleX" className="w-8 h-8 text-white mt-5 ms-5" />
           </span>
         </div>
+
         <div
           ref={scrollableRef}
           className={clsx([
-            "w-full h-full z-20 px-2 xlpx-5 overflow-y-auto overflow-x-hidden py-3 xl:pt-0 [&:-webkit-scrollbar]:w-0 [&:-webkit-scrollbar]:bg-transparent",
-            "[&_.simplebar-content]:p-0 [&_.simplebar-track.simplebar-vertical]:w-[10px] [&_.simplebar-track.simplebar-vertical]:me-0.5 [&_.simplebar-track.simplebar-vertical_.simplebar-scrollbar]:before:bg-slate-400/30",
-          ])}>
-          <ul className="scrollable ">
-            {/* BEGIN: First Child */}
+            "w-full h-full z-20 px-2 xl:px-5 overflow-y-auto overflow-x-hidden py-3 xl:pt-0",
+            "[&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:bg-transparent",
+          ])}
+        >
+          <ul className="scrollable">
+            {/* BEGIN: First Level */}
             {formattedMenu.map((menu, menuKey) =>
-              typeof menu == "string" ? (
+              typeof menu === "string" ? (
+                // Divider
                 <li className="side-menu__divider" key={menuKey}>
                   {menu}
                 </li>
               ) : (
                 <li key={menuKey}>
+                  {/* First-level link */}
                   <a
-                    href={menu.pathname!}
+                    href={menu.url ?? "#"}
                     className={clsx([
-                      "side-menu__link ",
+                      "side-menu__link",
                       { "side-menu__link--active": menu.active },
                       {
                         "side-menu__link--active-dropdown": menu.activeDropdown,
@@ -95,7 +105,8 @@ function Sidebar({
                       event.preventDefault();
                       linkTo(menu, navigate);
                       setFormattedMenu([...formattedMenu]);
-                    }}>
+                    }}
+                  >
                     <Lucide
                       icon={menu.icon}
                       className="side-menu__link__icon"
@@ -103,104 +114,101 @@ function Sidebar({
                     <div className="side-menu__link__title !cursor-pointer">
                       {menu.label}
                     </div>
-                    {menu.badge && (
-                      <div className="side-menu__link__badge">{menu.badge}</div>
-                    )}
-                    {menu.subMenu && (
+                    {/* ✅ Only show chevron if this item has children */}
+                    {menu.children && (
                       <Lucide
                         icon={menu.activeDropdown ? "ChevronUp" : "ChevronDown"}
                         className="side-menu__link__chevron"
                       />
                     )}
                   </a>
-                  {/* BEGIN: Second Child */}
-                  {menu.subMenu && (
+
+                  {/* BEGIN: Second Level */}
+                  {menu.children && (
                     <Transition
                       nodeRef={getSubMenuRef(`sub-menu-1-${menuKey}`)}
                       in={menu.activeDropdown}
                       onEnter={enter}
                       onExit={leave}
-                      timeout={300}>
+                      timeout={300}
+                    >
                       <ul
                         ref={getSubMenuRef(`sub-menu-1-${menuKey}`)}
                         className={clsx([
-                          "",
                           { block: menu.activeDropdown },
                           { hidden: !menu.activeDropdown },
-                        ])}>
-                        {menu.subMenu.map((subMenu, subMenuKey) => (
-                          <li key={subMenuKey} className="">
+                        ])}
+                      >
+                        {menu.children.map((item, subMenuKey) => (
+                          <li key={subMenuKey}>
                             <a
-                              href={subMenu.pathname}
+                              href={item.url ?? "#"}
                               className={clsx([
                                 "side-menu__link !pr-4",
-                                {
-                                  "side-menu__link--active": subMenu.active,
-                                },
-                                {
-                                  "side-menu__link--active-dropdown":
-                                    subMenu.activeDropdown,
-                                },
+                                // { "side-menu__link--active": item.active },
+                                // {
+                                //   "side-menu__link--active-dropdown":
+                                //     item.activeDropdown,
+                                // },
                               ])}
                               onClick={(event: React.MouseEvent) => {
                                 event.preventDefault();
-                                linkTo(subMenu, navigate);
+                                linkTo(item, navigate);
                                 setFormattedMenu([...formattedMenu]);
-                              }}>
+                              }}
+                            >
                               <Lucide
-                                icon={subMenu.icon}
+                                icon={item.icon}
                                 className="side-menu__link__icon"
                               />
                               <div className="side-menu__link__title">
-                                {subMenu.label}
+                                {item.label}
                               </div>
-                              {subMenu.badge && (
-                                <div className="side-menu__link__badge">
-                                  {subMenu.badge}
-                                </div>
-                              )}
-                              {subMenu.subMenu && (
+                              {/* ✅ Bug 1 fixed: check item.children, not menu.children */}
+                              {item.children && (
                                 <Lucide
-                                  icon="ChevronDown"
+                                  icon={
+                                    item.activeDropdown
+                                      ? "ChevronUp"
+                                      : "ChevronDown"
+                                  }
                                   className="side-menu__link__chevron"
                                 />
                               )}
                             </a>
-                            {/* BEGIN: Third Child */}
-                            {subMenu.subMenu && (
+
+                            {/* BEGIN: Third Level */}
+                            {item.children && (
                               <Transition
                                 nodeRef={getSubMenuRef(
                                   `sub-menu-2-${menuKey}-${subMenuKey}`,
                                 )}
-                                in={subMenu.activeDropdown}
+                                // ✅ Bug 2 fixed: use item.activeDropdown, not menu.activeDropdown
+                                in={item.activeDropdown}
                                 onEnter={enter}
                                 onExit={leave}
-                                timeout={300}>
+                                timeout={300}
+                              >
                                 <ul
                                   ref={getSubMenuRef(
                                     `sub-menu-2-${menuKey}-${subMenuKey}`,
                                   )}
                                   className={clsx([
-                                    "",
-                                    {
-                                      block: subMenu.activeDropdown,
-                                    },
-                                    { hidden: !subMenu.activeDropdown },
-                                  ])}>
-                                  {subMenu.subMenu.map(
+                                    // ✅ Bug 3 fixed: use item.activeDropdown, not menu.activeDropdown
+                                    { block: item.activeDropdown },
+                                    { hidden: !item.activeDropdown },
+                                  ])}
+                                >
+                                  {item.children.map(
                                     (lastSubMenu, lastSubMenuKey) => (
                                       <li key={lastSubMenuKey}>
                                         <a
-                                          href={lastSubMenu.pathname}
+                                          href={lastSubMenu.url ?? "#"}
                                           className={clsx([
                                             "side-menu__link",
                                             {
                                               "side-menu__link--active":
                                                 lastSubMenu.active,
-                                            },
-                                            {
-                                              "side-menu__link--active-dropdown":
-                                                lastSubMenu.activeDropdown,
                                             },
                                           ])}
                                           onClick={(
@@ -211,7 +219,8 @@ function Sidebar({
                                             setFormattedMenu([
                                               ...formattedMenu,
                                             ]);
-                                          }}>
+                                          }}
+                                        >
                                           <Lucide
                                             icon={lastSubMenu.icon}
                                             className="side-menu__link__icon"
@@ -219,11 +228,6 @@ function Sidebar({
                                           <div className="side-menu__link__title">
                                             {lastSubMenu.label}
                                           </div>
-                                          {lastSubMenu.badge && (
-                                            <div className="side-menu__link__badge">
-                                              {lastSubMenu.badge}
-                                            </div>
-                                          )}
                                         </a>
                                       </li>
                                     ),
@@ -231,17 +235,17 @@ function Sidebar({
                                 </ul>
                               </Transition>
                             )}
-                            {/* END: Third Child */}
+                            {/* END: Third Level */}
                           </li>
                         ))}
                       </ul>
                     </Transition>
                   )}
-                  {/* END: Second Child */}
+                  {/* END: Second Level */}
                 </li>
               ),
             )}
-            {/* END: First Child */}
+            {/* END: First Level */}
           </ul>
         </div>
       </div>

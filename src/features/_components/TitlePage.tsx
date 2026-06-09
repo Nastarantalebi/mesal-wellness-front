@@ -1,16 +1,18 @@
 import { useEffect } from "react";
-import { useAuthStore } from "../auth/store/authStore";
+// import { useAuthStore } from "../auth/store/authStore";
 type TProps = {
   title: string;
   description?: string;
 };
 const TitlePage = ({ title, description }: TProps) => {
-  const organization = useAuthStore((s) => s.userData?.organization);
+  // const organization = useAuthStore((s) => s.userData?.organization);
 
   useEffect(() => {
-    document.title = organization?.title
-      ? `${organization.title} | ${title}`
-      : title;
+    document.title =
+      //  organization?.title
+      //   ? `${organization.title} | ${title}`
+      //   :
+      title;
     if (description) {
       const meta = document.querySelector('meta[name="description"]');
       if (meta) meta.setAttribute("content", description);

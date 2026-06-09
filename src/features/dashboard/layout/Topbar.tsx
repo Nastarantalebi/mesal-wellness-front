@@ -12,7 +12,6 @@ import DynamicBreadcrumb from "./DynamicBreadcrumb";
 import { useLogout } from "@/features/auth/_services/useLogout";
 import Modal from "@/components/Headless/Dialog/Modal";
 import useMe from "@/features/auth/_services/useMe";
-import { useAuthStore } from "@/features/auth/store/authStore";
 function Topbar({
   setActiveMobileMenu,
   setCompactMenuOnHover,
@@ -34,7 +33,7 @@ function Topbar({
     if (el.requestFullscreen) el.requestFullscreen();
   };
   const [logout, setLogout] = useState<boolean>(false);
-  const userData = useAuthStore((s) => s.userData);
+  // const userData = useAuthStore((s) => s.userData);
   return (
     <div className="fixed top-0 inset-x-0 z-10 h-16 box bg-slate-50 border-x-0 border-t-0 rounded-none flex shadow-none">
       <div
@@ -49,17 +48,20 @@ function Topbar({
         onMouseLeave={(event) => {
           event.preventDefault();
           setCompactMenuOnHover(false);
-        }}>
+        }}
+      >
         <Link
           to="/dashboard"
-          className="hidden xl:flex items-center justify-center transition-[margin] group-[.side-menu--collapsed]:xl:ms-2 group-[.side-menu--collapsed.side-menu--on-hover]:xl:ms-0 w-full mx-auto">
+          className="hidden xl:flex items-center justify-center transition-[margin] group-[.side-menu--collapsed]:xl:ms-2 group-[.side-menu--collapsed.side-menu--on-hover]:xl:ms-0 w-full mx-auto"
+        >
           <div className="flex items-center justify-center w-fit rounded-lg break-words">
-            <span>{userData?.organization.title}</span>
+            {/* <span>{userData?.organization.title}</span> */}
           </div>
         </Link>
         <button
           onClick={toggleCompactMenu}
-          className="group-[.side-menu--collapsed.side-menu--on-hover]:xl:opacity-100 group-[.side-menu--collapsed]:xl:rotate-180 group-[.side-menu--collapsed]:xl:opacity-0 transition-[opacity,transform] hidden 3xl:flex items-center justify-center w-[20px] h-[20px] ms-auto border rounded-full border-slate-600/40 hover:bg-slate-600/5">
+          className="group-[.side-menu--collapsed.side-menu--on-hover]:xl:opacity-100 group-[.side-menu--collapsed]:xl:rotate-180 group-[.side-menu--collapsed]:xl:opacity-0 transition-[opacity,transform] hidden 3xl:flex items-center justify-center w-[20px] h-[20px] ms-auto border rounded-full border-slate-600/40 hover:bg-slate-600/5"
+        >
           <Lucide icon="ArrowLeft" className="w-3.5 h-3.5 stroke-[1.3]" />
         </button>
         <div className="flex items-center gap-1 xl:hidden">
@@ -69,7 +71,8 @@ function Topbar({
               event.preventDefault();
               setActiveMobileMenu(true);
             }}
-            className="p-2 rounded-full hover:bg-slate-100">
+            className="p-2 rounded-full hover:bg-slate-100"
+          >
             <AlignJustify className="w-[18px] h-[18px]" />
           </a>
           <a
@@ -78,7 +81,8 @@ function Topbar({
             onClick={(e) => {
               e.preventDefault();
               setQuickSearch(true);
-            }}>
+            }}
+          >
             <Lucide icon="Search" className="w-[18px] h-[18px]" />
           </a>
         </div>
@@ -94,7 +98,8 @@ function Topbar({
           {/* BEGIN: Search */}
           <div
             className="relative  flex-1 hidden xl:flex justify-end"
-            onClick={() => setQuickSearch(true)}>
+            onClick={() => setQuickSearch(true)}
+          >
             <div className="bg-slate-100 border w-[350px] flex items-center py-2 px-3.5 rounded-[0.5rem] text-slate-400 cursor-pointer hover:bg-slate-50 transition-colors">
               <Lucide icon="Search" className="w-[18px] h-[18px]" />
               <div className="ms-2.5 me-auto">جستجوی سریع...</div>
@@ -114,7 +119,8 @@ function Topbar({
                 onClick={(e) => {
                   e.preventDefault();
                   setActivitiesPanel(true);
-                }}>
+                }}
+              >
                 <Lucide icon="LayoutGrid" className="w-[18px] h-[18px]" />
               </a>
               {/* <a href="" className="p-2 rounded-full hover:bg-slate-100">
@@ -126,7 +132,8 @@ function Topbar({
                 onClick={(e) => {
                   e.preventDefault();
                   requestFullscreen();
-                }}>
+                }}
+              >
                 <Lucide icon="Expand" className="w-[18px] h-[18px]" />
               </a>
               <a
@@ -135,7 +142,8 @@ function Topbar({
                 onClick={(e) => {
                   e.preventDefault();
                   setNotificationsPanel(true);
-                }}>
+                }}
+              >
                 <Lucide icon="Bell" className="w-[18px] h-[18px]" />
               </a>
             </div>
@@ -162,20 +170,23 @@ function Topbar({
                 <Menu.Item
                   onClick={() => {
                     navigate("profile");
-                  }}>
+                  }}
+                >
                   <Lucide icon="User" className="w-4 h-4 me-2" />
-                  {userData?.user ? (
+                  <span>پروفایل</span>
+                  {/* {userData?.user ? (
                     <span>
                       {userData.user.first_name} {userData.user.last_name}
                     </span>
                   ) : (
-                    <span>پروفایل</span>
-                  )}
+                    
+                  )} */}
                 </Menu.Item>
                 <Menu.Item
                   onClick={() => {
                     navigate("user-organizations");
-                  }}>
+                  }}
+                >
                   <Lucide icon="Building" className="w-4 h-4 me-2" />
                   سازمان‌های من
                 </Menu.Item>
@@ -211,7 +222,8 @@ function Topbar({
                 </Menu.Item> */}
                 <Menu.Item
                   onClick={() => setLogout(true)}
-                  className="hover:text-red-600 transition">
+                  className="hover:text-red-600 transition"
+                >
                   <Lucide icon="Power" className="w-4 h-4 me-2" />
                   خروج
                 </Menu.Item>
@@ -241,7 +253,8 @@ function Topbar({
         submitText={isPending ? "درحال خروج" : "خارج میشوم"}
         onSubmit={() => logoutApi()}
         variant_cancel="outline-success"
-        variant_submit="outline-danger">
+        variant_submit="outline-danger"
+      >
         <div className="text-center py-2">
           <span>آیا از خروج از حساب کاربری خود اطمینان دارید؟</span>
         </div>

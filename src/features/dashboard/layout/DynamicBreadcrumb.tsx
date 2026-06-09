@@ -2,17 +2,18 @@ import Breadcrumb from "@/components/Breadcrumb";
 import { useLocation } from "react-router-dom";
 import * as LucideIcons from "lucide-react"; // برای ساخت آیکون داینامیک
 import { flattenMenu, menuContainer } from "@/stores/menuMaper";
-import { useAuthStore } from "@/features/auth/store/authStore";
-import type { TMenu } from "../items/_types/type";
+import useSideBar from "@/features/_sideBar/useSideBar";
+import type { TBackendMenu } from "../_types/types";
 
 const isId = (str: string) => /^[0-9]+$/.test(str);
 
 export default function DynamicBreadcrumb() {
   const { pathname } = useLocation();
-  const sidebar = useAuthStore((state) => state.sidebar?.menus);
-  const menus = menuContainer(sidebar);
+  const { data: sidebar } = useSideBar();
+  // const sidebar = useAuthStore((state) => state.sidebar?.menus);
+  const menus = menuContainer(sidebar?.data.menus!);
   // تبدیل منو به map قابل جستجو
-  const menuMap = menus && flattenMenu(menus as Array<TMenu | string>);
+  const menuMap = menus && flattenMenu(menus as Array<TBackendMenu | string>);
   // /service-category/12/edit → ["service-category", "12", "edit"]
   const parts = pathname.split("/").filter(Boolean);
 
@@ -75,7 +76,8 @@ export default function DynamicBreadcrumb() {
             key={i}
             index={i + 1}
             to={isLast ? undefined : buildPath(i)}
-            active={isLast}>
+            active={isLast}
+          >
             <span className="flex items-center gap-1">{info.label}</span>
           </Breadcrumb.Link>
         );

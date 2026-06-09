@@ -2,12 +2,16 @@ import type { icons } from "@/components/Lucide";
 
 export type TBackendMenu = {
   label: string;
-  url: string | null;
-  icon: keyof typeof icons | null;
-  children: TBackendMenu[];
+  url: string;
+  icon: keyof typeof icons;
+  children?: TBackendMenu[];
 };
 export type TDataSidebar = {
-  menu: TBackendMenu[];
+  menus: TBackendMenu[];
+  organizationId: number;
+  userId: number;
+  staffId: number;
+  permissions: { [key: string]: number };
 };
 export type TSidebarMenu = {
   code: number;

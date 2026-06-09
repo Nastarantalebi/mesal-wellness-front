@@ -10,10 +10,12 @@ import {
 import { useLocation } from "react-router-dom";
 import { nestedMenu, type FormattedMenu } from "./side-menu";
 import { menuContainer } from "@/stores/menuMaper";
-import { useAuthStore } from "@/features/auth/store/authStore";
+import useSideBar from "@/features/_sideBar/useSideBar";
 
 function SidebarWrapper() {
-  const sidebar = useAuthStore((state) => state.sidebar?.menus);
+  const { data: sidebar } = useSideBar();
+
+  // const sidebar = useAuthStore((state) => state.sidebar?.menus);
   // const menus = sidebar && sidebar;
   const [compactMenuOnHover, setCompactMenuOnHover] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState(false);
@@ -34,7 +36,7 @@ function SidebarWrapper() {
 
   const sideMenu = useCallback(() => {
     // if (!menus) return [];
-    // const menu: TMenu[] = [
+    // const menu: TBackendMenu[] = [
     //   {
     //     icon: "LayoutDashboard",
     //     pathname: "/",
@@ -47,7 +49,7 @@ function SidebarWrapper() {
     //     label: "تیکت",
     //   },
     // ];
-    const menu = menuContainer(sidebar);
+    const menu = menuContainer(sidebar?.data.menus!);
     return nestedMenu(menu, location);
   }, [sidebar, location]);
 
@@ -68,7 +70,8 @@ function SidebarWrapper() {
         "fixed top-0 start-0 z-50 h-screen side-menu group",
         { "side-menu--collapsed": compactMenu },
         { "side-menu--on-hover": compactMenuOnHover },
-      ])}>
+      ])}
+    >
       {/* Close Button for Mobile */}
       {/* <div
         className={clsx([

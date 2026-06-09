@@ -14,7 +14,6 @@ import Booking from "@/features/booking/_components/Booking";
 import BookingForm from "@/features/booking/_components/BookingForm";
 import TabList from "@/features/booking/_components/reservation/_components/TabList";
 import NotFound from "@/features/_components/NotFound";
-import ProtectedRoutes from "./ProtectedRoutes";
 import Profile from "@/features/profile/_components/Profile";
 import Company from "@/features/basics/company/_components/Company";
 import Contract from "@/features/basics/contract/_components/Contract";
@@ -25,8 +24,6 @@ import Permissions from "@/features/settings/permissions/_components/Permissions
 import Staff from "@/features/staff/_components/Staff";
 import Tickets from "@/features/tickets/_components/Tickets";
 import UserNotFound from "@/features/_components/UserNotFound";
-import UserOrganizations from "@/features/_components/UserOrganizations";
-import RouteGuard from "./RouteGaurd";
 import SmsLogs from "@/features/sms-logs/_components/SmsLogs";
 import LandingPage from "@/components/landing/_components/LandingPage";
 import ServicesInfo from "@/features/basics/services/_components/ServiceInfo";
@@ -39,11 +36,11 @@ function Router() {
   const routes = [
     {
       element: (
-        <ProtectedRoutes>
-          <RouteGuard>
-            <Layout />
-          </RouteGuard>
-        </ProtectedRoutes>
+        // <ProtectedRoutes>
+        // <RouteGuard>
+        <Layout />
+        // </RouteGuard>
+        // </ProtectedRoutes>
       ),
       children: [
         {
@@ -170,10 +167,10 @@ function Router() {
       path: "login",
       element: <Login />,
     },
-    {
-      path: "user-organizations",
-      element: <UserOrganizations />,
-    },
+    // {
+    //   path: "user-organizations",
+    //   element: <UserOrganizations />,
+    // },
     {
       path: "user-not-found",
       element: <UserNotFound />,

@@ -1,45 +1,89 @@
 import { QueryClient, QueryCache, MutationCache } from "@tanstack/react-query";
 import { showToastify } from "@/components/Headless/Toast";
 
+let isRedirecting = false;
 const handleHttpError = (error: any) => {
+  if (isRedirecting) return;
+  const redirectUrl = import.meta.env.VITE_REDIRECT_ORG_URL;
+  // const redirect = `${redirectUrl}?redirect=${window.location.href}`;
+  const redirect = `${redirectUrl}?redirect=${encodeURIComponent(window.location.href)}`;
+
   const status = error?.response?.status;
-  // const message = error?.response?.data?.message ?? error.message;
-  let errorMessage =
-    error?.response?.data?.message ||
-    error?.response?.data?.error ||
-    error?.response?.data?.detail ||
-    error?.message ||
-    "خطای ناشناخته‌ای رخ داده است";
-  if (error.code === "ECONNABORTED" || error.message.includes("timeout")) {
-    showToastify({
-      message: "پاسخی از سرور دریافت نشد.لطفا دوباره تلاش کنید",
-      type: "error",
-    });
-    return;
-  }
-  if (!error.response) {
-    showToastify({
-      message: "خطا در اتصال به سرور. لطفاً اتصال اینترنت خود را بررسی کنید.",
-      type: "error",
-    });
-    return;
-  }
+  const code = error?.response?.data?.code;
+  const message = error?.response?.data?.message ?? error.message;
+
+  // timeout
+  // if (error.code === "ECONNABORTED" || error.message?.includes("timeout")) {
+  //   showToastify({
+  //     message: "پاسخی از سرور دریافت نشد.",
+  //     type: "error",
+  //   });
+  //   return;
+  // }
+  // if (!error.response || error.code === "ERR_NETWORK") {
+  //   showToastify({
+  //     message: "عدم اتصال به اینترنت",
+  //     type: "error",
+  //   });
+  //   return;
+  // }
+
+  console.log(status);
+
+  // let errorMessage =
+  //   error?.response?.data?.message ||
+  //   error?.response?.data?.error ||
+  //   error?.response?.data?.detail ||
+  //   error?.message ||
+  //   "خطای ناشناخته‌ای رخ داده است";
+
+  // if (error.code === "ECONNABORTED" || error.message.includes("timeout")) {
+  //   showToastify({
+  //     message: "پاسخی از سرور دریافت نشد.لطفا دوباره تلاش کنید",
+  //     type: "error",
+  //   });
+  //   return;
+  // }
+  // if (!error.response) {
+  //   showToastify({
+  //     message: "خطا در اتصال به سرور. لطفاً اتصال اینترنت خود را بررسی کنید.",
+  //     type: "error",
+  //   });
+  //   return;
+  // }
   switch (status) {
-    case 401:
-      if (error?.response?.data?.code === "USER_NOT_FOUND") {
+    case 403:
+    case 400: {
+      const data = error?.response?.data;
+      console.log("data:", error);
+      const hasBody = data && typeof data === "object";
+      if (hasBody && code && code === "org_not_selected") {
+        isRedirecting = true;
+        localStorage.clear();
+        window.location.replace(redirect);
+      } else {
         showToastify({
-          message: "کاربر وارد شده در این سامانه وجود ندارد",
+          message,
           type: "error",
         });
-      } else {
-        // showToastify({
-        //   message: message || "لطفاً ابتدا وارد شوید.",
-        //   type: "error",
-        // });
       }
       break;
+    }
+    // case 401:
+    //   if (error?.response?.data?.code === "USER_NOT_FOUND") {
+    //     showToastify({
+    //       message: "کاربر وارد شده در این سامانه وجود ندارد",
+    //       type: "error",
+    //     });
+    //   } else {
+    //     // showToastify({
+    //     //   message: message || "لطفاً ابتدا وارد شوید.",
+    //     //   type: "error",
+    //     // });
+    //   }
+    //   break;
     case 404:
-      break;
+      throw error;
     case 429:
       showToastify({
         message:
@@ -61,13 +105,7 @@ const handleHttpError = (error: any) => {
       });
       break;
     default:
-      if (Array.isArray(error?.response?.data?.non_field_errors)) {
-        errorMessage = error.response.data.non_field_errors.join("، ");
-      }
-      showToastify({
-        message: errorMessage,
-        type: "error",
-      });
+      throw new Error("خطایی رخ داده است.");
   }
 };
 

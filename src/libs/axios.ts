@@ -20,6 +20,9 @@ const processQueue = (error: any) => {
   pendingQueue = [];
 };
 
+const redirectUrl = import.meta.env.VITE_REDIRECT_URL;
+const redirect = `${redirectUrl}?redirect=${window.location.href}`;
+
 // تابع کمکی برای اعمال اینترسپتور روی هر اینستنسی که بخواهیم
 const attachRefreshInterceptor = (axiosInstance: AxiosInstance) => {
   axiosInstance.interceptors.response.use(
@@ -43,7 +46,7 @@ const attachRefreshInterceptor = (axiosInstance: AxiosInstance) => {
         }
       }
       // جلوگیری از رفرش در صفحه لاگین
-      if (window.location.pathname.startsWith("/login")) {
+      if (window.location.pathname.startsWith("/logi")) {
         return Promise.reject(error);
       }
 
@@ -68,12 +71,12 @@ const attachRefreshInterceptor = (axiosInstance: AxiosInstance) => {
         return axiosInstance(original); // اجرای دوباره درخواست اصلی
       } catch (refreshErr) {
         processQueue(refreshErr);
-        window.location.replace("/login");
+        window.location.replace(redirect);
         return Promise.reject(refreshErr);
       } finally {
         isRefreshing = false;
       }
-    }
+    },
   );
 };
 

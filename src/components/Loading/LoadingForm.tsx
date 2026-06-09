@@ -1,11 +1,9 @@
-import { useAuthStore } from "@/features/auth/store/authStore";
-
 type Props = {
   text?: string;
 };
 
 export default function LoadingForm({ text }: Props) {
-  const organization = useAuthStore((s) => s.userData?.organization);
+  // const organization = useAuthStore((s) => s.userData?.organization);
   return (
     <div className="absolute inset-0 flex flex-col justify-center items-center w-full h-auto gap-4">
       <div className="relative w-16 h-16">
@@ -17,17 +15,20 @@ export default function LoadingForm({ text }: Props) {
             <span className="w-2.5 h-2.5 bg-primary rounded-full animate-bounce"></span>
             <span
               className="w-2.5 h-2.5 bg-primary rounded-full animate-bounce"
-              style={{ animationDelay: "0.15s" }}></span>
+              style={{ animationDelay: "0.15s" }}
+            ></span>
             <span
               className="w-2.5 h-2.5 bg-primary rounded-full animate-bounce"
-              style={{ animationDelay: "0.3s" }}></span>
+              style={{ animationDelay: "0.3s" }}
+            ></span>
           </div>
         </div>
       </div>
 
       {/* نام برند */}
       <div className="text-primary font-semibold tracking-wide text-lg">
-        {organization?.title ?? text}
+        {/* {organization?.title ?? text} */}
+        {text}
       </div>
     </div>
   );

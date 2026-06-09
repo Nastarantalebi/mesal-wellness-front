@@ -1,6 +1,5 @@
 import { showToastify } from "@/components/Headless/Toast";
 import { authenticate } from "../_services/authServices";
-import { useAuthStore } from "../store/authStore";
 import { useNavigate } from "react-router-dom";
 
 type TProps = {
@@ -9,12 +8,12 @@ type TProps = {
 };
 
 export const useAuthHelper = () => {
-  const setAuth = useAuthStore((s) => s.setAuth);
+  // const setAuth = useAuthStore((s) => s.setAuth);
   const navigate = useNavigate();
   const authHelper = async ({ showToast, data }: TProps) => {
     const auth = await authenticate();
     if (auth?.code === 200) {
-      setAuth(auth);
+      // setAuth(auth);
 
       showToast &&
         showToastify({
