@@ -1,7 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Clock } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 const STATS = [
   { value: "۵۰۰+", label: "مرکز فعال" },
@@ -10,8 +9,6 @@ const STATS = [
 ] as const;
 
 const HeroSection = () => {
-  const navigate = useNavigate();
-
   return (
     // ❶ <main> wraps page-level content — signals primary content to crawlers
     <main id="main-content">
