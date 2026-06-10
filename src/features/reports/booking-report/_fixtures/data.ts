@@ -1,0 +1,56 @@
+import z from "zod";
+import type { TFilterData } from "../_types/types";
+
+export const url = "wellness/bookings/report/";
+
+export const schema = z.object({
+  status: z.string().nullable(),
+  company: z.number().nullable(),
+  customer_id: z.number().nullable(),
+  start_from: z.string().nullable(),
+  start_to: z.string().nullable(),
+  end_from: z.string().nullable(),
+  end_to: z.string().nullable(),
+  created_from: z.string().nullable(),
+  created_to: z.string().nullable(),
+  total_amount_min: z.string().nullable(),
+  total_amount_max: z.string().nullable(),
+  payable_amount_min: z.string().nullable(),
+  payable_amount_max: z.string().nullable(),
+  payment_status: z.string().nullable(),
+  has_deposit: z.string().nullable(),
+  therapist_id: z.number().nullable(),
+  service_id: z.number().nullable(),
+  min_booking_count: z.string().nullable(),
+  max_booking_count: z.string().nullable(),
+  // has_items: z.string().nullable(),
+  // with_stats: z.string().nullable(),
+  sort_by: z.string().nullable(),
+  sort_direction: z.string().nullable().optional(),
+});
+
+export const initialValues: TFilterData = {
+  status: null,
+  company: null,
+  customer_id: null,
+  start_from: null,
+  start_to: null,
+  end_from: null,
+  end_to: null,
+  created_from: null,
+  created_to: null,
+  total_amount_min: null,
+  total_amount_max: null,
+  payable_amount_min: null,
+  payable_amount_max: null,
+  payment_status: null,
+  has_deposit: null,
+  therapist_id: null,
+  service_id: null,
+  min_booking_count: null,
+  max_booking_count: null,
+  // has_items: null,
+  // with_stats: null,
+  sort_by: null,
+  sort_direction: null,
+};

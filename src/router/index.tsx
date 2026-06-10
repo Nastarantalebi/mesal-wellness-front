@@ -31,6 +31,7 @@ import TherapistsReport from "@/features/reports/therapists-report/_components/T
 import ServicesReport from "@/features/reports/services-report/_components/ServicesReport";
 import CustomersReport from "@/features/reports/customers-report/_components/CustomersReport";
 import CompaniesReport from "@/features/reports/companies-report/_components/CompaniesReport";
+import BookingReport from "@/features/reports/booking-report/_components/BookingReport";
 
 function Router() {
   const routes = [
@@ -116,10 +117,13 @@ function Router() {
           path: "/contract",
           element: <Contract />,
         },
-
         {
           path: "/booking",
           element: <Booking />,
+        },
+        {
+          path: "/booking/report",
+          element: <BookingReport />,
         },
         {
           path: "/calendar",
