@@ -38,6 +38,7 @@ const HeroSection = () => {
               >
                 <span className="text-gray-900">سامانه</span>
                 <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
+                  {" "}
                   تندرستی
                 </span>
                 {/* ❹ <span> with block display — avoids nesting block inside inline */}
