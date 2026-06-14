@@ -66,6 +66,9 @@ const handleHttpError = (error: any) => {
           message,
           type: "error",
         });
+        setTimeout(() => {
+          window.location.replace(redirect);
+        }, 2000);
       }
       break;
     }
