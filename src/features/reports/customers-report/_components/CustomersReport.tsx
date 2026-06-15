@@ -38,7 +38,8 @@ function CustomersReport() {
         open={open}
         title="فیلتر داده‌ها"
         size="xxl"
-        cancelBtn={false}>
+        cancelBtn={false}
+      >
         <CustomersReportForm
           setOpen={setOpen}
           setFormValues={setFormValues}
