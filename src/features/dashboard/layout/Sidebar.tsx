@@ -6,6 +6,7 @@ import { Transition } from "react-transition-group";
 import { useEffect, useRef } from "react";
 import React from "react";
 import Lucide from "@/components/Lucide";
+import useOrganization from "@/features/auth/_services/useOrganization";
 
 function Sidebar({
   setCompactMenuOnHover,
@@ -49,7 +50,7 @@ function Sidebar({
 
   return (
     <div
-      className="absolute inset-y-0 xl:top-[65px] z-10 xl:z-0 select-none"
+      className="absolute inset-y-0 xl:top-[65px] z-10 xl:z-0 select-none "
       onMouseOver={() => setCompactMenuOnHover(true)}
       onMouseLeave={() => setCompactMenuOnHover(false)}
     >
@@ -64,7 +65,6 @@ function Sidebar({
         {/* Mobile close button */}
         <div
           className={clsx([
-            "fixed ms-[275px] w-10 h-10 items-center justify-center xl:hidden",
             { flex: activeMobileMenu },
             { hidden: !activeMobileMenu },
           ])}
@@ -77,7 +77,7 @@ function Sidebar({
         <div
           ref={scrollableRef}
           className={clsx([
-            "w-full h-full z-20 px-2 xl:px-5 overflow-y-auto overflow-x-hidden py-3 xl:pt-0",
+            "w-full h-full z-20 px-2 xl:px-5 overflow-y-auto overflow-x-hidden py-3 xl:pt-0 ",
             "[&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:bg-transparent",
           ])}
         >

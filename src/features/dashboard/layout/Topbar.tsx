@@ -12,6 +12,7 @@ import DynamicBreadcrumb from "./DynamicBreadcrumb";
 import { useLogout } from "@/features/auth/_services/useLogout";
 import Modal from "@/components/Headless/Dialog/Modal";
 import useMe from "@/features/auth/_services/useMe";
+import useOrganization from "@/features/auth/_services/useOrganization";
 function Topbar({
   setActiveMobileMenu,
   setCompactMenuOnHover,
@@ -35,6 +36,8 @@ function Topbar({
     if (el.requestFullscreen) el.requestFullscreen();
   };
   const [logout, setLogout] = useState<boolean>(false);
+  const org = useOrganization();
+
   // const userData = useAuthStore((s) => s.userData);
   return (
     <div className="fixed top-0 inset-x-0 z-10 h-16 box bg-slate-50 border-x-0 border-t-0 rounded-none flex shadow-none">
@@ -54,15 +57,24 @@ function Topbar({
       >
         <Link
           to="/dashboard"
-          className="hidden xl:flex items-center justify-center transition-[margin] group-[.side-menu--collapsed]:xl:ms-2 group-[.side-menu--collapsed.side-menu--on-hover]:xl:ms-0 w-full mx-auto"
+          className=" hidden xl:flex items-center justify-center transition-[margin] group-[.side-menu--collapsed]:xl:ms-2 group-[.side-menu--collapsed.side-menu--on-hover]:xl:ms-0 w-full mx-auto"
         >
-          <div className="flex items-center justify-center w-fit rounded-lg break-words">
-            {/* <span>{userData?.organization.title}</span> */}
+          <div className="flex items-center justify-center w-fit rounded-lg break-words gap-2">
+            {org?.data?.logo && (
+              <img
+                src={org?.data.logo}
+                className="w-8 h-8 relative [&_div]:bg-white"
+                alt={org?.data.title}
+                width={32}
+                height={32}
+              />
+            )}
+            <span>{org.data?.title}</span>
           </div>
         </Link>
         <button
           onClick={toggleCompactMenu}
-          className="group-[.side-menu--collapsed.side-menu--on-hover]:xl:opacity-100 group-[.side-menu--collapsed]:xl:rotate-180 group-[.side-menu--collapsed]:xl:opacity-0 transition-[opacity,transform] hidden 3xl:flex items-center justify-center w-[20px] h-[20px] ms-auto border rounded-full border-slate-600/40 hover:bg-slate-600/5"
+          className=" group-[.side-menu--collapsed.side-menu--on-hover]:xl:opacity-100 group-[.side-menu--collapsed]:xl:rotate-180 group-[.side-menu--collapsed]:xl:opacity-0 transition-[opacity,transform] hidden 3xl:flex items-center justify-center w-[20px] h-[20px] ms-auto border rounded-full border-slate-600/40 hover:bg-slate-600/5"
         >
           <Lucide icon="ArrowLeft" className="w-3.5 h-3.5 stroke-[1.3]" />
         </button>

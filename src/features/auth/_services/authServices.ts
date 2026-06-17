@@ -24,7 +24,7 @@ export async function forgotPassword(values: IForgotPassword) {
 export async function changePassword(values: TChangePass) {
   const { data } = await Request.post(
     `${LOGIN_URL}/me/change-password/`,
-    values
+    values,
   );
   return data;
 }
@@ -49,6 +49,10 @@ export async function logout() {
   const { data } = await Request.post(`${LOGIN_URL}/logout/`, {
     withCredentials: true,
   });
+  return data;
+}
+export async function organization() {
+  const { data } = await Request.get(`${LOGIN_URL}/selected_organization/`);
   return data;
 }
 export async function authenticate() {
