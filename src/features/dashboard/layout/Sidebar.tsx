@@ -6,7 +6,6 @@ import { Transition } from "react-transition-group";
 import { useEffect, useRef } from "react";
 import React from "react";
 import Lucide from "@/components/Lucide";
-import useOrganization from "@/features/auth/_services/useOrganization";
 
 function Sidebar({
   setCompactMenuOnHover,
