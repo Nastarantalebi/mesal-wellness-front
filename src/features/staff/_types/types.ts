@@ -4,7 +4,25 @@ export type TCreateData = {
   data: {
     staff_types: TOption[];
     roles: TOption[];
+    specialties: TOption[];
   };
+  facilities: TOption[];
+};
+
+export type TDataById = {
+  id: number;
+  first_name: string;
+  last_name: string;
+  mobile: string;
+  national_code: string;
+  staff_type: string;
+  role_ids: number[];
+  facility_id?: string;
+  specialties?: string;
+  license_number?: string;
+  hire_date?: string;
+  bio?: string;
+  commission_rate?: string;
 };
 
 export type TRequest = {
@@ -14,6 +32,12 @@ export type TRequest = {
   national_code: string;
   staff_type: string;
   role_ids: number[];
+  facility_id?: string | null;
+  specialties?: string | null;
+  license_number?: string | null;
+  hire_date?: string | null;
+  bio?: string | null;
+  commission_rate?: string | null;
 };
 export type TData = {
   data: {
@@ -21,11 +45,11 @@ export type TData = {
     employee_code: string;
     roles: number[];
     staff_type: string;
+    first_name: string;
+    last_name: string;
+    national_code: string;
     user: {
       id: number;
-      first_name: string;
-      last_name: string;
-      national_code: string;
       mobile: string;
     };
   };

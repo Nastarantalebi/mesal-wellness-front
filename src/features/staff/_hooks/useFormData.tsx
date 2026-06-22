@@ -2,13 +2,36 @@ import type { TFormData } from "@/types";
 import type { TCreateData, TRequest } from "../_types/types";
 import useGetData from "@/services/useGetData";
 import { queryKey, url } from "../_fixtures/data";
+import type { UseFormReturn } from "react-hook-form";
+import { useEffect } from "react";
 
-const useFormData = () => {
+const useFormData = (form: UseFormReturn<TRequest, any, TRequest>) => {
   const { data, isLoading } = useGetData<TCreateData>({
     url: `${url}create`,
     queryKey: [queryKey, "dataCreate"],
   });
-  const fields: (TFormData<TRequest> | undefined)[] = [
+
+  const masseurRoleId = data?.data?.roles?.find(
+    (role) => role.label === "ماساژور",
+  )?.value;
+
+  const roles = form.watch("role_ids");
+
+  const isMasseur =
+    masseurRoleId !== undefined && roles?.includes(masseurRoleId as number);
+
+  useEffect(() => {
+    if (!isMasseur && masseurRoleId !== null) {
+      form.setValue("facility_id", null);
+      form.setValue("specialties", null);
+      form.setValue("hire_date", null);
+      form.setValue("bio", null);
+      form.setValue("license_number", null);
+      form.setValue("commission_rate", null);
+    }
+  }, [isMasseur, masseurRoleId]);
+
+  const fields: TFormData<TRequest>[] = [
     {
       name: "first_name",
       label: "نام",
@@ -57,7 +80,55 @@ const useFormData = () => {
       option: data?.data?.roles,
       className: "md:col-span-3",
     },
+
+    ...(isMasseur
+      ? [
+          { name: "separator" as const, label: "اطلاعات ماساژیست" },
+          {
+            name: "facility_id" as const,
+            label: "شعبه",
+            required: true,
+            placeholder: "شعبه",
+            type: "select" as const,
+            isLoading: isLoading,
+            option: data?.facilities,
+            className: "col-start-1",
+          },
+          {
+            name: "specialties" as const,
+            label: "تخصص",
+            required: true,
+            placeholder: "تخصص",
+          },
+          {
+            name: "license_number" as const,
+            label: "شماره مجوز",
+            required: true,
+            placeholder: "شماره مجوز",
+          },
+          {
+            name: "hire_date" as const,
+            label: "تاریخ استخدام",
+            required: true,
+            placeholder: "تاریخ استخدام",
+            type: "date" as const,
+          },
+          {
+            name: "bio" as const,
+            label: "درباره",
+            required: false,
+            placeholder: "درباره",
+          },
+          {
+            name: "commission_rate" as const,
+            label: "درصد کمیسیون",
+            required: true,
+            placeholder: "درصد کمیسیون",
+          },
+        ]
+      : []),
   ];
+
   return { fields };
 };
 

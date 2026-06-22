@@ -13,7 +13,6 @@ type TProps = {
   id?: number;
 };
 function StaffForm({ setOpenModal, id }: TProps) {
-  const { fields } = useFormData();
   const { mutate: create, isPending: isPendingCreate } = useCreateData({
     url,
     queryKey,
@@ -34,12 +33,18 @@ function StaffForm({ setOpenModal, id }: TProps) {
     defaultValues: initialValues,
     mode: "onChange",
   });
+
+  console.log(form.watch());
+  const { fields } = useFormData(form);
   useEffect(() => {
     if (data) {
       const praparedData: TRequest = {
         ...data.data.user,
         staff_type: data.data.staff_type,
         role_ids: data.data.roles,
+        first_name: data.data.first_name,
+        last_name: data.data.last_name,
+        national_code: data.data.national_code,
       };
       form.reset(praparedData);
     }
