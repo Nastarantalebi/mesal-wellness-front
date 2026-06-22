@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { organization } from "./authServices";
-import type { string } from "zod";
 
 type TOrg = {
   logo: string;

@@ -3,7 +3,7 @@ import type { TOption } from "@/types";
 export type TReqCustomers = {
   first_name: string;
   last_name: string;
-  phone: string;
+  mobile: string;
   gender: string;
   user_id: number | null;
   membership_type: string | null;
@@ -18,7 +18,7 @@ type Customer = {
   code: null;
   first_name: string;
   last_name: string;
-  phone: string;
+  mobile: string;
   gender: string;
   birth_date: string;
   national_code: string;

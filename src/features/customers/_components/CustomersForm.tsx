@@ -35,6 +35,8 @@ function CustomersForm({ setOpen, selectedRecord }: TProps) {
     defaultValues: initialValues,
     mode: "onChange",
   });
+
+  console.log(form.watch());
   useEffect(() => {
     if (dataById) {
       const praparedData: TReqCustomers = {

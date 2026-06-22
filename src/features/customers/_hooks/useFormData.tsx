@@ -23,7 +23,7 @@ const useFormData = () => {
       placeholder: "نام خانوادگی",
     },
     {
-      name: "phone",
+      name: "mobile",
       label: "موبایل",
       required: true,
       placeholder: "موبایل",

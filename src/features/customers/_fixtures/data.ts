@@ -12,7 +12,7 @@ export const schema = z
   .object({
     first_name: z.string().min(1, " "),
     last_name: z.string().min(1, " "),
-    phone: mobileRequireValidationSchema,
+    mobile: mobileRequireValidationSchema,
     birth_date: z.string().nullable(),
     gender: z.string().min(1, " "),
     joined_at: z.string().nullable(),
@@ -32,13 +32,13 @@ export const schema = z
     {
       message: "تاریخ عضویت باید بعد از تاریخ تولد باشد",
       path: ["joined_at"],
-    }
+    },
   );
 
 export const initialValues: TReqCustomers = {
   first_name: "",
   last_name: "",
-  phone: "",
+  mobile: "",
   birth_date: null,
   gender: "",
   joined_at: null,
