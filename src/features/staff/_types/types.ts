@@ -3,11 +3,11 @@ import type { TOption } from "@/types";
 export type TCreateData = {
   data: {
     staff_types: TOption[];
-    roles: TOption[];
+    roles: (TOption & { name: string })[];
     specialties: TOption[];
+    facilities: TOption[];
+    genders: TOption[];
   };
-  facilities: TOption[];
-  genders: TOption[];
 };
 
 // export type TDataById = {

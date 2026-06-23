@@ -12,7 +12,7 @@ const useFormData = (form: UseFormReturn<TRequest, any, TRequest>) => {
   });
 
   const masseurRoleId = data?.data?.roles?.find(
-    (role) => role.label === "ماساژور",
+    (role) => role.name === "massage_therapist",
   )?.value;
 
   const roles = form.watch("role_ids");
@@ -50,7 +50,7 @@ const useFormData = (form: UseFormReturn<TRequest, any, TRequest>) => {
       required: true,
       placeholder: "جنسیت",
       type: "select" as const,
-      option: data?.genders,
+      option: data?.data.genders,
     },
     {
       name: "mobile",
@@ -99,7 +99,7 @@ const useFormData = (form: UseFormReturn<TRequest, any, TRequest>) => {
             placeholder: "شعبه",
             type: "select" as const,
             isLoading: isLoading,
-            option: data?.facilities,
+            option: data?.data.facilities,
             className: "col-start-1",
           },
           {
