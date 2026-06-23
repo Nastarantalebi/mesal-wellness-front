@@ -50,13 +50,15 @@ function TherapistServiceForm({
     defaultValues: initialValue,
     mode: "onChange",
   });
+
+  console.log("form:", form.watch());
   const { fields } = useFormData(isEdit);
   useEffect(() => {
     if (!id) {
       form.reset(initialValue);
-      form.setValue("therapist_id", therapistId);
+      form.setValue("staff_id", therapistId);
     }
-    form.setValue("therapist_id", therapistId);
+    form.setValue("staff_id", therapistId);
   }, [id, form, therapistId]);
   useEffect(() => {
     if (dataById) {
@@ -66,7 +68,7 @@ function TherapistServiceForm({
         custom_price: String(dataById.data.custom_price),
         estimated_duration: String(dataById.data.estimated_duration),
         service_id: dataById.data.service.id,
-        therapist_id: dataById.data.therapist.id,
+        staff_id: dataById.data.therapist.id,
       };
       form.reset(preparedData);
     }
@@ -92,12 +94,14 @@ function TherapistServiceForm({
             variant="outline-danger"
             onClick={() => {
               setShowForm(false);
-            }}>
+            }}
+          >
             لغو
           </Button>
           <Button
             variant="primary"
-            isPending={isPendingUpdate || isPendingCreate}>
+            isPending={isPendingUpdate || isPendingCreate}
+          >
             <span>ثبت اطلاعات</span>
           </Button>
         </div>

@@ -12,7 +12,7 @@ export const schema = z
     estimated_duration: z.string().min(1, " "),
     is_active: booleanNullableSchema,
     service_id: z.coerce.number(),
-    therapist_id: z.coerce.number(),
+    staff_id: z.coerce.number(),
   })
   .refine(
     (data) => {
@@ -31,5 +31,5 @@ export const initialValue: TReqTherapistService = {
   estimated_duration: "",
   is_active: true,
   service_id: 0,
-  therapist_id: 0,
+  staff_id: 0,
 };

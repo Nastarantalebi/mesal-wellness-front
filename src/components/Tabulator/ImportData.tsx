@@ -79,7 +79,8 @@ const ImportData = ({
         onSubmit={(e) => {
           e.preventDefault();
           onFilter();
-        }}>
+        }}
+      >
         {/* <FormInline className="flex-col items-start xl:flex-row xl:items-center gap-y-2">
                       <FormLabel className="me-3 whitespace-nowrap">
                         جستجو بر اساس
@@ -131,8 +132,9 @@ const ImportData = ({
             className="gap-2"
             title="فیلتر"
             type="button"
-            onClick={filterProps}>
-              فیلتر
+            onClick={filterProps}
+          >
+            فیلتر
             <FunnelX size={16} />
           </Button>
         )}
@@ -157,21 +159,23 @@ const ImportData = ({
                   !filter.value ? "outline-secondary" : "outline-primary"
                 }`}
                 disabled={!filter.value}
-                className="absolute left-0 top-1/2 -translate-y-1/2 h-full px-2  flex items-center justify-center">
+                className="absolute left-0 top-1/2 -translate-y-1/2 h-full px-2  flex items-center justify-center"
+              >
                 <SearchIcon className="w-5 h-5" />
               </Button>
             </div>
           </FormInline>
         )}
       </form>
-      <div className="flex items-center justify-end mt-3 flex-row gap-x-3 gap-y-2 xl:ms-auto xl:mt-0">
+      <div className="flex items-center justify-end mt-3 flex-row gap-x-3 gap-y-2 xl:ms-auto xl:mt-0 ">
         {refetch && (
           <Button
             id="tabulator-htms-filter-reset"
             variant="outline-secondary"
             type="button"
             className="w-fit md:w-auto bg-slate-50/50 flex items-center gap-1"
-            onClick={onResetFilter}>
+            onClick={onResetFilter}
+          >
             <RotateCcwIcon className="w-5 h-5" />
             <span className="hidden md:inline-block">تنظیم مجدد</span>
           </Button>
@@ -179,7 +183,8 @@ const ImportData = ({
         <Button
           variant="outline-secondary"
           onClick={printTable}
-          disabled={!data}>
+          disabled={!data}
+        >
           <Lucide icon="Printer" className="stroke-[1.3] w-4 h-4 md:me-2" />
           <span className="hidden md:inline-block"> چاپ</span>
         </Button>
@@ -187,7 +192,8 @@ const ImportData = ({
           <>
             <Button
               variant="outline-secondary"
-              onClick={() => fileInputRef.current?.click()}>
+              onClick={() => fileInputRef.current?.click()}
+            >
               <Lucide
                 icon="Download"
                 className="stroke-[1.3] w-4 h-4 md:me-2"
@@ -209,7 +215,8 @@ const ImportData = ({
             as={Button}
             disabled={!data}
             variant="outline-secondary"
-            className="w-full sm:w-auto">
+            className="w-full sm:w-auto"
+          >
             <Lucide icon="Upload" className="stroke-[1.3] w-4 h-4 md:me-2" />
             <span className="hidden md:inline-block">صادر کردن</span>
             <Lucide

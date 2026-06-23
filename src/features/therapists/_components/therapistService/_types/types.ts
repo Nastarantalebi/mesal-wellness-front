@@ -19,7 +19,7 @@ export type TDataById = {
 };
 
 export type TReqTherapistService = {
-  therapist_id: number;
+  staff_id: number;
   service_id: number;
   custom_price: string;
   commission_rate: string | null;

@@ -64,7 +64,7 @@ function Therapists() {
         data={data?.data}
         dataPagination={data?.paginate}
         // onAdd={() => navigate("create")}
-        onEdit={(record) => navigate("create", { state: { record } })}
+        // onEdit={(record) => navigate("create", { state: { record } })}
         onDelete={(record) => Delete(record.id)}
       />
       <Modal

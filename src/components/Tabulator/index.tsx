@@ -200,12 +200,13 @@ function CustomTable({
             {isLoading ? (
               <LoadingSpin />
             ) : (
-              <div className="p-1 xl:p-4 xl:pt-1">
+              <div className="p-1 xl:p-4 xl:pt-1 ">
                 <div className="overflow-x-auto custom-scrollbar">
                   <div
                     id="tabulator"
                     ref={tableRef}
-                    className="min-w-max w-full"></div>
+                    className="min-w-max w-full"
+                  ></div>
                 </div>
 
                 {dataPagination && dataPagination.total > 10 && (
