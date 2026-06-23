@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import useCreateData from "@/services/useCreateData";
-import { initialValues, queryKey, schema, url } from "../_fixtures/data";
+import useData, { queryKey, url } from "../_fixtures/useData.tsx";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useUpdateData from "@/services/useUpdateData";
 import useGetById from "@/services/useGetById";
@@ -28,6 +28,8 @@ function StaffForm({ setOpenModal, id }: TProps) {
     id,
   });
 
+  const { schema, initialValues } = useData();
+
   const form = useForm<TRequest>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
@@ -45,6 +47,7 @@ function StaffForm({ setOpenModal, id }: TProps) {
         first_name: data.data.first_name,
         last_name: data.data.last_name,
         national_code: data.data.national_code,
+        gender: data.data.gender,
       };
       form.reset(praparedData);
     }
@@ -55,8 +58,12 @@ function StaffForm({ setOpenModal, id }: TProps) {
       formFields={fields}
       isSubmitting={isPendingUpdate || isPendingCreate}
       onSubmit={(values) => {
+        const payload = {
+          ...values,
+          specialties: [values.specialties],
+        };
         const action = !!id ? update : create;
-        action(values, {
+        action(payload, {
           onSuccess: () => {
             setOpenModal(false);
           },

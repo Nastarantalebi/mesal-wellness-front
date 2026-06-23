@@ -1,7 +1,7 @@
 import type { TFormData } from "@/types";
 import type { TCreateData, TRequest } from "../_types/types";
 import useGetData from "@/services/useGetData";
-import { queryKey, url } from "../_fixtures/data";
+import { queryKey, url } from "../_fixtures/useData.tsx";
 import type { UseFormReturn } from "react-hook-form";
 import { useEffect } from "react";
 
@@ -43,6 +43,14 @@ const useFormData = (form: UseFormReturn<TRequest, any, TRequest>) => {
       label: "نام خانوادگی",
       required: true,
       placeholder: "نام خانوادگی",
+    },
+    {
+      name: "gender" as const,
+      label: "جنسیت",
+      required: true,
+      placeholder: "جنسیت",
+      type: "select" as const,
+      option: data?.genders,
     },
     {
       name: "mobile",
@@ -114,16 +122,16 @@ const useFormData = (form: UseFormReturn<TRequest, any, TRequest>) => {
             type: "date" as const,
           },
           {
-            name: "bio" as const,
-            label: "درباره",
-            required: false,
-            placeholder: "درباره",
-          },
-          {
             name: "commission_rate" as const,
             label: "درصد کمیسیون",
             required: true,
             placeholder: "درصد کمیسیون",
+          },
+          {
+            name: "bio" as const,
+            label: "درباره",
+            required: false,
+            placeholder: "درباره",
           },
         ]
       : []),

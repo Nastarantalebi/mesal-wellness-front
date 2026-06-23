@@ -1,4 +1,4 @@
-import { queryKey, url } from "../_fixtures/data";
+import { queryKey, url } from "../_fixtures/useData.tsx";
 import useDeleteData from "@/services/useDeleteData";
 import Modal from "@/components/Headless/Dialog/Modal";
 import { useState } from "react";
@@ -50,7 +50,8 @@ function Staff() {
               " " +
               selectedRecord?.last_name
             : "افزودن کارمند جدید"
-        }>
+        }
+      >
         <StaffForm setOpenModal={setOpenModal} id={selectedRecord?.id} />
       </Modal>
     </>
