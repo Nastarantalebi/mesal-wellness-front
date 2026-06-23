@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import CustomTable from "../../../components/Tabulator";
 import useGetData from "../../../services/useGetData";
 import { queryKey, url } from "../_fixtures/data";
@@ -11,7 +10,7 @@ import TherapistService from "./therapistService/_components/TherapistService";
 import TherapistsInfo from "./TherapistsInfo";
 
 function Therapists() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { data, isFetching } = useGetData<any>({
     queryKey: queryKey,
     url: url,

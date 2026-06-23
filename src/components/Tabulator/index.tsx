@@ -201,7 +201,10 @@ function CustomTable({
               <LoadingSpin />
             ) : (
               <div className="p-1 xl:p-4 xl:pt-1 ">
-                <div className="overflow-x-auto custom-scrollbar">
+                <div
+                  className="overflow-x-auto custom-scrollbar"
+                  // style={{ maxHeight: "600px" }}
+                >
                   <div
                     id="tabulator"
                     ref={tableRef}
