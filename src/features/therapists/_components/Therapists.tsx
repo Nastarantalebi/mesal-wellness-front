@@ -63,7 +63,7 @@ function Therapists() {
         }}
         data={data?.data}
         dataPagination={data?.paginate}
-        onAdd={() => navigate("create")}
+        // onAdd={() => navigate("create")}
         onEdit={(record) => navigate("create", { state: { record } })}
         onDelete={(record) => Delete(record.id)}
       />
@@ -75,7 +75,8 @@ function Therapists() {
         close={() => {
           setSelectedRecord(null);
           setShowModalTA(false);
-        }}>
+        }}
+      >
         <TherapistsAvailabilities id={selectedRecord && selectedRecord.id} />
       </Modal>
       <Modal
@@ -86,7 +87,8 @@ function Therapists() {
         close={() => {
           setSelectedRecord(null);
           setOpen(false);
-        }}>
+        }}
+      >
         <TherapistsInfo id={selectedRecord && selectedRecord.id} />
       </Modal>
       <Modal
@@ -97,7 +99,8 @@ function Therapists() {
         close={() => {
           setSelectedRecord(null);
           setShowModalTS(false);
-        }}>
+        }}
+      >
         <TherapistService id={selectedRecord && selectedRecord.id} />
       </Modal>
     </>
