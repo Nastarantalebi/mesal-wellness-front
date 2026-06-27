@@ -50,8 +50,14 @@ export type TData = {
     staff_type: string;
     first_name: string;
     last_name: string;
+    license_number: string | null;
     gender: string;
     national_code: string;
+    facility_id: number | null;
+    specialties: string[] | null;
+    hire_date: string | null;
+    bio: string | null;
+    commission_rate: string | null;
     user: {
       id: number;
       mobile: string;

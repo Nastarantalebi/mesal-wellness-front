@@ -48,7 +48,14 @@ function StaffForm({ setOpenModal, id }: TProps) {
         last_name: data.data.last_name,
         national_code: data.data.national_code,
         gender: data.data.gender,
+        license_number: data.data.license_number,
+        specialties: data.data.specialties?.[0],
+        facility_id: data.data.facility_id,
+        hire_date: data.data.hire_date,
+        bio: data.data.bio,
+        commission_rate: data.data.commission_rate,
       };
+      console.log(praparedData);
       form.reset(praparedData);
     }
   }, [form, data]);
