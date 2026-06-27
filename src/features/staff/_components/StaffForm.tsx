@@ -68,7 +68,8 @@ function StaffForm({ setOpenModal, id }: TProps) {
       onSubmit={(values) => {
         const payload = {
           ...values,
-          specialties: [values.specialties],
+          specialties:
+            values.specialties != null ? [values.specialties] : undefined,
         };
         const action = !!id ? update : create;
         action(payload, {

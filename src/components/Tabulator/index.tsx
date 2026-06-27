@@ -104,6 +104,9 @@ function CustomTable({
           vertAlign: "middle",
           headerHozAlign: "center",
           minWidth: 70,
+          columnDefaults: {
+            headerWordWrap: true,
+          },
           formatter: (cell) => {
             const rowData = cell.getRow().getData();
             const container = document.createElement("div");
@@ -141,6 +144,7 @@ function CustomTable({
       printAsHtml: true,
       printStyled: true,
       responsiveLayout: "hide",
+      maxHeight: "600px",
       placeholder: `
         <div class="flex flex-col items-center justify-center text-gray-400 p-4 select-none">
           <svg xmlns="http://www.w3.org/2000/svg" 
@@ -202,14 +206,10 @@ function CustomTable({
             ) : (
               <div className="p-1 xl:p-4 xl:pt-1 ">
                 <div
-                  className="overflow-x-auto custom-scrollbar"
+                  className="w-full"
                   // style={{ maxHeight: "600px" }}
                 >
-                  <div
-                    id="tabulator"
-                    ref={tableRef}
-                    className="min-w-max w-full"
-                  ></div>
+                  <div id="tabulator" ref={tableRef} className=" w-full"></div>
                 </div>
 
                 {dataPagination && dataPagination.total > 10 && (
