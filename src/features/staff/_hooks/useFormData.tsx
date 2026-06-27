@@ -12,7 +12,7 @@ const useFormData = (form: UseFormReturn<TRequest, any, TRequest>) => {
   });
 
   const masseurRoleId = data?.data?.roles?.find(
-    (role) => role.name === "massage_therapist",
+    (role) => role.name === "org_23_massage_therapist",
   )?.value;
 
   const roles = form.watch("role_ids");
