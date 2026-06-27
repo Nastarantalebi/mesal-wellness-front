@@ -132,7 +132,7 @@ const useFormData = (sortWatch: any) => {
       option: data?.data.booleanOptions,
     },
     {
-      name: "therapist_id",
+      name: "staff_id",
       label: "تراپیست",
       type: "select",
       isLoading,

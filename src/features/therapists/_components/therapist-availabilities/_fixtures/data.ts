@@ -8,14 +8,14 @@ export const schema = z
   .object({
     end_time: z.string().min(1, " "),
     start_time: z.string().min(1, " "),
-    therapist_id: z.coerce.number(),
+    staff_id: z.coerce.number(),
     is_active: z.coerce.boolean(),
     weekday: z.string(),
     breaks: z.array(
       z.object({
         start_time: z.string().nullable(),
         end_time: z.string().nullable(),
-      })
+      }),
     ),
   })
   .refine(
@@ -32,7 +32,7 @@ export const schema = z
     {
       message: "زمان پایان باید بعد از زمان شروع باشد",
       path: ["end_time"],
-    }
+    },
   )
   .superRefine((data, ctx) => {
     let mainStartMinutes = -1;
@@ -86,7 +86,7 @@ export const initialValues: TReqTherapistsAvailabilities = {
   end_time: "",
   is_active: true,
   start_time: "",
-  therapist_id: 0,
+  staff_id: 0,
   breaks: [{ start_time: "", end_time: "" }],
   weekday: "",
 };
