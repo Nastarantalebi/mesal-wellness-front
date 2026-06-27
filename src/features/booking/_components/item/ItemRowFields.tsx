@@ -54,7 +54,7 @@ const ItemRowFields = ({
     queryKey: ["availability", item?.date, item?.start_at, item?.end_at],
     enabled: isEdit ? validItemDate : false,
   });
-  const therapistId = item?.therapist_id;
+  const therapistId = item?.staff_id;
   const { data: dataServices } = useGetData<TTherapistService>({
     url: therapistId ? `/wellness/therapists/${therapistId}/services` : "",
     queryKey: ["therapist_services", therapistId],
@@ -81,7 +81,8 @@ const ItemRowFields = ({
           <Button
             type="button"
             onClick={() => remove(index)}
-            variant="outline-danger">
+            variant="outline-danger"
+          >
             <Trash2 size={16} />
           </Button>
         )}
@@ -164,7 +165,8 @@ const ItemRowFields = ({
               size="sm"
               disabled={isInvalidTime}
               onClick={() => refetch()}
-              className="whitespace-nowrap flex items-center gap-1 h-9 mx-auto cursor-pointer w-full md:w-auto">
+              className="whitespace-nowrap flex items-center gap-1 h-9 mx-auto cursor-pointer w-full md:w-auto"
+            >
               <Lucide
                 icon={isFetching ? "Loader" : "Search"}
                 className={`w-4 h-4 ${isFetching ? "animate-spin" : ""}`}
@@ -184,7 +186,7 @@ const ItemRowFields = ({
                   <FormLabel>ماساژیست</FormLabel>
                   <Controller
                     control={form.control}
-                    name={`items.${index}.therapist_id`}
+                    name={`items.${index}.staff_id`}
                     render={({ field }) => {
                       return isEdit ? (
                         <FormInput {...field} readOnly />
@@ -200,7 +202,7 @@ const ItemRowFields = ({
                           placeholder="ماساژیست"
                           isSearchable
                           isClearable={false}
-                          hasError={!!errorField?.[index]?.therapist_id}
+                          hasError={!!errorField?.[index]?.staff_id}
                         />
                       );
                     }}

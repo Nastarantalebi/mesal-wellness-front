@@ -42,7 +42,7 @@ export type TFilterData = {
   payable_amount_max: string | null;
   payment_status: string | null;
   has_deposit: string | null;
-  therapist_id: number | null;
+  staff_id: number | null;
   service_id: number | null;
   min_booking_count: string | null;
   max_booking_count: string | null;

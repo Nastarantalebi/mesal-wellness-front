@@ -54,6 +54,7 @@ function StaffForm({ setOpenModal, id }: TProps) {
         hire_date: data.data.hire_date,
         bio: data.data.bio,
         commission_rate: data.data.commission_rate,
+        status: data.data.status,
       };
       console.log(praparedData);
       form.reset(praparedData);

@@ -54,9 +54,9 @@ function TherapistsAvailabilitiesForm({
   useEffect(() => {
     if (!id) {
       form.reset(initialValues);
-      form.setValue("therapist_id", therapistId);
+      form.setValue("staff_id", therapistId);
     }
-    form.setValue("therapist_id", therapistId);
+    form.setValue("staff_id", therapistId);
   }, [id, form, therapistId]);
   useEffect(() => {
     if (dataById) {
@@ -81,16 +81,19 @@ function TherapistsAvailabilitiesForm({
             variant="outline-danger"
             onClick={() => {
               setShowForm(false);
-            }}>
+            }}
+          >
             لغو
           </Button>
           <Button
             variant="primary"
-            isPending={isPendingUpdate || isPendingCreate}>
+            isPending={isPendingUpdate || isPendingCreate}
+          >
             <span>ثبت اطلاعات</span>
           </Button>
         </div>
-      }>
+      }
+    >
       <BreakForm form={form} />
     </FormComponent>
   );

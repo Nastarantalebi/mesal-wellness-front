@@ -76,7 +76,7 @@ export type TServicesInfo = {
     }[];
     repeat_customers_count: number;
     therapist_distribution: {
-      therapist_id: number;
+      staff_id: number;
       full_name: string | null;
       cnt: number;
       booking: null;
@@ -88,7 +88,7 @@ export type TServicesInfo = {
       company_name: string;
     };
     top_therapist: {
-      therapist_id: number;
+      staff_id: number;
       concat: string | null;
       cnt: number;
       booking: string | null;

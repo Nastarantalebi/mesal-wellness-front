@@ -1,6 +1,6 @@
 export type TItems = {
   service_id: number;
-  therapist_id: number;
+  staff_id: number;
   resource_id: number;
   start_at: string;
   end_at: string;
@@ -13,7 +13,7 @@ export type TBookingItem = {
   id: number;
   service_id: number;
   service_label: string | null;
-  therapist_id: number;
+  staff_id: number;
   therapist_label: string;
   resource_id: number;
   resource_label: string | null;
@@ -86,7 +86,7 @@ export type TDataById = {
       id: number;
       service_id: number;
       service_label: string;
-      therapist_id: number;
+      staff_id: number;
       therapist_label: string;
       resource_id: number;
       resource_label: string;

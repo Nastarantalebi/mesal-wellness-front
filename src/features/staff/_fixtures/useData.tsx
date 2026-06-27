@@ -34,6 +34,7 @@ const useData = () => {
       hire_date: z.string().nullable().optional(),
       bio: z.string().nullable().optional(),
       commission_rate: z.string().nullable().optional(),
+      status: z.string(),
     })
     .superRefine((data, ctx) => {
       const isMessageist = data.role_ids.includes(masseurRoleId as number);
@@ -73,6 +74,7 @@ const useData = () => {
     hire_date: null,
     bio: null,
     commission_rate: null,
+    status: "active",
   };
   return { schema, initialValues };
 };

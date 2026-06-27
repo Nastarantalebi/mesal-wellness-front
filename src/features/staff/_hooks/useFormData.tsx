@@ -78,6 +78,14 @@ const useFormData = (form: UseFormReturn<TRequest, any, TRequest>) => {
       required: true,
     },
     {
+      name: "status",
+      label: "وضغیت",
+      placeholder: "وضعیت",
+      required: true,
+      type: "select",
+      option: data?.data.therapist_status,
+    },
+    {
       name: "role_ids",
       label: "نقش‌ها",
       placeholder: "نقش‌ها",

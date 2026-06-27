@@ -13,7 +13,7 @@ const useFormData = (isEdit: boolean) => {
   });
   const fields: (TFormData<TReqTherapistsAvailabilities> | undefined)[] = [
     {
-      name: "therapist_id",
+      name: "staff_id",
       label: "ماساژیست",
       required: true,
       placeholder: "ماساژیست",

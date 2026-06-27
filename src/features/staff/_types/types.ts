@@ -7,6 +7,7 @@ export type TCreateData = {
     specialties: TOption[];
     facilities: TOption[];
     genders: TOption[];
+    therapist_status: TOption[];
   };
 };
 
@@ -41,6 +42,7 @@ export type TRequest = {
   hire_date?: string | null;
   bio?: string | null;
   commission_rate?: string | null;
+  status: string;
 };
 export type TData = {
   data: {
@@ -58,6 +60,7 @@ export type TData = {
     hire_date: string | null;
     bio: string | null;
     commission_rate: string | null;
+    status: string;
     user: {
       id: number;
       mobile: string;

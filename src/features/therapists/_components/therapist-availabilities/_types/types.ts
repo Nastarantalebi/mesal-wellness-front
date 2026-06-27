@@ -5,7 +5,7 @@ type Breaks = {
 };
 type data = {
   id: number;
-  therapist_id: number;
+  staff_id: number;
   therapist: {
     id: number;
     name: string;
@@ -20,7 +20,7 @@ type data = {
 };
 
 export type TReqTherapistsAvailabilities = {
-  therapist_id: number;
+  staff_id: number;
   weekday: string;
   start_time: string;
   end_time: string;
@@ -36,7 +36,7 @@ export type TResTherapistsAvailabilities = {
   data: {
     availability: {
       id: number;
-      therapist_id: number;
+      staff_id: number;
       weekday: string;
       weekday_label: string;
       start_time: string;

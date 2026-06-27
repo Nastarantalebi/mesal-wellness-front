@@ -39,7 +39,7 @@ function BookingForm() {
     if (dataById) {
       const preparedDataItem = dataById.data.items.map((item) => ({
         service_id: item.service_id,
-        therapist_id: item.therapist_id,
+        staff_id: item.staff_id,
         resource_id: item.resource_id,
         start_at: item.start_at.split(" ")[1],
         end_at: item.end_at.split(" ")[1],
@@ -76,7 +76,8 @@ function BookingForm() {
             onSubmit={(values) => {
               const action = selectedRecord ? update : create;
               action(values, { onSuccess: () => navigate("/booking") });
-            }}>
+            }}
+          >
             <FormFeilds
               form={form}
               selectedRecord={selectedRecord}

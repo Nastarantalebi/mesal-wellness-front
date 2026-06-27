@@ -24,10 +24,10 @@ export const schema = z
         end_at: z.string().min(1, " "),
         resource_id: z.coerce.number().min(1, " "),
         service_id: z.coerce.number().min(1, " "),
-        therapist_id: z.coerce.number().min(1, " "),
+        staff_id: z.coerce.number().min(1, " "),
         total_price: z.coerce.number(),
         unit_price: z.coerce.number(),
-      })
+      }),
     ),
   })
   .superRefine((data, ctx) => {
@@ -50,7 +50,7 @@ export const itemsValues: TItems = {
   start_at: "",
   resource_id: 0,
   service_id: 0,
-  therapist_id: 0,
+  staff_id: 0,
   total_price: 0,
   unit_price: 0,
 };
